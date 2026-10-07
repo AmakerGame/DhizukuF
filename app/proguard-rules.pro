@@ -14,15 +14,15 @@
 -renamesourcefileattribute SourceFile
 
 -keep public class android.** { *; }
--keep public class com.rosan.dhizuku.api.Dhizuku { *; }
--keep public class com.rosan.dhizuku.shared.DhizukuVariables { *; }
--keep public class com.rosan.dhizuku.App { *; }
--keep public class com.rosan.dhizuku.ui.activity.** extends android.app.Activity
--keep public class com.rosan.dhizuku.data.process.model.impl.** {
+-keep public class com.EdS.DhizukuF.api.Dhizuku { *; }
+-keep public class com.EdS.DhizukuF.shared.DhizukuVariables { *; }
+-keep public class com.EdS.DhizukuF.App { *; }
+-keep public class com.EdS.DhizukuF.ui.activity.** extends android.app.Activity
+-keep public class com.EdS.DhizukuF.data.process.model.impl.** {
     public static void main(java.lang.String[]);
 }
 
-#-keep public class com.rosan.installer.data.process.model.impl.** extends com.rosan.dhizuku.data.process.repo.ProcessRepo {
+#-keep public class com.rosan.installer.data.process.model.impl.** extends com.EdS.DhizukuF.data.process.repo.ProcessRepo {
 #    public static void main(java.lang.String[]);
 #}
 #-keep public class com.rosan.installer.** extends android.app.Service
