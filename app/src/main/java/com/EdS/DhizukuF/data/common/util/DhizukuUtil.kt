@@ -2,8 +2,8 @@ package com.EdS.DhizukuF.data.common.util
 
 import android.content.pm.PackageManager
 
-import com.EdS.DhizukuF.api.Dhizuku
-import com.EdS.DhizukuF.api.DhizukuRequestPermissionListener
+import com.rosan.dhizuku.api.Dhizuku
+import com.rosan.dhizuku.api.DhizukuRequestPermissionListener
 import com.EdS.DhizukuF.data.common.model.exception.DhizukuNotWorkException
 
 import kotlinx.coroutines.channels.awaitClose

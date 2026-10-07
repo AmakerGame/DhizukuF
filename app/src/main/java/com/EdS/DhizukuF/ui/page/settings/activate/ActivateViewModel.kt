@@ -21,7 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
-import com.EdS.DhizukuF.api.Dhizuku
+import com.rosan.dhizuku.api.Dhizuku
 import com.EdS.DhizukuF.data.common.util.has
 import com.EdS.DhizukuF.data.common.util.requireDhizukuPermissionGranted
 import com.EdS.DhizukuF.data.common.util.requireShizukuPermissionGranted
