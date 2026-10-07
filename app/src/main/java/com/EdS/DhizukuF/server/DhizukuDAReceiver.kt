@@ -1,0 +1,36 @@
+package com.EdS.DhizukuF.server
+
+import android.annotation.SuppressLint
+import android.app.admin.DeviceAdminReceiver
+import android.app.admin.DevicePolicyManager
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+import com.EdS.DhizukuF.BuildConfig
+import com.EdS.DhizukuF.R
+import org.koin.core.component.KoinComponent
+
+class DhizukuDAReceiver : DeviceAdminReceiver(), KoinComponent {
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        DaemonReceiver().onReceive(context, intent)
+    }
+
+    override fun onEnabled(context: Context, intent: Intent) {
+        val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
+        super.onEnabled(context, intent)
+        val ownerTypeRes = when {
+            dpm!!.isDeviceOwnerApp(BuildConfig.APPLICATION_ID) -> R.string.confirm_device_owner
+            dpm.isProfileOwnerApp(BuildConfig.APPLICATION_ID) -> R.string.confirm_profile_owner
+            else -> null
+        }
+        if (ownerTypeRes != null) {
+            Toast.makeText(
+                context,
+                context.getString(R.string.home_status_owner_granted, context.getString(ownerTypeRes)),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+}
