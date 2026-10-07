@@ -18,7 +18,7 @@ for (name in arrayOf("r0s.properties", "debug.properties")) {
 }
 
 android {
-    namespace = "com.rosan.dhizuku"
+    namespace = "com.eds.dhizukuf"
     compileSdk = 37
     buildToolsVersion = "37.0.0"
 
