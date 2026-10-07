@@ -6,7 +6,7 @@ import android.os.IBinder
 import android.os.ServiceManager
 
 import com.EdS.DhizukuF.data.common.model.exception.ShizukuNotWorkException
-import com.EdS.DhizukuF.shared.DhizukuVariables
+import com.rosan.dhizuku.shared.DhizukuVariables
 
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow

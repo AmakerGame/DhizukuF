@@ -1,8 +1,8 @@
 package com.EdS.DhizukuF.server
 
-import com.EdS.DhizukuF.aidl.IDhizukuClient
-import com.EdS.DhizukuF.server_api.DhizukuProvider
-import com.EdS.DhizukuF.server_api.DhizukuService
+import com.rosan.dhizuku.aidl.IDhizukuClient
+import com.rosan.dhizuku.server_api.DhizukuProvider
+import com.rosan.dhizuku.server_api.DhizukuService
 
 import org.koin.core.component.KoinComponent
 

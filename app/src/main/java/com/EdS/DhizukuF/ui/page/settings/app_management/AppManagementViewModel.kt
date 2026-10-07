@@ -13,7 +13,7 @@ import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
 import com.EdS.DhizukuF.data.common.util.signature
 import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
-import com.EdS.DhizukuF.shared.DhizukuVariables
+import com.rosan.dhizuku.shared.DhizukuVariables
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

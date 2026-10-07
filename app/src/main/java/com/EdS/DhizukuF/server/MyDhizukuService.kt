@@ -3,12 +3,12 @@ package com.EdS.DhizukuF.server
 import android.content.ComponentName
 import android.content.Context
 
-import com.EdS.DhizukuF.aidl.IDhizukuClient
+import com.rosan.dhizuku.aidl.IDhizukuClient
 import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
 import com.EdS.DhizukuF.data.common.util.signature
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
-import com.EdS.DhizukuF.server_api.DhizukuService
+import com.rosan.dhizuku.server_api.DhizukuService
 
 import kotlinx.coroutines.runBlocking
 
