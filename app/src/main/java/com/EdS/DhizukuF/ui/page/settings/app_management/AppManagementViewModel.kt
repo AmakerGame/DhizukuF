@@ -43,47 +43,40 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
 
     private var collectRepoJob: Job? = null
 
-    private class Candidate(val applicationInfo: ApplicationInfo, val requested: Boolean)
-
-    private val labelCache = java.util.concurrent.ConcurrentHashMap<Int, String>()
-
-    // Scanning every installed package is slow, so it is done once per refresh
-    // (not on every database change) and never on the main thread.
-    private fun scanPackages(): List<Candidate> {
-        return packageManager
-            .getInstalledPackages(PackageManager.GET_PERMISSIONS)
-            .mapNotNull { packageInfo ->
-                if (packageInfo.packageName == context.packageName) return@mapNotNull null
-                val applicationInfo = packageInfo.applicationInfo ?: return@mapNotNull null
-                Candidate(
-                    applicationInfo,
-                    packageInfo.requestedPermissions
-                        ?.contains(DhizukuVariables.PERMISSION_API) ?: false
-                )
-            }
-            .distinctBy { it.applicationInfo.packageName }
-    }
-
     fun collectRepo() {
         state = state.copy(loading = true)
         collectRepoJob?.cancel()
-        collectRepoJob = viewModelScope.launch(Dispatchers.Default) {
-            val candidates = scanPackages()
-            repo.flowAll().collect { entities ->
-                val byUid = entities.associateBy { it.uid }
-                val data = candidates.mapNotNull { c ->
-                    val entity = byUid[c.applicationInfo.uid]
-                    if (!c.requested && entity == null) return@mapNotNull null
-                    AppManagementViewData(
-                        applicationInfo = c.applicationInfo,
-                        label = labelCache.getOrPut(c.applicationInfo.uid) {
-                            c.applicationInfo.loadLabel(packageManager).toString()
-                        },
-                        enabled = entity?.allowApi ?: false,
-                        blocked = entity?.blocked ?: false
-                    )
-                }.sortedBy { it.applicationInfo.packageName }
-                state = state.copy(data = data, loading = false)
+        collectRepoJob = viewModelScope.launch(Dispatchers.IO) {
+            repo.flowAll().collect {
+                val flags = PackageManager.GET_META_DATA or PackageManager.GET_PERMISSIONS
+                val data = packageManager
+                    .getInstalledPackages(flags)
+                    .mapNotNull { packageInfo ->
+                        if (packageInfo.packageName == context.packageName) return@mapNotNull null
+                        val applicationInfo =
+                            packageInfo.applicationInfo ?: return@mapNotNull null
+
+                        val uid = applicationInfo.uid
+                        val requested = packageInfo.requestedPermissions
+                            ?.contains(DhizukuVariables.PERMISSION_API) ?: false
+                        val entity = it.find { it.uid == uid }
+                        val allowApi = entity?.allowApi ?: false
+                        val blocked = entity?.blocked ?: false
+
+                        if (!requested && entity == null)
+                            return@mapNotNull null
+
+                        AppManagementViewData(
+                            applicationInfo = applicationInfo,
+                            enabled = allowApi,
+                            blocked = blocked
+                        )
+                    }
+                state = state.copy(
+                    data = data.distinctBy { it.applicationInfo.packageName }
+                        .sortedBy { it.applicationInfo.packageName },
+                    loading = false
+                )
             }
         }
     }

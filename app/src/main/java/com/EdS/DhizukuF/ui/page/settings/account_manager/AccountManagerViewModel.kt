@@ -7,7 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.EdS.DhizukuF.R
 import com.EdS.DhizukuF.data.common.util.replace
 import com.EdS.DhizukuF.data.common.util.toast
 import com.EdS.DhizukuF.data.account.repo.UserService
@@ -177,7 +176,7 @@ class AccountManagerViewModel(
                 } catch (e: Exception) {
                     //e.printStackTrace()
                     withContext(Dispatchers.Main) {
-                        context.toast(context.getString(R.string.error_occurred, e.localizedMessage ?: e.message ?: ""))
+                        context.toast("Error occurred: ${e.localizedMessage ?: e.message}")
                     }
                     load(showLoading = false)
                 } finally {

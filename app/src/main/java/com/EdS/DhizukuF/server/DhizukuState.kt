@@ -12,15 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.EdS.DhizukuF.BuildConfig
-import android.util.Log
-import androidx.core.content.ContextCompat
 import com.EdS.DhizukuF.data.common.util.has
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 
 data object DhizukuState {
     data class State(val isDeviceOwner: Boolean = false, val isProfileOwner: Boolean = false) {
@@ -32,40 +24,21 @@ data object DhizukuState {
 
     var admin = ComponentName(BuildConfig.APPLICATION_ID, DhizukuDAReceiver::class.java.name)
 
-    private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    private val syncMutex = Mutex()
-
     fun sync(context: Context) {
-        val app = context.applicationContext
-        val dpm = app.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        // Cheap: update the UI state right away.
-        val newState = State(
+        val dpm =
+            context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        state = State(
             isDeviceOwner = dpm.isDeviceOwnerApp(admin.packageName),
             isProfileOwner = dpm.isProfileOwnerApp(admin.packageName)
         )
-        state = newState
-        // Expensive (many binder calls): never on the main thread, never concurrently.
-        syncScope.launch {
-            syncMutex.withLock {
-                try {
-                    onReceive(app, dpm, admin, newState)
-                } catch (t: Throwable) {
-                    Log.w("DhizukuState", "sync failed", t)
-                }
-            }
-        }
+        onReceive(context, dpm, admin)
     }
 
-    private fun onReceive(
-        context: Context,
-        dpm: DevicePolicyManager,
-        admin: ComponentName,
-        current: State
-    ) {
-        if (current.isOwner) onEnabled(context, dpm, admin)
+    private fun onReceive(context: Context, dpm: DevicePolicyManager, admin: ComponentName) {
+        if (state.isOwner) onEnabled(context, dpm, admin)
         else onDisabled(context, dpm, admin)
 
-        autoDaemonService(context, current.isOwner)
+        autoDaemonService(context)
     }
 
     private fun onEnabled(context: Context, dpm: DevicePolicyManager, admin: ComponentName) {
@@ -122,14 +95,11 @@ data object DhizukuState {
         null
     }
 
-    private fun autoDaemonService(context: Context, isOwner: Boolean) {
+    private fun autoDaemonService(context: Context) {
         val intent = Intent(context, DaemonService::class.java)
-        try {
-            if (isOwner) ContextCompat.startForegroundService(context, intent)
-            else context.stopService(intent)
-        } catch (t: Throwable) {
-            // e.g. ForegroundServiceStartNotAllowedException when started from background
-            Log.w("DhizukuState", "daemon service toggle failed", t)
-        }
+         if (state.isOwner) {
+            context.startService(intent)
+            context.startForegroundService(intent)
+        } else context.stopService(intent)
     }
 }

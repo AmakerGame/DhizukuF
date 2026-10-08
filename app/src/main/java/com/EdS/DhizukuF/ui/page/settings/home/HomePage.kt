@@ -6,6 +6,7 @@ import android.content.Context
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -543,21 +544,18 @@ private fun LazyItemScope.DeactivateWidget() {
 
 @Composable
 private fun HtmlText(text: String) {
-    val linkColor = MaterialTheme.colorScheme.primary
-    // Parsing HTML is expensive: do it once per (text, color) instead of on every recomposition.
-    val annotated = remember(text, linkColor) {
+    Text(
         AnnotatedString.fromHtml(
             text,
             TextLinkStyles(
                 SpanStyle(
-                    color = linkColor,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
                     textDecoration = TextDecoration.Underline
                 )
             )
         )
-    }
-    Text(annotated)
+    )
 }
 
 @Composable
@@ -580,7 +578,8 @@ private fun LazyItemScope.CardWidget(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .animateContentSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Row(

@@ -1,12 +1,10 @@
 package com.EdS.DhizukuF.ui.page.settings.user_manager
 
-import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.EdS.DhizukuF.R
 import com.EdS.DhizukuF.data.common.util.replace
 import com.EdS.DhizukuF.data.account.entity.UserEntity
 import com.EdS.DhizukuF.data.account.repo.UserService
@@ -21,7 +19,6 @@ import org.koin.core.component.inject
 class UserManagerViewModel : ViewModel(), KoinComponent {
     private val jobs = mutableMapOf<String, Job>()
 
-    private val context by inject<Context>()
     private val userService by inject<UserService>()
 
     var state by mutableStateOf(UserManagerViewState())
@@ -65,7 +62,7 @@ class UserManagerViewModel : ViewModel(), KoinComponent {
                 userService.removeUser(user)
             }.getOrDefault(false)
             if (!success) {
-                state = state.copy(cause = RuntimeException(context.getString(R.string.error_remove_user, user.name)))
+                state = state.copy(cause = RuntimeException("Failed to remove user ${user.name}"))
             }
         }
     }
