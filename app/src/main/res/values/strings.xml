@@ -114,4 +114,11 @@
     <string name="dish_disabled" translatable="false">disabled</string>
     <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_help" translatable="false">"Device Owner console (dish)\n\nUsage: dish [command [args]]    (no command = interactive mode)\n       dish -c \"command args\"\n\nGeneral:\n  help                          show this help\n  status                        show DhizukuF owner status\n  lock                          lock the screen now\n  reboot                        reboot the device\n\nApps:\n  hide|unhide PKG               hide / unhide an app\n  is-hidden PKG\n  suspend|unsuspend PKG...      suspend / unsuspend apps\n  block-uninstall|allow-uninstall PKG\n  is-uninstall-blocked PKG\n  permission grant|deny|default|get PKG PERMISSION\n\nRestrictions and policies:\n  restriction add|clear NAME    e.g. no_install_apps\n  restriction list\n  camera disable|enable|status\n  screen-capture disable|enable|status\n\nSettings:\n  settings get|put global|secure NAME [VALUE]\n  timezone ID\n\nAdvanced:\n  call --list                   list DevicePolicyManager methods\n  call METHOD [ARGS...]         call any DevicePolicyManager method as Device Owner\n                                (the admin argument is added automatically;\n                                destructive calls such as wipe are blocked)\n"</string>
+    <string name="confirmation_dialog">Confirmation window</string>
+    <string name="confirmation_dialog_desc">When an app asks to use Dhizuku, show a window with Allow, Deny and Block. If off, requests are denied silently and the app is added to the app list (switch off).</string>
+    <string name="block">Block</string>
+    <string name="dish_request_channel">dish access requests</string>
+    <string name="dish_request_title">Dhizuku access request</string>
+    <string name="dish_request_text">%1$s (dish terminal) asks to use Dhizuku</string>
+    <string name="dish_err_no_confirmation" translatable="false">The confirmation window is off in DhizukuF settings: enable this app in DhizukuF > App management, then run dish again</string>
 </resources>

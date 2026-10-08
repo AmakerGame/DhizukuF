@@ -31,6 +31,17 @@ class SettingsViewModel : ViewModel(), KoinComponent {
                 state = state.copy(dhizukuEnabled = dhizukuEnabled)
             }
         }
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.flowConfirmationDialog().collect { value ->
+                state = state.copy(confirmationDialog = value)
+            }
+        }
+    }
+
+    fun setConfirmationDialog(enabled: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.isConfirmationDialog = enabled
+        }
     }
 
     fun setWhitelistMode(enabled: Boolean) {

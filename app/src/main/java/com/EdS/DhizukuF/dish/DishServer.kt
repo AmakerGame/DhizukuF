@@ -112,10 +112,18 @@ object DishServer : KoinComponent {
 
                 Verdict.NeedPermission -> {
                     DishApproval.results.remove(uid)
+                    val name = label(uid)
                     output.writeByte(DishProtocol.ST_NEED_PERMISSION)
-                    output.writeUTF(str(R.string.dish_need_permission, label(uid)))
+                    output.writeUTF(str(R.string.dish_need_permission, name))
                     output.flush()
-                    if (!waitForApproval(uid)) {
+                    // Our own registration request: notification with Allow / Deny / Block.
+                    DishRequests.show(context, uid, name)
+                    val approved = try {
+                        waitForApproval(uid)
+                    } finally {
+                        DishRequests.cancel(context, uid)
+                    }
+                    if (!approved) {
                         deny(output, str(R.string.dish_err_denied))
                         return
                     }
@@ -184,6 +192,7 @@ object DishServer : KoinComponent {
         registerPending(uid, signature, entity)
 
         if (settingsRepo.isWhitelistMode) return Verdict.Denied(str(R.string.dish_err_whitelist))
+        if (!settingsRepo.isConfirmationDialog) return Verdict.Denied(str(R.string.dish_err_no_confirmation))
         return Verdict.NeedPermission
     }
 
@@ -204,7 +213,8 @@ object DishServer : KoinComponent {
     private fun waitForApproval(uid: Int): Boolean {
         val deadline = SystemClock.elapsedRealtime() + DishProtocol.APPROVAL_TIMEOUT_MS
         while (SystemClock.elapsedRealtime() < deadline) {
-            if (DishApproval.results[uid] == false) return false
+            val decision = DishApproval.results[uid]
+            if (decision == DishDecision.DENY || decision == DishDecision.BLOCK) return false
             when (authorize(uid)) {
                 Verdict.Allowed -> return true
                 is Verdict.Denied -> return false

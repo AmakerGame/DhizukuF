@@ -25,6 +25,15 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override fun flowDonateButtonHidden(): Flow<Boolean> =
         prefs.asFlow("donate_button_hidden", false)
 
+    override fun flowConfirmationDialog(): Flow<Boolean> =
+        prefs.asFlow("confirmation_dialog", true)
+
+    override var isConfirmationDialog: Boolean
+        get() = prefs.getBoolean("confirmation_dialog", true)
+        set(value) = prefs.edit(true) {
+            putBoolean("confirmation_dialog", value)
+        }
+
     override var isWhitelistMode: Boolean
         get() = prefs.getBoolean("whitelist_mode", false)
         set(value) = prefs.edit(true) {
