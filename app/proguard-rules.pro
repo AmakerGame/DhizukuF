@@ -14,8 +14,10 @@
 -renamesourcefileattribute SourceFile
 
 -keep public class android.** { *; }
--keep public class com.EdS.DhizukuF.api.Dhizuku { *; }
--keep public class com.EdS.DhizukuF.shared.DhizukuVariables { *; }
+# Dhizuku API/AIDL library classes keep their original package
+-keep class com.rosan.dhizuku.** { *; }
+-keep public class com.rosan.dhizuku.api.Dhizuku { *; }
+-keep public class com.rosan.dhizuku.shared.DhizukuVariables { *; }
 -keep public class com.EdS.DhizukuF.App { *; }
 -keep public class com.EdS.DhizukuF.ui.activity.** extends android.app.Activity
 -keep public class com.EdS.DhizukuF.data.process.model.impl.** {

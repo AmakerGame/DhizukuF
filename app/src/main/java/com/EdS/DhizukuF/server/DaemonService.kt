@@ -17,12 +17,14 @@ import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class DaemonService : Service(), KoinComponent {
-    private val scope = CoroutineScope(Dispatchers.IO)
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private val repo by inject<AppRepo>()
 
@@ -60,7 +62,11 @@ class DaemonService : Service(), KoinComponent {
 
     override fun onDestroy() {
         foreground(false)
-        unregisterReceiver(packageReceiver)
+        try {
+            unregisterReceiver(packageReceiver)
+        } catch (_: IllegalArgumentException) {
+        }
+        scope.cancel()
         super.onDestroy()
     }
 

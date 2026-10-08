@@ -47,7 +47,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -155,21 +154,13 @@ private fun LazyItemScope.ItemWidget(
     viewModel: AppManagementViewModel,
     data: AppManagementViewData
 ) {
-    val animatedCardColor by animateColorAsState(
-        targetValue = if (data.blocked) {
-            MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)
-        } else {
-            MaterialTheme.colorScheme.surface
-        },
-        label = "card_color"
-    )
     Card(
         modifier = Modifier
             .animateItem()
             .fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = animatedCardColor
-        ),
+        colors = if (data.blocked) CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)
+        ) else CardDefaults.cardColors(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
@@ -183,7 +174,7 @@ private fun LazyItemScope.ItemWidget(
                 val applicationInfo = data.applicationInfo
                 val imageBitmap = AppIconCache.rememberImageBitmapState(applicationInfo)
                 val packageName = applicationInfo.packageName
-                val label = applicationInfo.loadLabel(LocalContext.current.packageManager).toString()
+                val label = data.label
 
                 Image(
                     bitmap = imageBitmap.value,

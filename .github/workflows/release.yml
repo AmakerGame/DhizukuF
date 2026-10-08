@@ -26,6 +26,7 @@ jobs:
 
       - name: Build Release APK
         run: |
+          chmod +x ./gradlew
           ./gradlew --no-daemon assembleRelease
 
       - name: Rename APK

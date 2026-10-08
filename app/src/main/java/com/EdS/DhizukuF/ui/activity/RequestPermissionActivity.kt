@@ -263,6 +263,12 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         val label = applicationInfo?.loadLabel(packageManager)
             ?: packageName
 
+        val titleText = androidx.compose.runtime.remember(label) {
+            AnnotatedString.fromHtml(
+                getString(R.string.request_permission_text, label)
+            )
+        }
+
         val progress by animateFloatAsState(
             targetValue = state.timeLeft.toFloat() / AUTO_DENY_SECONDS,
             animationSpec = tween(durationMillis = 1000, easing = LinearEasing),
@@ -279,7 +285,7 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
             )
         }, title = {
             Text(
-                AnnotatedString.fromHtml(stringResource(R.string.request_permission_text, label)),
+                titleText,
                 textAlign = TextAlign.Center
             )
         }, text = {

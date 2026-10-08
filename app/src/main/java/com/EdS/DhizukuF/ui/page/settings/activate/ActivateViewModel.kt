@@ -1,5 +1,6 @@
 package com.EdS.DhizukuF.ui.page.settings.activate
 
+import com.EdS.DhizukuF.R
 import android.annotation.SuppressLint
 import android.app.admin.DeviceAdminInfo
 import android.app.admin.DeviceAdminReceiver
@@ -187,7 +188,7 @@ class ActivateViewModel : ViewModel(), KoinComponent {
                 success = it.setDeviceOwner(who, null, userId)
             }
             if (!success) {
-                throw IllegalStateException("Failed to set Device Owner. Please make sure there are no accounts on the device.")
+                throw IllegalStateException(context.getString(R.string.error_set_device_owner))
             }
             DhizukuState.sync(context)
         }
@@ -206,7 +207,7 @@ class ActivateViewModel : ViewModel(), KoinComponent {
                 success = it.setProfileOwner(who, null, userId)
             }
             if (!success) {
-                throw IllegalStateException("Failed to set Profile Owner. Please check your system configuration.")
+                throw IllegalStateException(context.getString(R.string.error_set_profile_owner))
             }
             DhizukuState.sync(context)
         }

@@ -5,8 +5,8 @@ import android.content.ClipData
 import android.content.Context
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -544,18 +544,21 @@ private fun LazyItemScope.DeactivateWidget() {
 
 @Composable
 private fun HtmlText(text: String) {
-    Text(
+    val linkColor = MaterialTheme.colorScheme.primary
+    // Parsing HTML is expensive: do it once per (text, color) instead of on every recomposition.
+    val annotated = remember(text, linkColor) {
         AnnotatedString.fromHtml(
             text,
             TextLinkStyles(
                 SpanStyle(
-                    color = MaterialTheme.colorScheme.primary,
+                    color = linkColor,
                     fontWeight = FontWeight.Bold,
                     textDecoration = TextDecoration.Underline
                 )
             )
         )
-    )
+    }
+    Text(annotated)
 }
 
 @Composable
