@@ -15,12 +15,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * dish client (like rish for Shizuku). Started by the "dish" script through app_process as the
  * uid of whatever terminal runs it. Pure Java on purpose: the dex stays tiny and has no
- * dependencies. Keep the protocol in sync with DishProtocol.kt inside the app.
+ * dependencies. All console output is English only. Keep the protocol in sync with
+ * DishProtocol.kt inside the app.
  */
 public final class DishMain {
     private static final int MAGIC = 0x44495348; // "DISH"
@@ -34,18 +34,12 @@ public final class DishMain {
     private static final int FR_OUT = 1;
     private static final int FR_ERR = 2;
 
-    /** Key of the client uid extra read by Dhizuku's permission dialog. */
+    /** Key of the client uid extra read by DhizukuF's permission dialog. */
     private static final String PARAM_CLIENT_UID = "uid";
 
     private static final String DEFAULT_PACKAGE = "com.EdS.DhizukuF";
 
-    private static final boolean UK = "uk".equals(Locale.getDefault().getLanguage());
-
     private DishMain() {}
-
-    private static String t(String en, String uk) {
-        return UK ? uk : en;
-    }
 
     private static String appPackage() {
         String pkg = System.getenv("DISH_PACKAGE");
@@ -89,9 +83,7 @@ public final class DishMain {
         boolean tty = "1".equals(System.getenv("DISH_TTY"));
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         if (tty) {
-            System.err.println(t(
-                    "dish - Device Owner console via DhizukuF. Type 'help', 'exit' to quit.",
-                    "dish - консоль власника пристрою через DhizukuF. Введіть 'help', 'exit' для виходу."));
+            System.err.println("dish - Device Owner console via DhizukuF. Type 'help', 'exit' to quit.");
         }
         int last = 0;
         while (true) {
@@ -124,9 +116,8 @@ public final class DishMain {
                 socket.connect(new LocalSocketAddress(appPackage() + ".dish",
                         LocalSocketAddress.Namespace.ABSTRACT));
             } catch (IOException e) {
-                System.err.println(t(
-                        "dish: cannot reach DhizukuF. Make sure DhizukuF is activated (Device Owner) and running.",
-                        "dish: не вдалося зв'язатися з DhizukuF. Переконайтеся, що DhizukuF активовано (власник пристрою) і він працює."));
+                System.err.println("dish: cannot reach DhizukuF. Make sure DhizukuF is activated "
+                        + "(Device Owner) and running.");
                 return 2;
             }
             socket.setSoTimeout(120000);
@@ -155,7 +146,7 @@ public final class DishMain {
                 return 1;
             }
             if (status != ST_OK) {
-                System.err.println(t("dish: protocol error", "dish: помилка протоколу"));
+                System.err.println("dish: protocol error");
                 return 2;
             }
 
@@ -174,13 +165,12 @@ public final class DishMain {
                 } else if (frame == FR_END) {
                     return in.readInt();
                 } else {
-                    System.err.println(t("dish: protocol error", "dish: помилка протоколу"));
+                    System.err.println("dish: protocol error");
                     return 2;
                 }
             }
         } catch (EOFException e) {
-            System.err.println(t("dish: connection closed by DhizukuF",
-                    "dish: DhizukuF закрив з'єднання"));
+            System.err.println("dish: connection closed by DhizukuF");
             return 2;
         } catch (IOException e) {
             System.err.println("dish: " + e.getMessage());
@@ -207,11 +197,10 @@ public final class DishMain {
         try {
             actual = socket.getPeerCredentials().getUid();
         } catch (IOException e) {
-            return t("dish: cannot verify DhizukuF", "dish: не вдалося перевірити DhizukuF");
+            return "dish: cannot verify DhizukuF";
         }
         if (actual != expected) {
-            return t("dish: refusing to talk to an untrusted socket owner (uid " + actual + ")",
-                    "dish: відмова: сокет належить недовіреному власнику (uid " + actual + ")");
+            return "dish: refusing to talk to an untrusted socket owner (uid " + actual + ")";
         }
         return null;
     }
@@ -231,9 +220,8 @@ public final class DishMain {
             drain(process.getInputStream());
             process.waitFor();
         } catch (Exception e) {
-            System.err.println(t(
-                    "dish: could not open the dialog automatically, open DhizukuF and approve access.",
-                    "dish: не вдалося відкрити вікно автоматично, відкрийте DhizukuF і підтвердіть доступ."));
+            System.err.println("dish: could not open the dialog automatically, "
+                    + "enable this app in DhizukuF > App management.");
         }
     }
 
@@ -276,7 +264,7 @@ public final class DishMain {
             }
         }
         if (quote != 0) {
-            throw new IllegalArgumentException(t("dish: unterminated quote", "dish: незакрита лапка"));
+            throw new IllegalArgumentException("dish: unterminated quote");
         }
         if (has || cur.length() > 0) out.add(cur.toString());
         return out;

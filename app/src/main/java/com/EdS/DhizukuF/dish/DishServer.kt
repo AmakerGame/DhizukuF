@@ -8,6 +8,7 @@ import android.util.Log
 import com.EdS.DhizukuF.R
 import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
 import com.EdS.DhizukuF.data.common.util.signature
+import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import com.EdS.DhizukuF.server.DhizukuState
@@ -177,8 +178,27 @@ object DishServer : KoinComponent {
 
         if (entity?.blocked == true) return Verdict.Denied(str(R.string.dish_err_blocked))
         if (entity != null && entity.allowApi && entity.signature == signature) return Verdict.Allowed
+
+        // Make the caller visible in DhizukuF > App management (switch off) so it can also be
+        // approved from the list, exactly like every other client app.
+        registerPending(uid, signature, entity)
+
         if (settingsRepo.isWhitelistMode) return Verdict.Denied(str(R.string.dish_err_whitelist))
         return Verdict.NeedPermission
+    }
+
+    private fun registerPending(uid: Int, signature: String, entity: AppEntity?) {
+        try {
+            runBlocking {
+                if (entity == null) {
+                    appRepo.insert(AppEntity(uid = uid, signature = signature, allowApi = false))
+                } else if (entity.signature != signature) {
+                    appRepo.update(entity.copy(signature = signature, allowApi = false))
+                }
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "cannot register pending app $uid", e)
+        }
     }
 
     private fun waitForApproval(uid: Int): Boolean {

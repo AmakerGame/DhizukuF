@@ -98,35 +98,35 @@ fun AppManagementPage(
                     Text(stringResource(R.string.home_app_management_title))
                 }
             )
-        }) {
-        @Suppress("AnimatedContentLabel")
-        AnimatedContent(targetState = viewModel.state.data.isEmpty()) { isEmpty ->
-            val pullToRefreshState = rememberPullToRefreshState()
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .pullToRefresh(state = pullToRefreshState,
-                        isRefreshing = viewModel.state.loading,
-                        onRefresh = {
-                            viewModel.collectRepo()
-                        }
-                    )
-            ) {
-                if (isEmpty) Text(
+        }) { padding ->
+        val pullToRefreshState = rememberPullToRefreshState()
+        val data = viewModel.state.data
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .pullToRefresh(
+                    state = pullToRefreshState,
+                    isRefreshing = viewModel.state.loading,
+                    onRefresh = { viewModel.collectRepo() }
+                )
+        ) {
+            when {
+                data.isNotEmpty() -> ItemsWidget(viewModel = viewModel, contentPadding = padding)
+                // While loading, only the refresh indicator is shown (no flashing hint text).
+                !viewModel.state.loading -> Text(
                     stringResource(R.string.home_app_management_dsp),
                     modifier = Modifier
-                        .padding(it + PaddingValues(16.dp))
+                        .padding(padding + PaddingValues(16.dp))
                         .align(Alignment.Center)
                 )
-                else ItemsWidget(viewModel = viewModel, contentPadding = it)
-                PullToRefreshDefaults.Indicator(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(it),
-                    state = pullToRefreshState,
-                    isRefreshing = viewModel.state.loading
-                )
             }
+            PullToRefreshDefaults.Indicator(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(padding),
+                state = pullToRefreshState,
+                isRefreshing = viewModel.state.loading
+            )
         }
     }
 }
@@ -141,7 +141,7 @@ private fun ItemsWidget(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(viewModel.state.data, key = { it.applicationInfo.uid }) {
+        items(viewModel.state.data, key = { it.applicationInfo.packageName }) {
             ItemWidget(
                 viewModel = viewModel,
                 data = it

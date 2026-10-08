@@ -163,9 +163,6 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         }.invokeOnCompletion {
             val result = if (state.allowApi) PackageManager.PERMISSION_GRANTED
             else PackageManager.PERMISSION_DENIED
-            if (state.uid != UID_ERR) {
-                com.EdS.DhizukuF.dish.DishApproval.results[state.uid] = state.allowApi
-            }
             state.listener?.onRequestPermission(result)
         }
     }
@@ -351,6 +348,9 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                     finish()
                 }, textResId = R.string.agree, isPrimary = true)
                 MyTextButton(onClick = {
+                    if (state.uid != UID_ERR) {
+                        com.EdS.DhizukuF.dish.DishApproval.results[state.uid] = false
+                    }
                     state = state.copy(allowApi = false, timedOut = true)
                     finish()
                 }, textResId = R.string.refuse)

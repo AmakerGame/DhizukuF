@@ -10,8 +10,11 @@ the same way `rish` works for Shizuku.
    - adb: `adb push dish dish_dhizukuf.dex /data/local/tmp/` then `adb shell sh /data/local/tmp/dish`
    - anything else: `sh /path/to/dish`
 3. Run `dish` (interactive), `dish help`, or `dish -c "status"`.
-4. The first run opens DhizukuF's permission dialog for the terminal app, exactly like other apps.
-   Once approved the terminal appears in the app list, where it can be blocked or revoked.
+4. The first run adds the terminal app to **DhizukuF > App management** (switch off) and opens the
+   usual permission dialog. Approve it in the dialog or flip the switch in the list; dish waits
+   up to 60 seconds. Later the app can be blocked or revoked from the same list.
+
+All dish console output is English only.
 
 Examples: `dish status`, `dish hide com.example.app`, `dish restriction add no_install_apps`,
 `dish camera disable`, `dish settings put global stay_on_while_plugged_in 3`,

@@ -25,5 +25,5 @@ object DishProtocol {
 
     const val MAX_CHUNK = 16000
     const val MAX_ARGS = 256
-    const val APPROVAL_TIMEOUT_MS = 30_000L
+    const val APPROVAL_TIMEOUT_MS = 60_000L
 }

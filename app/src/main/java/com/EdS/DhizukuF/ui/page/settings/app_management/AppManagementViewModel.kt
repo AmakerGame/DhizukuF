@@ -3,6 +3,7 @@ package com.EdS.DhizukuF.ui.page.settings.app_management
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.util.Log
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +47,7 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
 
     private class Candidate(val applicationInfo: ApplicationInfo, val requested: Boolean)
 
-    private val labelCache = java.util.concurrent.ConcurrentHashMap<Int, String>()
+    private val labelCache = java.util.concurrent.ConcurrentHashMap<String, String>()
 
     // Scanning every installed package is slow, so it is done once per refresh
     // (not on every database change) and never on the main thread.
@@ -69,7 +70,13 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
         state = state.copy(loading = true)
         collectRepoJob?.cancel()
         collectRepoJob = viewModelScope.launch(Dispatchers.Default) {
-            val candidates = scanPackages()
+            val candidates = try {
+                scanPackages()
+            } catch (e: Exception) {
+                Log.w("AppManagement", "package scan failed", e)
+                state = state.copy(loading = false)
+                return@launch
+            }
             repo.flowAll().collect { entities ->
                 val byUid = entities.associateBy { it.uid }
                 val data = candidates.mapNotNull { c ->
@@ -77,7 +84,7 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
                     if (!c.requested && entity == null) return@mapNotNull null
                     AppManagementViewData(
                         applicationInfo = c.applicationInfo,
-                        label = labelCache.getOrPut(c.applicationInfo.uid) {
+                        label = labelCache.getOrPut(c.applicationInfo.packageName) {
                             c.applicationInfo.loadLabel(packageManager).toString()
                         },
                         enabled = entity?.allowApi ?: false,

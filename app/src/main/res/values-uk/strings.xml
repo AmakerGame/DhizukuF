@@ -89,26 +89,4 @@
     <string name="dish_export_failed">Не вдалося експортувати файли dish</string>
     <string name="dish_export_done_title">Файли dish експортовано</string>
     <string name="dish_export_done_dsp">Скопіюйте обидва файли в папку, звідки ваш термінал може запускати скрипти, і запустіть dish:\n\nTermux (один раз виконайте termux-setup-storage):\ncp /sdcard/ШЛЯХ_ДО_ПАПКИ/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (з комп\'ютера):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nБудь-який інший термінал: sh /шлях/до/dish help\n\nТримайте обидва файли разом. Під час першого запуску DhizukuF попросить підтвердити доступ, як і для будь-якого іншого додатка. Команди працюють, лише коли DhizukuF є власником пристрою.</string>
-    <string name="dish_err_protocol">dish: несумісна версія клієнта, експортуйте файли dish знову</string>
-    <string name="dish_err_not_owner">DhizukuF не є власником пристрою або профілю</string>
-    <string name="dish_err_disabled">DhizukuF вимкнено в налаштуваннях</string>
-    <string name="dish_err_blocked">Цей додаток заблоковано в DhizukuF</string>
-    <string name="dish_err_whitelist">Режим білого списку: цей додаток не схвалено в DhizukuF</string>
-    <string name="dish_err_unknown_caller">Невідомий виклик</string>
-    <string name="dish_need_permission">Підтвердіть доступ для %1$s у вікні DhizukuF…</string>
-    <string name="dish_err_denied">Доступ відхилено або час очікування вичерпано</string>
-    <string name="dish_err_unknown_command">Невідома команда: %1$s. Введіть help.</string>
-    <string name="dish_err_usage">Використання: %1$s</string>
-    <string name="dish_err_failed">Помилка: %1$s</string>
-    <string name="dish_err_unsupported">Не підтримується в цій версії Android</string>
-    <string name="dish_err_method_denied">Метод %1$s заблоковано в dish</string>
-    <string name="dish_err_no_method">Немає такого методу DevicePolicyManager: %1$s</string>
-    <string name="dish_err_bad_args">Аргументи не відповідають жодному варіанту %1$s</string>
-    <string name="dish_ok">OK</string>
-    <string name="dish_yes">так</string>
-    <string name="dish_no">ні</string>
-    <string name="dish_enabled">увімкнено</string>
-    <string name="dish_disabled">вимкнено</string>
-    <string name="dish_status">DhizukuF: %1$s\nВласник пристрою: %2$s\nВласник профілю: %3$s\nAndroid API: %4$d\n</string>
-    <string name="dish_help">"Консоль власника пристрою (dish)\n\nВикористання: dish [команда [аргументи]]    (без команди = інтерактивний режим)\n              dish -c \"команда аргументи\"\n\nЗагальні:\n  help                          показати цю довідку\n  status                        стан власника DhizukuF\n  lock                          заблокувати екран\n  reboot                        перезавантажити пристрій\n\nДодатки:\n  hide|unhide PKG               сховати / показати додаток\n  is-hidden PKG\n  suspend|unsuspend PKG...      призупинити / відновити додатки\n  block-uninstall|allow-uninstall PKG\n  is-uninstall-blocked PKG\n  permission grant|deny|default|get PKG PERMISSION\n\nОбмеження та політики:\n  restriction add|clear NAME    напр. no_install_apps\n  restriction list\n  camera disable|enable|status\n  screen-capture disable|enable|status\n\nНалаштування:\n  settings get|put global|secure NAME [VALUE]\n  timezone ID\n\nДодатково:\n  call --list                   список методів DevicePolicyManager\n  call METHOD [ARGS...]         викликати будь-який метод DevicePolicyManager як власник пристрою\n                                (аргумент admin додається автоматично;\n                                руйнівні виклики, як-от wipe, заблоковано)\n"</string>
 </resources>
