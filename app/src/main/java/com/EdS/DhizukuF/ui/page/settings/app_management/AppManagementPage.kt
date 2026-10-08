@@ -48,6 +48,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import com.EdS.DhizukuF.ui.widget.appearModifier
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -157,6 +158,7 @@ private fun LazyItemScope.ItemWidget(
     Card(
         modifier = Modifier
             .animateItem()
+            .then(appearModifier())
             .fillMaxWidth(),
         colors = if (data.blocked) CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)

@@ -57,6 +57,7 @@ import com.EdS.DhizukuF.R
 import com.EdS.DhizukuF.data.common.util.help
 import com.EdS.DhizukuF.data.account.entity.UserEntity
 import com.EdS.DhizukuF.ui.widget.EmptyState
+import com.EdS.DhizukuF.ui.widget.appearModifier
 import com.EdS.DhizukuF.ui.theme.exclude
 import org.koin.androidx.compose.koinViewModel
 
@@ -124,27 +125,30 @@ fun UserManagerPage(
                                 .padding(16.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            EmptyState(message = errorMsg)
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                EmptyState(message = errorMsg)
+                                TextButton(onClick = {
+                                    viewModel.dispatch(UserManagerViewAction.Load)
+                                }) {
+                                    Text(stringResource(R.string.retry))
+                                }
+                            }
                         }
                     }
                 } else {
                     items(viewModel.state.users, key = { it.id }) { user ->
-                        var alpha by remember { mutableStateOf(0f) }
                         UserCard(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .animateItem()
-                                .graphicsLayer(
-                                    alpha = animateFloatAsState(
-                                        targetValue = alpha,
-                                        animationSpec = spring(stiffness = 100f)
-                                    ).value
-                                ),
+                                .then(appearModifier()),
                             viewModel = viewModel,
                             onNavigateToAccount = { onNavigateToAccount(user.id) },
                             user = user
                         )
-                        SideEffect { alpha = 1f }
                     }
                 }
             }

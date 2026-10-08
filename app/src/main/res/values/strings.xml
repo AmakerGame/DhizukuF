@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name" translatable="false">Dhizuku</string>
+    <string name="app_name" translatable="false">DhizukuF</string>
     <string name="agreement_title">Policy</string>
     <string name="agreement_text">Here is our user policy, Please read and agree to it. &lt;a href="https://iamr0s.github.io/Dhizuku/TERMS.html"&gt;Terms of Use&lt;/a&gt;, &lt;a href="https://iamr0s.github.io/Dhizuku/PRIVACY.html"&gt;Privacy Policy&lt;/a&gt; This message won\'t show up again after you agree.</string>
     <string name="agree_text">Agree</string>
@@ -48,7 +48,7 @@
     <string name="agree">Grant</string>
     <string name="refuse">Deny</string>
     <string name="service_channel_name">Background service</string>
-    <string name="service_running">Dhizuku is running</string>
+    <string name="service_running">DhizukuF is running</string>
     <string name="settings">Settings</string>
     <string name="settings_desc">Configure Dhizuku behavior</string>
     <string name="user_manager">User Manager</string>
@@ -84,6 +84,34 @@
     <string name="error_set_profile_owner">Failed to set Profile Owner. Please check your system configuration.</string>
     <string name="error_shizuku_not_work">Please activate Shizuku and grant the permission request</string>
 
-    <string name="daemon_service_notification_title">Dhizuku Daemon</string>
+    <string name="daemon_service_notification_title">DhizukuF Daemon</string>
     <string name="daemon_service_notification_text">This is a Dhizuku notification to ensure service availability at any time. You can long press to hide this notification.</string>
+    <string name="home_dish_title">Terminal (dish)</string>
+    <string name="home_dish_dsp">Run Device Owner commands from any terminal (Termux, adb shell and others), like rish for Shizuku. Export the dish and dish_dhizukuf.dex files and start dish.</string>
+    <string name="home_dish_btn_export">Export dish files</string>
+    <string name="dish_export_failed">Could not export the dish files</string>
+    <string name="dish_export_done_title">dish files exported</string>
+    <string name="dish_export_done_dsp">Copy both files to a folder where your terminal can run scripts, then start dish:\n\nTermux (run termux-setup-storage once):\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (from a computer):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nAny other terminal: sh /path/to/dish help\n\nKeep both files together. On the first run DhizukuF asks you to approve access, like for any other app. Commands work only while DhizukuF is the Device Owner.</string>
+    <string name="dish_err_protocol">dish: incompatible client version, export the dish files again</string>
+    <string name="dish_err_not_owner">DhizukuF is not the Device Owner or Profile Owner</string>
+    <string name="dish_err_disabled">DhizukuF is disabled in settings</string>
+    <string name="dish_err_blocked">This app is blocked in DhizukuF</string>
+    <string name="dish_err_whitelist">Whitelist mode: this app is not approved in DhizukuF</string>
+    <string name="dish_err_unknown_caller">Unknown caller</string>
+    <string name="dish_need_permission">Approve access for %1$s in the DhizukuF window…</string>
+    <string name="dish_err_denied">Access denied or the request timed out</string>
+    <string name="dish_err_unknown_command">Unknown command: %1$s. Type help.</string>
+    <string name="dish_err_usage">Usage: %1$s</string>
+    <string name="dish_err_failed">Error: %1$s</string>
+    <string name="dish_err_unsupported">Not supported on this Android version</string>
+    <string name="dish_err_method_denied">The method %1$s is blocked in dish</string>
+    <string name="dish_err_no_method">No such DevicePolicyManager method: %1$s</string>
+    <string name="dish_err_bad_args">Arguments do not match any variant of %1$s</string>
+    <string name="dish_ok">OK</string>
+    <string name="dish_yes">yes</string>
+    <string name="dish_no">no</string>
+    <string name="dish_enabled">enabled</string>
+    <string name="dish_disabled">disabled</string>
+    <string name="dish_status">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
+    <string name="dish_help">"Device Owner console (dish)\n\nUsage: dish [command [args]]    (no command = interactive mode)\n       dish -c \"command args\"\n\nGeneral:\n  help                          show this help\n  status                        show DhizukuF owner status\n  lock                          lock the screen now\n  reboot                        reboot the device\n\nApps:\n  hide|unhide PKG               hide / unhide an app\n  is-hidden PKG\n  suspend|unsuspend PKG...      suspend / unsuspend apps\n  block-uninstall|allow-uninstall PKG\n  is-uninstall-blocked PKG\n  permission grant|deny|default|get PKG PERMISSION\n\nRestrictions and policies:\n  restriction add|clear NAME    e.g. no_install_apps\n  restriction list\n  camera disable|enable|status\n  screen-capture disable|enable|status\n\nSettings:\n  settings get|put global|secure NAME [VALUE]\n  timezone ID\n\nAdvanced:\n  call --list                   list DevicePolicyManager methods\n  call METHOD [ARGS...]         call any DevicePolicyManager method as Device Owner\n                                (the admin argument is added automatically;\n                                destructive calls such as wipe are blocked)\n"</string>
 </resources>

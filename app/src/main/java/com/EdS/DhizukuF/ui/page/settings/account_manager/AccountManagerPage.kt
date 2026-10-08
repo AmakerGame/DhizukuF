@@ -35,6 +35,7 @@ import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.ui.Alignment
 import androidx.compose.runtime.Composable
+import com.EdS.DhizukuF.ui.widget.appearModifier
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -169,7 +170,8 @@ fun AccountManagerPage(
                         AppCard(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .animateItem(),
+                                .animateItem()
+                                .then(appearModifier()),
                             authenticator = authenticator,
                             isToggling = viewModel.togglingPackages.contains(authenticator.auth.packageName),
                             onFreezeToggle = { packageName, isFrozen ->

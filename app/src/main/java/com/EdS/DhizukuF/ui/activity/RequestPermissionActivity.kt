@@ -163,6 +163,9 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         }.invokeOnCompletion {
             val result = if (state.allowApi) PackageManager.PERMISSION_GRANTED
             else PackageManager.PERMISSION_DENIED
+            if (state.uid != UID_ERR) {
+                com.EdS.DhizukuF.dish.DishApproval.results[state.uid] = state.allowApi
+            }
             state.listener?.onRequestPermission(result)
         }
     }
@@ -178,14 +181,11 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         val uid = bundle.getInt(DhizukuVariables.PARAM_CLIENT_UID, -1)
         if (uid == -1) return false
 
+        // The binder is optional: the dish terminal client starts this activity with
+        // `am start` and gets the decision through DishApproval instead of a listener.
         val binder = bundle.getBinder(DhizukuVariables.PARAM_CLIENT_REQUEST_PERMISSION_BINDER)
-            ?: return false
-
-        val listener = kotlin.runCatching {
-            IDhizukuRequestPermissionListener.Stub.asInterface(binder)
-        }.getOrElse {
-            it.printStackTrace()
-            return false
+        val listener = binder?.let {
+            kotlin.runCatching { IDhizukuRequestPermissionListener.Stub.asInterface(it) }.getOrNull()
         }
 
         state = state.copy(

@@ -1,5 +1,11 @@
 package com.EdS.DhizukuF.ui.page.settings.home
 
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import com.EdS.DhizukuF.dish.DishExporter
+import kotlinx.coroutines.Dispatchers
+import com.EdS.DhizukuF.data.common.util.toast
 import android.app.admin.DevicePolicyManager
 import android.content.ClipData
 import android.content.Context
@@ -97,6 +103,7 @@ import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import com.EdS.DhizukuF.server.DhizukuState
 import com.EdS.DhizukuF.ui.page.settings.SettingsRoute
 import com.EdS.DhizukuF.ui.theme.exclude
+import com.EdS.DhizukuF.ui.widget.appearModifier
 
 import kotlin.system.exitProcess
 
@@ -148,6 +155,9 @@ fun HomePage(
             if (dhizukuState.isOwner) item("dhizuku") {
                 DhizukuWidget(navController)
             }
+            if (dhizukuState.isOwner) item("dish") {
+                DishWidget()
+            }
             if (!dhizukuState.isOwner) item("shizuku") {
                 ShizukuWidget(navController)
             }
@@ -164,53 +174,7 @@ fun HomePage(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopBarActions() {
-    val context = LocalContext.current
-    val settingsRepo = koinInject<SettingsRepo>()
-
     var shutdownDialogShow by remember { mutableStateOf(false) }
-    var donateMenuExpanded by remember { mutableStateOf(false) }
-    var donateHideConfirmShow by remember { mutableStateOf(false) }
-
-    val donateButtonHidden by settingsRepo.flowDonateButtonHidden()
-        .collectAsState(initial = settingsRepo.isDonateButtonHidden)
-
-    if (!donateButtonHidden) {
-        Box {
-            TooltipBox(
-                positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                tooltip = { PlainTooltip { Text(stringResource(R.string.donate)) } },
-                state = rememberTooltipState()
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .combinedClickable(
-                            onClick = {
-                                context.openUrlInBrowser("https://github.com/iamr0s/Dhizuku/blob/main/docs/DONATE.md")
-                            },
-                            onLongClick = { donateMenuExpanded = true }
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(Icons.TwoTone.AttachMoney, contentDescription = stringResource(R.string.donate))
-                }
-            }
-            DropdownMenu(
-                expanded = donateMenuExpanded,
-                onDismissRequest = { donateMenuExpanded = false }
-            ) {
-                DropdownMenuItem(
-                    text = { Text(stringResource(R.string.donate_hide_action)) },
-                    onClick = {
-                        donateMenuExpanded = false
-                        donateHideConfirmShow = true
-                    }
-                )
-            }
-        }
-    }
-
     TooltipBox(
         positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
         tooltip = { PlainTooltip { Text(stringResource(R.string.home_shutdown_title)) } },
@@ -239,28 +203,6 @@ private fun TopBarActions() {
             Text(stringResource(R.string.home_shutdown_title))
         }, text = {
             Text(stringResource(R.string.home_shutdown_dsp))
-        })
-    }
-
-    if (donateHideConfirmShow) {
-        AlertDialog(onDismissRequest = {
-            donateHideConfirmShow = false
-        }, confirmButton = {
-            TextButton(onClick = {
-                donateHideConfirmShow = false
-            }) {
-                Text(stringResource(R.string.cancel))
-            }
-            TextButton(onClick = {
-                settingsRepo.isDonateButtonHidden = true
-                donateHideConfirmShow = false
-            }) {
-                Text(stringResource(R.string.confirm))
-            }
-        }, title = {
-            Text(stringResource(R.string.donate_hide_confirm_title))
-        }, text = {
-            Text(stringResource(R.string.donate_hide_confirm_dsp))
         })
     }
 }
@@ -381,6 +323,53 @@ private fun LazyItemScope.ShizukuWidget(navController: NavController) {
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun LazyItemScope.DishWidget() {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var doneDialogShow by remember { mutableStateOf(false) }
+
+    val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        scope.launch(Dispatchers.IO) {
+            val success = try {
+                DishExporter.export(context, uri)
+                true
+            } catch (e: Exception) {
+                Log.w("Dish", "export failed", e)
+                false
+            }
+            if (success) doneDialogShow = true
+            else context.toast(R.string.dish_export_failed)
+        }
+    }
+
+    CardWidget(icon = {
+        Icon(imageVector = Icons.TwoTone.Terminal, contentDescription = null)
+    }, title = {
+        Text(stringResource(R.string.home_dish_title))
+    }, content = {
+        Text(stringResource(R.string.home_dish_dsp))
+        TextButton(onClick = { picker.launch(null) }) {
+            Icon(imageVector = Icons.TwoTone.Code, contentDescription = null)
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Text(stringResource(R.string.home_dish_btn_export))
+        }
+    })
+
+    if (doneDialogShow) {
+        AlertDialog(onDismissRequest = { doneDialogShow = false }, confirmButton = {
+            TextButton(onClick = { doneDialogShow = false }) {
+                Text(stringResource(R.string.confirm))
+            }
+        }, title = {
+            Text(stringResource(R.string.dish_export_done_title))
+        }, text = {
+            Text(stringResource(R.string.dish_export_done_dsp))
+        })
+    }
+}
+
 @Composable
 private fun LazyItemScope.AdbWidget() {
     val deviceOwnerCommand =
@@ -575,7 +564,7 @@ private fun LazyItemScope.CardWidget(
     content: (@Composable () -> Unit)? = null
 ) {
     ElevatedCard(
-        modifier = modifier.animateItem(),
+        modifier = modifier.animateItem().then(appearModifier()),
         colors = colors, onClick = onClick
     ) {
         Column(
