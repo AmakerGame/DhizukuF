@@ -116,7 +116,8 @@ fun UserManagerPage(
                 val cause = viewModel.state.cause
                 if (cause != null) {
                     item("error_state") {
-                        val errorMsg = cause.help() ?: cause.localizedMessage ?: cause.toString()
+                        val context = androidx.compose.ui.platform.LocalContext.current
+                        val errorMsg = cause.help(context) ?: cause.localizedMessage ?: cause.toString()
                         Box(
                             modifier = Modifier
                                 .fillParentMaxSize()

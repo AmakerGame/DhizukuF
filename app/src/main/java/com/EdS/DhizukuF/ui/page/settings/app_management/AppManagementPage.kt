@@ -183,7 +183,7 @@ private fun LazyItemScope.ItemWidget(
                 val applicationInfo = data.applicationInfo
                 val imageBitmap = AppIconCache.rememberImageBitmapState(applicationInfo)
                 val packageName = applicationInfo.packageName
-                val label = applicationInfo.loadLabel(LocalContext.current.packageManager).toString()
+                val label = data.label
 
                 Image(
                     bitmap = imageBitmap.value,
