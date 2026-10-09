@@ -116,7 +116,7 @@ object DishEngine : KoinComponent {
         if (!DhizukuState.state.isOwner) {
             return Verdict.Denied(str(context, R.string.dish_err_not_owner))
         }
-        if (!settingsRepo.isDhizukuEnabled) {
+        if (!settingsRepo.isDishEnabled) {
             return Verdict.Denied(str(context, R.string.dish_err_disabled))
         }
 

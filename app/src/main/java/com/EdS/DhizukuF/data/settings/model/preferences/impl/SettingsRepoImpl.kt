@@ -22,6 +22,9 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override fun flowDhizukuEnabled(): Flow<Boolean> =
         prefs.asFlow("dhizuku_enabled", true)
 
+    override fun flowDishEnabled(): Flow<Boolean> =
+        prefs.asFlow("dish_enabled", true)
+
     override fun flowDonateButtonHidden(): Flow<Boolean> =
         prefs.asFlow("donate_button_hidden", false)
 
@@ -53,6 +56,12 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
         get() = prefs.getBoolean("dhizuku_enabled", true)
         set(value) = prefs.edit(true) {
             putBoolean("dhizuku_enabled", value)
+        }
+
+    override var isDishEnabled: Boolean
+        get() = prefs.getBoolean("dish_enabled", true)
+        set(value) = prefs.edit(true) {
+            putBoolean("dish_enabled", value)
         }
 
     override var isDonateButtonHidden: Boolean

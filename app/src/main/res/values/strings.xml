@@ -94,7 +94,7 @@
     <string name="dish_export_done_dsp">Copy both files to a folder where your terminal can run scripts, then start dish:\n\nTermux (run termux-setup-storage once):\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (from a computer):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nAny other terminal: sh /path/to/dish help\n\nKeep both files together. On the first run DhizukuF asks you to approve access, like for any other app. Commands work only while DhizukuF is the Device Owner.</string>
     <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_not_owner" translatable="false">DhizukuF is not the Device Owner or Profile Owner</string>
-    <string name="dish_err_disabled" translatable="false">DhizukuF is disabled in settings</string>
+    <string name="dish_err_disabled" translatable="false">dish is disabled in DhizukuF settings</string>
     <string name="dish_err_blocked" translatable="false">This app is blocked in DhizukuF</string>
     <string name="dish_err_whitelist" translatable="false">Whitelist mode: enable this app in DhizukuF > App management, then run dish again</string>
     <string name="dish_err_unknown_caller" translatable="false">Unknown caller</string>
@@ -119,4 +119,6 @@
     <string name="advanced_confirmation_desc">Adds a Block button to the confirmation window, so an app can be blocked right away</string>
     <string name="show_dish_label">Show dish</string>
     <string name="show_dish_label_desc">Marks terminals that use dish, for example Termux (dish), in the confirmation window and in App management. When off, only Termux is shown</string>
+    <string name="enable_dish">Enable dish</string>
+    <string name="enable_dish_desc">Allow terminals to use the Device Owner console (dish)</string>
 </resources>

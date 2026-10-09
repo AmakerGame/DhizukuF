@@ -94,4 +94,6 @@
     <string name="advanced_confirmation_desc">Додає до вікна підтвердження кнопку «Заблокувати», щоб одразу заблокувати додаток</string>
     <string name="show_dish_label">Показувати dish</string>
     <string name="show_dish_label_desc">Позначає термінали, які використовують dish, наприклад Termux (dish), у вікні підтвердження та в «Керуванні додатками». Якщо вимкнено, показується лише Termux</string>
+    <string name="enable_dish">Увімкнути dish</string>
+    <string name="enable_dish_desc">Дозволити терміналам користуватися консоллю Device Owner (dish)</string>
 </resources>

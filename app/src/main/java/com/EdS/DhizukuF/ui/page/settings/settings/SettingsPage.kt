@@ -112,6 +112,27 @@ fun SettingsPage(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
+                                    stringResource(R.string.enable_dish),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Text(
+                                    stringResource(R.string.enable_dish_desc),
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                            }
+                            Switch(
+                                checked = viewModel.state.dishEnabled,
+                                onCheckedChange = viewModel::setDishEnabled
+                            )
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
                                     stringResource(R.string.whitelist_mode),
                                     style = MaterialTheme.typography.titleMedium
                                 )

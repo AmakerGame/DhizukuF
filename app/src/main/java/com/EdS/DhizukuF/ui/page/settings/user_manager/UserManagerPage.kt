@@ -202,14 +202,15 @@ private fun UserCard(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.outline
                 )
+                if (curUserId == user.id) {
+                    Text(
+                        text = stringResource(R.string.account_manager),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
-            if (curUserId == user.id) {
-                Text(
-                    text = stringResource(R.string.account_manager),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            } else {
+            if (curUserId != user.id) {
                 IconButton(onClick = { showing = true }) {
                     Icon(
                         imageVector = Icons.TwoTone.Delete,

@@ -91,7 +91,9 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
 
         // Check if dhizuku is enabled and app is not blocked
         coroutineScope.launch {
-            if (!settingsRepo.isDhizukuEnabled) {
+            val enabled = if (DishRegistry.isDish(state.uid))
+                settingsRepo.isDishEnabled else settingsRepo.isDhizukuEnabled
+            if (!enabled) {
                 state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
                 finish()
                 return@launch
