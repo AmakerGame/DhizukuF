@@ -53,29 +53,21 @@ class DaemonService : Service(), KoinComponent {
         super.onCreate()
         registerPackageReceiver()
         foreground(DhizukuState.state.isOwner)
-        syncDish()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         foreground(DhizukuState.state.isOwner)
-        syncDish()
         return START_STICKY
     }
 
     override fun onDestroy() {
         foreground(false)
-        com.EdS.DhizukuF.dish.DishServer.stop()
         try {
             unregisterReceiver(packageReceiver)
         } catch (_: IllegalArgumentException) {
         }
         scope.cancel()
         super.onDestroy()
-    }
-
-    private fun syncDish() {
-        if (DhizukuState.state.isOwner) com.EdS.DhizukuF.dish.DishServer.start()
-        else com.EdS.DhizukuF.dish.DishServer.stop()
     }
 
     private fun registerPackageReceiver() {

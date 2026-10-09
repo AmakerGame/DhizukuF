@@ -14,7 +14,7 @@ the same way `rish` works for Shizuku.
    as `dish (<terminal app>)` with the switch off. If **Settings > Confirmation window** is on
    (default) the usual dialog opens with Allow / Deny / Block; otherwise flip the switch in the list.
    dish waits up to 60 seconds. Later the entry can be blocked or revoked from the same list.
-   If the DhizukuF process was killed, dish wakes it up automatically.
+   If the DhizukuF process was killed or stopped, dish wakes it up automatically.
 
 All dish console output is English only.
 
@@ -34,4 +34,7 @@ apt install openjdk-21-jdk-headless dalvik-exchange   # or set DX=/path/to/dx
 ./dish-client/build.sh
 ```
 
-Keep the protocol in `dish-client/.../DishMain.java` in sync with `DishProtocol.kt`.
+The client talks to the app with `am broadcast` (receiver `DishReceiver`, engine `DishEngine`): no
+sockets, so it works from any terminal and wakes the app if it was killed. Result code 100/101/102
+are control replies (identity unknown / waiting for approval / denied); anything else is the
+command's exit code. Keep the codes in `DishMain.java` and `DishEngine.kt` in sync.

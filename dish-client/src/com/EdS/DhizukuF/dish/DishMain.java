@@ -1,45 +1,55 @@
 package com.EdS.DhizukuF.dish;
 
-import android.net.LocalSocket;
-import android.net.LocalSocketAddress;
+import android.os.Process;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * dish client (like rish for Shizuku). Started by the "dish" script through app_process as the
  * uid of whatever terminal runs it. Pure Java on purpose: the dex stays tiny and has no
- * dependencies. All console output is English only. Keep the protocol in sync with
- * DishProtocol.kt inside the app.
+ * dependencies. All console output is English only.
+ *
+ * Transport: `am broadcast` to DhizukuF's DishReceiver. It works from any terminal (no sockets,
+ * no SELinux problems) and starts the DhizukuF process when it is not running. The reply is the
+ * broadcast result: result code + base64 body.
  */
 public final class DishMain {
-    private static final int MAGIC = 0x44495348; // "DISH"
-    private static final int VERSION = 1;
+    private static final Charset UTF8 = Charset.forName("UTF-8");
 
-    private static final int ST_OK = 0;
-    private static final int ST_NEED_PERMISSION = 1;
-    private static final int ST_DENIED = 2;
+    private static final int CODE_NEED_AUTH = 100; // identity not proven yet
+    private static final int CODE_WAIT = 101;      // waiting for the user's approval
+    private static final int CODE_DENIED = 102;    // final refusal, body = reason
 
-    private static final int FR_END = 0;
-    private static final int FR_OUT = 1;
-    private static final int FR_ERR = 2;
-
-    /** Key of the client uid extra read by DhizukuF's permission dialog. */
-    private static final String PARAM_CLIENT_UID = "uid";
+    private static final long APPROVAL_TIMEOUT_MS = 60000L;
 
     private static final String DEFAULT_PACKAGE = "com.EdS.DhizukuF";
 
+    private static final Pattern RESULT = Pattern.compile(
+            "Broadcast completed: result=(-?\\d+)(?:, data=\"([^\"]*)\")?");
+
+    /** Random per-process token; the app learns who owns it from Android, not from us. */
+    private static final String TOKEN = newToken();
+
     private DishMain() {}
+
+    private static String newToken() {
+        byte[] bytes = new byte[16];
+        new SecureRandom().nextBytes(bytes);
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) sb.append(String.format("%02x", b));
+        return sb.toString();
+    }
 
     private static String appPackage() {
         String pkg = System.getenv("DISH_PACKAGE");
@@ -109,162 +119,154 @@ public final class DishMain {
         return last;
     }
 
-    private static int execute(List<String> args) {
-        LocalSocket socket = connect();
-        try {
-            if (socket == null) {
-                System.err.println("dish: cannot reach DhizukuF. Make sure DhizukuF is activated "
-                        + "(Device Owner) and running.");
-                return 2;
-            }
-            socket.setSoTimeout(120000);
+    private static final class Reply {
+        final int code;
+        final String body;
 
-            String bad = verifyServer(socket);
-            if (bad != null) {
-                System.err.println(bad);
-                return 2;
-            }
-
-            DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-
-            out.writeInt(MAGIC);
-            out.writeInt(VERSION);
-            out.flush();
-
-            int status = in.readUnsignedByte();
-            if (status == ST_NEED_PERMISSION) {
-                System.err.println(in.readUTF());
-                requestApproval();
-                status = in.readUnsignedByte();
-            }
-            if (status == ST_DENIED) {
-                System.err.println(in.readUTF());
-                return 1;
-            }
-            if (status != ST_OK) {
-                System.err.println("dish: protocol error");
-                return 2;
-            }
-
-            out.writeInt(args.size());
-            for (String a : args) out.writeUTF(a);
-            out.flush();
-
-            while (true) {
-                int frame = in.readUnsignedByte();
-                if (frame == FR_OUT) {
-                    System.out.print(in.readUTF());
-                    System.out.flush();
-                } else if (frame == FR_ERR) {
-                    System.err.print(in.readUTF());
-                    System.err.flush();
-                } else if (frame == FR_END) {
-                    return in.readInt();
-                } else {
-                    System.err.println("dish: protocol error");
-                    return 2;
-                }
-            }
-        } catch (EOFException e) {
-            System.err.println("dish: connection closed by DhizukuF");
-            return 2;
-        } catch (IOException e) {
-            System.err.println("dish: " + e.getMessage());
-            return 2;
-        } finally {
-            if (socket != null) {
-                try {
-                    socket.close();
-                } catch (IOException ignored) {
-                }
-            }
+        Reply(int code, String body) {
+            this.code = code;
+            this.body = body;
         }
     }
 
-    /** Connects to the server; if the app process is not running, wakes it up and retries. */
-    private static LocalSocket connect() {
-        for (int attempt = 0; attempt < 4; attempt++) {
-            LocalSocket candidate = new LocalSocket();
-            try {
-                candidate.connect(new LocalSocketAddress(appPackage() + ".dish",
-                        LocalSocketAddress.Namespace.ABSTRACT));
-                return candidate;
-            } catch (IOException e) {
-                try {
-                    candidate.close();
-                } catch (IOException ignored) {
-                }
+    private static int execute(List<String> args) {
+        String encoded = encodeArgs(args);
+        long deadline = System.currentTimeMillis() + APPROVAL_TIMEOUT_MS;
+        boolean dialogOpened = false;
+        boolean hinted = false;
+
+        while (true) {
+            Reply reply = send(encoded);
+            if (reply == null) {
+                System.err.println("dish: cannot reach DhizukuF. Make sure DhizukuF is installed, "
+                        + "activated (Device Owner) and not force-stopped.");
+                return 2;
             }
-            if (attempt == 0) wakeApp();
+
+            if (reply.code == CODE_DENIED) {
+                System.err.println(reply.body);
+                return 1;
+            }
+            if (reply.code != CODE_NEED_AUTH && reply.code != CODE_WAIT) {
+                int split = reply.body.indexOf('\u0000');
+                String out = split < 0 ? reply.body : reply.body.substring(0, split);
+                String err = split < 0 ? "" : reply.body.substring(split + 1);
+                System.out.print(out);
+                System.out.flush();
+                System.err.print(err);
+                System.err.flush();
+                return reply.code;
+            }
+
+            // Not authorized yet: ask DhizukuF to show its approval dialog (once) and keep polling.
+            if (reply.code == CODE_WAIT && !hinted) {
+                hinted = true;
+                System.err.println(reply.body);
+            }
+            if (!dialogOpened) {
+                dialogOpened = true;
+                requestApproval();
+            }
+            if (System.currentTimeMillis() > deadline) {
+                System.err.println("dish: timed out waiting for approval in DhizukuF.");
+                return 1;
+            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ignored) {
             }
         }
-        return null;
     }
 
-    private static void wakeApp() {
-        String pkg = appPackage();
-        try {
-            java.lang.Process process = new ProcessBuilder(
-                    "/system/bin/am", "broadcast",
-                    "-n", pkg + "/com.EdS.DhizukuF.dish.DishWakeReceiver")
-                    .redirectErrorStream(true).start();
-            drain(process.getInputStream());
-            process.waitFor();
-        } catch (Exception ignored) {
+    private static String encodeArgs(List<String> args) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < args.size(); i++) {
+            if (i > 0) sb.append('\u0000');
+            sb.append(args.get(i));
         }
+        if (sb.length() == 0) return "";
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(sb.toString().getBytes(UTF8));
     }
 
-    /** Anti-squatting: the listener must run under the uid of the DhizukuF app. */
-    private static String verifyServer(LocalSocket socket) {
-        String expectedStr = System.getenv("DISH_SERVER_UID");
-        if (expectedStr == null || expectedStr.isEmpty()) return null;
-        int expected;
+    /** One request/response round trip. Returns null if DhizukuF could not be reached. */
+    private static Reply send(String encodedArgs) {
+        List<String> cmd = new ArrayList<String>();
+        cmd.add("/system/bin/am");
+        cmd.add("broadcast");
+        cmd.add("-f");
+        cmd.add("32"); // FLAG_INCLUDE_STOPPED_PACKAGES: also wake a stopped DhizukuF
+        cmd.add("-n");
+        cmd.add(appPackage() + "/com.EdS.DhizukuF.dish.DishReceiver");
+        cmd.add("--es");
+        cmd.add("t");
+        cmd.add(TOKEN);
+        if (!encodedArgs.isEmpty()) {
+            cmd.add("--es");
+            cmd.add("a");
+            cmd.add(encodedArgs);
+        }
+        String output = run(cmd);
+        if (output == null) return null;
+        Matcher m = RESULT.matcher(output);
+        if (!m.find()) return null;
+        int code;
         try {
-            expected = Integer.parseInt(expectedStr.trim());
+            code = Integer.parseInt(m.group(1));
         } catch (NumberFormatException e) {
             return null;
         }
-        int actual;
-        try {
-            actual = socket.getPeerCredentials().getUid();
-        } catch (IOException e) {
-            return "dish: cannot verify DhizukuF";
+        String data = m.group(2);
+        String body = "";
+        if (data != null && !data.isEmpty()) {
+            try {
+                body = new String(Base64.getUrlDecoder().decode(data), UTF8);
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
         }
-        if (actual != expected) {
-            return "dish: refusing to talk to an untrusted socket owner (uid " + actual + ")";
-        }
-        return null;
+        return new Reply(code, body);
     }
 
     /**
      * Opens the DhizukuF permission dialog on behalf of this terminal (same dialog every client
-     * app gets). It is started from here because the terminal is the foreground app.
+     * app gets). Android tells DhizukuF which app launched it, so the identity cannot be faked.
      */
     private static void requestApproval() {
         String pkg = appPackage();
-        try {
-            java.lang.Process process = new ProcessBuilder(
-                    "/system/bin/am", "start",
-                    "-n", pkg + "/com.EdS.DhizukuF.ui.activity.RequestPermissionActivity",
-                    "--ei", PARAM_CLIENT_UID, String.valueOf(android.os.Process.myUid()))
-                    .redirectErrorStream(true).start();
-            drain(process.getInputStream());
-            process.waitFor();
-        } catch (Exception e) {
+        List<String> cmd = new ArrayList<String>();
+        cmd.add("/system/bin/am");
+        cmd.add("start");
+        cmd.add("-n");
+        cmd.add(pkg + "/com.EdS.DhizukuF.ui.activity.RequestPermissionActivity");
+        cmd.add("--ei");
+        cmd.add("uid");
+        cmd.add(String.valueOf(Process.myUid()));
+        cmd.add("--es");
+        cmd.add("dish_token");
+        cmd.add(TOKEN);
+        if (run(cmd) == null) {
             System.err.println("dish: could not open the dialog automatically, "
                     + "enable this app in DhizukuF > App management.");
         }
     }
 
-    private static void drain(InputStream stream) throws IOException {
+    private static String run(List<String> command) {
+        try {
+            java.lang.Process process = new ProcessBuilder(command).redirectErrorStream(true).start();
+            String out = readAll(process.getInputStream());
+            process.waitFor();
+            return out;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static String readAll(InputStream stream) throws IOException {
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
+        byte[] buf = new byte[4096];
         int n;
         while ((n = stream.read(buf)) != -1) sink.write(buf, 0, n);
+        return new String(sink.toByteArray(), UTF8);
     }
 
     static List<String> tokenize(String line) {

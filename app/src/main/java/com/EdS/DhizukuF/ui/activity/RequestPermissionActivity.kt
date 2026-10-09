@@ -43,6 +43,10 @@ import com.EdS.DhizukuF.R
 import com.rosan.dhizuku.aidl.IDhizukuRequestPermissionListener
 import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
 import com.EdS.DhizukuF.data.common.util.signature
+import com.EdS.DhizukuF.dish.DishApproval
+import com.EdS.DhizukuF.dish.DishEngine
+import com.EdS.DhizukuF.dish.DishRegistry
+import com.EdS.DhizukuF.dish.DishSessions
 import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
@@ -78,12 +82,28 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
     private val appRepo by inject<AppRepo>()
     private val settingsRepo by inject<SettingsRepo>()
     private var state by mutableStateOf(ViewState())
+    private var dishToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!registerAppEntity(intent)) {
             finish()
             return
+        }
+
+        // dish: take the identity from Android (who launched this activity), not from extras.
+        dishToken = intent.getStringExtra("dish_token")?.takeIf { DishSessions.isValidToken(it) }
+        if (dishToken != null) {
+            val real = launchedFromUid()
+            if (real >= 0) {
+                val realSignature = packageManager.getPackageInfoForUid(real)?.signature
+                if (realSignature == null) {
+                    finish()
+                    return
+                }
+                state = state.copy(uid = real, signature = realSignature)
+            }
+            DishApproval.results.remove(state.uid)
         }
 
         // Check if dhizuku is enabled and app is not blocked
@@ -182,7 +202,19 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
             val result = if (state.allowApi) PackageManager.PERMISSION_GRANTED
             else PackageManager.PERMISSION_DENIED
             state.listener?.onRequestPermission(result)
+            dishToken?.let { token ->
+                if (state.uid != UID_ERR) {
+                    DishSessions.claim(token, state.uid)
+                    DishRegistry.register(state.uid, DishEngine.label(this, state.uid))
+                }
+            }
         }
+    }
+
+    private fun launchedFromUid(): Int = try {
+        android.app.Activity::class.java.getMethod("getLaunchedFromUid").invoke(this) as Int
+    } catch (e: Throwable) {
+        -1
     }
 
     private fun registerAppEntity(intent: Intent?): Boolean {
@@ -367,14 +399,14 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                 }, textResId = R.string.agree, isPrimary = true)
                 MyTextButton(onClick = {
                     if (state.uid != UID_ERR) {
-                        com.EdS.DhizukuF.dish.DishApproval.results[state.uid] = false
+                        DishApproval.results[state.uid] = false
                     }
                     state = state.copy(allowApi = false, timedOut = true)
                     finish()
                 }, textResId = R.string.refuse)
                 MyTextButton(onClick = {
                     if (state.uid != UID_ERR) {
-                        com.EdS.DhizukuF.dish.DishApproval.results[state.uid] = false
+                        DishApproval.results[state.uid] = false
                     }
                     state = state.copy(allowApi = false, timedOut = true, block = true)
                     finish()

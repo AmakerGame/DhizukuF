@@ -16,7 +16,6 @@ if [ "$(getprop ro.build.version.sdk)" -ge 34 ] 2>/dev/null; then
 fi
 
 export DISH_PACKAGE=__PACKAGE__
-export DISH_SERVER_UID=__SERVER_UID__
 if [ -t 0 ]; then export DISH_TTY=1; fi
 
 exec /system/bin/app_process -Djava.class.path="$DEX" /system/bin --nice-name=dish com.EdS.DhizukuF.dish.DishMain "$@"

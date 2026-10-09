@@ -117,7 +117,7 @@
             android:foregroundServiceType="remoteMessaging" />
 
         <receiver
-            android:name=".dish.DishWakeReceiver"
+            android:name=".dish.DishReceiver"
             android:exported="true" />
 
         <receiver

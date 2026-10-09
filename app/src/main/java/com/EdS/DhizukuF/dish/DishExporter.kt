@@ -20,7 +20,6 @@ object DishExporter {
 
         val script = context.assets.open(SCRIPT_NAME).bufferedReader().use { it.readText() }
             .replace("__PACKAGE__", context.packageName)
-            .replace("__SERVER_UID__", context.applicationInfo.uid.toString())
 
         write(context, tree, treeId, parent, SCRIPT_NAME) { it.write(script.toByteArray()) }
         write(context, tree, treeId, parent, DEX_NAME) { out ->
