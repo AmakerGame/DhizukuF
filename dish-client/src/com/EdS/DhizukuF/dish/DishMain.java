@@ -98,7 +98,7 @@ public final class DishMain {
         int last = 0;
         while (true) {
             if (tty) {
-                System.out.print("dish> ");
+                System.out.print("dish$ ");
                 System.out.flush();
             }
             String line = reader.readLine();

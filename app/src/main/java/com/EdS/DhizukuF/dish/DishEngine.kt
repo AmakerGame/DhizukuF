@@ -60,12 +60,16 @@ object DishEngine : KoinComponent {
 
     /** Runs a command for [uid], or explains why it cannot run yet. */
     fun execute(context: Context, uid: Int, args: List<String>): Reply {
+        // Refuse early: when dish is off (or DhizukuF is not the owner) nothing is registered and
+        // no approval window opens.
+        gate(context)?.let { return Reply(KIND_DENIED, message = it) }
+
         // Registration request: the terminal shows up in the app list as "dish (<app>)".
         DishRegistry.register(uid, label(context, uid))
 
         return when (val verdict = authorize(context, uid)) {
             Verdict.Allowed -> {
-                val result = DishCommands(context).execute(args)
+                val result = DishCommands(context, uid).execute(args)
                 Reply(KIND_EXECUTED, result.code, result.out, result.err)
             }
 
@@ -110,6 +114,12 @@ object DishEngine : KoinComponent {
             // Background start can be refused; the app list still has the pending entry.
             Log.w(TAG, "cannot open the approval dialog", e)
         }
+    }
+
+    private fun gate(context: Context): String? = when {
+        !DhizukuState.state.isOwner -> str(context, R.string.dish_err_not_owner)
+        !settingsRepo.isDishEnabled -> str(context, R.string.dish_err_disabled)
+        else -> null
     }
 
     private fun authorize(context: Context, uid: Int): Verdict {
