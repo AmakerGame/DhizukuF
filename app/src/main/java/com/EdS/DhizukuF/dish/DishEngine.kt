@@ -1,6 +1,8 @@
 package com.EdS.DhizukuF.dish
 
 import android.content.Context
+import android.content.Intent
+import android.os.SystemClock
 import android.util.Log
 import com.EdS.DhizukuF.R
 import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
@@ -9,23 +11,35 @@ import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import com.EdS.DhizukuF.server.DhizukuState
+import com.EdS.DhizukuF.ui.activity.RequestPermissionActivity
+import com.rosan.dhizuku.shared.DhizukuVariables
 import kotlinx.coroutines.runBlocking
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 /**
- * Brain of dish. The terminal client talks to the app through `am broadcast` (works from any
- * terminal and any SELinux domain, and wakes the app process up when it was killed).
- * The reply travels back as the broadcast result: result code + base64 body.
+ * Brain of dish. The client reaches it through DishBinder, so the caller's uid always comes from
+ * Binder.getCallingUid() (Android guarantees it) and the caller is authorized exactly like any
+ * other Dhizuku client.
  */
 object DishEngine : KoinComponent {
     private const val TAG = "DishEngine"
 
-    const val CODE_NEED_AUTH = 100   // identity of the client not proven yet
-    const val CODE_WAIT = 101        // waiting for the user's approval
-    const val CODE_DENIED = 102      // final refusal (body = reason)
+    // Reply kinds (keep in sync with DishMain.java)
+    const val KIND_EXECUTED = 0
+    const val KIND_NEED_APPROVAL = 1
+    const val KIND_DENIED = 2
+    const val KIND_APPROVED = 3
 
-    class Reply(val code: Int, val body: String)
+    private const val APPROVAL_TIMEOUT_MS = 60_000L
+
+    class Reply(
+        val kind: Int,
+        val code: Int = 0,
+        val out: String = "",
+        val err: String = "",
+        val message: String = ""
+    )
 
     private sealed interface Verdict {
         data object Allowed : Verdict
@@ -36,41 +50,34 @@ object DishEngine : KoinComponent {
     private val appRepo by inject<AppRepo>()
     private val settingsRepo by inject<SettingsRepo>()
 
+    private var binder: DishBinder? = null
+
+    @Synchronized
+    fun binder(context: Context): DishBinder =
+        binder ?: DishBinder(context.applicationContext).also { binder = it }
+
     private fun str(context: Context, id: Int, vararg args: Any) = context.getString(id, *args)
 
-    /**
-     * @param sentFromUid uid of the broadcast sender when Android reports it (API 34+), else -1.
-     * @param argsEncoded command arguments joined with NUL, base64 (URL safe).
-     */
-    fun handle(context: Context, token: String?, argsEncoded: String?, sentFromUid: Int): Reply {
-        if (!DishSessions.isValidToken(token)) {
-            return Reply(CODE_DENIED, "Invalid dish token. Export the dish files again.")
-        }
-        token!!
-
-        if (DishSessions.uidOf(token) == null && sentFromUid >= 0) {
-            DishApproval.results.remove(sentFromUid)
-            DishSessions.claim(token, sentFromUid)
-        }
-        val uid = DishSessions.uidOf(token) ?: return Reply(CODE_NEED_AUTH, "")
-        if (sentFromUid >= 0 && sentFromUid != uid) {
-            return Reply(CODE_DENIED, "This token belongs to another caller")
-        }
-
+    /** Runs a command for [uid], or explains why it cannot run yet. */
+    fun execute(context: Context, uid: Int, args: List<String>): Reply {
         // Registration request: the terminal shows up in the app list as "dish (<app>)".
         DishRegistry.register(uid, label(context, uid))
 
-        when (val verdict = authorize(context, uid)) {
-            Verdict.Allowed -> Unit
-            is Verdict.Denied -> return Reply(CODE_DENIED, verdict.message)
+        return when (val verdict = authorize(context, uid)) {
+            Verdict.Allowed -> {
+                val result = DishCommands(context).execute(args)
+                Reply(KIND_EXECUTED, result.code, result.out, result.err)
+            }
+
+            is Verdict.Denied -> Reply(KIND_DENIED, message = verdict.message)
+
             Verdict.NeedPermission -> {
-                if (DishApproval.results.remove(uid) == false) {
-                    return Reply(CODE_DENIED, str(context, R.string.dish_err_denied))
-                }
+                DishApproval.results.remove(uid)
+                launchDialog(context, uid)
                 val name = label(context, uid)
-                return Reply(
-                    CODE_WAIT,
-                    if (settingsRepo.isConfirmationWindow) {
+                Reply(
+                    KIND_NEED_APPROVAL,
+                    message = if (settingsRepo.isConfirmationWindow) {
                         str(context, R.string.dish_need_permission, name)
                     } else {
                         str(context, R.string.dish_need_permission_list, name)
@@ -78,16 +85,38 @@ object DishEngine : KoinComponent {
                 )
             }
         }
-
-        val args = decodeArgs(argsEncoded)
-        val result = DishCommands(context).execute(args)
-        return Reply(result.code, result.out + "\u0000" + result.err)
     }
 
-    private fun decodeArgs(encoded: String?): List<String> {
-        if (encoded.isNullOrEmpty()) return emptyList()
-        val raw = android.util.Base64.decode(encoded, android.util.Base64.URL_SAFE)
-        return String(raw, Charsets.UTF_8).split('\u0000')
+    /** Blocks until the user approves (dialog or app list), refuses, or the time runs out. */
+    fun awaitApproval(context: Context, uid: Int): Reply {
+        val deadline = SystemClock.elapsedRealtime() + APPROVAL_TIMEOUT_MS
+        while (SystemClock.elapsedRealtime() < deadline) {
+            if (DishApproval.results[uid] == false) {
+                DishApproval.results.remove(uid)
+                return Reply(KIND_DENIED, message = str(context, R.string.dish_err_denied))
+            }
+            when (val verdict = authorize(context, uid)) {
+                Verdict.Allowed -> return Reply(KIND_APPROVED)
+                is Verdict.Denied -> return Reply(KIND_DENIED, message = verdict.message)
+                Verdict.NeedPermission -> Unit
+            }
+            Thread.sleep(300)
+        }
+        return Reply(KIND_DENIED, message = str(context, R.string.dish_err_denied))
+    }
+
+    private fun launchDialog(context: Context, uid: Int) {
+        try {
+            context.startActivity(
+                Intent()
+                    .setClassName(context.packageName, RequestPermissionActivity::class.java.name)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra(DhizukuVariables.PARAM_CLIENT_UID, uid)
+            )
+        } catch (e: Exception) {
+            // Background start can be refused; the app list still has the pending entry.
+            Log.w(TAG, "cannot open the approval dialog", e)
+        }
     }
 
     private fun authorize(context: Context, uid: Int): Verdict {

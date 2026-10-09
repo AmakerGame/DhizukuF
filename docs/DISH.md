@@ -34,7 +34,9 @@ apt install openjdk-21-jdk-headless dalvik-exchange   # or set DX=/path/to/dx
 ./dish-client/build.sh
 ```
 
-The client talks to the app with `am broadcast` (receiver `DishReceiver`, engine `DishEngine`): no
-sockets, so it works from any terminal and wakes the app if it was killed. Result code 100/101/102
-are control replies (identity unknown / waiting for approval / denied); anything else is the
-command's exit code. Keep the codes in `DishMain.java` and `DishEngine.kt` in sync.
+Transport: the client sends a broadcast through ActivityManager (as the terminal's own uid) that
+carries its Binder; DhizukuF (`DishReceiver`) answers with its Binder (`DishBinder`) and from then on
+every command is a direct Binder call. DhizukuF learns the caller's real uid from
+`Binder.getCallingUid()`, so it cannot be spoofed. No sockets and no `am` are used, so it works from
+any terminal and also wakes DhizukuF if it was killed. Keep the transaction codes and reply kinds in
+`DishMain.java`, `DishBinder.kt` and `DishEngine.kt` in sync. Keep the codes in `DishMain.java` and `DishEngine.kt` in sync.

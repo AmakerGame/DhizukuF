@@ -44,9 +44,6 @@ import com.rosan.dhizuku.aidl.IDhizukuRequestPermissionListener
 import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
 import com.EdS.DhizukuF.data.common.util.signature
 import com.EdS.DhizukuF.dish.DishApproval
-import com.EdS.DhizukuF.dish.DishEngine
-import com.EdS.DhizukuF.dish.DishRegistry
-import com.EdS.DhizukuF.dish.DishSessions
 import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
@@ -82,7 +79,6 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
     private val appRepo by inject<AppRepo>()
     private val settingsRepo by inject<SettingsRepo>()
     private var state by mutableStateOf(ViewState())
-    private var dishToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,20 +87,6 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
             return
         }
 
-        // dish: take the identity from Android (who launched this activity), not from extras.
-        dishToken = intent.getStringExtra("dish_token")?.takeIf { DishSessions.isValidToken(it) }
-        if (dishToken != null) {
-            val real = launchedFromUid()
-            if (real >= 0) {
-                val realSignature = packageManager.getPackageInfoForUid(real)?.signature
-                if (realSignature == null) {
-                    finish()
-                    return
-                }
-                state = state.copy(uid = real, signature = realSignature)
-            }
-            DishApproval.results.remove(state.uid)
-        }
 
         // Check if dhizuku is enabled and app is not blocked
         coroutineScope.launch {
@@ -202,19 +184,7 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
             val result = if (state.allowApi) PackageManager.PERMISSION_GRANTED
             else PackageManager.PERMISSION_DENIED
             state.listener?.onRequestPermission(result)
-            dishToken?.let { token ->
-                if (state.uid != UID_ERR) {
-                    DishSessions.claim(token, state.uid)
-                    DishRegistry.register(state.uid, DishEngine.label(this, state.uid))
-                }
-            }
         }
-    }
-
-    private fun launchedFromUid(): Int = try {
-        android.app.Activity::class.java.getMethod("getLaunchedFromUid").invoke(this) as Int
-    } catch (e: Throwable) {
-        -1
     }
 
     private fun registerAppEntity(intent: Intent?): Boolean {
@@ -228,8 +198,8 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         val uid = bundle.getInt(DhizukuVariables.PARAM_CLIENT_UID, -1)
         if (uid == -1) return false
 
-        // The binder is optional: the dish terminal client starts this activity with
-        // `am start` and gets the decision through DishApproval instead of a listener.
+        // The binder is optional: DhizukuF itself opens this dialog for a dish terminal
+        // and learns the decision through DishApproval instead of a listener.
         val binder = bundle.getBinder(DhizukuVariables.PARAM_CLIENT_REQUEST_PERMISSION_BINDER)
         val listener = binder?.let {
             kotlin.runCatching { IDhizukuRequestPermissionListener.Stub.asInterface(it) }.getOrNull()
