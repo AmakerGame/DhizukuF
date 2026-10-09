@@ -529,7 +529,7 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         val usage = USAGE.getValue("owner-info")
         need(a, 1, usage)
         return when (a[0]) {
-            "get" -> Result(out = (dpm.deviceOwnerLockScreenInfo?.toString() ?: "") + "\n")
+            "get" -> Result(out = (dpm.getDeviceOwnerLockScreenInfo()?.toString() ?: "") + "\n")
             "clear" -> { dpm.setDeviceOwnerLockScreenInfo(admin, null); ok() }
             "set" -> {
                 need(a, 2, usage)
@@ -544,7 +544,7 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         val usage = USAGE.getValue("org-name")
         need(a, 1, usage)
         return when (a[0]) {
-            "get" -> Result(out = (dpm.deviceOwnerOrganizationName?.toString() ?: "") + "\n")
+            "get" -> Result(out = (dpm.getOrganizationName(admin)?.toString() ?: "") + "\n")
             "clear" -> { dpm.setOrganizationName(admin, null); ok() }
             "set" -> {
                 need(a, 2, usage)
