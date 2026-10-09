@@ -27,20 +27,20 @@ class SettingsViewModel : ViewModel(), KoinComponent {
             }
         }
         viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.flowConfirmationWindow().collect { confirmationWindow ->
+                state = state.copy(confirmationWindow = confirmationWindow)
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.flowDhizukuEnabled().collect { dhizukuEnabled ->
                 state = state.copy(dhizukuEnabled = dhizukuEnabled)
             }
         }
-        viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.flowConfirmationDialog().collect { value ->
-                state = state.copy(confirmationDialog = value)
-            }
-        }
     }
 
-    fun setConfirmationDialog(enabled: Boolean) {
+    fun setConfirmationWindow(enabled: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.isConfirmationDialog = enabled
+            settingsRepo.isConfirmationWindow = enabled
         }
     }
 

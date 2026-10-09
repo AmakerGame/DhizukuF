@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.util.Log
+import com.EdS.DhizukuF.dish.DishRegistry
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -79,19 +80,41 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
             }
             repo.flowAll().collect { entities ->
                 val byUid = entities.associateBy { it.uid }
+                val dishUids = DishRegistry.all()
                 val data = candidates.mapNotNull { c ->
                     val entity = byUid[c.applicationInfo.uid]
                     if (!c.requested && entity == null) return@mapNotNull null
+                    val baseLabel = labelCache.getOrPut(c.applicationInfo.packageName) {
+                        c.applicationInfo.loadLabel(packageManager).toString()
+                    }
                     AppManagementViewData(
                         applicationInfo = c.applicationInfo,
-                        label = labelCache.getOrPut(c.applicationInfo.packageName) {
-                            c.applicationInfo.loadLabel(packageManager).toString()
-                        },
+                        label = if (c.applicationInfo.uid in dishUids) {
+                            DishRegistry.displayName(c.applicationInfo.uid, baseLabel)
+                        } else baseLabel,
                         enabled = entity?.allowApi ?: false,
                         blocked = entity?.blocked ?: false
                     )
-                }.sortedBy { it.applicationInfo.packageName }
-                state = state.copy(data = data, loading = false)
+                }
+                // A dish client whose package cannot be resolved is still listed, so the
+                // registration request is never invisible.
+                val covered = data.map { it.applicationInfo.uid }.toSet()
+                val extra = dishUids.keys.filter { it !in covered }.mapNotNull { uid ->
+                    val entity = byUid[uid] ?: return@mapNotNull null
+                    AppManagementViewData(
+                        applicationInfo = ApplicationInfo().apply {
+                            packageName = "dish.uid.$uid"
+                            this.uid = uid
+                        },
+                        label = DishRegistry.displayName(uid, null),
+                        enabled = entity.allowApi,
+                        blocked = entity.blocked
+                    )
+                }
+                state = state.copy(
+                    data = (data + extra).sortedBy { it.applicationInfo.packageName },
+                    loading = false
+                )
             }
         }
     }

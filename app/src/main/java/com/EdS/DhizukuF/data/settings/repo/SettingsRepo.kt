@@ -6,9 +6,9 @@ interface SettingsRepo {
     fun flowWhitelistMode(): Flow<Boolean>
     fun flowDhizukuEnabled(): Flow<Boolean>
     fun flowDonateButtonHidden(): Flow<Boolean>
-    fun flowConfirmationDialog(): Flow<Boolean>
+    fun flowConfirmationWindow(): Flow<Boolean>
     var isWhitelistMode: Boolean
     var isDhizukuEnabled: Boolean
     var isDonateButtonHidden: Boolean
-    var isConfirmationDialog: Boolean
+    var isConfirmationWindow: Boolean
 }

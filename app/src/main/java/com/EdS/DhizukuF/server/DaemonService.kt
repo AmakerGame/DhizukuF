@@ -94,9 +94,9 @@ class DaemonService : Service(), KoinComponent {
     private fun verify(entity: AppEntity): Boolean {
         val packageInfo = packageManager.getPackageInfoForUid(entity.uid) ?: return false
 
-        // Only forget apps that are gone or were replaced by a different signature.
-        // Pending (not approved yet) and blocked apps must stay in the list.
-        if (entity.signature.isNotEmpty() && entity.signature != packageInfo.signature) return false
+        if (!entity.allowApi || entity.blocked) return false
+
+        if (entity.signature != packageInfo.signature) return false
 
         return true
     }

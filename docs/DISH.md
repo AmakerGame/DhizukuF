@@ -10,9 +10,11 @@ the same way `rish` works for Shizuku.
    - adb: `adb push dish dish_dhizukuf.dex /data/local/tmp/` then `adb shell sh /data/local/tmp/dish`
    - anything else: `sh /path/to/dish`
 3. Run `dish` (interactive), `dish help`, or `dish -c "status"`.
-4. The first run adds the terminal app to **DhizukuF > App management** (switch off) and opens the
-   usual permission dialog. Approve it in the dialog or flip the switch in the list; dish waits
-   up to 60 seconds. Later the app can be blocked or revoked from the same list.
+4. The first run sends a registration request: the terminal appears in **DhizukuF > App management**
+   as `dish (<terminal app>)` with the switch off. If **Settings > Confirmation window** is on
+   (default) the usual dialog opens with Allow / Deny / Block; otherwise flip the switch in the list.
+   dish waits up to 60 seconds. Later the entry can be blocked or revoked from the same list.
+   If the DhizukuF process was killed, dish wakes it up automatically.
 
 All dish console output is English only.
 

@@ -54,10 +54,4 @@
     <string name="donate_hide_confirm_title">Скрыть кнопку \"Пожертвовать\"</string>
     <string name="donate_hide_confirm_dsp">Это действие нельзя отменить из приложения. Вы уверены, что хотите навсегда скрыть кнопку пожертвования?</string>
     <string name="home_status_owner_transferred">%1$s был переведён!!!</string>
-    <string name="confirmation_dialog">Окно подтверждения</string>
-    <string name="confirmation_dialog_desc">Когда приложение просит доступ к Dhizuku, показывать окно с кнопками «Разрешить», «Запретить» и «Заблокировать». Если выключено, запросы молча отклоняются, а приложение появляется в списке приложений (с выключенным переключателем).</string>
-    <string name="block">Заблокировать</string>
-    <string name="dish_request_channel">Запросы доступа dish</string>
-    <string name="dish_request_title">Запрос доступа к Dhizuku</string>
-    <string name="dish_request_text">%1$s (терминал dish) просит доступ к Dhizuku</string>
 </resources>

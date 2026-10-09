@@ -133,17 +133,17 @@ fun SettingsPage(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    stringResource(R.string.confirmation_dialog),
+                                    stringResource(R.string.confirmation_window),
                                     style = MaterialTheme.typography.titleMedium
                                 )
                                 Text(
-                                    stringResource(R.string.confirmation_dialog_desc),
+                                    stringResource(R.string.confirmation_window_desc),
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             }
                             Switch(
-                                checked = viewModel.state.confirmationDialog,
-                                onCheckedChange = viewModel::setConfirmationDialog
+                                checked = viewModel.state.confirmationWindow,
+                                onCheckedChange = viewModel::setConfirmationWindow
                             )
                         }
                     }

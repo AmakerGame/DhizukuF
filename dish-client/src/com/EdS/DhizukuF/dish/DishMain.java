@@ -110,12 +110,9 @@ public final class DishMain {
     }
 
     private static int execute(List<String> args) {
-        LocalSocket socket = new LocalSocket();
+        LocalSocket socket = connect();
         try {
-            try {
-                socket.connect(new LocalSocketAddress(appPackage() + ".dish",
-                        LocalSocketAddress.Namespace.ABSTRACT));
-            } catch (IOException e) {
+            if (socket == null) {
                 System.err.println("dish: cannot reach DhizukuF. Make sure DhizukuF is activated "
                         + "(Device Owner) and running.");
                 return 2;
@@ -176,10 +173,48 @@ public final class DishMain {
             System.err.println("dish: " + e.getMessage());
             return 2;
         } finally {
-            try {
-                socket.close();
-            } catch (IOException ignored) {
+            if (socket != null) {
+                try {
+                    socket.close();
+                } catch (IOException ignored) {
+                }
             }
+        }
+    }
+
+    /** Connects to the server; if the app process is not running, wakes it up and retries. */
+    private static LocalSocket connect() {
+        for (int attempt = 0; attempt < 4; attempt++) {
+            LocalSocket candidate = new LocalSocket();
+            try {
+                candidate.connect(new LocalSocketAddress(appPackage() + ".dish",
+                        LocalSocketAddress.Namespace.ABSTRACT));
+                return candidate;
+            } catch (IOException e) {
+                try {
+                    candidate.close();
+                } catch (IOException ignored) {
+                }
+            }
+            if (attempt == 0) wakeApp();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ignored) {
+            }
+        }
+        return null;
+    }
+
+    private static void wakeApp() {
+        String pkg = appPackage();
+        try {
+            java.lang.Process process = new ProcessBuilder(
+                    "/system/bin/am", "broadcast",
+                    "-n", pkg + "/com.EdS.DhizukuF.dish.DishWakeReceiver")
+                    .redirectErrorStream(true).start();
+            drain(process.getInputStream());
+            process.waitFor();
+        } catch (Exception ignored) {
         }
     }
 

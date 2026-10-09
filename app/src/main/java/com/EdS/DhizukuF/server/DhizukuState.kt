@@ -15,6 +15,7 @@ import com.EdS.DhizukuF.BuildConfig
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.EdS.DhizukuF.data.common.util.has
+import com.EdS.DhizukuF.dish.DishServer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -65,7 +66,16 @@ data object DhizukuState {
         if (current.isOwner) onEnabled(context, dpm, admin)
         else onDisabled(context, dpm, admin)
 
+        syncDishServer(current.isOwner)
         autoDaemonService(context, current.isOwner)
+    }
+
+    private fun syncDishServer(isOwner: Boolean) {
+        try {
+            if (isOwner) DishServer.start() else DishServer.stop()
+        } catch (t: Throwable) {
+            Log.w("DhizukuState", "dish server toggle failed", t)
+        }
     }
 
     private fun onEnabled(context: Context, dpm: DevicePolicyManager, admin: ComponentName) {

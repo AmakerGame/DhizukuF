@@ -46,9 +46,6 @@ import com.EdS.DhizukuF.data.common.util.signature
 import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
-import com.EdS.DhizukuF.dish.DishApproval
-import com.EdS.DhizukuF.dish.DishDecision
-import com.EdS.DhizukuF.dish.DishRequests
 import com.rosan.dhizuku.shared.DhizukuVariables
 import com.EdS.DhizukuF.ui.theme.DhizukuTheme
 import kotlinx.coroutines.CoroutineScope
@@ -73,12 +70,8 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         val listener: IDhizukuRequestPermissionListener? = null,
         val timeLeft: Int = AUTO_DENY_SECONDS,
         val timedOut: Boolean = false,
-        val shouldShowDialog: Boolean = false,
-        /** The checks in onCreate are finished and [shouldShowDialog] is final. */
-        val ready: Boolean = false,
-        /** The user (or the timeout) answered, so the stored entry must be updated. */
-        val decided: Boolean = false,
-        val blocked: Boolean = false
+        val shouldShowDialog: Boolean = true,
+        val block: Boolean = false
     )
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
@@ -93,72 +86,62 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
             return
         }
 
-        // Check if dhizuku is enabled, the app is not blocked and the window is wanted
+        // Check if dhizuku is enabled and app is not blocked
         coroutineScope.launch {
-            val hide = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false, ready = true)
-
             if (!settingsRepo.isDhizukuEnabled) {
-                state = hide
+                state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
+                finish()
                 return@launch
             }
 
             val entity = appRepo.findByUID(state.uid)
 
+            if (settingsRepo.isWhitelistMode && (entity == null || !entity.allowApi)) {
+                state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
+                finish()
+                return@launch
+            }
+
             if (entity?.blocked == true) {
-                state = hide
+                state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
+                finish()
                 return@launch
             }
 
             if (entity?.allowApi == true && entity.signature == state.signature) {
-                state = state.copy(allowApi = true, timedOut = false, shouldShowDialog = false, ready = true)
+                state = state.copy(allowApi = true, timedOut = false, shouldShowDialog = false)
+                finish()
                 return@launch
             }
 
-            if (settingsRepo.isWhitelistMode && (entity == null || !entity.allowApi)) {
-                state = hide
+            if (!settingsRepo.isConfirmationWindow) {
+                // No dialog: the app is only registered in the list (switch off) and denied for
+                // now. It can be enabled from DhizukuF > App management.
+                state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
+                finish()
                 return@launch
             }
-
-            // "Confirmation window" switched off: do not ask, the app stays in the
-            // app list (switch off) and can be allowed from there.
-            if (!settingsRepo.isConfirmationDialog) {
-                state = hide
-                return@launch
-            }
-
-            state = state.copy(shouldShowDialog = true, ready = true)
         }
 
         setContent {
             DhizukuTheme {
-                if (state.ready && state.shouldShowDialog) {
+                if (state.shouldShowDialog) {
                     LaunchedEffect(Unit) {
                         repeat(AUTO_DENY_SECONDS) { second ->
                             delay(1000)
                             state = state.copy(timeLeft = AUTO_DENY_SECONDS - second - 1)
                         }
                         if (!state.timedOut) {
-                            decide(DishDecision.DENY)
+                            state = state.copy(allowApi = false, timedOut = true)
+                            finish()
                         }
                     }
-                    if (!showDialog()) finish()
-                } else if (state.ready) {
-                    LaunchedEffect(Unit) { finish() }
                 }
+
+                if (state.shouldShowDialog && !showDialog()) finish()
+                if (!state.shouldShowDialog) finish()
             }
         }
-    }
-
-    private fun decide(decision: DishDecision) {
-        val uid = state.uid
-        state = state.copy(
-            allowApi = decision == DishDecision.ALLOW,
-            blocked = decision == DishDecision.BLOCK,
-            timedOut = true,
-            decided = true
-        )
-        if (uid != UID_ERR) DishApproval.publish(uid, decision)
-        finish()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -177,39 +160,25 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
 
         coroutineScope.launch {
             val uid = state.uid
+            val allowApi = state.allowApi
             val packageInfo = packageManager.getPackageInfoForUid(uid) ?: return@launch
             val signature = packageInfo.signature ?: return@launch
 
             val entity = appRepo.findByUID(uid)
-            when {
-                entity == null -> appRepo.insert(
-                    AppEntity(
-                        uid = uid,
-                        signature = signature,
-                        allowApi = state.allowApi,
-                        blocked = state.blocked
-                    )
+            if (entity == null)
+                appRepo.insert(
+                    AppEntity(uid = uid, signature = signature, allowApi = allowApi, blocked = state.block)
                 )
-
-                state.decided -> appRepo.update(
+            else
+                appRepo.update(
                     entity.copy(
                         uid = uid,
                         signature = signature,
-                        allowApi = state.allowApi,
-                        blocked = state.blocked || (entity.blocked && !state.allowApi),
-                        modifiedAt = System.currentTimeMillis()
+                        allowApi = allowApi,
+                        blocked = entity.blocked || state.block
                     )
                 )
-
-                // Closed without an answer: never touch an existing approval, except
-                // when the app was replaced by one with another signature.
-                entity.signature != signature ->
-                    appRepo.update(entity.copy(signature = signature, allowApi = false))
-
-                else -> Unit
-            }
         }.invokeOnCompletion {
-            if (state.decided) DishRequests.cancel(applicationContext, state.uid)
             val result = if (state.allowApi) PackageManager.PERMISSION_GRANTED
             else PackageManager.PERMISSION_DENIED
             state.listener?.onRequestPermission(result)
@@ -393,13 +362,22 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                     }
                 }
                 MyTextButton(onClick = {
-                    decide(DishDecision.ALLOW)
+                    state = state.copy(allowApi = true, timedOut = true)
+                    finish()
                 }, textResId = R.string.agree, isPrimary = true)
                 MyTextButton(onClick = {
-                    decide(DishDecision.DENY)
+                    if (state.uid != UID_ERR) {
+                        com.EdS.DhizukuF.dish.DishApproval.results[state.uid] = false
+                    }
+                    state = state.copy(allowApi = false, timedOut = true)
+                    finish()
                 }, textResId = R.string.refuse)
                 MyTextButton(onClick = {
-                    decide(DishDecision.BLOCK)
+                    if (state.uid != UID_ERR) {
+                        com.EdS.DhizukuF.dish.DishApproval.results[state.uid] = false
+                    }
+                    state = state.copy(allowApi = false, timedOut = true, block = true)
+                    finish()
                 }, textResId = R.string.block)
             }
         })
