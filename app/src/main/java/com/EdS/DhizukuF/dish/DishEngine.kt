@@ -74,15 +74,8 @@ object DishEngine : KoinComponent {
             Verdict.NeedPermission -> {
                 DishApproval.results.remove(uid)
                 launchDialog(context, uid)
-                val name = label(context, uid)
-                Reply(
-                    KIND_NEED_APPROVAL,
-                    message = if (settingsRepo.isConfirmationWindow) {
-                        str(context, R.string.dish_need_permission, name)
-                    } else {
-                        str(context, R.string.dish_need_permission_list, name)
-                    }
-                )
+                val name = DishRegistry.displayName(uid, label(context, uid))
+                Reply(KIND_NEED_APPROVAL, message = str(context, R.string.dish_need_permission, name))
             }
         }
     }

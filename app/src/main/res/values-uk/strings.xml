@@ -89,7 +89,9 @@
     <string name="dish_export_failed">Не вдалося експортувати файли dish</string>
     <string name="dish_export_done_title">Файли dish експортовано</string>
     <string name="dish_export_done_dsp">Скопіюйте обидва файли в папку, звідки ваш термінал може запускати скрипти, і запустіть dish:\n\nTermux (один раз виконайте termux-setup-storage):\ncp /sdcard/ШЛЯХ_ДО_ПАПКИ/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (з комп\'ютера):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nБудь-який інший термінал: sh /шлях/до/dish help\n\nТримайте обидва файли разом. Під час першого запуску DhizukuF попросить підтвердити доступ, як і для будь-якого іншого додатка. Команди працюють, лише коли DhizukuF є власником пристрою.</string>
-    <string name="confirmation_window">Вікно підтвердження</string>
-    <string name="confirmation_window_desc">Запитувати підтвердження, перш ніж додаток зможе використовувати Dhizuku</string>
     <string name="block">Заблокувати</string>
+    <string name="advanced_confirmation">Розширене вікно підтвердження</string>
+    <string name="advanced_confirmation_desc">Додає до вікна підтвердження кнопку «Заблокувати», щоб одразу заблокувати додаток</string>
+    <string name="show_dish_label">Показувати dish</string>
+    <string name="show_dish_label_desc">Позначає термінали, які використовують dish, наприклад Termux (dish), у вікні підтвердження та в «Керуванні додатками». Якщо вимкнено, показується лише Termux</string>
 </resources>

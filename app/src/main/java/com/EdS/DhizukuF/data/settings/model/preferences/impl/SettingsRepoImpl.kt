@@ -25,13 +25,22 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override fun flowDonateButtonHidden(): Flow<Boolean> =
         prefs.asFlow("donate_button_hidden", false)
 
-    override fun flowConfirmationWindow(): Flow<Boolean> =
-        prefs.asFlow("confirmation_window", true)
+    override fun flowShowDishLabel(): Flow<Boolean> =
+        prefs.asFlow("show_dish_label", true)
 
-    override var isConfirmationWindow: Boolean
-        get() = prefs.getBoolean("confirmation_window", true)
+    override fun flowAdvancedConfirmation(): Flow<Boolean> =
+        prefs.asFlow("advanced_confirmation", false)
+
+    override var isShowDishLabel: Boolean
+        get() = prefs.getBoolean("show_dish_label", true)
         set(value) = prefs.edit(true) {
-            putBoolean("confirmation_window", value)
+            putBoolean("show_dish_label", value)
+        }
+
+    override var isAdvancedConfirmation: Boolean
+        get() = prefs.getBoolean("advanced_confirmation", false)
+        set(value) = prefs.edit(true) {
+            putBoolean("advanced_confirmation", value)
         }
 
     override var isWhitelistMode: Boolean

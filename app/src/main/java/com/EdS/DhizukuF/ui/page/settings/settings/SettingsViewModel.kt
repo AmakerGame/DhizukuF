@@ -27,8 +27,13 @@ class SettingsViewModel : ViewModel(), KoinComponent {
             }
         }
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.flowConfirmationWindow().collect { confirmationWindow ->
-                state = state.copy(confirmationWindow = confirmationWindow)
+            settingsRepo.flowShowDishLabel().collect { showDishLabel ->
+                state = state.copy(showDishLabel = showDishLabel)
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.flowAdvancedConfirmation().collect { advancedConfirmation ->
+                state = state.copy(advancedConfirmation = advancedConfirmation)
             }
         }
         viewModelScope.launch(Dispatchers.IO) {
@@ -38,9 +43,15 @@ class SettingsViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun setConfirmationWindow(enabled: Boolean) {
+    fun setShowDishLabel(enabled: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.isConfirmationWindow = enabled
+            settingsRepo.isShowDishLabel = enabled
+        }
+    }
+
+    fun setAdvancedConfirmation(enabled: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.isAdvancedConfirmation = enabled
         }
     }
 

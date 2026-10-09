@@ -2,6 +2,7 @@ package com.EdS.DhizukuF.dish
 
 import android.content.Context
 import androidx.core.content.edit
+import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -12,6 +13,7 @@ import org.koin.core.component.inject
 object DishRegistry : KoinComponent {
     private const val PREFIX = "uid_"
     private val context by inject<Context>()
+    private val settingsRepo by inject<SettingsRepo>()
 
     private val prefs by lazy {
         context.getSharedPreferences("dish_registry", Context.MODE_PRIVATE)
@@ -31,9 +33,9 @@ object DishRegistry : KoinComponent {
             uid to (value as? String ?: "")
         }.toMap()
 
-    /** Name shown in the list: "dish (Termux)". */
+    /** Name shown in the list and in the dialog: "Termux (dish)", or plain "Termux" when disabled. */
     fun displayName(uid: Int, appLabel: String?): String {
         val label = appLabel?.takeIf { it.isNotBlank() } ?: prefs.getString(PREFIX + uid, null) ?: "uid $uid"
-        return "dish ($label)"
+        return if (settingsRepo.isShowDishLabel) "$label (dish)" else label
     }
 }

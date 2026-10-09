@@ -11,10 +11,12 @@ the same way `rish` works for Shizuku.
    - anything else: `sh /path/to/dish`
 3. Run `dish` (interactive), `dish help`, or `dish -c "status"`.
 4. The first run sends a registration request: the terminal appears in **DhizukuF > App management**
-   as `dish (<terminal app>)` with the switch off. If **Settings > Confirmation window** is on
-   (default) the usual dialog opens with Allow / Deny / Block; otherwise flip the switch in the list.
-   dish waits up to 60 seconds. Later the entry can be blocked or revoked from the same list.
-   If the DhizukuF process was killed or stopped, dish wakes it up automatically.
+   (switch off) and the usual approval dialog opens, e.g. "Allow Termux (dish) to use Dhizuku?".
+   dish waits up to 60 seconds; you can also flip the switch in the list. Later the entry can be
+   blocked or revoked from the same list.
+
+   Settings: **Show dish** (default on) adds the `(dish)` mark to the name in the dialog and in
+   App management; **Advanced confirmation window** (default off) adds a Block button to the dialog.
 
 All dish console output is English only.
 

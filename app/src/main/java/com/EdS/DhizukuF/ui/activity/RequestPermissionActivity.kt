@@ -44,6 +44,7 @@ import com.rosan.dhizuku.aidl.IDhizukuRequestPermissionListener
 import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
 import com.EdS.DhizukuF.data.common.util.signature
 import com.EdS.DhizukuF.dish.DishApproval
+import com.EdS.DhizukuF.dish.DishRegistry
 import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
@@ -112,14 +113,6 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
 
             if (entity?.allowApi == true && entity.signature == state.signature) {
                 state = state.copy(allowApi = true, timedOut = false, shouldShowDialog = false)
-                finish()
-                return@launch
-            }
-
-            if (!settingsRepo.isConfirmationWindow) {
-                // No dialog: the app is only registered in the list (switch off) and denied for
-                // now. It can be enabled from DhizukuF > App management.
-                state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
                 finish()
                 return@launch
             }
@@ -277,8 +270,12 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         val applicationInfo = packageInfo.applicationInfo
         val icon = applicationInfo?.loadIcon(packageManager)
             ?: packageManager.defaultActivityIcon
-        val label = applicationInfo?.loadLabel(packageManager)
+        val appLabel = applicationInfo?.loadLabel(packageManager)
             ?: packageName
+        // "Termux (dish)" for terminals that use dish (can be turned off in settings)
+        val label: CharSequence = if (DishRegistry.isDish(uid)) {
+            DishRegistry.displayName(uid, appLabel.toString())
+        } else appLabel
 
         val titleText = androidx.compose.runtime.remember(label) {
             AnnotatedString.fromHtml(
@@ -374,13 +371,15 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                     state = state.copy(allowApi = false, timedOut = true)
                     finish()
                 }, textResId = R.string.refuse)
-                MyTextButton(onClick = {
-                    if (state.uid != UID_ERR) {
-                        DishApproval.results[state.uid] = false
-                    }
-                    state = state.copy(allowApi = false, timedOut = true, block = true)
-                    finish()
-                }, textResId = R.string.block)
+                if (settingsRepo.isAdvancedConfirmation) {
+                    MyTextButton(onClick = {
+                        if (state.uid != UID_ERR) {
+                            DishApproval.results[state.uid] = false
+                        }
+                        state = state.copy(allowApi = false, timedOut = true, block = true)
+                        finish()
+                    }, textResId = R.string.block)
+                }
             }
         })
         return true

@@ -114,8 +114,9 @@
     <string name="dish_disabled" translatable="false">disabled</string>
     <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_help" translatable="false">"Device Owner console (dish)\n\nUsage: dish [command [args]]    (no command = interactive mode)\n       dish -c \"command args\"\n\nGeneral:\n  help                          show this help\n  status                        show DhizukuF owner status\n  lock                          lock the screen now\n  reboot                        reboot the device\n\nApps:\n  hide|unhide PKG               hide / unhide an app\n  is-hidden PKG\n  suspend|unsuspend PKG...      suspend / unsuspend apps\n  block-uninstall|allow-uninstall PKG\n  is-uninstall-blocked PKG\n  permission grant|deny|default|get PKG PERMISSION\n\nRestrictions and policies:\n  restriction add|clear NAME    e.g. no_install_apps\n  restriction list\n  camera disable|enable|status\n  screen-capture disable|enable|status\n\nSettings:\n  settings get|put global|secure NAME [VALUE]\n  timezone ID\n\nAdvanced:\n  call --list                   list DevicePolicyManager methods\n  call METHOD [ARGS...]         call any DevicePolicyManager method as Device Owner\n                                (the admin argument is added automatically;\n                                destructive calls such as wipe are blocked)\n"</string>
-    <string name="confirmation_window">Confirmation window</string>
-    <string name="confirmation_window_desc">Ask before an app can use Dhizuku</string>
     <string name="block">Block</string>
-    <string name="dish_need_permission_list" translatable="false">%1$s was registered in DhizukuF &gt; App management. Enable it there to continue…</string>
+    <string name="advanced_confirmation">Advanced confirmation window</string>
+    <string name="advanced_confirmation_desc">Adds a Block button to the confirmation window, so an app can be blocked right away</string>
+    <string name="show_dish_label">Show dish</string>
+    <string name="show_dish_label_desc">Marks terminals that use dish, for example Termux (dish), in the confirmation window and in App management. When off, only Termux is shown</string>
 </resources>
