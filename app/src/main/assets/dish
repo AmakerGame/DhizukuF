@@ -33,7 +33,12 @@ if [ $# -eq 0 ]; then
   # prompt is shown. The first run also shows the approval window.
   # Set DISH_SKIP_CHECK=1 to skip this check.
   if [ -z "$DISH_SKIP_CHECK" ]; then
-    run -c ping || exit $?
+    run -c ping
+    rc=$?
+    if [ $rc -ne 0 ]; then
+      echo "dish: access check failed - the console was not started." >&2
+      exit $rc
+    fi
   fi
   if [ -t 0 ]; then export DISH_TTY=1; fi
   exec "$APP_PROCESS" -Djava.class.path="$DEX" /system/bin --nice-name=dish com.EdS.DhizukuF.dish.DishMain
