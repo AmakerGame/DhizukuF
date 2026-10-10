@@ -14,6 +14,8 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -155,7 +157,7 @@ fun HomePage(
             if (dhizukuState.isOwner) item("dhizuku") {
                 DhizukuWidget(navController)
             }
-            if (dhizukuState.isOwner) item("dish") {
+            item("dish") {
                 DishWidget()
             }
             if (!dhizukuState.isOwner) item("shizuku") {
@@ -328,6 +330,7 @@ private fun LazyItemScope.DishWidget() {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var doneDialogShow by remember { mutableStateOf(false) }
+    var helpDialogShow by remember { mutableStateOf(false) }
 
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
         if (uri == null) return@rememberLauncherForActivityResult
@@ -344,18 +347,48 @@ private fun LazyItemScope.DishWidget() {
         }
     }
 
-    CardWidget(icon = {
+    CardWidget(onClick = { helpDialogShow = true }, icon = {
         Icon(imageVector = Icons.TwoTone.Terminal, contentDescription = null)
     }, title = {
         Text(stringResource(R.string.home_dish_title))
     }, content = {
         Text(stringResource(R.string.home_dish_dsp))
+        val ownerState = DhizukuState.state
+        if (!ownerState.isOwner) {
+            Text(
+                stringResource(R.string.home_dish_need_owner),
+                color = MaterialTheme.colorScheme.error
+            )
+        } else if (!ownerState.isDeviceOwner) {
+            Text(stringResource(R.string.home_dish_profile_owner_note))
+        }
         TextButton(onClick = { picker.launch(null) }) {
             Icon(imageVector = Icons.TwoTone.Code, contentDescription = null)
             Spacer(Modifier.size(ButtonDefaults.IconSpacing))
             Text(stringResource(R.string.home_dish_btn_export))
         }
     })
+
+    if (helpDialogShow) {
+        AlertDialog(onDismissRequest = { helpDialogShow = false }, confirmButton = {
+            TextButton(onClick = {
+                helpDialogShow = false
+                picker.launch(null)
+            }) {
+                Text(stringResource(R.string.home_dish_btn_export))
+            }
+        }, dismissButton = {
+            TextButton(onClick = { helpDialogShow = false }) {
+                Text(stringResource(R.string.confirm))
+            }
+        }, title = {
+            Text(stringResource(R.string.home_dish_help_title))
+        }, text = {
+            Column(Modifier.verticalScroll(rememberScrollState())) {
+                Text(stringResource(R.string.home_dish_help_text))
+            }
+        })
+    }
 
     if (doneDialogShow) {
         AlertDialog(onDismissRequest = { doneDialogShow = false }, confirmButton = {

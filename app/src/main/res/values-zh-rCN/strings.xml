@@ -77,4 +77,26 @@
     <string name="donate_hide_confirm_title">隐藏捐赠按钮</string>
     <string name="donate_hide_confirm_dsp">此操作无法在应用内撤销。确定要永久隐藏捐赠按钮吗？</string>
     <string name="home_status_owner_transferred">%1$s已转移！！！</string>
+    <string name="error_occurred">发生错误：%1$s</string>
+    <string name="error_remove_user">无法移除用户 %1$s</string>
+    <string name="error_set_device_owner">无法设置设备所有者。请确保设备上没有任何账户。</string>
+    <string name="error_set_profile_owner">无法设置资料所有者。请检查系统配置。</string>
+    <string name="error_shizuku_not_work">请激活 Shizuku 并授予权限请求</string>
+    <string name="home_dish_title">终端 (dish)</string>
+    <string name="home_dish_dsp">像 Shizuku 的 rish 一样，在任意终端（Termux、adb shell 等）中运行设备所有者命令。导出 dish 和 dish_dhizukuf.dex 文件后启动 dish。</string>
+    <string name="home_dish_btn_export">导出 dish 文件</string>
+    <string name="dish_export_failed">无法导出 dish 文件</string>
+    <string name="dish_export_done_title">已导出 dish 文件</string>
+    <string name="dish_export_done_dsp">将两个文件复制到终端可以运行脚本的文件夹，然后启动 dish：\n\nTermux（运行一次 termux-setup-storage）：\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb（在电脑上）：\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\n其他终端： sh /path/to/dish help\n\n请将两个文件放在一起。首次运行时，DhizukuF 会像其他应用一样请您批准访问。大多数命令需要 DhizukuF 为设备所有者（对资料所有者的支持有限）。</string>
+    <string name="block">屏蔽</string>
+    <string name="advanced_confirmation">高级确认窗口</string>
+    <string name="advanced_confirmation_desc">在确认窗口中添加屏蔽按钮，可立即屏蔽应用</string>
+    <string name="show_dish_label">显示 dish</string>
+    <string name="show_dish_label_desc">在确认窗口和应用管理中标记使用 dish 的终端，例如 Termux (dish)。关闭时仅显示 Termux</string>
+    <string name="enable_dish">启用 dish</string>
+    <string name="enable_dish_desc">允许终端使用设备所有者控制台 (dish)</string>
+    <string name="home_dish_need_owner">DhizukuF 尚未成为设备所有者或资料所有者，因此 dish 会拒绝命令。请先激活 DhizukuF。您仍可导出 dish 文件。</string>
+    <string name="home_dish_profile_owner_note">资料所有者模式：dish 可以运行，但需要完整设备所有者的命令（reboot、adb、timezone、私人 DNS 等）不可用。</string>
+    <string name="home_dish_help_title">如何使用 dish</string>
+    <string name="home_dish_help_text">dish 不是此应用内的终端，而是命令行工具：先导出文件，再在终端应用（推荐 Termux）中运行 dish。\n\n1. 点按“导出 dish 文件”并选择一个文件夹。\n2. 在 Termux 中运行一次 termux-setup-storage，将 dish 和 dish_dhizukuf.dex 复制到 $PREFIX/bin，然后运行 chmod +x $PREFIX/bin/dish。\n3. 输入 dish 打开控制台，或输入 dish help 查看命令。\n\n首次运行时，DhizukuF 会请您批准访问。</string>
 </resources>

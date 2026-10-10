@@ -55,8 +55,29 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         if (a.size < n) throw UsageException(usage)
     }
 
+    private fun isDeviceOwner() = dpm.isDeviceOwnerApp(context.packageName)
+
+    private fun isProfileOwner() = dpm.isProfileOwnerApp(context.packageName)
+
+    private fun modeName() = when {
+        isDeviceOwner() -> "Device Owner"
+        isProfileOwner() -> "Profile Owner"
+        else -> "not an owner"
+    }
+
+    /** Answer for a command that works only when DhizukuF is the Device Owner. */
+    private fun needsDeviceOwner(what: String) = notDone(
+        "$what needs Device Owner, but DhizukuF is ${modeName()}. " +
+            "Make DhizukuF the Device Owner to use it."
+    )
+
     private fun fail(t: Throwable): Result {
-        val hint = if (t is SecurityException) " (the system did not allow this for Device Owner)" else ""
+        val hint = when {
+            t !is SecurityException -> ""
+            isProfileOwner() && !isDeviceOwner() ->
+                " (DhizukuF is Profile Owner; this call probably needs Device Owner)"
+            else -> " (the system did not allow this for Device Owner)"
+        }
         return notDone("${t.javaClass.simpleName}: ${t.message ?: ""}$hint")
     }
 
@@ -75,7 +96,15 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         }
     }
 
-    private fun dispatch(cmd: String, a: List<String>, raw: String): Result = when (cmd) {
+    private fun dispatch(cmd: String, a: List<String>, raw: String): Result {
+        // Commands that change device-wide state work only for the Device Owner. Reading a value
+        // (status / get) is still tried in Profile Owner mode.
+        val readOnly = a.firstOrNull() in setOf("status", "get")
+        if (cmd in DEVICE_OWNER_ONLY && !readOnly && !isDeviceOwner()) return needsDeviceOwner(cmd)
+        return runCommand(cmd, a, raw)
+    }
+
+    private fun runCommand(cmd: String, a: List<String>, raw: String): Result = when (cmd) {
         "help", "-h", "--help", "?" -> help(a)
         "ping" -> Result()
         "version", "-v", "--version" -> version()
@@ -224,10 +253,14 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         if (a.isEmpty()) {
             val sb = StringBuilder()
             sb.append("dish - Device Owner console\n")
-            sb.append("help COMMAND shows what a command does. api = direct calls.\n\n")
+            sb.append("help COMMAND shows what a command does. api = direct calls.\n")
+            sb.append("Mode: ${modeName()}\n\n")
             for ((group, items) in ENTRIES.groupBy { it.group }) {
-                sb.append(group).append(":\n  ").append(items.joinToString(" ") { it.name }).append("\n")
+                sb.append(group).append(":\n  ")
+                    .append(items.joinToString(" ") { it.name + if (it.name in DEVICE_OWNER_ONLY) "*" else "" })
+                    .append("\n")
             }
+            sb.append("\n* needs Device Owner (not available in Profile Owner mode)\n")
             return Result(out = sb.toString())
         }
         val key = when (val k = a[0].lowercase(Locale.ROOT)) {
@@ -241,6 +274,10 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         sb.append(e.name).append(" - ").append(e.desc).append("\n")
         sb.append("Usage: ").append(e.usage).append("\n")
         if (e.example != null) sb.append("Example: ").append(e.example).append("\n")
+        val note = OWNER_NOTES[e.name]
+            ?: if (e.name in DEVICE_OWNER_ONLY) "Device Owner only (status/get still work in Profile Owner mode)"
+            else "Device Owner and Profile Owner (in Profile Owner mode it affects the managed profile only)"
+        sb.append("Needs: ").append(note).append("\n")
         return Result(out = sb.toString())
     }
 
@@ -257,8 +294,10 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         val adminName = runCatching { admin.flattenToShortString() }.getOrDefault("?")
         return Result(
             out = "DhizukuF: ${context.packageName} ${appVersion()}\n" +
-                "Device owner: ${yesNo(dpm.isDeviceOwnerApp(context.packageName))}\n" +
-                "Profile owner: ${yesNo(dpm.isProfileOwnerApp(context.packageName))}\n" +
+                "Mode: ${modeName()}\n" +
+                "Device owner: ${yesNo(isDeviceOwner())}\n" +
+                "Profile owner: ${yesNo(isProfileOwner())}\n" +
+                (if (isDeviceOwner()) "" else "Limited: commands marked * in help need Device Owner\n") +
                 "Admin component: $adminName\n" +
                 "Android: ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\n"
         )
@@ -634,6 +673,7 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
 
             "put" -> {
                 need(a, 4, usage)
+                if (space == "global" && !isDeviceOwner()) return needsDeviceOwner("settings put global")
                 if (space == "global") dpm.setGlobalSetting(admin, name, a[3])
                 else dpm.setSecureSetting(admin, name, a[3])
                 val now = readSetting(space, name)
@@ -938,6 +978,23 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
                     "Args: plain text is converted to the parameter type; typed forms s: i: l: f: d: b: " +
                     "cn:pkg/class strs:a,b ints:1,2 null @admin. Wipe and ownership changes are blocked.",
                 "api setLockTaskPackages strs:com.a,com.b")
+        )
+
+        /** Commands that change device-wide state: Device Owner only. */
+        private val DEVICE_OWNER_ONLY = setOf(
+            "reboot", "adb", "stay-awake", "timezone", "private-dns",
+            "keyguard", "status-bar", "owner-info", "auto-time", "auto-timezone"
+        )
+
+        private val OWNER_NOTES = mapOf(
+            "settings" to "Device Owner for: settings put global. Other forms work in both modes",
+            "api" to "depends on the method; many DevicePolicyManager methods need Device Owner",
+            "help" to "nothing special",
+            "ping" to "Device Owner or Profile Owner",
+            "version" to "nothing special",
+            "id" to "nothing special",
+            "device" to "nothing special",
+            "status" to "Device Owner or Profile Owner"
         )
 
         /** command name -> usage, used for errors and hints. */

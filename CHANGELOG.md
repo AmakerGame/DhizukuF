@@ -3,6 +3,30 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## 1.1.0-pre1 (2) — pre-release
+
+### Added
+- Tapping the **Terminal (dish)** card opens a short "How to use dish" dialog: dish is not a terminal
+  inside the app, export the files, run dish in a terminal app (best in Termux), and the three steps.
+  It has an *Export dish files* button.
+
+### Changed
+- Device Owner vs Profile Owner: `status` shows the mode; commands that need the Device Owner answer
+  `NOT DONE: ... needs Device Owner, but DhizukuF is Profile Owner`; `help` marks them with `*`
+  and `help COMMAND` has a `Needs:` line. `SecurityException` answers mention the mode.
+
+### Translations
+- All missing strings are now translated into every language of the app, including the dish
+  texts, user and account management and error messages (except Manchu `mnc`, which stays in
+  English where no translation exists). Hausa (`ha`) was empty and is now fully translated.
+  These translations were prepared without native review; corrections are welcome.
+
+### Fixed
+- The **Terminal (dish)** card was shown only when DhizukuF was already an owner, so on a device that
+  was not (yet) an owner, or had not refreshed its state, it looked missing. It is now always shown.
+  Without an owner it explains that dish will refuse commands; in Profile Owner mode it notes that
+  commands needing the Device Owner are unavailable.
+
 ## 1.0.0 (1)
 
 ### Added

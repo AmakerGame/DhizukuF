@@ -1,40 +1,33 @@
-## DhizukuF v1.0.0 (1) — first release
+## DhizukuF v1.1.0-pre1 (2) — pre-release
 
-First public release of **DhizukuF**, a fork of [Dhizuku](https://github.com/iamr0s/Dhizuku) based on
-upstream 2.13.0. It shares Android **Device Owner** permissions with other apps, and adds **dish**:
-a Device Owner console you can use from any terminal (Termux, `adb shell`, any shell app), like
-`rish` for Shizuku.
+A pre-release for testing. Please report problems in [Issues](https://github.com/AmakerGame/DhizukuF/issues).
 
-### Highlights
+### What's new
 
-- **dish terminal** — export `dish` and `dish_dhizukuf.dex` from the *Terminal (dish)* card and run
-  Device Owner commands from any shell. Guide: [docs/DISH.md](docs/DISH.md).
-- **~50 commands** — hide / suspend / block uninstall, permissions, clear data, restrictions,
-  camera, screen capture, keyguard, ADB, private DNS, settings, device info and more.
-  `help` lists the names, `help COMMAND` explains one.
-- **Direct API** — `dish api METHOD ARGS...` calls any public `DevicePolicyManager` method by name,
-  with typed arguments. No rebuild needed.
-- **Clear answers** — every command ends with `OK: ...` or `NOT DONE: ...` and the reason. Changes
-  are checked by reading the value back.
-- **Safe start** — access is checked before the prompt (`dish$ `) appears. If dish is off, DhizukuF
-  is not the Device Owner, or you refuse the request, the console does not start.
-- **Enable dish** switch next to **Enable Dhizuku**; the two work independently.
-- **Approval window for terminals** — a terminal appears in *App management* as `Termux (dish)`;
-  optional *Advanced confirmation window* with a Block button.
+- **"How to use dish" dialog** — tap the *Terminal (dish)* card to see what dish is and how to start it:
+  dish is not a terminal inside the app, it is a command-line tool. Export the files, then run
+  `dish` in a terminal app, best of all in **Termux**. The dialog has an *Export dish files* button.
+- **Device Owner / Profile Owner aware** — `dish status` shows the mode. In Profile Owner mode,
+  commands that need the full Device Owner (`reboot`, `adb`, `timezone`, `private-dns`, ...) say so
+  clearly; `dish help` marks them with `*` and `dish help COMMAND` has a `Needs:` line.
+- **dish card always visible** — it explains the owner mode: not an owner yet, or Profile Owner.
+- **Translations** — every missing string is now translated into all languages of the app (Manchu
+  excepted); Hausa is new. Translations are not natively reviewed — corrections are welcome.
 
-### Fixed
+### Notes
 
-- User management: long user names were wrapped letter by letter; the account manager label now sits
-  under the user ID.
+- Existing dish users: export the dish files again to get the latest launcher and client.
+- Commands that change device-wide state need DhizukuF to be the **Device Owner**; Profile Owner
+  support is limited.
 
 ### Install
 
-1. Download `DhizukuF-v1.0.0.apk` below and install it (application ID `com.EdS.DhizukuF`).
+1. Download `DhizukuF-v1.1.0-pre1.apk` below and install it (application ID `com.EdS.DhizukuF`).
 2. Make DhizukuF the Device Owner — see the
    [Dhizuku activation tutorial](https://github.com/iamr0s/Dhizuku/discussions/19).
    Set the device up **without accounts**, or remove them first.
-3. Open **Terminal (dish)** → **Export dish files**, then follow [docs/DISH.md](docs/DISH.md).
+3. Tap **Terminal (dish)** for instructions, then follow [docs/DISH.md](docs/DISH.md).
 
-Requires Android 8.0 or newer. Existing dish users must export the dish files again.
+Requires Android 8.0 or newer.
 
 Full list of changes: [CHANGELOG.md](CHANGELOG.md).

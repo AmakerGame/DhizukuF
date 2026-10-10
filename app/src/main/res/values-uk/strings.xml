@@ -88,7 +88,7 @@
     <string name="home_dish_btn_export">Експортувати файли dish</string>
     <string name="dish_export_failed">Не вдалося експортувати файли dish</string>
     <string name="dish_export_done_title">Файли dish експортовано</string>
-    <string name="dish_export_done_dsp">Скопіюйте обидва файли в папку, звідки ваш термінал може запускати скрипти, і запустіть dish:\n\nTermux (один раз виконайте termux-setup-storage):\ncp /sdcard/ШЛЯХ_ДО_ПАПКИ/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (з комп\'ютера):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nБудь-який інший термінал: sh /шлях/до/dish help\n\nТримайте обидва файли разом. Під час першого запуску DhizukuF попросить підтвердити доступ, як і для будь-якого іншого додатка. Команди працюють, лише коли DhizukuF є власником пристрою.</string>
+    <string name="dish_export_done_dsp">Скопіюйте обидва файли в папку, звідки ваш термінал може запускати скрипти, і запустіть dish:\n\nTermux (один раз виконайте termux-setup-storage):\ncp /sdcard/ШЛЯХ_ДО_ПАПКИ/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (з комп\'ютера):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nБудь-який інший термінал: sh /шлях/до/dish help\n\nТримайте обидва файли разом. Під час першого запуску DhizukuF попросить підтвердити доступ, як і для будь-якого іншого додатка. Більшість команд потребують, щоб DhizukuF був власником пристрою (підтримка власника профілю обмежена).</string>
     <string name="block">Заблокувати</string>
     <string name="advanced_confirmation">Розширене вікно підтвердження</string>
     <string name="advanced_confirmation_desc">Додає до вікна підтвердження кнопку «Заблокувати», щоб одразу заблокувати додаток</string>
@@ -96,4 +96,8 @@
     <string name="show_dish_label_desc">Позначає термінали, які використовують dish, наприклад Termux (dish), у вікні підтвердження та в «Керуванні додатками». Якщо вимкнено, показується лише Termux</string>
     <string name="enable_dish">Увімкнути dish</string>
     <string name="enable_dish_desc">Дозволити терміналам користуватися консоллю Device Owner (dish)</string>
+    <string name="home_dish_need_owner">DhizukuF ще не є власником пристрою чи профілю, тому dish відхилятиме команди. Спершу активуйте DhizukuF. Файли dish можна експортувати вже зараз.</string>
+    <string name="home_dish_profile_owner_note">Режим власника профілю: dish працює, але команди, що потребують повного власника пристрою (reboot, adb, timezone, private DNS та інші), недоступні.</string>
+    <string name="home_dish_help_title">Як користуватися dish</string>
+    <string name="home_dish_help_text">dish — це не термінал усередині додатка, а інструмент командного рядка: експортуйте файли, а потім запустіть dish у програмі-терміналі, найкраще в Termux.\n\n1. Натисніть «Експортувати файли dish» і виберіть папку.\n2. У Termux один раз виконайте termux-setup-storage, скопіюйте dish і dish_dhizukuf.dex у $PREFIX/bin та виконайте chmod +x $PREFIX/bin/dish.\n3. Введіть dish, щоб відкрити консоль, або dish help, щоб побачити команди.\n\nПід час першого запуску DhizukuF попросить підтвердити доступ.</string>
 </resources>

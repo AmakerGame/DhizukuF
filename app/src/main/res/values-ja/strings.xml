@@ -71,4 +71,27 @@
     <string name="denying_access">アクセスを拒否しています…</string>
     <string name="daemon_service_notification_title">Dhizuku デーモン</string>
     <string name="daemon_service_notification_text">これは Dhizuku のサービスを常時利用可能にするための通知です。長押しするとこの通知を非表示にできます。</string>
+    <string name="home_user_management_dsp">ユーザーとそのアカウントを管理します。</string>
+    <string name="error_occurred">エラーが発生しました: %1$s</string>
+    <string name="error_remove_user">ユーザー %1$s を削除できませんでした</string>
+    <string name="error_set_device_owner">デバイス所有者を設定できませんでした。デバイスにアカウントが存在しないことを確認してください。</string>
+    <string name="error_set_profile_owner">プロファイル所有者を設定できませんでした。システム構成を確認してください。</string>
+    <string name="error_shizuku_not_work">Shizuku を有効にして、権限リクエストを許可してください</string>
+    <string name="home_dish_title">ターミナル (dish)</string>
+    <string name="home_dish_dsp">Shizuku の rish のように、任意のターミナル (Termux、adb shell など) からデバイス所有者コマンドを実行できます。dish と dish_dhizukuf.dex をエクスポートして dish を起動してください。</string>
+    <string name="home_dish_btn_export">dish ファイルをエクスポート</string>
+    <string name="dish_export_failed">dish ファイルをエクスポートできませんでした</string>
+    <string name="dish_export_done_title">dish ファイルをエクスポートしました</string>
+    <string name="dish_export_done_dsp">両方のファイルを、ターミナルでスクリプトを実行できるフォルダにコピーしてから dish を起動してください:\n\nTermux (termux-setup-storage を一度だけ実行):\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (コンピューターから):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nその他のターミナル: sh /path/to/dish help\n\n2 つのファイルは一緒に置いてください。初回実行時、他のアプリと同様に DhizukuF がアクセスの承認を求めます。ほとんどのコマンドは DhizukuF がデバイス所有者である必要があります (プロファイル所有者のサポートは限定的です)。</string>
+    <string name="block">ブロック</string>
+    <string name="advanced_confirmation">詳細確認ウィンドウ</string>
+    <string name="advanced_confirmation_desc">確認ウィンドウにブロックボタンを追加し、アプリをすぐにブロックできるようにします</string>
+    <string name="show_dish_label">dish を表示</string>
+    <string name="show_dish_label_desc">dish を使用するターミナル (例: Termux (dish)) を確認ウィンドウとアプリ管理に表示します。オフの場合は Termux のみ表示されます</string>
+    <string name="enable_dish">dish を有効にする</string>
+    <string name="enable_dish_desc">ターミナルによるデバイス所有者コンソール (dish) の使用を許可します</string>
+    <string name="home_dish_need_owner">DhizukuF はまだデバイス所有者でもプロファイル所有者でもないため、dish はコマンドを拒否します。先に DhizukuF を有効にしてください。dish ファイルのエクスポートは可能です。</string>
+    <string name="home_dish_profile_owner_note">プロファイル所有者モード: dish は動作しますが、完全なデバイス所有者が必要なコマンド (reboot、adb、timezone、プライベート DNS など) は使用できません。</string>
+    <string name="home_dish_help_title">dish の使い方</string>
+    <string name="home_dish_help_text">dish はこのアプリ内のターミナルではなく、コマンドラインツールです。ファイルをエクスポートし、ターミナルアプリ (Termux がおすすめ) で dish を実行してください。\n\n1. 「dish ファイルをエクスポート」をタップしてフォルダを選びます。\n2. Termux で termux-setup-storage を一度実行し、dish と dish_dhizukuf.dex を $PREFIX/bin にコピーして、chmod +x $PREFIX/bin/dish を実行します。\n3. dish と入力するとコンソールが開きます。コマンド一覧は dish help です。\n\n初回実行時、DhizukuF がアクセスの承認を求めます。</string>
 </resources>

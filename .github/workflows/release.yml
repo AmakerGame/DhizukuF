@@ -38,6 +38,7 @@ jobs:
         with:
           files: app/build/outputs/apk/release/DhizukuF-${{ github.ref_name }}.apk
           generate_release_notes: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
           body_path: RELEASE_NOTES.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

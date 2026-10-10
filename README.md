@@ -33,6 +33,8 @@ Compared to upstream Dhizuku (full list in [CHANGELOG.md](CHANGELOG.md)):
   (and other system managers), with typed arguments and no rebuild.
 - **Clear answers** — every command ends with `OK: ...` or `NOT DONE: ...` and the reason; changes
   are verified by reading the value back.
+- **Device Owner / Profile Owner aware** — dish works in both modes; commands that need the full
+  Device Owner say so clearly in Profile Owner mode (see [docs/DISH.md](docs/DISH.md#device-owner-and-profile-owner)).
 - **Safe start** — dish checks access before the prompt appears. If dish is switched off, DhizukuF
   is not the Device Owner, or you refuse the request, the console does not start.
 - **Enable dish** switch in Settings, next to **Enable Dhizuku**. The two are independent.

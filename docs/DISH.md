@@ -23,6 +23,19 @@ the same way `rish` works for Shizuku.
 
 All dish console output is English only.
 
+## Device Owner and Profile Owner
+
+dish works when DhizukuF is the **Device Owner** or the **Profile Owner**, but Profile Owner is a
+limited mode. Commands that change device-wide state need the Device Owner: `reboot`, `adb`,
+`stay-awake`, `timezone`, `private-dns`, `keyguard`, `status-bar`, `owner-info`, `auto-time`,
+`auto-timezone` and `settings put global`. In Profile Owner mode they answer
+`NOT DONE: <command> needs Device Owner, but DhizukuF is Profile Owner.` (reading with `status` or
+`get` still works). App and profile commands (`hide`, `suspend`, `permission`, `restriction`,
+`camera`, ...) work in both modes, but in Profile Owner mode they affect the managed profile only.
+
+`dish status` shows the current mode. In `dish help` commands marked `*` need the Device Owner, and
+`dish help COMMAND` has a `Needs:` line.
+
 ## Answers
 
 Every command says what happened:

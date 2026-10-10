@@ -91,7 +91,7 @@
     <string name="home_dish_btn_export">Export dish files</string>
     <string name="dish_export_failed">Could not export the dish files</string>
     <string name="dish_export_done_title">dish files exported</string>
-    <string name="dish_export_done_dsp">Copy both files to a folder where your terminal can run scripts, then start dish:\n\nTermux (run termux-setup-storage once):\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (from a computer):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nAny other terminal: sh /path/to/dish help\n\nKeep both files together. On the first run DhizukuF asks you to approve access, like for any other app. Commands work only while DhizukuF is the Device Owner.</string>
+    <string name="dish_export_done_dsp">Copy both files to a folder where your terminal can run scripts, then start dish:\n\nTermux (run termux-setup-storage once):\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (from a computer):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nAny other terminal: sh /path/to/dish help\n\nKeep both files together. On the first run DhizukuF asks you to approve access, like for any other app. Most commands need DhizukuF to be the Device Owner (Profile Owner support is limited).</string>
     <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
     <string name="dish_err_disabled" translatable="false">Access check failed: dish is turned off in DhizukuF. Turn on Enable dish in the DhizukuF settings.</string>
@@ -120,4 +120,8 @@
     <string name="show_dish_label_desc">Marks terminals that use dish, for example Termux (dish), in the confirmation window and in App management. When off, only Termux is shown</string>
     <string name="enable_dish">Enable dish</string>
     <string name="enable_dish_desc">Allow terminals to use the Device Owner console (dish)</string>
+    <string name="home_dish_need_owner">DhizukuF is not the Device Owner or Profile Owner yet, so dish will refuse commands. Activate DhizukuF first. You can still export the dish files.</string>
+    <string name="home_dish_profile_owner_note">Profile Owner mode: dish works, but commands that need the full Device Owner (reboot, adb, timezone, private DNS and others) are unavailable.</string>
+    <string name="home_dish_help_title">How to use dish</string>
+    <string name="home_dish_help_text">dish is not a terminal inside this app. It is a command-line tool: export the files, then run dish in a terminal app, best of all in Termux.\n\n1. Tap Export dish files and pick a folder.\n2. In Termux run termux-setup-storage once, copy dish and dish_dhizukuf.dex to $PREFIX/bin and run chmod +x $PREFIX/bin/dish.\n3. Type dish to open the console, or dish help for the commands.\n\nOn the first run DhizukuF asks you to approve access.</string>
 </resources>
