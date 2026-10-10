@@ -825,7 +825,11 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
             ComponentName::class.java -> ComponentName.unflattenFromString(t)
             Array<String>::class.java -> t.split(',').filter { it.isNotEmpty() }.toTypedArray()
             IntArray::class.java -> intList(t)
-            UserHandle::class.java -> t.toIntOrNull()?.let { UserHandle.of(it) }
+            UserHandle::class.java -> t.toIntOrNull()?.let {
+                runCatching {
+                    UserHandle::class.java.getMethod("of", Int::class.javaPrimitiveType).invoke(null, it)
+                }.getOrNull()
+            }
             else -> null
         } ?: NO_MATCH
     }
