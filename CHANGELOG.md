@@ -3,7 +3,7 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
-## Unreleased
+## 1.0.0 (1)
 
 ### Added
 - **Enable dish** switch in Settings, next to **Enable Dhizuku**. dish no longer depends on the
