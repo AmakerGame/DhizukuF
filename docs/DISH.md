@@ -9,22 +9,73 @@ the same way `rish` works for Shizuku.
    - Termux: `cp /sdcard/<folder>/dish* $PREFIX/bin/ && chmod +x $PREFIX/bin/dish`
    - adb: `adb push dish dish_dhizukuf.dex /data/local/tmp/` then `adb shell sh /data/local/tmp/dish`
    - anything else: `sh /path/to/dish`
-3. Run `dish` (interactive), `dish help`, or `dish -c "status"`.
+3. Run `dish` (interactive, prompt `dish$ `), `dish help`, or `dish -c "status"`.
+   Before the prompt appears dish checks access. If dish is off, DhizukuF is not the Device Owner
+   or access is refused, it prints the reason and does not start. (`DISH_SKIP_CHECK=1` skips the check.)
 4. The first run sends a registration request: the terminal appears in **DhizukuF > App management**
    (switch off) and the usual approval dialog opens, e.g. "Allow Termux (dish) to use Dhizuku?".
    dish waits up to 60 seconds; you can also flip the switch in the list. Later the entry can be
    blocked or revoked from the same list.
 
-   Settings: **Show dish** (default on) adds the `(dish)` mark to the name in the dialog and in
+   Settings: **Enable dish** (default on, independent from **Enable Dhizuku**) turns the console on
+   or off; **Show dish** (default on) adds the `(dish)` mark to the name in the dialog and in
    App management; **Advanced confirmation window** (default off) adds a Block button to the dialog.
 
 All dish console output is English only.
 
-Examples: `dish status`, `dish hide com.example.app`, `dish restriction add no_install_apps`,
-`dish camera disable`, `dish settings put global stay_on_while_plugged_in 3`,
-`dish call --list`, `dish call setLockTaskPackages com.example.a,com.example.b`.
+## Answers
 
-Destructive calls (wipe, removing the owner, password reset) are blocked in `dish call`.
+Every command says what happened:
+
+| Answer | Meaning | Exit code |
+|-|-|-|
+| `OK: ...` | The action was done (and verified where possible) | 0 |
+| `NOT DONE: ...` | The system refused or the input was wrong; the reason follows | 1 |
+| `Usage: ...` | Wrong command line | 2 |
+| `Unknown command` | Suggestions are printed | 127 |
+
+## Commands
+
+`help` lists the names only. `help COMMAND` shows what a command does, its usage and an example.
+
+| Group | Commands |
+|-|-|
+| General | `help` `status` `version` `id` `device` `ping` `lock` `reboot` |
+| Apps | `list` `app-info` `hide` `unhide` `is-hidden` `suspend` `unsuspend` `is-suspended` `block-uninstall` `allow-uninstall` `is-uninstall-blocked` `enable-system-app` `install-existing` `clear-data` `permission` `permission-policy` |
+| Restrictions | `restriction` `camera` `screen-capture` `keyguard` `status-bar` `mute` |
+| Device | `adb` `stay-awake` `auto-time` `auto-timezone` `timezone` `private-dns` `owner-info` `org-name` |
+| Settings | `settings get\|put\|list` |
+| API | `api` |
+
+Examples: `dish status`, `dish hide com.example.app`, `dish list hidden`,
+`dish restriction add no_install_apps`, `dish camera disable`, `dish adb status`,
+`dish settings put global stay_on_while_plugged_in 3`.
+
+## Direct API
+
+`dish api` calls any public method by name, so new calls need no rebuild.
+
+```text
+api [--on TARGET] [--no-admin] METHOD [ARG...]
+api --list [TEXT]          find methods whose name contains TEXT
+api --sig METHOD           show every signature of a method
+```
+
+- Default target is `dpm` (`DevicePolicyManager`); the admin argument is added automatically.
+  Other targets: `pm um am audio power wifi conn notif tele`.
+- Plain arguments are converted to the parameter type. Typed forms: `s:text`, `i:5`, `l:5`,
+  `f:1.5`, `d:1.5`, `b:true`, `cn:pkg/class`, `strs:a,b`, `ints:1,2`, `null`, and `@admin` to put
+  the admin component at a specific position.
+- `call` is an alias of `api`.
+
+```sh
+dish api --list lockTask
+dish api setLockTaskPackages strs:com.example.a,com.example.b
+dish api getCameraDisabled
+dish api --on audio getStreamVolume i:3
+```
+
+Destructive calls (wipe, factory reset, removing the owner, password reset) are blocked.
 
 ## Rebuilding the dex
 
