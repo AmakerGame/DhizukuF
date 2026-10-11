@@ -1,5 +1,10 @@
 package com.EdS.DhizukuF.ui.page.settings.user_manager
 
+import com.EdS.DhizukuF.ui.widget.TvTextButton
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.clickable
+import com.EdS.DhizukuF.ui.widget.tvFocusBorder
+import androidx.compose.ui.focus.focusProperties
 import android.os.Process
 import androidx.compose.foundation.layout.size
 import androidx.compose.animation.AnimatedContent
@@ -35,7 +40,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
@@ -130,7 +134,7 @@ fun UserManagerPage(
                                 verticalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
                                 EmptyState(message = errorMsg)
-                                TextButton(onClick = {
+                                TvTextButton(onClick = {
                                     viewModel.dispatch(UserManagerViewAction.Load)
                                 }) {
                                     Text(stringResource(R.string.retry))
@@ -179,7 +183,8 @@ private fun UserCard(
 
     ElevatedCard(
         onClick = { onNavigateToAccount(user.id) },
-        modifier = modifier.fillMaxWidth()
+        // The card keeps touch handling; the D-pad uses the name area and the delete button.
+        modifier = modifier.fillMaxWidth().focusProperties { canFocus = false }
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
@@ -192,7 +197,13 @@ private fun UserCard(
                 modifier = Modifier.size(40.dp),
                 tint = MaterialTheme.colorScheme.primary
             )
-            Column(modifier = Modifier.weight(1f)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .tvFocusBorder(RoundedCornerShape(12.dp))
+                    .clickable { onNavigateToAccount(user.id) }
+                    .padding(4.dp)
+            ) {
                 Text(
                     user.name ?: stringResource(R.string.user_name_default),
                     style = MaterialTheme.typography.titleMedium
@@ -251,7 +262,7 @@ private fun DeleteUserDialog(
         },
         text = { Text(stringResource(R.string.delete_user_warning)) },
         confirmButton = {
-            TextButton(onClick = {
+            TvTextButton(onClick = {
                 viewModel.dispatch(UserManagerViewAction.Remove(user))
                 onDismissRequest()
             }) {
@@ -259,7 +270,7 @@ private fun DeleteUserDialog(
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismissRequest) {
+            TvTextButton(onClick = onDismissRequest) {
                 Text(stringResource(R.string.delete_user_cancel))
             }
         }

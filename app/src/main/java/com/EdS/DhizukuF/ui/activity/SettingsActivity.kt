@@ -1,5 +1,6 @@
 package com.EdS.DhizukuF.ui.activity
 
+import com.EdS.DhizukuF.ui.widget.TvTextButton
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
@@ -23,7 +24,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -123,13 +123,13 @@ class SettingsActivity : ComponentActivity(), KoinComponent {
                 }
             })
         }, dismissButton = {
-            TextButton(onClick = {
+            TvTextButton(onClick = {
                 this@SettingsActivity.finish()
             }) {
                 Text(text = stringResource(id = R.string.cancel))
             }
         }, confirmButton = {
-            TextButton(onClick = {
+            TvTextButton(onClick = {
                 appPrefs.edit(true) {
                     putBoolean("agreement", true)
                 }

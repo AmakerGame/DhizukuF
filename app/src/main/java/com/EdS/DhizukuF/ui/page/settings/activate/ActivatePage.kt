@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF.ui.page.settings.activate
 
+import com.EdS.DhizukuF.ui.widget.TvTextButton
+import androidx.compose.ui.focus.focusProperties
 import android.content.ComponentName
 
 import androidx.compose.animation.AnimatedContent
@@ -46,7 +48,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
@@ -192,7 +193,7 @@ fun ActivatePage(
                                     Text(stringResource(R.string.profile_owner_warning_dsp))
                                 },
                                 confirmButton = {
-                                    TextButton(onClick = {
+                                    TvTextButton(onClick = {
                                         ownerType = ActivateViewModel.OwnerType.Profile
                                         profileOwnerWarningShow = false
                                     }) {
@@ -200,7 +201,7 @@ fun ActivatePage(
                                     }
                                 },
                                 dismissButton = {
-                                    TextButton(onClick = { profileOwnerWarningShow = false }) {
+                                    TvTextButton(onClick = { profileOwnerWarningShow = false }) {
                                         Text(stringResource(R.string.cancel))
                                     }
                                 }
@@ -272,11 +273,11 @@ fun ActivatePage(
         val isSuccess =
             !isRunning && (viewModel.state.status as ActivateViewState.Status.End).error == null
 
-        if (isRunning || !isSuccess) TextButton(onClick = { viewModel.cancel() }) {
+        if (isRunning || !isSuccess) TvTextButton(onClick = { viewModel.cancel() }) {
             Text(stringResource(R.string.cancel))
         }
         if (isRunning) return@AlertDialog
-        if (!isSuccess) TextButton(onClick = {
+        if (!isSuccess) TvTextButton(onClick = {
             when (viewModel.ownerType) {
                 ActivateViewModel.OwnerType.Profile ->
                     viewModel.activateAsProfileOwner(mode = mode, comp = comp!!)
@@ -286,7 +287,7 @@ fun ActivatePage(
             }
         }) {
             Text(stringResource(R.string.retry))
-        } else TextButton(onClick = { navController.navigateUp() }) {
+        } else TvTextButton(onClick = { navController.navigateUp() }) {
             Text(stringResource(R.string.finish))
         }
     }, title = {
@@ -381,6 +382,7 @@ private fun LazyItemScope.ItemWidget(
         modifier = Modifier
             .animateItem()
             .fillMaxSize()
+            .focusProperties { canFocus = false }
     ) {
         Row(
             modifier = Modifier.padding(16.dp),

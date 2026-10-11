@@ -1,5 +1,12 @@
 package com.EdS.DhizukuF.ui.page.settings.home
 
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.UriHandler
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.material.icons.twotone.Info
+import androidx.compose.ui.focus.focusProperties
+import com.EdS.DhizukuF.ui.widget.TvTextButton
 import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -71,7 +78,6 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
@@ -194,12 +200,12 @@ private fun TopBarActions() {
         AlertDialog(onDismissRequest = {
             shutdownDialogShow = false
         }, confirmButton = {
-            TextButton(onClick = {
+            TvTextButton(onClick = {
                 shutdownDialogShow = false
             }) {
                 Text(stringResource(R.string.cancel))
             }
-            TextButton(onClick = {
+            TvTextButton(onClick = {
                 exitProcess(0)
             }) {
                 Text(stringResource(R.string.confirm))
@@ -370,7 +376,7 @@ private fun LazyItemScope.DishWidget() {
         }
     }
 
-    CardWidget(onClick = { helpDialogShow = true }, icon = {
+    CardWidget(onClick = { helpDialogShow = true }, focusable = false, icon = {
         Icon(imageVector = Icons.TwoTone.Terminal, contentDescription = null)
     }, title = {
         Text(stringResource(R.string.home_dish_title))
@@ -385,23 +391,28 @@ private fun LazyItemScope.DishWidget() {
         } else if (!ownerState.isDeviceOwner) {
             Text(stringResource(R.string.home_dish_profile_owner_note))
         }
-        TextButton(onClick = { startExport() }) {
+        TvTextButton(onClick = { startExport() }) {
             Icon(imageVector = Icons.TwoTone.Code, contentDescription = null)
             Spacer(Modifier.size(ButtonDefaults.IconSpacing))
             Text(stringResource(R.string.home_dish_btn_export))
+        }
+        TvTextButton(onClick = { helpDialogShow = true }) {
+            Icon(imageVector = Icons.TwoTone.Info, contentDescription = null)
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Text(stringResource(R.string.home_dish_help_title))
         }
     })
 
     if (helpDialogShow) {
         AlertDialog(onDismissRequest = { helpDialogShow = false }, confirmButton = {
-            TextButton(onClick = {
+            TvTextButton(onClick = {
                 helpDialogShow = false
                 startExport()
             }) {
                 Text(stringResource(R.string.home_dish_btn_export))
             }
         }, dismissButton = {
-            TextButton(onClick = { helpDialogShow = false }) {
+            TvTextButton(onClick = { helpDialogShow = false }) {
                 Text(stringResource(R.string.confirm))
             }
         }, title = {
@@ -415,7 +426,7 @@ private fun LazyItemScope.DishWidget() {
 
     if (doneDialogShow) {
         AlertDialog(onDismissRequest = { doneDialogShow = false }, confirmButton = {
-            TextButton(onClick = { doneDialogShow = false }) {
+            TvTextButton(onClick = { doneDialogShow = false }) {
                 Text(stringResource(R.string.confirm))
             }
         }, title = {
@@ -459,7 +470,7 @@ private fun LazyItemScope.AdbWidget() {
                 "https://developer.android.com/tools/adb"
             )
         )
-        TextButton(onClick = { commandDialogShow = true }) {
+        TvTextButton(onClick = { commandDialogShow = true }) {
             Icon(imageVector = Icons.TwoTone.Code, contentDescription = null)
             Spacer(Modifier.size(ButtonDefaults.IconSpacing))
             Text(stringResource(R.string.home_adb_btn_view_command))
@@ -472,14 +483,14 @@ private fun LazyItemScope.AdbWidget() {
         }, icon = {
             Icon(imageVector = Icons.TwoTone.Warning, contentDescription = null)
         }, confirmButton = {
-            TextButton(onClick = {
+            TvTextButton(onClick = {
                 useProfileOwner = true
                 profileOwnerWarningShow = false
             }) {
                 Text(stringResource(R.string.confirm))
             }
         }, dismissButton = {
-            TextButton(onClick = { profileOwnerWarningShow = false }) {
+            TvTextButton(onClick = { profileOwnerWarningShow = false }) {
                 Text(stringResource(R.string.cancel))
             }
         }, title = {
@@ -494,14 +505,14 @@ private fun LazyItemScope.AdbWidget() {
     AlertDialog(onDismissRequest = {
         commandDialogShow = false
     }, confirmButton = {
-        TextButton(onClick = {
+        TvTextButton(onClick = {
             commandDialogShow = false
         }) {
             Text(stringResource(R.string.cancel))
         }
         val manager = LocalClipboard.current
         val scope = rememberCoroutineScope()
-        TextButton(onClick = {
+        TvTextButton(onClick = {
             scope.launch {
                 manager.setClipEntry(ClipEntry(ClipData.newPlainText("command", command)))
                 commandDialogShow = false
@@ -568,12 +579,12 @@ private fun LazyItemScope.DeactivateWidget() {
     AlertDialog(onDismissRequest = {
         state = false
     }, confirmButton = {
-        TextButton(onClick = {
+        TvTextButton(onClick = {
             state = false
         }) {
             Text(stringResource(R.string.cancel))
         }
-        TextButton(onClick = {
+        TvTextButton(onClick = {
             try {
                 @Suppress("DEPRECATION")
                 manager.clearProfileOwner(DhizukuState.admin)
@@ -613,14 +624,32 @@ private fun HtmlText(text: String) {
             )
         )
     }
-    Text(annotated)
+    // A device without a browser (many TV boxes) must not crash when a link is opened.
+    val base = LocalUriHandler.current
+    val safe = remember(base) {
+        object : UriHandler {
+            override fun openUri(uri: String) {
+                try {
+                    base.openUri(uri)
+                } catch (_: Exception) {
+                    // nothing can open the link here
+                }
+            }
+        }
+    }
+    CompositionLocalProvider(LocalUriHandler provides safe) {
+        Text(annotated)
+    }
 }
 
 @Composable
 private fun LazyItemScope.CardWidget(
     modifier: Modifier = Modifier,
     colors: CardColors = CardDefaults.elevatedCardColors(),
-    onClick: () -> Unit = {},
+    // null = the card is not an action itself (it only holds text and buttons)
+    onClick: (() -> Unit)? = null,
+    // false = the card still reacts to touch, but the D-pad skips it and goes to its buttons
+    focusable: Boolean = true,
     icon: @Composable () -> Unit,
     iconColors: IconButtonColors = IconButtonDefaults.iconButtonColors(
         containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -629,10 +658,7 @@ private fun LazyItemScope.CardWidget(
     text: (@Composable () -> Unit)? = null,
     content: (@Composable () -> Unit)? = null
 ) {
-    ElevatedCard(
-        modifier = modifier.animateItem().then(appearModifier()).tvFocusBorder(RoundedCornerShape(20.dp)),
-        colors = colors, onClick = onClick
-    ) {
+    val body: @Composable ColumnScope.() -> Unit = {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -669,5 +695,20 @@ private fun LazyItemScope.CardWidget(
                 content?.invoke()
             }
         }
+    }
+    val base = modifier.animateItem().then(appearModifier())
+    if (onClick == null) {
+        // A card without an action is not a focus target, so the buttons inside stay reachable.
+        ElevatedCard(modifier = base, colors = colors, content = body)
+    } else {
+        ElevatedCard(
+            modifier = base.then(
+                if (focusable) Modifier.tvFocusBorder(RoundedCornerShape(20.dp))
+                else Modifier.focusProperties { canFocus = false }
+            ),
+            colors = colors,
+            onClick = onClick,
+            content = body
+        )
     }
 }

@@ -29,6 +29,9 @@ A pre-release for testing. Please report problems in [Issues](https://github.com
   Dhizuku implementations.
 - **Least privilege** — unused storage permissions and an overly broad FileProvider were removed.
 
+- **TV remote fix** — *Export dish files*, *View command* and other buttons inside cards can be selected with
+  the remote, and links no longer crash devices without a browser.
+
 ### Notes
 
 - Existing dish users: export the dish files again to get the latest launcher and client.

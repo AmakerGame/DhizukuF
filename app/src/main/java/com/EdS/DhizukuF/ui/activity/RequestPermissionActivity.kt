@@ -1,5 +1,6 @@
 package com.EdS.DhizukuF.ui.activity
 
+import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -345,7 +346,9 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                 ) {
                     TextButton(
                         onClick = onClick,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .tvFocusBorder(RoundedCornerShape(8.dp)),
                         shape = RoundedCornerShape(8.dp),
                         contentPadding = PaddingValues(16.dp),
                         colors = if (isPrimary) ButtonDefaults.buttonColors(

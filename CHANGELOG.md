@@ -50,6 +50,12 @@ The newest changes are at the top.
 - New [SECURITY.md](SECURITY.md) with the protection model and how to report vulnerabilities.
 
 ### Fixed
+- Android TV / D-pad: buttons placed inside a card (**Export dish files**, **View command**, the delete button of a
+  user, the checkbox when choosing an admin) could not be reached with the remote, because the card itself took
+  the focus. Cards that only hold buttons are no longer focus targets, cards with an action and buttons skip the
+  D-pad but keep touch, and all text buttons and the approval dialog buttons show a focus frame. The dish card has a
+  *How to use dish* button for the remote.
+- Opening a link no longer crashes on devices without a browser (the link is copied instead).
 - The **Terminal (dish)** card was shown only when DhizukuF was already an owner, so on a device that
   was not (yet) an owner, or had not refreshed its state, it looked missing. It is now always shown.
   Without an owner it explains that dish will refuse commands; in Profile Owner mode it notes that

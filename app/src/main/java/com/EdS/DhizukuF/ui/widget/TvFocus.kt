@@ -4,6 +4,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material3.TextButton
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
@@ -67,4 +69,18 @@ fun SwitchRow(
         }
         Switch(checked = checked, onCheckedChange = null)
     }
+}
+
+/** TextButton with a visible focus frame for D-pad navigation. */
+@Composable
+fun TvTextButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable RowScope.() -> Unit
+) {
+    TextButton(
+        onClick = onClick,
+        modifier = modifier.tvFocusBorder(RoundedCornerShape(50)),
+        content = content
+    )
 }
