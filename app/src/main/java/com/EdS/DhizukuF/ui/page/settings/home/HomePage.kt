@@ -1,5 +1,6 @@
 package com.EdS.DhizukuF.ui.page.settings.home
 
+import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -7,6 +8,7 @@ import com.EdS.DhizukuF.dish.DishExporter
 import kotlinx.coroutines.Dispatchers
 import com.EdS.DhizukuF.data.common.util.toast
 import android.app.admin.DevicePolicyManager
+import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.Context
 
@@ -92,6 +94,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextDecoration
@@ -331,6 +334,7 @@ private fun LazyItemScope.DishWidget() {
     val scope = rememberCoroutineScope()
     var doneDialogShow by remember { mutableStateOf(false) }
     var helpDialogShow by remember { mutableStateOf(false) }
+    var exportPath by remember { mutableStateOf<String?>(null) }
 
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
         if (uri == null) return@rememberLauncherForActivityResult
@@ -342,8 +346,27 @@ private fun LazyItemScope.DishWidget() {
                 Log.w("Dish", "export failed", e)
                 false
             }
-            if (success) doneDialogShow = true
-            else context.toast(R.string.dish_export_failed)
+            if (success) {
+                exportPath = null
+                doneDialogShow = true
+            } else context.toast(R.string.dish_export_failed)
+        }
+    }
+
+    // Many Android TV boxes have no folder picker: fall back to the app's own folder.
+    val startExport = {
+        try {
+            picker.launch(null)
+        } catch (e: ActivityNotFoundException) {
+            scope.launch(Dispatchers.IO) {
+                try {
+                    exportPath = DishExporter.exportToAppFolder(context).absolutePath
+                    doneDialogShow = true
+                } catch (e2: Exception) {
+                    Log.w("Dish", "fallback export failed", e2)
+                    context.toast(R.string.dish_export_failed)
+                }
+            }
         }
     }
 
@@ -362,7 +385,7 @@ private fun LazyItemScope.DishWidget() {
         } else if (!ownerState.isDeviceOwner) {
             Text(stringResource(R.string.home_dish_profile_owner_note))
         }
-        TextButton(onClick = { picker.launch(null) }) {
+        TextButton(onClick = { startExport() }) {
             Icon(imageVector = Icons.TwoTone.Code, contentDescription = null)
             Spacer(Modifier.size(ButtonDefaults.IconSpacing))
             Text(stringResource(R.string.home_dish_btn_export))
@@ -373,7 +396,7 @@ private fun LazyItemScope.DishWidget() {
         AlertDialog(onDismissRequest = { helpDialogShow = false }, confirmButton = {
             TextButton(onClick = {
                 helpDialogShow = false
-                picker.launch(null)
+                startExport()
             }) {
                 Text(stringResource(R.string.home_dish_btn_export))
             }
@@ -398,7 +421,17 @@ private fun LazyItemScope.DishWidget() {
         }, title = {
             Text(stringResource(R.string.dish_export_done_title))
         }, text = {
-            Text(stringResource(R.string.dish_export_done_dsp))
+            Column(Modifier.verticalScroll(rememberScrollState())) {
+                Text(stringResource(R.string.dish_export_done_dsp))
+                exportPath?.let {
+                    Text(
+                        it,
+                        fontFamily = FontFamily.Monospace,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                }
+            }
         })
     }
 }
@@ -597,7 +630,7 @@ private fun LazyItemScope.CardWidget(
     content: (@Composable () -> Unit)? = null
 ) {
     ElevatedCard(
-        modifier = modifier.animateItem().then(appearModifier()),
+        modifier = modifier.animateItem().then(appearModifier()).tvFocusBorder(RoundedCornerShape(20.dp)),
         colors = colors, onClick = onClick
     ) {
         Column(

@@ -3,14 +3,14 @@
     <string name="home_status_owner_granted">நீங்கள் %1$s!!!</string>
     <string name="home_status_owner_denied">செயல்படுத்தலுக்காக காத்திருக்கிறது</string>
     <string name="home_app_management_title">பயன்பாட்டு மேலாண்மை</string>
-    <string name="home_dhizuku_title">திசுகுவால் செயல்படுத்தல்</string>
+    <string name="home_dhizuku_title">DhizukuF மூலம் செயல்படுத்தல்</string>
     <string name="home_dhizuku_dsp">உங்களிடம் பிற திசுகு செயலாக்கங்கள் நிறுவப்பட்டிருந்தால், நீங்கள் அவர்களுக்கு இடையே விருப்பப்படி மாறலாம். தயவுசெய்து &lt;a href=\"%1$s\"&gt; உதவியைப் படியுங்கள் &lt;/a&gt;.</string>
     <string name="home_shizuku_title">சிசுகு எழுதிய ஒரு அசி வி.ஏ.வின் வெப்பநிலை</string>
     <string name="home_adb_dsp">ADB (Android பிழைத்திருத்த பாலம்) இணைப்பு மூலம், நீங்கள் சில சலுகை பெற்ற கட்டளைகளை இயக்கலாம். தயவுசெய்து &lt;a href=\"%1$s\"&gt;உதவியைப் படியுங்கள்&lt;/a&gt;.</string>
     <string name="home_adb_btn_view_command">கட்டளையைக் காண்க</string>
     <string name="home_shutdown_title">பணிநிறுத்தம்</string>
-    <string name="home_shutdown_dsp">திசுகு தானாக முன்வந்து அவ்வாறு செய்யாவிட்டால் இந்த அமைப்பு திசுகுவை மூட முடியாது.</string>
-    <string name="request_permission_text">Allow <b>%1$s</b> பெறுநர் access Dhizuku?</string>
+    <string name="home_shutdown_dsp">DhizukuF தானாக முன்வந்து அவ்வாறு செய்யாவிட்டால் இந்த அமைப்பு DhizukuFவை மூட முடியாது.</string>
+    <string name="request_permission_text">Allow <b>%1$s</b> பெறுநர் access DhizukuF?</string>
     <string name="agree">மானியம்</string>
     <string name="refuse">மறுக்கவும்</string>
     <string name="service_channel_name">பின்னணி பணி</string>
@@ -30,26 +30,26 @@
     <string name="agree_text">ஒப்புக்கொள்கிறேன்</string>
     <string name="agreement_text">இது எங்கள் பயனர் கொள்கை. தயவுசெய்து அதைப் படித்து ஒப்புக்கொள்ளவும். &lt;a href=https://iamr0s.github.io/Dhizuku/TERMS.html&gt;பயன்பாட்டு விதிமுறைகள்&lt;/a&gt;, &lt;a href=https://iamr0s.github.io/Dhizuku/PRIVACY.html&gt;தனியுரிமைக் கொள்கை&lt;/a&gt; நீங்கள் ஒப்புக்கொண்ட பிறகு இந்தச் செய்தி மீண்டும் காட்டப்படாது.</string>
     <string name="settings">அமைப்புகள்</string>
-    <string name="settings_desc">Dhizuku இன் செயல்பாட்டை உள்ளமைக்கவும்</string>
-    <string name="enable_dhizuku">Dhizuku ஐ இயக்கு</string>
-    <string name="enable_dhizuku_desc">Dhizuku சேவைகளைப் பயன்படுத்த பயன்பாடுகளை அனுமதிக்கவும்</string>
+    <string name="settings_desc">DhizukuF இன் செயல்பாட்டை உள்ளமைக்கவும்</string>
+    <string name="enable_dhizuku">DhizukuF ஐ இயக்கு</string>
+    <string name="enable_dhizuku_desc">DhizukuF சேவைகளைப் பயன்படுத்த பயன்பாடுகளை அனுமதிக்கவும்</string>
     <string name="whitelist_mode">அனுமதிப் பட்டியல் முறை</string>
-    <string name="whitelist_mode_desc">முன்கூட்டியே அங்கீகரிக்கப்பட்ட பயன்பாடுகள் மட்டுமே Dhizuku ஐப் பயன்படுத்த அனுமதிக்கவும்</string>
+    <string name="whitelist_mode_desc">முன்கூட்டியே அங்கீகரிக்கப்பட்ட பயன்பாடுகள் மட்டுமே DhizukuF ஐப் பயன்படுத்த அனுமதிக்கவும்</string>
     <string name="block_app">பயன்பாட்டைத் தடு</string>
-    <string name="block_app_desc">Dhizuku அணுகலை முழுமையாக மறுக்கவும்</string>
+    <string name="block_app_desc">DhizukuF அணுகலை முழுமையாக மறுக்கவும்</string>
     <string name="auto_deny_in">தானாக மறுப்பதற்கான நேரம்</string>
     <string name="auto_deny_in_seconds">%d வினாடிகளில் தானாக மறுக்கப்படும்</string>
-    <string name="app_blocked_notice">இந்த பயன்பாடு தடுக்கப்பட்டுள்ளது மற்றும் Dhizuku ஐ அணுக முடியாது</string>
-    <string name="allow_dhizuku_access">Dhizuku அணுகலை அனுமதிக்கவும்</string>
+    <string name="app_blocked_notice">இந்த பயன்பாடு தடுக்கப்பட்டுள்ளது மற்றும் DhizukuF ஐ அணுக முடியாது</string>
+    <string name="allow_dhizuku_access">DhizukuF அணுகலை அனுமதிக்கவும்</string>
     <string name="unblock_app">பயன்பாட்டின் தடையை நீக்கு</string>
     <string name="denying_access">அணுகல் மறுக்கப்படுகிறது…</string>
     <string name="daemon_service_notification_title">Dhizuku டீமன்</string>
-    <string name="daemon_service_notification_text">இது சேவை எப்போதும் கிடைக்கும் என்பதை உறுதிசெய்ய Dhizuku அனுப்பும் அறிவிப்பு. இந்த அறிவிப்பை மறைக்க அழுத்திப் பிடிக்கலாம்.</string>
+    <string name="daemon_service_notification_text">இது சேவை எப்போதும் கிடைக்கும் என்பதை உறுதிசெய்ய DhizukuF அனுப்பும் அறிவிப்பு. இந்த அறிவிப்பை மறைக்க அழுத்திப் பிடிக்கலாம்.</string>
     <string name="copy">நகலெடு</string>
     <string name="confirm_device_owner">சாதன உரிமையாளர்</string>
     <string name="confirm_profile_owner">சுயவிவர உரிமையாளர்</string>
     <string name="profile_owner_warning_title">எச்சரிக்கை</string>
-    <string name="profile_owner_warning_dsp">இது, அதன் தாக்கங்களை புரிந்து கொள்ளும் பயனர்களால் மட்டுமே செய்யப்பட வேண்டிய மாற்றமாகும். இந்த பயன்முறை மாற்றத்தால் ஏற்படும் எதிர்பாராத நடத்தை குறித்து திசுகுவின் உருவாக்குபவர்கள் எதற்கும் பொறுப்பு அளிக்க முடியாது.</string>
+    <string name="profile_owner_warning_dsp">இது, அதன் தாக்கங்களை புரிந்து கொள்ளும் பயனர்களால் மட்டுமே செய்யப்பட வேண்டிய மாற்றமாகும். இந்த பயன்முறை மாற்றத்தால் ஏற்படும் எதிர்பாராத நடத்தை குறித்து DhizukuFவின் உருவாக்குபவர்கள் எதற்கும் பொறுப்பு அளிக்க முடியாது.</string>
     <string name="donate_hide_action">மறை</string>
     <string name="donate_hide_confirm_title">நன்கொடை பட்டனை மறை</string>
     <string name="donate_hide_confirm_dsp">பயன்பாட்டிற்குள் இருந்து இதைச் செயல்தவிர்க்க முடியாது. அரே you sure you want பெறுநர் permanently மறை the நன்கொடை button?</string>
@@ -92,4 +92,6 @@
     <string name="home_dish_profile_owner_note">சுயவிவர உரிமையாளர் முறை: dish இயங்கும், ஆனால் முழு சாதன உரிமையாளர் தேவைப்படும் கட்டளைகள் (reboot, adb, timezone, தனிப்பட்ட DNS மற்றும் பிற) கிடைக்காது.</string>
     <string name="home_dish_help_title">dish ஐ எவ்வாறு பயன்படுத்துவது</string>
     <string name="home_dish_help_text">dish என்பது இந்தப் பயன்பாட்டுக்குள் உள்ள முனையம் அல்ல, அது கட்டளை வரி கருவி: கோப்புகளை ஏற்றுமதி செய்து, முனைய பயன்பாட்டில், முன்னுரிமையாக Termux இல், dish ஐ இயக்கவும்.\n\n1. «dish கோப்புகளை ஏற்றுமதி செய்» என்பதைத் தட்டி கோப்புறையைத் தேர்ந்தெடுக்கவும்.\n2. Termux இல் termux-setup-storage ஐ ஒருமுறை இயக்கி, dish மற்றும் dish_dhizukuf.dex ஐ $PREFIX/bin இல் நகலெடுத்து chmod +x $PREFIX/bin/dish ஐ இயக்கவும்.\n3. கன்சோலைத் திறக்க dish என்றோ, கட்டளைகளைப் பார்க்க dish help என்றோ உள்ளிடவும்.\n\nமுதல் முறை இயக்கும்போது அணுகலை அங்கீகரிக்க DhizukuF கேட்கும்.</string>
+    <string name="enable_dangerous">ஆபத்தான கட்டளைகளை இயக்கு</string>
+    <string name="enable_dangerous_desc">dish மற்றும் Dhizuku API க்கான ஆபத்தான செயல்களை அனுமதிக்கிறது: மறுதொடக்கம், பயன்பாட்டுத் தரவை அழித்தல், அமைப்புகளை எழுதுதல், அனுமதிகளை மாற்றுதல், நேரடி API அழைப்புகள் போன்றவை. இயல்பாக அணைக்கப்பட்டிருக்கும்.</string>
 </resources>

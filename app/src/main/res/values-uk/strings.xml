@@ -17,7 +17,7 @@
     <string name="home_app_management_dsp">Тут відображатимуться додатки, які запросили або оголосили Dhizuku.</string>
     <string name="home_user_management_dsp">Керування користувачами та їхніми обліковими записами.</string>
     <!-- Home - Dhizuku -->
-    <string name="home_dhizuku_title">Активація через Dhizuku</string>
+    <string name="home_dhizuku_title">Активація через DhizukuF</string>
     <string name="home_dhizuku_dsp">Якщо у вас встановлено інші реалізації Dhizuku, ви можете вільно перемикатися між ними. Будь ласка, &lt;a href=\"%1$s\"&gt;прочитайте довідку&lt;/a&gt;.</string>
     <!-- Home - Shizuku -->
     <string name="home_shizuku_title">Активація через Shizuku</string>
@@ -28,7 +28,7 @@
     <string name="home_adb_btn_view_command">Переглянути команду</string>
     <!-- Home - Shutdown -->
     <string name="home_shutdown_title">Вимкнення</string>
-    <string name="home_shutdown_dsp">Система не зможе вимкнути Dhizuku, якщо Dhizuku не зробить цього добровільно.</string>
+    <string name="home_shutdown_dsp">Система не зможе вимкнути DhizukuF, якщо DhizukuF не зробить цього добровільно.</string>
     <!-- Home - Deactivate -->
     <string name="home_deactivate_title">Деактивувати</string>
     <string name="home_deactivate_dsp">Ви впевнені, що хочете деактивувати?</string>
@@ -36,19 +36,19 @@
     <string name="confirm_device_owner">власник пристрою</string>
     <string name="confirm_profile_owner">власник профілю</string>
     <string name="profile_owner_warning_title">Попередження</string>
-    <string name="profile_owner_warning_dsp">Цю зміну повинні робити лише користувачі, які розуміють її наслідки. Розробники Dhizuku не можуть гарантувати нічого щодо несподіваної поведінки, спричиненої зміною цього режиму.</string>
+    <string name="profile_owner_warning_dsp">Цю зміну повинні робити лише користувачі, які розуміють її наслідки. Розробники DhizukuF не можуть гарантувати нічого щодо несподіваної поведінки, спричиненої зміною цього режиму.</string>
     <string name="finish">Готово</string>
     <string name="donate">Підтримати</string>
     <string name="donate_hide_action">Приховати</string>
     <string name="donate_hide_confirm_title">Приховати кнопку «Підтримати»</string>
     <string name="donate_hide_confirm_dsp">Цю дію неможливо скасувати в додатку. Ви впевнені, що хочете назавжди приховати кнопку підтримки?</string>
-    <string name="request_permission_text">Дозволити <b>%1$s</b> доступ до Dhizuku?</string>
+    <string name="request_permission_text">Дозволити <b>%1$s</b> доступ до DhizukuF?</string>
     <string name="agree">Дозволити</string>
     <string name="refuse">Заборонити</string>
     <string name="service_channel_name">Фонова служба</string>
     <string name="service_running">DhizukuF працює</string>
     <string name="settings">Налаштування</string>
-    <string name="settings_desc">Налаштування поведінки Dhizuku</string>
+    <string name="settings_desc">Налаштування поведінки DhizukuF</string>
     <string name="user_manager">Керування користувачами</string>
     <string name="user_name_default">Без назви</string>
     <string name="delete_user_warning">Ви впевнені, що хочете видалити цей простір користувача?\nУсі додатки та дані в ньому буде втрачено!!!</string>
@@ -64,22 +64,22 @@
     <string name="action_freeze_all">Заморозити все</string>
     <string name="action_unfreeze_all">Розморозити все</string>
     <string name="error_open_sync_settings">Не вдалося відкрити системні налаштування облікових записів</string>
-    <string name="enable_dhizuku">Увімкнути Dhizuku</string>
-    <string name="enable_dhizuku_desc">Дозволити додаткам використовувати служби Dhizuku</string>
+    <string name="enable_dhizuku">Увімкнути DhizukuF</string>
+    <string name="enable_dhizuku_desc">Дозволити додаткам використовувати служби DhizukuF</string>
     <string name="whitelist_mode">Режим білого списку</string>
-    <string name="whitelist_mode_desc">Дозволити використовувати Dhizuku лише попередньо схваленим додаткам</string>
+    <string name="whitelist_mode_desc">Дозволити використовувати DhizukuF лише попередньо схваленим додаткам</string>
     <string name="block_app">Заблокувати додаток</string>
     <string name="auto_deny_in">Автоматична відмова через</string>
-    <string name="block_app_desc">Повністю заборонити доступ до Dhizuku</string>
-    <string name="app_blocked_notice">Цей додаток заблоковано, він не має доступу до Dhizuku</string>
-    <string name="allow_dhizuku_access">Дозволити доступ до Dhizuku</string>
+    <string name="block_app_desc">Повністю заборонити доступ до DhizukuF</string>
+    <string name="app_blocked_notice">Цей додаток заблоковано, він не має доступу до DhizukuF</string>
+    <string name="allow_dhizuku_access">Дозволити доступ до DhizukuF</string>
     <string name="unblock_app">Розблокувати додаток</string>
     <string name="auto_deny_in_seconds">Автоматична відмова через %d с</string>
     <string name="denying_access">Відмова в доступі…</string>
     <string name="error_occurred">Сталася помилка: %1$s</string>
     <string name="error_remove_user">Не вдалося видалити користувача %1$s</string>
     <string name="daemon_service_notification_title">Служба DhizukuF</string>
-    <string name="daemon_service_notification_text">Це сповіщення Dhizuku, що забезпечує постійну доступність служби. Щоб приховати його, натисніть і утримуйте.</string>
+    <string name="daemon_service_notification_text">Це сповіщення DhizukuF, що забезпечує постійну доступність служби. Щоб приховати його, натисніть і утримуйте.</string>
     <string name="error_set_device_owner">Не вдалося встановити власника пристрою. Переконайтеся, що на пристрої немає облікових записів.</string>
     <string name="error_set_profile_owner">Не вдалося встановити власника профілю. Перевірте конфігурацію системи.</string>
     <string name="error_shizuku_not_work">Активуйте Shizuku та надайте запитаний дозвіл</string>
@@ -100,4 +100,6 @@
     <string name="home_dish_profile_owner_note">Режим власника профілю: dish працює, але команди, що потребують повного власника пристрою (reboot, adb, timezone, private DNS та інші), недоступні.</string>
     <string name="home_dish_help_title">Як користуватися dish</string>
     <string name="home_dish_help_text">dish — це не термінал усередині додатка, а інструмент командного рядка: експортуйте файли, а потім запустіть dish у програмі-терміналі, найкраще в Termux.\n\n1. Натисніть «Експортувати файли dish» і виберіть папку.\n2. У Termux один раз виконайте termux-setup-storage, скопіюйте dish і dish_dhizukuf.dex у $PREFIX/bin та виконайте chmod +x $PREFIX/bin/dish.\n3. Введіть dish, щоб відкрити консоль, або dish help, щоб побачити команди.\n\nПід час першого запуску DhizukuF попросить підтвердити доступ.</string>
+    <string name="enable_dangerous">Увімкнути небезпечні команди</string>
+    <string name="enable_dangerous_desc">Дозволяє ризиковані дії для dish і Dhizuku API: перезавантаження, очищення даних додатків, запис налаштувань, зміну дозволів, прямі виклики API тощо. За замовчуванням вимкнено.</string>
 </resources>

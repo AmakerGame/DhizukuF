@@ -22,6 +22,9 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override fun flowDhizukuEnabled(): Flow<Boolean> =
         prefs.asFlow("dhizuku_enabled", true)
 
+    override fun flowDangerousEnabled(): Flow<Boolean> =
+        prefs.asFlow("dangerous_enabled", false)
+
     override fun flowDishEnabled(): Flow<Boolean> =
         prefs.asFlow("dish_enabled", true)
 
@@ -56,6 +59,12 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
         get() = prefs.getBoolean("dhizuku_enabled", true)
         set(value) = prefs.edit(true) {
             putBoolean("dhizuku_enabled", value)
+        }
+
+    override var isDangerousEnabled: Boolean
+        get() = prefs.getBoolean("dangerous_enabled", false)
+        set(value) = prefs.edit(true) {
+            putBoolean("dangerous_enabled", value)
         }
 
     override var isDishEnabled: Boolean

@@ -15,9 +15,9 @@
     <string name="home_user_management_dsp">管理系统用户及其账户。</string>
     <!-- Home - Shutdown -->
     <string name="home_shutdown_title">关闭</string>
-    <string name="home_shutdown_dsp">除非 Dhizuku 自愿关闭，否则系统将无法关闭 Dhizuku。</string>
+    <string name="home_shutdown_dsp">除非 DhizukuF 自愿关闭，否则系统将无法关闭 DhizukuF。</string>
     <!-- Home - Dhizuku -->
-    <string name="home_dhizuku_title">激活（通过 Dhizuku）</string>
+    <string name="home_dhizuku_title">激活（通过 DhizukuF）</string>
     <string name="home_dhizuku_dsp">如果您安装了其他的Dhizuku实现，您可以随意在它们之间切换。请&lt;a href=%1$s&gt;阅读帮助&lt;/a&gt;.</string>
     <!-- Home - Shizuku -->
     <string name="home_shizuku_title">激活（通过 Shizuku）</string>
@@ -31,14 +31,14 @@
     <string name="home_deactivate_title">取消激活</string>
     <string name="home_deactivate_dsp">确认要取消激活吗？</string>
     <string name="donate">捐赠</string>
-    <string name="request_permission_text">是否允许<b>%1$s</b>访问Dhizuku?</string>
+    <string name="request_permission_text">是否允许<b>%1$s</b>访问DhizukuF?</string>
     <string name="agree">同意</string>
     <string name="refuse">拒绝</string>
     <string name="service_channel_name">后台服务</string>
     <string name="service_running">Dhizuku正在运行</string>
     <string name="permission_description">使用 Dhizuku 的 API</string>
     <string name="settings">设置</string>
-    <string name="settings_desc">配置 Dhizuku 行为</string>
+    <string name="settings_desc">配置 DhizukuF 行为</string>
     <string name="user_manager">用户管理</string>
     <string name="user_name_default">未命名</string>
     <string name="delete_user_warning">确定要删除此用户吗？\n所有处于此用户空间的应用和数据都会消失！！！</string>
@@ -54,25 +54,25 @@
     <string name="action_freeze_all">一键冻结</string>
     <string name="action_unfreeze_all">一键解冻</string>
     <string name="error_open_sync_settings">无法打开系统账号设置界面</string>
-    <string name="enable_dhizuku">启用 Dhizuku</string>
-    <string name="enable_dhizuku_desc">允许其他应用使用 Dhizuku</string>
+    <string name="enable_dhizuku">启用 DhizukuF</string>
+    <string name="enable_dhizuku_desc">允许其他应用使用 DhizukuF</string>
     <string name="whitelist_mode">白名单模式</string>
-    <string name="whitelist_mode_desc">仅允许已授权应用访问 Dhizuku</string>
+    <string name="whitelist_mode_desc">仅允许已授权应用访问 DhizukuF</string>
     <string name="block_app">屏蔽应用</string>
     <string name="auto_deny_in">自动拒绝：</string>
-    <string name="block_app_desc">拒绝访问 Dhizuku</string>
-    <string name="app_blocked_notice">此应用已被屏蔽，无法访问 Dhizuku</string>
-    <string name="allow_dhizuku_access">允许访问 Dhizuku</string>
+    <string name="block_app_desc">拒绝访问 DhizukuF</string>
+    <string name="app_blocked_notice">此应用已被屏蔽，无法访问 DhizukuF</string>
+    <string name="allow_dhizuku_access">允许访问 DhizukuF</string>
     <string name="unblock_app">取消屏蔽应用</string>
     <string name="auto_deny_in_seconds">将在 %d 秒后自动拒绝</string>
     <string name="denying_access">拒绝访问…</string>
     <string name="daemon_service_notification_title">Dhizuku 守护进程</string>
-    <string name="daemon_service_notification_text">这是一个Dhizuku的通知，用于保证随时提供服务，你可以长按隐藏此通知。</string>
+    <string name="daemon_service_notification_text">这是一个DhizukuF的通知，用于保证随时提供服务，你可以长按隐藏此通知。</string>
     <string name="copy">复制</string>
     <string name="confirm_device_owner">设备所有者</string>
     <string name="confirm_profile_owner">资料所有者</string>
     <string name="profile_owner_warning_title">警告</string>
-    <string name="profile_owner_warning_dsp">此更改只应由了解其影响的用户进行。Dhizuku 的开发者无法对此模式更改导致的任何意外行为做出任何保证。</string>
+    <string name="profile_owner_warning_dsp">此更改只应由了解其影响的用户进行。DhizukuF 的开发者无法对此模式更改导致的任何意外行为做出任何保证。</string>
     <string name="donate_hide_action">隐藏</string>
     <string name="donate_hide_confirm_title">隐藏捐赠按钮</string>
     <string name="donate_hide_confirm_dsp">此操作无法在应用内撤销。确定要永久隐藏捐赠按钮吗？</string>
@@ -99,4 +99,6 @@
     <string name="home_dish_profile_owner_note">资料所有者模式：dish 可以运行，但需要完整设备所有者的命令（reboot、adb、timezone、私人 DNS 等）不可用。</string>
     <string name="home_dish_help_title">如何使用 dish</string>
     <string name="home_dish_help_text">dish 不是此应用内的终端，而是命令行工具：先导出文件，再在终端应用（推荐 Termux）中运行 dish。\n\n1. 点按“导出 dish 文件”并选择一个文件夹。\n2. 在 Termux 中运行一次 termux-setup-storage，将 dish 和 dish_dhizukuf.dex 复制到 $PREFIX/bin，然后运行 chmod +x $PREFIX/bin/dish。\n3. 输入 dish 打开控制台，或输入 dish help 查看命令。\n\n首次运行时，DhizukuF 会请您批准访问。</string>
+    <string name="enable_dangerous">启用危险命令</string>
+    <string name="enable_dangerous_desc">允许 dish 和 Dhizuku API 执行有风险的操作：重启、清除应用数据、写入设置、更改权限、直接调用 API 等。默认关闭。</string>
 </resources>

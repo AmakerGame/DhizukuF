@@ -5,20 +5,20 @@
     <string name="home_status_owner_denied">In attesa di attivazione</string>
     <string name="home_app_management_title">Gestione Applicazioni</string>
     <string name="home_app_management_dsp">Le App che hanno richiesto o hanno dichiarato di usare Dhizuku verranno mostrate qui.</string>
-    <string name="home_dhizuku_title">Attivazione attraverso Dhizuku</string>
+    <string name="home_dhizuku_title">Attivazione attraverso DhizukuF</string>
     <string name="home_shizuku_title">Attivazione attraverso Shizuku</string>
     <string name="home_shizuku_dsp">Con Shizuku, hai la possibilità di eseguire comandi ADB senza aver bisogno di un computer. Per favore &lt;a href=%1$s&gt;consulta il manuale&lt;/a&gt;.</string>
     <string name="home_adb_title">Attivazione attraverso ADB</string>
     <string name="home_adb_dsp">Puoi eseguire alcuni comandi privilegiati attraverso la connessione ADB (Android Debug Bridge). Per favore &lt;a href=%1$s&gt;consulta il manuale&lt;/a&gt;.</string>
     <string name="home_adb_btn_view_command">Visualizza comando</string>
     <string name="home_shutdown_title">Spegni</string>
-    <string name="home_shutdown_dsp">Il sistema non è in grado di spegnere Dhizuku a meno che Dhizuku non lo richieda volontariamente.</string>
+    <string name="home_shutdown_dsp">Il sistema non è in grado di spegnere DhizukuF a meno che DhizukuF non lo richieda volontariamente.</string>
     <string name="home_deactivate_title">Disattiva</string>
     <string name="home_deactivate_dsp">Sei sicuro di voler disattivare?</string>
     <string name="confirm">OK</string>
     <string name="finish">Fatto</string>
     <string name="donate">Dona</string>
-    <string name="request_permission_text">Consentire <b>%1$s</b> di accedere a Dhizuku?</string>
+    <string name="request_permission_text">Consentire <b>%1$s</b> di accedere a DhizukuF?</string>
     <string name="agree">Concedi</string>
     <string name="refuse">Nega</string>
     <string name="service_channel_name">Servizio in secondo piano</string>
@@ -30,26 +30,26 @@
     <string name="agree_text">D\'accordo</string>
     <string name="agreement_text">Ecco la nostra politica utente, Si prega di leggere e accettarlo. &lt;a href=\"https://iamr0s.github.io/Dhizuku/TERMS.html\"&gt; Termini di utilizzo &lt;/a&gt;, &lt;a href=\"https://iamr0s.github.io/Dhizuku/PRIVACY.html Policy&lt;/a&gt; Questo messaggio non verrà più dopo che sei d\'accordo.</string>
     <string name="settings">Impostazioni</string>
-    <string name="enable_dhizuku">Attiva Dhizuku</string>
-    <string name="settings_desc">Configura il comportamento di Dhizuku</string>
-    <string name="enable_dhizuku_desc">Consenti alle app di usare i servizi di Dhizuku</string>
+    <string name="enable_dhizuku">Attiva DhizukuF</string>
+    <string name="settings_desc">Configura il comportamento di DhizukuF</string>
+    <string name="enable_dhizuku_desc">Consenti alle app di usare i servizi di DhizukuF</string>
     <string name="whitelist_mode">Modalità lista bianca</string>
-    <string name="whitelist_mode_desc">Consenti l\'uso di Dhizuku solo alle app pre-approvate</string>
+    <string name="whitelist_mode_desc">Consenti l\'uso di DhizukuF solo alle app pre-approvate</string>
     <string name="block_app">Blocca app</string>
-    <string name="block_app_desc">Nega completamente l\'accesso a Dhizuku</string>
+    <string name="block_app_desc">Nega completamente l\'accesso a DhizukuF</string>
     <string name="auto_deny_in">Rifiuta automaticamente tra</string>
     <string name="auto_deny_in_seconds">Rifiuto automatico tra %d secondi</string>
-    <string name="app_blocked_notice">Questa app è bloccata e non può accedere a Dhizuku</string>
-    <string name="allow_dhizuku_access">Consenti l\'accesso a Dhizuku</string>
+    <string name="app_blocked_notice">Questa app è bloccata e non può accedere a DhizukuF</string>
+    <string name="allow_dhizuku_access">Consenti l\'accesso a DhizukuF</string>
     <string name="unblock_app">Sblocca app</string>
     <string name="denying_access">Negazione dell\'accesso…</string>
     <string name="daemon_service_notification_title">Demone Dhizuku</string>
-    <string name="daemon_service_notification_text">Questa è una notifica di Dhizuku per garantire la disponibilità del servizio in qualsiasi momento. Puoi tenere premuto per nascondere questa notifica.</string>
+    <string name="daemon_service_notification_text">Questa è una notifica di DhizukuF per garantire la disponibilità del servizio in qualsiasi momento. Puoi tenere premuto per nascondere questa notifica.</string>
     <string name="copy">Copia</string>
     <string name="confirm_device_owner">Proprietario del dispositivo</string>
     <string name="confirm_profile_owner">Proprietario del profilo</string>
     <string name="profile_owner_warning_title">Avviso</string>
-    <string name="profile_owner_warning_dsp">Questa è una modifica che dovrebbe essere effettuata solo da utenti che ne comprendono le implicazioni. Gli sviluppatori di Dhizuku non possono garantire nulla riguardo a comportamenti imprevisti causati da questo cambio di modalità.</string>
+    <string name="profile_owner_warning_dsp">Questa è una modifica che dovrebbe essere effettuata solo da utenti che ne comprendono le implicazioni. Gli sviluppatori di DhizukuF non possono garantire nulla riguardo a comportamenti imprevisti causati da questo cambio di modalità.</string>
     <string name="donate_hide_action">Nascondi</string>
     <string name="donate_hide_confirm_title">Nascondi pulsante donazione</string>
     <string name="donate_hide_confirm_dsp">Questa azione non può essere annullata dall\'app. Sei sicuro di voler nascondere permanentemente il pulsante di donazione?</string>
@@ -92,4 +92,6 @@
     <string name="home_dish_profile_owner_note">Modalità proprietario del profilo: dish funziona, ma i comandi che richiedono il proprietario completo del dispositivo (reboot, adb, timezone, DNS privato e altri) non sono disponibili.</string>
     <string name="home_dish_help_title">Come usare dish</string>
     <string name="home_dish_help_text">dish non è un terminale dentro questa app, ma uno strumento da riga di comando: esporta i file e poi avvia dish in un\'app terminale, meglio se Termux.\n\n1. Tocca «Esporta i file dish» e scegli una cartella.\n2. In Termux esegui una volta termux-setup-storage, copia dish e dish_dhizukuf.dex in $PREFIX/bin ed esegui chmod +x $PREFIX/bin/dish.\n3. Digita dish per aprire la console, o dish help per vedere i comandi.\n\nAl primo avvio DhizukuF chiede di approvare l\'accesso.</string>
+    <string name="enable_dangerous">Abilita comandi pericolosi</string>
+    <string name="enable_dangerous_desc">Consente azioni rischiose per dish e l\'API di Dhizuku: riavvio, cancellazione dei dati delle app, scrittura delle impostazioni, modifica dei permessi, chiamate dirette all\'API e simili. Disattivato per impostazione predefinita.</string>
 </resources>

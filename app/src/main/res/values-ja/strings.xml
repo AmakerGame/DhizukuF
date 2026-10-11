@@ -15,21 +15,21 @@
     <string name="confirm_device_owner">デバイスオーナー</string>
     <string name="confirm_profile_owner">プロファイルオーナー</string>
     <string name="profile_owner_warning_title">警告</string>
-    <string name="profile_owner_warning_dsp">これは意図を理解したユーザーのみがおこなえる変更です。Dhizukuの開発者はこのモード変更により生じた想定外の動作について一切の保証をいたしかねます。</string>
+    <string name="profile_owner_warning_dsp">これは意図を理解したユーザーのみがおこなえる変更です。DhizukuFの開発者はこのモード変更により生じた想定外の動作について一切の保証をいたしかねます。</string>
     <string name="donate">寄付</string>
     <string name="donate_hide_action">非表示にする</string>
     <string name="donate_hide_confirm_title">寄付ボタンを非表示</string>
     <string name="donate_hide_confirm_dsp">アプリ内からは元に戻せません。寄付ボタンを完全に非表示にしますか？</string>
-    <string name="request_permission_text"><b>%1$s</b> による Dhizuku へのアクセスを許可しますか？</string>
+    <string name="request_permission_text"><b>%1$s</b> による DhizukuF へのアクセスを許可しますか？</string>
     <string name="home_deactivate_title">無効化</string>
     <string name="home_status_owner_denied">有効化を待機中</string>
     <string name="home_app_management_dsp">Dhizuku の使用を宣言したアプリがここに表示されます。</string>
-    <string name="home_dhizuku_title">Dhizuku による有効化</string>
+    <string name="home_dhizuku_title">DhizukuF による有効化</string>
     <string name="home_shizuku_title">Shizuku による有効化</string>
     <string name="home_adb_title">ADB による有効化</string>
     <string name="home_adb_btn_view_command">コマンドを表示</string>
     <string name="home_shutdown_title">停止</string>
-    <string name="home_shutdown_dsp">Dhizuku は手動で停止しない限り、システムは Dhizuku を停止できません。</string>
+    <string name="home_shutdown_dsp">DhizukuF は手動で停止しない限り、システムは DhizukuF を停止できません。</string>
     <string name="retry">再試行</string>
     <string name="home_status_owner_granted">%1$sです！</string>
     <string name="home_status_owner_transferred">%1$sを譲渡しました！</string>
@@ -39,7 +39,7 @@
     <string name="home_adb_dsp">ADB (Android Debug Bridge) 接続を通じて、いくつかの特権コマンドを実行できます。詳しくは&lt;a href=\"%1$s\"&gt;ヘルプ&lt;/a&gt;をお読みください。</string>
     <string name="permission_description">Dhizuku の API を使用します</string>
     <string name="settings">設定</string>
-    <string name="settings_desc">Dhizuku の動作環境の設定を行います。</string>
+    <string name="settings_desc">DhizukuF の動作環境の設定を行います。</string>
     <string name="user_manager">ユーザー管理</string>
     <string name="user_name_default">規定</string>
     <string name="delete_user_warning">このユーザースペースを削除してもよろしいですか？\nこのユーザースペース内のすべてのアプリとデータが失われます</string>
@@ -57,20 +57,20 @@
     <string name="action_unfreeze_all">全て再有効化</string>
     <string name="error_open_sync_settings">システムアカウントの設定を開けませんでした</string>
     
-    <string name="enable_dhizuku">Dhizuku を有効化</string>
-    <string name="enable_dhizuku_desc">アプリが Dhizuku を利用できるようにします</string>
+    <string name="enable_dhizuku">DhizukuF を有効化</string>
+    <string name="enable_dhizuku_desc">アプリが DhizukuF を利用できるようにします</string>
     <string name="whitelist_mode">除外モード</string>
-    <string name="whitelist_mode_desc">あらかじめ許可したアプリのみ Dhizuku を使用できるようにします</string>
+    <string name="whitelist_mode_desc">あらかじめ許可したアプリのみ DhizukuF を使用できるようにします</string>
     <string name="block_app">アプリをブロック</string>
     <string name="auto_deny_in">自動で却下：</string>
-    <string name="block_app_desc">Dhizuku へのアクセスを拒否しました</string>
-    <string name="app_blocked_notice">このアプリはブロック済みのため Dhizuku にアクセスできません</string>
-    <string name="allow_dhizuku_access">Dhizuku へのアクセスを許可</string>
+    <string name="block_app_desc">DhizukuF へのアクセスを拒否しました</string>
+    <string name="app_blocked_notice">このアプリはブロック済みのため DhizukuF にアクセスできません</string>
+    <string name="allow_dhizuku_access">DhizukuF へのアクセスを許可</string>
     <string name="unblock_app">アプリのブロックを解除</string>
     <string name="auto_deny_in_seconds">残り %d 秒で自動拒否</string>
     <string name="denying_access">アクセスを拒否しています…</string>
     <string name="daemon_service_notification_title">Dhizuku デーモン</string>
-    <string name="daemon_service_notification_text">これは Dhizuku のサービスを常時利用可能にするための通知です。長押しするとこの通知を非表示にできます。</string>
+    <string name="daemon_service_notification_text">これは DhizukuF のサービスを常時利用可能にするための通知です。長押しするとこの通知を非表示にできます。</string>
     <string name="home_user_management_dsp">ユーザーとそのアカウントを管理します。</string>
     <string name="error_occurred">エラーが発生しました: %1$s</string>
     <string name="error_remove_user">ユーザー %1$s を削除できませんでした</string>
@@ -94,4 +94,6 @@
     <string name="home_dish_profile_owner_note">プロファイル所有者モード: dish は動作しますが、完全なデバイス所有者が必要なコマンド (reboot、adb、timezone、プライベート DNS など) は使用できません。</string>
     <string name="home_dish_help_title">dish の使い方</string>
     <string name="home_dish_help_text">dish はこのアプリ内のターミナルではなく、コマンドラインツールです。ファイルをエクスポートし、ターミナルアプリ (Termux がおすすめ) で dish を実行してください。\n\n1. 「dish ファイルをエクスポート」をタップしてフォルダを選びます。\n2. Termux で termux-setup-storage を一度実行し、dish と dish_dhizukuf.dex を $PREFIX/bin にコピーして、chmod +x $PREFIX/bin/dish を実行します。\n3. dish と入力するとコンソールが開きます。コマンド一覧は dish help です。\n\n初回実行時、DhizukuF がアクセスの承認を求めます。</string>
+    <string name="enable_dangerous">危険なコマンドを有効にする</string>
+    <string name="enable_dangerous_desc">dish と Dhizuku API で危険な操作 (再起動、アプリデータの消去、設定の書き込み、権限の変更、API の直接呼び出しなど) を許可します。デフォルトではオフです。</string>
 </resources>

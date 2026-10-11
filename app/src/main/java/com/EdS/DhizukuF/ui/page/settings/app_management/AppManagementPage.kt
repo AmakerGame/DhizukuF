@@ -1,5 +1,8 @@
 package com.EdS.DhizukuF.ui.page.settings.app_management
 
+import com.EdS.DhizukuF.ui.widget.tvFocusBorder
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -222,6 +225,14 @@ private fun LazyItemScope.ItemWidget(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .tvFocusBorder(RoundedCornerShape(8.dp))
+                            .toggleable(
+                                value = data.enabled,
+                                role = Role.Switch,
+                                onValueChange = { enabled ->
+                                    viewModel.setEnabled(data.applicationInfo.uid, enabled)
+                                }
+                            )
                             .padding(horizontal = 12.dp, vertical = 8.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
@@ -235,9 +246,7 @@ private fun LazyItemScope.ItemWidget(
                         )
                         Switch(
                             checked = data.enabled,
-                            onCheckedChange = { enabled ->
-                                viewModel.setEnabled(data.applicationInfo.uid, enabled)
-                            },
+                            onCheckedChange = null,
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = MaterialTheme.colorScheme.primary,
                                 checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,

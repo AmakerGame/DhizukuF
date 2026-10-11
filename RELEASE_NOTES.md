@@ -14,6 +14,21 @@ A pre-release for testing. Please report problems in [Issues](https://github.com
 - **Translations** — every missing string is now translated into all languages of the app (Manchu
   excepted); Hausa is new. Translations are not natively reviewed — corrections are welcome.
 
+- **Security hardening** — no app backups of the approval database, hardened dish entry points
+  (malformed requests, request floods, dialog spam), blocked destructive calls and protection of
+  DhizukuF itself from `hide` / `suspend` / `clear-data`. See [SECURITY.md](SECURITY.md).
+
+- **Enable dangerous commands** (off by default) — risky actions (reboot, clearing app data, writing
+  settings, changing permissions, direct `dish api` calls, ...) need this switch, for dish and the Dhizuku API.
+- **Fixes** — blocked apps stay blocked after a restart or an app update; an app that changes its signature
+  loses access immediately.
+
+- **Android TV** — TV launcher banner, remote / D-pad navigation with a focus frame, and an export fallback
+  for boxes without a folder picker.
+- **Text fix** — the activation card says "Activation by DhizukuF"; its description still refers to other
+  Dhizuku implementations.
+- **Least privilege** — unused storage permissions and an overly broad FileProvider were removed.
+
 ### Notes
 
 - Existing dish users: export the dish files again to get the latest launcher and client.

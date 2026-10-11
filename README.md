@@ -35,6 +35,10 @@ Compared to upstream Dhizuku (full list in [CHANGELOG.md](CHANGELOG.md)):
   are verified by reading the value back.
 - **Device Owner / Profile Owner aware** — dish works in both modes; commands that need the full
   Device Owner say so clearly in Profile Owner mode (see [docs/DISH.md](docs/DISH.md#device-owner-and-profile-owner)).
+- **Dangerous commands off by default** — a switch in Settings gates risky actions for dish and the
+  Dhizuku API (see [docs/DISH.md](docs/DISH.md#dangerous-commands)).
+- **Android TV** — launcher banner, D-pad / remote control navigation with a visible focus frame, and an
+  export fallback for boxes without a folder picker (see [docs/DISH.md](docs/DISH.md#android-tv)).
 - **Safe start** — dish checks access before the prompt appears. If dish is switched off, DhizukuF
   is not the Device Owner, or you refuse the request, the console does not start.
 - **Enable dish** switch in Settings, next to **Enable Dhizuku**. The two are independent.
@@ -103,6 +107,7 @@ The dish client (`dish-client/`) is plain Java without dependencies. The prebuil
 
 - [dish guide](docs/DISH.md)
 - [Changelog](CHANGELOG.md)
+- [Security](SECURITY.md)
 - [Original Dhizuku README](docs/README_ORIGINAL.md)
 - [Terms of Use](docs/TERMS.md) · [Privacy Policy](docs/PRIVACY.md)
 

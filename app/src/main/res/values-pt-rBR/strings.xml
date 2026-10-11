@@ -6,7 +6,7 @@
     <string name="home_deactivate_title">Desativar</string>
     <string name="home_deactivate_dsp">Tem certeza de que deseja desativar?</string>
     <string name="donate">Doar</string>
-    <string name="request_permission_text">Permitir que <b>%1$s</b> acesse o Dhizuku?</string>
+    <string name="request_permission_text">Permitir que <b>%1$s</b> acesse o DhizukuF?</string>
     <string name="agree">Permitir</string>
     <string name="refuse">Bloquear</string>
     <string name="service_channel_name">Serviço de segundo plano</string>
@@ -16,9 +16,9 @@
     <string name="home_status_owner_denied">Aguardando a ativação</string>
     <string name="home_app_management_title">Gerenciamento de aplicativos</string>
     <string name="home_app_management_dsp">Os apps que solicitaram ou declararam o uso do Dhizuku serão exibidos aqui.</string>
-    <string name="home_dhizuku_title">Ativação pelo Dhizuku</string>
+    <string name="home_dhizuku_title">Ativação pelo DhizukuF</string>
     <string name="home_shizuku_title">Ativação pelo Shizuku</string>
-    <string name="home_shutdown_dsp">O sistema não conseguirá encerrar o Dhizuku a menos que ele o faça voluntariamente.</string>
+    <string name="home_shutdown_dsp">O sistema não conseguirá encerrar o DhizukuF a menos que ele o faça voluntariamente.</string>
     <string name="home_dhizuku_dsp">Se você tiver outras implementações do Dhizuku instaladas, você pode alternar entre elas à vontade. Por favor, &lt;a href=%1$s&gt;leia a ajuda&lt;/a&gt;.</string>
     <string name="home_shizuku_dsp">Com o Shizuku, você tem a habilidade de executar comandos ADB sem precisar de um computador. Por favor, &lt;a href=%1$s&gt;leia a ajuda&lt;/a&gt;.</string>
     <string name="home_adb_title">Ativação pelo ADB</string>
@@ -30,26 +30,26 @@
     <string name="agree_text">Concordar</string>
     <string name="agreement_text">Aqui está a nossa política do usuário, por favor leia e concorde com ela. &lt;a href=\"https://iamr0s.github.io/Dhizuku/TERMS.html\"&gt;Termos de Uso&lt;/a&gt;, &lt;a href=\"https://iamr0s.github.io/Dhizuku/PRIVACY.html\"&gt;Política de Privacidade&lt;/a&gt; Essa mensagem não aparecerá novamente após você concordar.</string>
     <string name="settings">Configurações</string>
-    <string name="settings_desc">Configurar o comportamento do Dhizuku</string>
-    <string name="enable_dhizuku">Habilitar Dhizuku</string>
-    <string name="enable_dhizuku_desc">Permitir que os aplicativos usem os serviços Dhizuku</string>
+    <string name="settings_desc">Configurar o comportamento do DhizukuF</string>
+    <string name="enable_dhizuku">Habilitar DhizukuF</string>
+    <string name="enable_dhizuku_desc">Permitir que os aplicativos usem os serviços DhizukuF</string>
     <string name="whitelist_mode">Modo de lista branca</string>
-    <string name="whitelist_mode_desc">Permitir que apenas aplicativos pré-aprovados usem o Dhizuku</string>
+    <string name="whitelist_mode_desc">Permitir que apenas aplicativos pré-aprovados usem o DhizukuF</string>
     <string name="block_app">Bloquear App</string>
     <string name="auto_deny_in">Negação automática em</string>
-    <string name="block_app_desc">Negar completamente o acesso ao Dhizuku</string>
-    <string name="app_blocked_notice">Este aplicativo está bloqueado e não é possível acessar o Dhizuku</string>
-    <string name="allow_dhizuku_access">Permitir acesso Dhizuku</string>
+    <string name="block_app_desc">Negar completamente o acesso ao DhizukuF</string>
+    <string name="app_blocked_notice">Este aplicativo está bloqueado e não é possível acessar o DhizukuF</string>
+    <string name="allow_dhizuku_access">Permitir acesso DhizukuF</string>
     <string name="unblock_app">Desbloquear App</string>
     <string name="auto_deny_in_seconds">Negação automática em %d segundos</string>
     <string name="denying_access">Negando acesso…</string>
     <string name="daemon_service_notification_title">Dhizuku Daemon</string>
-    <string name="daemon_service_notification_text">Esta é uma notificação do Dhizuku para garantir a disponibilidade do serviço a qualquer momento. Você pode pressionar e segurar para ocultar esta notificação.</string>
+    <string name="daemon_service_notification_text">Esta é uma notificação do DhizukuF para garantir a disponibilidade do serviço a qualquer momento. Você pode pressionar e segurar para ocultar esta notificação.</string>
     <string name="copy">Copiar</string>
     <string name="confirm_device_owner">Proprietário do Dispositivo</string>
     <string name="confirm_profile_owner">Proprietário do Perfil</string>
     <string name="profile_owner_warning_title">Aviso</string>
-    <string name="profile_owner_warning_dsp">Esta é uma alteração que só deve ser feita por usuários que entendem suas implicações. Os desenvolvedores do Dhizuku não podem garantir nada sobre comportamentos inesperados causados por essa mudança de modo.</string>
+    <string name="profile_owner_warning_dsp">Esta é uma alteração que só deve ser feita por usuários que entendem suas implicações. Os desenvolvedores do DhizukuF não podem garantir nada sobre comportamentos inesperados causados por essa mudança de modo.</string>
     <string name="donate_hide_action">Ocultar</string>
     <string name="donate_hide_confirm_title">Ocultar Botão de Doação</string>
     <string name="donate_hide_confirm_dsp">Isso não pode ser desfeito dentro do aplicativo. Tem certeza de que deseja ocultar permanentemente o botão de doação?</string>
@@ -92,4 +92,6 @@
     <string name="home_dish_profile_owner_note">Modo de proprietário do perfil: o dish funciona, mas os comandos que exigem o proprietário completo do dispositivo (reboot, adb, timezone, DNS privado e outros) não estão disponíveis.</string>
     <string name="home_dish_help_title">Como usar o dish</string>
     <string name="home_dish_help_text">O dish não é um terminal dentro deste app, mas uma ferramenta de linha de comando: exporte os arquivos e execute o dish em um app de terminal, de preferência o Termux.\n\n1. Toque em «Exportar arquivos dish» e escolha uma pasta.\n2. No Termux, execute termux-setup-storage uma vez, copie dish e dish_dhizukuf.dex para $PREFIX/bin e execute chmod +x $PREFIX/bin/dish.\n3. Digite dish para abrir o console, ou dish help para ver os comandos.\n\nNa primeira execução, o DhizukuF pede que você aprove o acesso.</string>
+    <string name="enable_dangerous">Ativar comandos perigosos</string>
+    <string name="enable_dangerous_desc">Permite ações de risco para o dish e a API do Dhizuku: reinicialização, limpeza de dados de apps, gravação de configurações, alteração de permissões, chamadas diretas à API e similares. Desativado por padrão.</string>
 </resources>

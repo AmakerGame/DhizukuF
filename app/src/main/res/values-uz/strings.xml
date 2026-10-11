@@ -12,7 +12,7 @@
     <string name="home_status_owner_denied">Faollashtirish kutilyapti</string>
     <string name="home_app_management_title">Ilova boshqaruvi</string>
     <string name="home_app_management_dsp">Ilovalar ruxsat söradi yoki bekor qilingan Dhizuku shu yerda körinadi</string>
-    <string name="home_dhizuku_title">Dhizuku faollashtirdi</string>
+    <string name="home_dhizuku_title">DhizukuF orqali faollashtirish</string>
     <string name="home_user_management_dsp">Foydalanuvchilar va ularning hisoblarini boshqaring.</string>
     <string name="home_dhizuku_dsp">Agar boshqa Dhizuku amalga oshirishlari oʻrnatilgan boʻlsa, ular orasida xohlagancha almashishingiz mumkin. Iltimos, &lt;a href=\"%1$s\"&gt;yordamni oʻqing&lt;/a&gt;.</string>
     <string name="home_shizuku_title">Shizuku orqali faollashtirish</string>
@@ -21,26 +21,26 @@
     <string name="home_adb_dsp">ADB (Android Debug Bridge) ulanishi orqali ayrim imtiyozli buyruqlarni bajarishingiz mumkin. Iltimos, &lt;a href=\"%1$s\"&gt;yordamni oʻqing&lt;/a&gt;.</string>
     <string name="home_adb_btn_view_command">Buyruqni koʻrish</string>
     <string name="home_shutdown_title">Oʻchirish</string>
-    <string name="home_shutdown_dsp">Dhizuku oʻzi xohlamasa, tizim uni oʻchira olmaydi.</string>
+    <string name="home_shutdown_dsp">DhizukuF oʻzi xohlamasa, tizim uni oʻchira olmaydi.</string>
     <string name="home_deactivate_title">Faolsizlantirish</string>
     <string name="home_deactivate_dsp">Faolsizlantirishni xohlaysizmi?</string>
     <string name="confirm">OK</string>
     <string name="confirm_device_owner">Qurilma egasi</string>
     <string name="confirm_profile_owner">Profil egasi</string>
     <string name="profile_owner_warning_title">Ogohlantirish</string>
-    <string name="profile_owner_warning_dsp">Bu oʻzgarishni faqat uning oqibatlarini tushunadigan foydalanuvchilar qilishi kerak. Dhizuku ishlab chiquvchilari bu rejim oʻzgarishi sabab boʻlgan kutilmagan holatlar uchun hech narsaga kafolat bera olmaydi.</string>
+    <string name="profile_owner_warning_dsp">Bu oʻzgarishni faqat uning oqibatlarini tushunadigan foydalanuvchilar qilishi kerak. DhizukuF ishlab chiquvchilari bu rejim oʻzgarishi sabab boʻlgan kutilmagan holatlar uchun hech narsaga kafolat bera olmaydi.</string>
     <string name="finish">Yakunlash</string>
     <string name="donate">Xayriya</string>
     <string name="donate_hide_action">Yashirish</string>
     <string name="donate_hide_confirm_title">Xayriya tugmasini yashirish</string>
     <string name="donate_hide_confirm_dsp">Buni ilova ichidan qaytarib boʻlmaydi. Xayriya tugmasini butunlay yashirishni xohlaysizmi?</string>
-    <string name="request_permission_text"><b>%1$s</b> ilovasiga Dhizuku’dan foydalanishga ruxsat berasizmi?</string>
+    <string name="request_permission_text"><b>%1$s</b> ilovasiga DhizukuF’dan foydalanishga ruxsat berasizmi?</string>
     <string name="agree">Ruxsat berish</string>
     <string name="refuse">Rad etish</string>
     <string name="service_channel_name">Fon xizmati</string>
     <string name="service_running">DhizukuF ishlayapti</string>
     <string name="settings">Sozlamalar</string>
-    <string name="settings_desc">Dhizuku xatti-harakatini sozlash</string>
+    <string name="settings_desc">DhizukuF xatti-harakatini sozlash</string>
     <string name="user_manager">Foydalanuvchilar menejeri</string>
     <string name="user_name_default">Nomsiz</string>
     <string name="delete_user_warning">Bu foydalanuvchi maydonini oʻchirishni xohlaysizmi?\nBu maydondagi barcha ilovalar va maʼlumotlar yoʻqoladi!!!</string>
@@ -56,15 +56,15 @@
     <string name="action_freeze_all">Hammasini muzlatish</string>
     <string name="action_unfreeze_all">Hammasini muzdan chiqarish</string>
     <string name="error_open_sync_settings">Tizim hisob sozlamalarini ochib boʻlmadi</string>
-    <string name="enable_dhizuku">Dhizuku’ni yoqish</string>
-    <string name="enable_dhizuku_desc">Ilovalarga Dhizuku xizmatlaridan foydalanishga ruxsat berish</string>
+    <string name="enable_dhizuku">DhizukuF’ni yoqish</string>
+    <string name="enable_dhizuku_desc">Ilovalarga DhizukuF xizmatlaridan foydalanishga ruxsat berish</string>
     <string name="whitelist_mode">Oq roʻyxat rejimi</string>
-    <string name="whitelist_mode_desc">Faqat oldindan tasdiqlangan ilovalarga Dhizuku’dan foydalanishga ruxsat berish</string>
+    <string name="whitelist_mode_desc">Faqat oldindan tasdiqlangan ilovalarga DhizukuF’dan foydalanishga ruxsat berish</string>
     <string name="block_app">Ilovani bloklash</string>
     <string name="auto_deny_in">Avtomatik rad etish:</string>
-    <string name="block_app_desc">Dhizuku’ga kirishni butunlay rad etish</string>
-    <string name="app_blocked_notice">Bu ilova bloklangan va Dhizuku’ga kira olmaydi</string>
-    <string name="allow_dhizuku_access">Dhizuku’ga kirishga ruxsat berish</string>
+    <string name="block_app_desc">DhizukuF’ga kirishni butunlay rad etish</string>
+    <string name="app_blocked_notice">Bu ilova bloklangan va DhizukuF’ga kira olmaydi</string>
+    <string name="allow_dhizuku_access">DhizukuF’ga kirishga ruxsat berish</string>
     <string name="unblock_app">Ilovani blokdan chiqarish</string>
     <string name="auto_deny_in_seconds">%d soniyadan keyin avtomatik rad etiladi</string>
     <string name="denying_access">Kirish rad etilmoqda…</string>
@@ -74,7 +74,7 @@
     <string name="error_set_profile_owner">Profil egasini belgilab boʻlmadi. Tizim sozlamalarini tekshiring.</string>
     <string name="error_shizuku_not_work">Shizuku’ni faollashtiring va soʻralgan ruxsatni bering</string>
     <string name="daemon_service_notification_title">DhizukuF daemoni</string>
-    <string name="daemon_service_notification_text">Bu xizmat har doim ishlashini taʼminlash uchun Dhizuku bildirishnomasi. Bildirishnomani yashirish uchun uzoq bosing.</string>
+    <string name="daemon_service_notification_text">Bu xizmat har doim ishlashini taʼminlash uchun DhizukuF bildirishnomasi. Bildirishnomani yashirish uchun uzoq bosing.</string>
     <string name="home_dish_title">Terminal (dish)</string>
     <string name="home_dish_dsp">Qurilma egasi buyruqlarini istalgan terminaldan (Termux, adb shell va boshqalar) Shizuku uchun rish kabi bajaring. dish va dish_dhizukuf.dex fayllarini eksport qiling va dish’ni ishga tushiring.</string>
     <string name="home_dish_btn_export">dish fayllarini eksport qilish</string>
@@ -92,4 +92,6 @@
     <string name="home_dish_profile_owner_note">Profil egasi rejimi: dish ishlaydi, lekin toʻliq qurilma egasini talab qiladigan buyruqlar (reboot, adb, timezone, maxfiy DNS va boshqalar) mavjud emas.</string>
     <string name="home_dish_help_title">dish’dan qanday foydalaniladi</string>
     <string name="home_dish_help_text">dish bu ilova ichidagi terminal emas, balki buyruq qatori vositasi: fayllarni eksport qiling, soʻng dish’ni terminal ilovasida, yaxshisi Termux’da ishga tushiring.\n\n1. «dish fayllarini eksport qilish» tugmasini bosing va papka tanlang.\n2. Termux’da termux-setup-storage’ni bir marta ishga tushiring, dish va dish_dhizukuf.dex’ni $PREFIX/bin ga nusxalang va chmod +x $PREFIX/bin/dish’ni ishga tushiring.\n3. Konsolni ochish uchun dish, buyruqlarni koʻrish uchun dish help yozing.\n\nBirinchi ishga tushirishda DhizukuF kirishni tasdiqlashni soʻraydi.</string>
+    <string name="enable_dangerous">Xavfli buyruqlarni yoqish</string>
+    <string name="enable_dangerous_desc">dish va Dhizuku API uchun xavfli amallarga ruxsat beradi: qayta ishga tushirish, ilova maʼlumotlarini tozalash, sozlamalarni yozish, ruxsatlarni oʻzgartirish, API’ni toʻgʻridan-toʻgʻri chaqirish va shunga oʻxshashlar. Odatda oʻchiq.</string>
 </resources>

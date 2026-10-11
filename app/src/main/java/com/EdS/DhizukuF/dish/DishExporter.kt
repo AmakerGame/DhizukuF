@@ -12,14 +12,32 @@ object DishExporter {
     const val DEX_NAME = "dish_dhizukuf.dex"
     private const val MIME = "application/octet-stream"
 
+    private fun scriptText(context: Context): String =
+        context.assets.open(SCRIPT_NAME).bufferedReader().use { it.readText() }
+            .replace("__PACKAGE__", context.packageName)
+
+    /**
+     * Fallback for devices without a folder picker (many Android TV boxes): writes both files to
+     * the app's own folder (Android/data/<package>/files/dish), reachable with `adb pull` / `adb shell`.
+     * Returns the folder.
+     */
+    @Throws(IOException::class)
+    fun exportToAppFolder(context: Context): java.io.File {
+        val dir = java.io.File(context.getExternalFilesDir(null) ?: context.filesDir, "dish")
+        if (!dir.isDirectory && !dir.mkdirs()) throw IOException("cannot create $dir")
+        java.io.File(dir, SCRIPT_NAME).writeText(scriptText(context))
+        java.io.File(dir, DEX_NAME).outputStream().use { out ->
+            context.assets.open(DEX_NAME).use { it.copyTo(out) }
+        }
+        return dir
+    }
+
     @Throws(IOException::class)
     fun export(context: Context, tree: Uri) {
-        val resolver = context.contentResolver
         val treeId = DocumentsContract.getTreeDocumentId(tree)
         val parent = DocumentsContract.buildDocumentUriUsingTree(tree, treeId)
 
-        val script = context.assets.open(SCRIPT_NAME).bufferedReader().use { it.readText() }
-            .replace("__PACKAGE__", context.packageName)
+        val script = scriptText(context)
 
         write(context, tree, treeId, parent, SCRIPT_NAME) { it.write(script.toByteArray()) }
         write(context, tree, treeId, parent, DEX_NAME) { out ->

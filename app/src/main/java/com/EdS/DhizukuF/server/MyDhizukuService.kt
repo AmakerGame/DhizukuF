@@ -2,6 +2,7 @@ package com.EdS.DhizukuF.server
 
 import android.content.ComponentName
 import android.content.Context
+import android.util.Log
 
 import com.rosan.dhizuku.aidl.IDhizukuClient
 import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
@@ -21,12 +22,25 @@ class MyDhizukuService(context: Context, admin: ComponentName?, client: IDhizuku
     private val appRepo by inject<AppRepo>()
     private val settingsRepo by inject<SettingsRepo>()
 
+    private companion object {
+        val DANGEROUS_WORDS = listOf("wipe", "factory", "reset", "remove_user", "removeuser")
+    }
+
     override fun getVersionName(): String = "$versionCode"
 
-    private var signature: String? = null
+    private fun looksDangerous(func: String?): Boolean {
+        val name = func?.lowercase() ?: return false
+        return DANGEROUS_WORDS.any { name.contains(it) }
+    }
 
     override fun checkCallingPermission(func: String?, callingUid: Int, callingPid: Int): Boolean {
         if (!settingsRepo.isDhizukuEnabled) {
+            return false
+        }
+        // Best effort: the library passes only the name of the API function, not the
+        // DevicePolicyManager method, so only dangerous function names can be recognised here.
+        if (!settingsRepo.isDangerousEnabled && looksDangerous(func)) {
+            Log.w("MyDhizukuService", "blocked a dangerous call: $func (uid $callingUid)")
             return false
         }
 
@@ -43,12 +57,11 @@ class MyDhizukuService(context: Context, admin: ComponentName?, client: IDhizuku
             return false
         }
 
-        val signature = this.signature
-            ?: context.packageManager.getPackageInfoForUid(callingUid)?.signature
+        // Never cache the signature: an updated app with another certificate must be refused.
+        val signature = context.packageManager.getPackageInfoForUid(callingUid)?.signature
         if (signature == null) {
             return false
         }
-        this.signature = signature
 
         if (signature != entity.signature) {
             return false

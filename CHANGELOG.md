@@ -6,11 +6,19 @@ The newest changes are at the top.
 ## 1.1.0-pre1 (2) — pre-release
 
 ### Added
+- **Android TV support**: appears in the TV launcher with a banner, no touch screen required, full D-pad /
+  remote navigation (every card and switch row is focusable and shows a focus frame; a settings row is toggled
+  with the centre button). If the device has no folder picker, *Export dish files* saves to the app folder
+  (`Android/data/com.EdS.DhizukuF/files/dish`) and shows the path.
 - Tapping the **Terminal (dish)** card opens a short "How to use dish" dialog: dish is not a terminal
   inside the app, export the files, run dish in a terminal app (best in Termux), and the three steps.
   It has an *Export dish files* button.
 
 ### Changed
+- Texts that mean this app now say **DhizukuF** (enable switch, permission dialog, settings, block texts,
+  notification) in every language; texts that mean other Dhizuku implementations or the Dhizuku API keep "Dhizuku".
+- The activation card is titled **Activation by DhizukuF** (was "Dhizuku") in every language. Its description
+  still says "Dhizuku", because it refers to other Dhizuku implementations.
 - Device Owner vs Profile Owner: `status` shows the mode; commands that need the Device Owner answer
   `NOT DONE: ... needs Device Owner, but DhizukuF is Profile Owner`; `help` marks them with `*`
   and `help COMMAND` has a `Needs:` line. `SecurityException` answers mention the mode.
@@ -20,6 +28,26 @@ The newest changes are at the top.
   texts, user and account management and error messages (except Manchu `mnc`, which stays in
   English where no translation exists). Hausa (`ha`) was empty and is now fully translated.
   These translations were prepared without native review; corrections are welcome.
+
+### Security
+- Least privilege: removed the unused `READ_EXTERNAL_STORAGE` / `WRITE_EXTERNAL_STORAGE` permissions and the
+  unused FileProvider (its paths covered the whole external storage); `DaemonReceiver` is no longer exported.
+- New switch **Enable dangerous commands** (off by default) for dish and the regular Dhizuku API; see
+  [docs/DISH.md](docs/DISH.md#dangerous-commands). For the regular API it is best effort.
+- Fixed: a **blocked** app (or a pending request) was deleted from the database every time the daemon
+  service started or a package changed, which silently un-blocked it. Only a missing package or a changed
+  signature removes an entry now, and an app update no longer drops its approval.
+- Fixed: the caller's signature was cached in the Dhizuku service, so an app updated with a different
+  certificate could keep access until the service was recreated. It is checked on every call now.
+- `allowBackup` is now off: the approval database cannot be backed up or restored onto another device.
+- The dish handshake receiver ignores malformed extras (they could crash the app) and limits parallel
+  handshakes.
+- Unapproved callers can no longer block Binder threads for 60 s (max 4 waiting requests, one per app),
+  and the approval dialog is shown at most once per 10 seconds per app.
+- dish command lines are size-limited and internal error details are no longer returned to callers.
+- `dish api` also blocks `removeUser*` calls and `clearApplicationUserData` outside dpm; dish refuses to
+  hide, suspend or clear the data of DhizukuF itself.
+- New [SECURITY.md](SECURITY.md) with the protection model and how to report vulnerabilities.
 
 ### Fixed
 - The **Terminal (dish)** card was shown only when DhizukuF was already an owner, so on a device that

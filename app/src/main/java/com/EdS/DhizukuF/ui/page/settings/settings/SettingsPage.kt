@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 
 import com.EdS.DhizukuF.R
 import com.EdS.DhizukuF.ui.theme.exclude
+import com.EdS.DhizukuF.ui.widget.SwitchRow
 
 import org.koin.androidx.compose.koinViewModel
 
@@ -84,110 +85,48 @@ fun SettingsPage(
                             .padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    stringResource(R.string.enable_dhizuku),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    stringResource(R.string.enable_dhizuku_desc),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                            Switch(
-                                checked = viewModel.state.dhizukuEnabled,
-                                onCheckedChange = viewModel::setDhizukuEnabled
-                            )
-                        }
+                        SwitchRow(
+                            title = stringResource(R.string.enable_dhizuku),
+                            description = stringResource(R.string.enable_dhizuku_desc),
+                            checked = viewModel.state.dhizukuEnabled,
+                            onCheckedChange = viewModel::setDhizukuEnabled
+                        )
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    stringResource(R.string.enable_dish),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    stringResource(R.string.enable_dish_desc),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                            Switch(
-                                checked = viewModel.state.dishEnabled,
-                                onCheckedChange = viewModel::setDishEnabled
-                            )
-                        }
+                        SwitchRow(
+                            title = stringResource(R.string.enable_dish),
+                            description = stringResource(R.string.enable_dish_desc),
+                            checked = viewModel.state.dishEnabled,
+                            onCheckedChange = viewModel::setDishEnabled
+                        )
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    stringResource(R.string.whitelist_mode),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    stringResource(R.string.whitelist_mode_desc),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                            Switch(
-                                checked = viewModel.state.whitelistMode,
-                                onCheckedChange = viewModel::setWhitelistMode
-                            )
-                        }
+                        SwitchRow(
+                            title = stringResource(R.string.enable_dangerous),
+                            description = stringResource(R.string.enable_dangerous_desc),
+                            checked = viewModel.state.dangerousEnabled,
+                            onCheckedChange = viewModel::setDangerousEnabled,
+                            titleColor = MaterialTheme.colorScheme.error
+                        )
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    stringResource(R.string.advanced_confirmation),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    stringResource(R.string.advanced_confirmation_desc),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                            Switch(
-                                checked = viewModel.state.advancedConfirmation,
-                                onCheckedChange = viewModel::setAdvancedConfirmation
-                            )
-                        }
+                        SwitchRow(
+                            title = stringResource(R.string.whitelist_mode),
+                            description = stringResource(R.string.whitelist_mode_desc),
+                            checked = viewModel.state.whitelistMode,
+                            onCheckedChange = viewModel::setWhitelistMode
+                        )
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    stringResource(R.string.show_dish_label),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    stringResource(R.string.show_dish_label_desc),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                            Switch(
-                                checked = viewModel.state.showDishLabel,
-                                onCheckedChange = viewModel::setShowDishLabel
-                            )
-                        }
+                        SwitchRow(
+                            title = stringResource(R.string.advanced_confirmation),
+                            description = stringResource(R.string.advanced_confirmation_desc),
+                            checked = viewModel.state.advancedConfirmation,
+                            onCheckedChange = viewModel::setAdvancedConfirmation
+                        )
+
+                        SwitchRow(
+                            title = stringResource(R.string.show_dish_label),
+                            description = stringResource(R.string.show_dish_label_desc),
+                            checked = viewModel.state.showDishLabel,
+                            onCheckedChange = viewModel::setShowDishLabel
+                        )
                     }
                 }
             }

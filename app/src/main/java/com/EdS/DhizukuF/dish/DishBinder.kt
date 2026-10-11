@@ -18,6 +18,11 @@ class DishBinder(private val context: Context) : Binder() {
 
         val uid = getCallingUid()
         val args = data.createStringArray()?.toList() ?: emptyList()
+        if (args.size > MAX_ARGS || args.any { it.length > MAX_ARG_LENGTH }) {
+            reply.writeInt(DishEngine.KIND_DENIED)
+            reply.writeString("The command line is too long")
+            return true
+        }
         val result = try {
             if (code == TX_EXEC) DishEngine.execute(context, uid, args)
             else DishEngine.awaitApproval(context, uid)
@@ -25,7 +30,7 @@ class DishBinder(private val context: Context) : Binder() {
             Log.w("DishBinder", "request failed", t)
             DishEngine.Reply(
                 DishEngine.KIND_DENIED,
-                message = "Internal error: ${t.javaClass.simpleName}: ${t.message}"
+                message = "Internal error (${t.javaClass.simpleName})"
             )
         }
 
@@ -43,5 +48,7 @@ class DishBinder(private val context: Context) : Binder() {
     companion object {
         const val TX_EXEC = 1
         const val TX_WAIT_APPROVAL = 2
+        private const val MAX_ARGS = 256
+        private const val MAX_ARG_LENGTH = 8192
     }
 }

@@ -12,7 +12,7 @@
     <string name="home_status_owner_denied">Se așteaptă activarea</string>
     <string name="home_app_management_title">Gestionare aplicație</string>
     <string name="home_app_management_dsp">Aplicațiile care au solicitat sau au declarat Dhizuku vor apărea aici.</string>
-    <string name="home_dhizuku_title">Activați folosind Dhizuku</string>
+    <string name="home_dhizuku_title">Activați folosind DhizukuF</string>
     <string name="home_dhizuku_dsp">Dacă aveți alte implementări Dhizuku instalate, le puteți schimba la propria voință. Vă rugăm să &lt;a href=\"%1$s\"&gt;Citiți Ajutorul&lt;/a&gt;.</string>
     <string name="home_shizuku_title">Activați folosind Shizuku</string>
     <string name="home_shizuku_dsp">Cu Shizuku, aveți abilitatea să rulați comenzi ADB fără a avea nevoie de un calculator. Vă rugăm să &lt;a href=\"%1$s\"&gt;Citiți Ghidul&lt;/a&gt;.</string>
@@ -21,26 +21,26 @@
     <string name="home_adb_dsp">Prin conexiunea ADB (Android Debug Bridge) puteți executa unele comenzi privilegiate. Vă rugăm să &lt;a href=\"%1$s\"&gt;citiți ajutorul&lt;/a&gt;.</string>
     <string name="home_adb_btn_view_command">Vezi comanda</string>
     <string name="home_shutdown_title">Oprire</string>
-    <string name="home_shutdown_dsp">Sistemul nu poate opri Dhizuku decât dacă Dhizuku se oprește de bunăvoie.</string>
+    <string name="home_shutdown_dsp">Sistemul nu poate opri DhizukuF decât dacă DhizukuF se oprește de bunăvoie.</string>
     <string name="home_deactivate_title">Dezactivare</string>
     <string name="home_deactivate_dsp">Sigur doriți să dezactivați?</string>
     <string name="confirm">OK</string>
     <string name="confirm_device_owner">Proprietar al dispozitivului</string>
     <string name="confirm_profile_owner">Proprietar al profilului</string>
     <string name="profile_owner_warning_title">Avertisment</string>
-    <string name="profile_owner_warning_dsp">Această modificare trebuie făcută doar de utilizatorii care îi înțeleg consecințele. Dezvoltatorii Dhizuku nu pot garanta nimic cu privire la comportamentul neașteptat cauzat de această schimbare de mod.</string>
+    <string name="profile_owner_warning_dsp">Această modificare trebuie făcută doar de utilizatorii care îi înțeleg consecințele. Dezvoltatorii DhizukuF nu pot garanta nimic cu privire la comportamentul neașteptat cauzat de această schimbare de mod.</string>
     <string name="finish">Finalizare</string>
     <string name="donate">Donează</string>
     <string name="donate_hide_action">Ascunde</string>
     <string name="donate_hide_confirm_title">Ascunde butonul de donație</string>
     <string name="donate_hide_confirm_dsp">Acest lucru nu poate fi anulat din aplicație. Sigur doriți să ascundeți definitiv butonul de donație?</string>
-    <string name="request_permission_text">Permiteți ca <b>%1$s</b> să acceseze Dhizuku?</string>
+    <string name="request_permission_text">Permiteți ca <b>%1$s</b> să acceseze DhizukuF?</string>
     <string name="agree">Permite</string>
     <string name="refuse">Refuză</string>
     <string name="service_channel_name">Serviciu de fundal</string>
     <string name="service_running">DhizukuF rulează</string>
     <string name="settings">Setări</string>
-    <string name="settings_desc">Configurați comportamentul Dhizuku</string>
+    <string name="settings_desc">Configurați comportamentul DhizukuF</string>
     <string name="user_manager">Manager de utilizatori</string>
     <string name="user_name_default">Fără titlu</string>
     <string name="delete_user_warning">Sigur doriți să ștergeți acest spațiu de utilizator?\nToate aplicațiile și datele din acest spațiu vor fi pierdute!!!</string>
@@ -56,15 +56,15 @@
     <string name="action_freeze_all">Îngheață tot</string>
     <string name="action_unfreeze_all">Dezgheață tot</string>
     <string name="error_open_sync_settings">Nu se pot deschide setările conturilor din sistem</string>
-    <string name="enable_dhizuku">Activează Dhizuku</string>
-    <string name="enable_dhizuku_desc">Permite aplicațiilor să folosească serviciile Dhizuku</string>
+    <string name="enable_dhizuku">Activează DhizukuF</string>
+    <string name="enable_dhizuku_desc">Permite aplicațiilor să folosească serviciile DhizukuF</string>
     <string name="whitelist_mode">Mod listă albă</string>
-    <string name="whitelist_mode_desc">Permite doar aplicațiilor aprobate în prealabil să folosească Dhizuku</string>
+    <string name="whitelist_mode_desc">Permite doar aplicațiilor aprobate în prealabil să folosească DhizukuF</string>
     <string name="block_app">Blochează aplicația</string>
     <string name="auto_deny_in">Refuz automat în</string>
-    <string name="block_app_desc">Refuză complet accesul la Dhizuku</string>
-    <string name="app_blocked_notice">Această aplicație este blocată și nu poate accesa Dhizuku</string>
-    <string name="allow_dhizuku_access">Permite accesul la Dhizuku</string>
+    <string name="block_app_desc">Refuză complet accesul la DhizukuF</string>
+    <string name="app_blocked_notice">Această aplicație este blocată și nu poate accesa DhizukuF</string>
+    <string name="allow_dhizuku_access">Permite accesul la DhizukuF</string>
     <string name="unblock_app">Deblochează aplicația</string>
     <string name="auto_deny_in_seconds">Refuz automat în %d secunde</string>
     <string name="denying_access">Se refuză accesul…</string>
@@ -74,7 +74,7 @@
     <string name="error_set_profile_owner">Nu s-a putut seta proprietarul profilului. Verificați configurația sistemului.</string>
     <string name="error_shizuku_not_work">Activați Shizuku și acordați permisiunea solicitată</string>
     <string name="daemon_service_notification_title">Daemon DhizukuF</string>
-    <string name="daemon_service_notification_text">Aceasta este o notificare Dhizuku pentru a asigura disponibilitatea serviciului în orice moment. Puteți apăsa lung pentru a ascunde această notificare.</string>
+    <string name="daemon_service_notification_text">Aceasta este o notificare DhizukuF pentru a asigura disponibilitatea serviciului în orice moment. Puteți apăsa lung pentru a ascunde această notificare.</string>
     <string name="home_dish_title">Terminal (dish)</string>
     <string name="home_dish_dsp">Rulați comenzi de proprietar al dispozitivului din orice terminal (Termux, adb shell și altele), ca rish pentru Shizuku. Exportați fișierele dish și dish_dhizukuf.dex și porniți dish.</string>
     <string name="home_dish_btn_export">Exportă fișierele dish</string>
@@ -92,4 +92,6 @@
     <string name="home_dish_profile_owner_note">Mod proprietar de profil: dish funcționează, dar comenzile care necesită proprietarul complet al dispozitivului (reboot, adb, timezone, DNS privat și altele) nu sunt disponibile.</string>
     <string name="home_dish_help_title">Cum se folosește dish</string>
     <string name="home_dish_help_text">dish nu este un terminal în această aplicație, ci un instrument de linie de comandă: exportați fișierele, apoi rulați dish într-o aplicație de terminal, de preferat Termux.\n\n1. Atingeți „Exportă fișierele dish” și alegeți un dosar.\n2. În Termux rulați o singură dată termux-setup-storage, copiați dish și dish_dhizukuf.dex în $PREFIX/bin și rulați chmod +x $PREFIX/bin/dish.\n3. Tastați dish pentru a deschide consola sau dish help pentru comenzi.\n\nLa prima rulare, DhizukuF vă cere să aprobați accesul.</string>
+    <string name="enable_dangerous">Activează comenzile periculoase</string>
+    <string name="enable_dangerous_desc">Permite acțiuni riscante pentru dish și API-ul Dhizuku: repornire, ștergerea datelor aplicațiilor, scrierea setărilor, modificarea permisiunilor, apeluri directe API și altele similare. Dezactivat implicit.</string>
 </resources>

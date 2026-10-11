@@ -33,6 +33,11 @@ class DaemonService : Service(), KoinComponent {
             if (intent == null) return
             val uid = intent.getIntExtra(Intent.EXTRA_UID, -1)
             if (uid < 0) return
+            // During an update the old package is removed first; the entry is re-checked by the
+            // following "changed" broadcast (signature), so do not drop it now.
+            if (intent.action == Intent.ACTION_PACKAGE_REMOVED &&
+                intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)
+            ) return
             scope.launch {
                 val entity = repo.findByUID(uid) ?: return@launch
                 if (verify(entity)) return@launch
@@ -84,9 +89,10 @@ class DaemonService : Service(), KoinComponent {
     }
 
     private fun verify(entity: AppEntity): Boolean {
+        // Only a missing package or a changed signature invalidates an entry. Blocked and pending
+        // entries must be kept, otherwise a blocked app would be forgotten (unblocked) on every
+        // service start or package change.
         val packageInfo = packageManager.getPackageInfoForUid(entity.uid) ?: return false
-
-        if (!entity.allowApi || entity.blocked) return false
 
         if (entity.signature != packageInfo.signature) return false
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="cancel">ביטול</string>
-    <string name="request_permission_text">לאפשר ל<b>%1$s</b> לגשת לDhizuku?</string>
+    <string name="request_permission_text">לאפשר ל<b>%1$s</b> לגשת לDhizukuF?</string>
     <string name="confirm">בסדר</string>
     <string name="finish">סיום</string>
     <string name="retry">נסה שוב</string>
@@ -13,7 +13,7 @@
     <string name="home_adb_title">הפעלה באמצעות ADB</string>
     <string name="home_adb_dsp">דרך ADB (android debugging bridge), ניתן לבצע כמה פקודות מוגנות. נא &lt;a href=%1$s&gt;לקרוא את העזרה&lt;/a&gt;.</string>
     <string name="home_adb_btn_view_command">הצגת הפקודה</string>
-    <string name="home_shutdown_dsp">המערכת לא תוכל לכבות את Dhizuku אלא אם Dhizuku יעשה זאת בעצמו.</string>
+    <string name="home_shutdown_dsp">המערכת לא תוכל לכבות את DhizukuF אלא אם DhizukuF יעשה זאת בעצמו.</string>
     <string name="home_deactivate_title">הסרה</string>
     <string name="home_deactivate_dsp">האם אתם בטוחים שאתם רוצים להסיר?</string>
     <string name="donate">תרומה</string>
@@ -24,32 +24,32 @@
     <string name="service_channel_name">שירות רקע</string>
     <string name="home_app_management_dsp">אפליקציות שביקשו או הכריזו על dhizuku יופיעו כאן</string>
     <string name="home_status_owner_denied">מחכה להפעלה</string>
-    <string name="home_dhizuku_title">הפעלה באמצעות dhizuku</string>
+    <string name="home_dhizuku_title">הפעלה באמצעות DhizukuF</string>
     <string name="permission_description">השתמש ב-API של Dhizuku</string>
     <string name="agreement_title">מדיניות</string>
     <string name="agree_text">הסכמה</string>
     <string name="agreement_text">הנה המדיניות שלנו, אנא קראו אותה והסכימו לה. &lt;a href=https://iamr0s.github.io/Dhizuku/TERMS.html&gt;Terms of Use&lt;/a&gt;, &lt;a href=https://iamr0s.github.io/Dhizuku/PRIVACY.html&gt;Privacy Policy&lt;/a&gt; ההודעה הזו לא תופיע אחרי הסכמה.</string>
     <string name="settings">הגדרות</string>
-    <string name="settings_desc">הגדרת התנהגות Dhizuku</string>
-    <string name="enable_dhizuku">הפעלת Dhizuku</string>
-    <string name="enable_dhizuku_desc">לאפשר ליישומים להשתמש בשירותי Dhizuku</string>
+    <string name="settings_desc">הגדרת התנהגות DhizukuF</string>
+    <string name="enable_dhizuku">הפעלת DhizukuF</string>
+    <string name="enable_dhizuku_desc">לאפשר ליישומים להשתמש בשירותי DhizukuF</string>
     <string name="whitelist_mode">מצב רשימה לבנה</string>
-    <string name="whitelist_mode_desc">לאפשר שימוש ב-Dhizuku רק ליישומים שאושרו מראש</string>
+    <string name="whitelist_mode_desc">לאפשר שימוש ב-DhizukuF רק ליישומים שאושרו מראש</string>
     <string name="block_app">חסימת יישום</string>
-    <string name="block_app_desc">דחיית גישה ל-Dhizuku לחלוטין</string>
+    <string name="block_app_desc">דחיית גישה ל-DhizukuF לחלוטין</string>
     <string name="auto_deny_in">דחייה אוטומטית בעוד</string>
     <string name="auto_deny_in_seconds">דחייה אוטומטית בעוד %d שניות</string>
-    <string name="app_blocked_notice">יישום זה חסום ואינו יכול לגשת ל-Dhizuku</string>
-    <string name="allow_dhizuku_access">לאפשר גישה ל-Dhizuku</string>
+    <string name="app_blocked_notice">יישום זה חסום ואינו יכול לגשת ל-DhizukuF</string>
+    <string name="allow_dhizuku_access">לאפשר גישה ל-DhizukuF</string>
     <string name="unblock_app">ביטול חסימת יישום</string>
     <string name="denying_access">דוחה גישה…</string>
     <string name="daemon_service_notification_title">שירות הרקע של Dhizuku</string>
-    <string name="daemon_service_notification_text">זוהי התראה של Dhizuku שמטרתה להבטיח את זמינות השירות בכל עת. ניתן ללחוץ לחיצה ארוכה כדי להסתיר התראה זו.</string>
+    <string name="daemon_service_notification_text">זוהי התראה של DhizukuF שמטרתה להבטיח את זמינות השירות בכל עת. ניתן ללחוץ לחיצה ארוכה כדי להסתיר התראה זו.</string>
     <string name="copy">העתקה</string>
     <string name="confirm_device_owner">בעלים של המכשיר</string>
     <string name="confirm_profile_owner">בעלים של הפרופיל</string>
     <string name="profile_owner_warning_title">אזהרה</string>
-    <string name="profile_owner_warning_dsp">זהו שינוי שצריך להתבצע רק על ידי משתמשים שמבינים את המשמעות שלו. מפתחי Dhizuku אינם יכולים להבטיח דבר לגבי התנהגות בלתי צפויה שנגרמת משינוי מצב זה.</string>
+    <string name="profile_owner_warning_dsp">זהו שינוי שצריך להתבצע רק על ידי משתמשים שמבינים את המשמעות שלו. מפתחי DhizukuF אינם יכולים להבטיח דבר לגבי התנהגות בלתי צפויה שנגרמת משינוי מצב זה.</string>
     <string name="donate_hide_action">הסתרה</string>
     <string name="donate_hide_confirm_title">הסתרת כפתור התרומה</string>
     <string name="donate_hide_confirm_dsp">לא ניתן לבטל פעולה זו מתוך היישום. האם אתם בטוחים שברצונכם להסתיר לצמיתות את כפתור התרומה?</string>
@@ -92,4 +92,6 @@
     <string name="home_dish_profile_owner_note">מצב בעל פרופיל: dish פועל, אך פקודות שדורשות בעל מכשיר מלא (reboot, adb, timezone, DNS פרטי ואחרות) אינן זמינות.</string>
     <string name="home_dish_help_title">איך להשתמש ב-dish</string>
     <string name="home_dish_help_text">dish אינו מסוף בתוך האפליקציה הזו אלא כלי שורת פקודה: ייצא את הקבצים והפעל את dish באפליקציית מסוף, עדיף Termux.\n\n1. הקש על «ייצוא קובצי dish» ובחר תיקייה.\n2. ב-Termux הרץ פעם אחת termux-setup-storage, העתק את dish ו-dish_dhizukuf.dex אל $PREFIX/bin והרץ chmod +x $PREFIX/bin/dish.\n3. הקלד dish כדי לפתוח את הקונסולה, או dish help כדי לראות את הפקודות.\n\nבהפעלה הראשונה DhizukuF יבקש ממך לאשר גישה.</string>
+    <string name="enable_dangerous">הפעלת פקודות מסוכנות</string>
+    <string name="enable_dangerous_desc">מאפשר פעולות מסוכנות עבור dish וה-API של Dhizuku: הפעלה מחדש, ניקוי נתוני אפליקציות, כתיבת הגדרות, שינוי הרשאות, קריאות API ישירות ודומיהן. כבוי כברירת מחדל.</string>
 </resources>

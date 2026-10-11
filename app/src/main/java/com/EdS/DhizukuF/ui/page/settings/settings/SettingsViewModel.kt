@@ -37,6 +37,11 @@ class SettingsViewModel : ViewModel(), KoinComponent {
             }
         }
         viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.flowDangerousEnabled().collect { dangerousEnabled ->
+                state = state.copy(dangerousEnabled = dangerousEnabled)
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.flowDishEnabled().collect { dishEnabled ->
                 state = state.copy(dishEnabled = dishEnabled)
             }
@@ -63,6 +68,12 @@ class SettingsViewModel : ViewModel(), KoinComponent {
     fun setWhitelistMode(enabled: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.isWhitelistMode = enabled
+        }
+    }
+
+    fun setDangerousEnabled(enabled: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.isDangerousEnabled = enabled
         }
     }
 

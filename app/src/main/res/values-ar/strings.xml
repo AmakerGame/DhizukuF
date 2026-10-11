@@ -9,11 +9,11 @@
     <string name="cancel">إلغاء</string>
     <string name="confirm">موافق</string>
     <string name="donate">تبرع</string>
-    <string name="request_permission_text">هل تسمح لـ <b>%1$s</b> بالوصول إلى Dhizuku؟</string>
+    <string name="request_permission_text">هل تسمح لـ <b>%1$s</b> بالوصول إلى DhizukuF؟</string>
     <string name="home_deactivate_title">إلغاء التنشيط</string>
     <string name="home_status_owner_denied">في انتظار التنشيط</string>
     <string name="home_app_management_dsp">التطبيقات التي طلبت أو أعلنت Dhizuku ستظهر هنا.</string>
-    <string name="home_dhizuku_title">التنشيط بواسطة Dhizuku</string>
+    <string name="home_dhizuku_title">التنشيط بواسطة DhizukuF</string>
     <string name="home_shizuku_title">التنشيط بواسطة Shizuku</string>
     <string name="home_shizuku_dsp">مع Shizuku، لديك القدرة على تشغيل أوامر ADB دون الحاجة إلى جهاز كمبيوتر. يرجى &lt;a href=%1$s&gt;قراءة المساعدة&lt;/a&gt;.</string>
     <string name="home_adb_title">التنشيط بواسطة ADB</string>
@@ -24,32 +24,32 @@
     <string name="home_adb_btn_view_command">عرض الأمر</string>
     <string name="home_shutdown_title">إيقاف التشغيل</string>
     <string name="home_adb_dsp">من خلال اتصال ADB (جسر تصحيح أخطاء أندرويد)، يمكنك تنفيذ بعض الأوامر المميزة. يرجى &lt;a href=%1$s&gt;قراءة المساعدة&lt;/a&gt;.</string>
-    <string name="home_shutdown_dsp">لن يتمكن النظام من إيقاف تشغيل Dhizuku ما لم يقم Dhizuku بذلك طواعية.</string>
+    <string name="home_shutdown_dsp">لن يتمكن النظام من إيقاف تشغيل DhizukuF ما لم يقم DhizukuF بذلك طواعية.</string>
     <string name="permission_description">استخدم واجهة برمجة التطبيقات الخاصة بـ Dhizuku</string>
     <string name="agreement_title">السياسة</string>
     <string name="agree_text">موافقة</string>
     <string name="agreement_text">فيما يلي سياسة المستخدم الخاصة بنا، يرجى قراءتها والموافقة عليها. &lt;a href=\"https://iamr0s.github.io/Dhizuku/TERMS.html\"&gt;شروط الاستخدام&lt;/a&gt;، &lt;a href=\"https://iamr0s.github.io/Dhizuku/PRIVACY.html\"&gt;سياسة الخصوصية&lt;/a&gt; لن تظهر هذه الرسالة مرة أخرى بعد موافقتك.</string>
     <string name="settings">الإعدادات</string>
-    <string name="settings_desc">ضبط سلوك Dhizuku</string>
-    <string name="enable_dhizuku">تفعيلDhizuku</string>
-    <string name="enable_dhizuku_desc">تمكين التطبيقات من استخدام خدمات Dhizuku</string>
+    <string name="settings_desc">ضبط سلوك DhizukuF</string>
+    <string name="enable_dhizuku">تفعيلDhizukuF</string>
+    <string name="enable_dhizuku_desc">تمكين التطبيقات من استخدام خدمات DhizukuF</string>
     <string name="whitelist_mode">وضع القائمة البيضاء</string>
-    <string name="whitelist_mode_desc">لا تسمح إلا للتطبيقات المعتمدة مسبقًا باستخدام Dhizuku</string>
+    <string name="whitelist_mode_desc">لا تسمح إلا للتطبيقات المعتمدة مسبقًا باستخدام DhizukuF</string>
     <string name="block_app">حظر التطبيق</string>
     <string name="auto_deny_in">الرفض التلقائي</string>
-    <string name="block_app_desc">منع الوصول إلى Dhizuku بشكل كامل</string>
-    <string name="app_blocked_notice">هذا التطبيق محظور ولا يمكنه الوصول إلى Dhizuku</string>
-    <string name="allow_dhizuku_access">السماح بالوصول لـ Dhizuku</string>
+    <string name="block_app_desc">منع الوصول إلى DhizukuF بشكل كامل</string>
+    <string name="app_blocked_notice">هذا التطبيق محظور ولا يمكنه الوصول إلى DhizukuF</string>
+    <string name="allow_dhizuku_access">السماح بالوصول لـ DhizukuF</string>
     <string name="unblock_app">إلغاء حظر التطبيق</string>
     <string name="auto_deny_in_seconds">الرفض التلقائي في d% ثواني</string>
     <string name="denying_access">منع الوصول …</string>
-    <string name="daemon_service_notification_text">هذا إشعار من Dhizuku لضمان توفر الخدمة في أي وقت. يمكنك الضغط مطولاً لإخفاء هذا الإشعار.</string>
+    <string name="daemon_service_notification_text">هذا إشعار من DhizukuF لضمان توفر الخدمة في أي وقت. يمكنك الضغط مطولاً لإخفاء هذا الإشعار.</string>
     <string name="daemon_service_notification_title">Dhizuku Daemon</string>
     <string name="copy">نسخ</string>
     <string name="confirm_device_owner">مالك الجهاز</string>
     <string name="confirm_profile_owner">مالك الملف الشخصي</string>
     <string name="profile_owner_warning_title">تحذير</string>
-    <string name="profile_owner_warning_dsp">هذا تغيير يجب أن يقوم به فقط المستخدمون الذين يفهمون آثاره. لا يمكن لمطوري Dhizuku ضمان أي شيء بشأن السلوك غير المتوقع الناجم عن تغيير هذا الوضع.</string>
+    <string name="profile_owner_warning_dsp">هذا تغيير يجب أن يقوم به فقط المستخدمون الذين يفهمون آثاره. لا يمكن لمطوري DhizukuF ضمان أي شيء بشأن السلوك غير المتوقع الناجم عن تغيير هذا الوضع.</string>
     <string name="donate_hide_action">إخفاء</string>
     <string name="donate_hide_confirm_title">إخفاء زر التبرع</string>
     <string name="donate_hide_confirm_dsp">لا يمكن التراجع عن هذا من داخل التطبيق. هل أنت متأكد أنك تريد إخفاء زر التبرع نهائيًا؟</string>
@@ -92,4 +92,6 @@
     <string name="home_dish_profile_owner_note">وضع مالك الملف الشخصي: يعمل dish، لكن الأوامر التي تتطلب مالك الجهاز الكامل (reboot وadb وtimezone وDNS الخاص وغيرها) غير متاحة.</string>
     <string name="home_dish_help_title">كيفية استخدام dish</string>
     <string name="home_dish_help_text">dish ليست طرفية داخل هذا التطبيق، بل أداة سطر أوامر: صدّر الملفات ثم شغّل dish في تطبيق طرفية، والأفضل Termux.\n\n1. اضغط «تصدير ملفات dish» واختر مجلدًا.\n2. في Termux شغّل termux-setup-storage مرة واحدة، وانسخ dish وdish_dhizukuf.dex إلى $PREFIX/bin ثم شغّل chmod +x $PREFIX/bin/dish.\n3. اكتب dish لفتح وحدة التحكم، أو dish help لعرض الأوامر.\n\nعند التشغيل الأول سيطلب DhizukuF الموافقة على الوصول.</string>
+    <string name="enable_dangerous">تفعيل الأوامر الخطرة</string>
+    <string name="enable_dangerous_desc">يسمح بإجراءات محفوفة بالمخاطر لـ dish وواجهة Dhizuku البرمجية: إعادة التشغيل ومسح بيانات التطبيقات وكتابة الإعدادات وتغيير الأذونات واستدعاءات API المباشرة وما شابه. معطّل افتراضيًا.</string>
 </resources>

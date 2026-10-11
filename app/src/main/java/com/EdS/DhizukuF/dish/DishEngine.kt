@@ -33,6 +33,14 @@ object DishEngine : KoinComponent {
 
     private const val APPROVAL_TIMEOUT_MS = 60_000L
 
+    // A caller that is not approved yet must not be able to tie up Binder threads (a waiting
+    // request blocks one for up to 60 s) or flood the user with dialogs.
+    private const val MAX_WAITERS = 4
+    private const val DIALOG_COOLDOWN_MS = 10_000L
+    private val waiters = java.util.concurrent.atomic.AtomicInteger(0)
+    private val waitingUids: MutableSet<Int> = java.util.concurrent.ConcurrentHashMap.newKeySet()
+    private val lastDialog = java.util.concurrent.ConcurrentHashMap<Int, Long>()
+
     class Reply(
         val kind: Int,
         val code: Int = 0,
@@ -69,7 +77,7 @@ object DishEngine : KoinComponent {
 
         return when (val verdict = authorize(context, uid)) {
             Verdict.Allowed -> {
-                val result = DishCommands(context, uid).execute(args)
+                val result = DishCommands(context, uid, settingsRepo.isDangerousEnabled).execute(args)
                 Reply(KIND_EXECUTED, result.code, result.out, result.err)
             }
 
@@ -77,7 +85,12 @@ object DishEngine : KoinComponent {
 
             Verdict.NeedPermission -> {
                 DishApproval.results.remove(uid)
-                launchDialog(context, uid)
+                val now = SystemClock.elapsedRealtime()
+                val last = lastDialog[uid]
+                if (last == null || now - last >= DIALOG_COOLDOWN_MS) {
+                    lastDialog[uid] = now
+                    launchDialog(context, uid)
+                }
                 val name = DishRegistry.displayName(uid, label(context, uid))
                 Reply(KIND_NEED_APPROVAL, message = str(context, R.string.dish_need_permission, name))
             }
@@ -86,6 +99,24 @@ object DishEngine : KoinComponent {
 
     /** Blocks until the user approves (dialog or app list), refuses, or the time runs out. */
     fun awaitApproval(context: Context, uid: Int): Reply {
+        gate(context)?.let { return Reply(KIND_DENIED, message = it) }
+        if (!waitingUids.add(uid)) {
+            return Reply(KIND_DENIED, message = "Another dish request of this app is already waiting")
+        }
+        if (waiters.incrementAndGet() > MAX_WAITERS) {
+            waiters.decrementAndGet()
+            waitingUids.remove(uid)
+            return Reply(KIND_DENIED, message = "Too many dish requests are waiting, try again later")
+        }
+        try {
+            return waitLoop(context, uid)
+        } finally {
+            waiters.decrementAndGet()
+            waitingUids.remove(uid)
+        }
+    }
+
+    private fun waitLoop(context: Context, uid: Int): Reply {
         val deadline = SystemClock.elapsedRealtime() + APPROVAL_TIMEOUT_MS
         while (SystemClock.elapsedRealtime() < deadline) {
             if (DishApproval.results[uid] == false) {

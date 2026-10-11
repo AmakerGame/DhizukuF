@@ -26,7 +26,11 @@ import java.util.concurrent.TimeUnit
  * (exit code 1) when it was not, and "Usage: ..." (exit code 2) for a wrong command line.
  */
 @SuppressLint("NewApi")
-class DishCommands(private val context: Context, private val uid: Int = -1) {
+class DishCommands(
+    private val context: Context,
+    private val uid: Int = -1,
+    private val dangerousEnabled: Boolean = false
+) {
     class Result(val out: String = "", val err: String = "", val code: Int = 0)
 
     private class UsageException(val usage: String) : Exception()
@@ -54,6 +58,12 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
     private fun need(a: List<String>, n: Int, usage: String) {
         if (a.size < n) throw UsageException(usage)
     }
+
+    /** Commands that would lock DhizukuF itself out must not touch its own package. */
+    private fun selfGuard(action: String, vararg pkgs: String): Result? =
+        if (pkgs.any { it == context.packageName }) {
+            notDone("refusing to $action DhizukuF itself (it would break the Device Owner app)")
+        } else null
 
     private fun isDeviceOwner() = dpm.isDeviceOwnerApp(context.packageName)
 
@@ -101,7 +111,29 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         // (status / get) is still tried in Profile Owner mode.
         val readOnly = a.firstOrNull() in setOf("status", "get")
         if (cmd in DEVICE_OWNER_ONLY && !readOnly && !isDeviceOwner()) return needsDeviceOwner(cmd)
+        if (!dangerousEnabled && isDangerous(cmd, a)) {
+            return notDone(
+                "'${"$cmd ${a.firstOrNull() ?: ""}".trim()}' is a dangerous command and is switched off. " +
+                    "Turn on Enable dangerous commands in the DhizukuF settings to use it."
+            )
+        }
         return runCommand(cmd, a, raw)
+    }
+
+    /** Risky forms: irreversible, security-lowering, or free-form. Off unless the user enables them. */
+    private fun isDangerous(cmd: String, a: List<String>): Boolean {
+        val first = a.firstOrNull()
+        return when (cmd) {
+            "reboot", "clear-data" -> true
+            "api", "call" -> !(a.contains("--list") || a.contains("--sig"))
+            "settings" -> first == "put"
+            "permission" -> first == "grant" || first == "deny" || first == "default"
+            "permission-policy" -> first == "grant" || first == "deny"
+            "keyguard", "status-bar" -> first == "disable"
+            "adb" -> first == "enable"
+            "private-dns" -> first != null && first != "status"
+            else -> false
+        }
     }
 
     private fun runCommand(cmd: String, a: List<String>, raw: String): Result = when (cmd) {
@@ -126,6 +158,7 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         "hide", "unhide" -> {
             need(a, 1, USAGE.getValue(cmd))
             val hide = cmd == "hide"
+            if (hide) selfGuard("hide", a[0])?.let { return it }
             outcome(
                 dpm.setApplicationHidden(admin, a[0], hide),
                 "${a[0]} is now ${if (hide) "hidden" else "visible"}",
@@ -254,13 +287,18 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
             val sb = StringBuilder()
             sb.append("dish - Device Owner console\n")
             sb.append("help COMMAND shows what a command does. api = direct calls.\n")
-            sb.append("Mode: ${modeName()}\n\n")
+            sb.append("Mode: ${modeName()}\n")
+            sb.append("Dangerous commands: ${if (dangerousEnabled) "on" else "off"}\n\n")
             for ((group, items) in ENTRIES.groupBy { it.group }) {
                 sb.append(group).append(":\n  ")
-                    .append(items.joinToString(" ") { it.name + if (it.name in DEVICE_OWNER_ONLY) "*" else "" })
+                    .append(items.joinToString(" ") {
+                        it.name + (if (it.name in DEVICE_OWNER_ONLY) "*" else "") +
+                            (if (it.name in DANGEROUS_COMMANDS) "!" else "")
+                    })
                     .append("\n")
             }
             sb.append("\n* needs Device Owner (not available in Profile Owner mode)\n")
+            sb.append("! some or all forms are dangerous: they need Enable dangerous commands (off by default)\n")
             return Result(out = sb.toString())
         }
         val key = when (val k = a[0].lowercase(Locale.ROOT)) {
@@ -278,6 +316,9 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
             ?: if (e.name in DEVICE_OWNER_ONLY) "Device Owner only (status/get still work in Profile Owner mode)"
             else "Device Owner and Profile Owner (in Profile Owner mode it affects the managed profile only)"
         sb.append("Needs: ").append(note).append("\n")
+        if (e.name in DANGEROUS_COMMANDS) {
+            sb.append("Dangerous: some or all forms need Enable dangerous commands in the DhizukuF settings\n")
+        }
         return Result(out = sb.toString())
     }
 
@@ -299,6 +340,7 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
                 "Profile owner: ${yesNo(isProfileOwner())}\n" +
                 (if (isDeviceOwner()) "" else "Limited: commands marked * in help need Device Owner\n") +
                 "Admin component: $adminName\n" +
+                "Dangerous commands: ${if (dangerousEnabled) "on" else "off"}\n" +
                 "Android: ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\n"
         )
     }
@@ -321,6 +363,7 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
 
     private fun setSuspended(a: List<String>, flag: Boolean): Result {
         need(a, 1, USAGE.getValue(if (flag) "suspend" else "unsuspend"))
+        if (flag) selfGuard("suspend", *a.toTypedArray())?.let { return it }
         val failed = dpm.setPackagesSuspended(admin, a.toTypedArray(), flag).toList()
         val good = a.filter { it !in failed }
         val word = if (flag) "suspended" else "unsuspended"
@@ -377,6 +420,7 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
 
     private fun clearData(a: List<String>): Result {
         need(a, 1, USAGE.getValue("clear-data"))
+        selfGuard("clear the data of", a[0])?.let { return it }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return unsupported()
         val latch = CountDownLatch(1)
         var success = false
@@ -721,7 +765,8 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
 
     private fun isDenied(name: String): Boolean {
         val l = name.lowercase(Locale.ROOT)
-        return name in DENIED_METHODS || l.contains("wipe") || l.contains("factoryreset")
+        return name in DENIED_METHODS || l.contains("wipe") || l.contains("factoryreset") ||
+            l.contains("removeuser")
     }
 
     private fun signature(m: Method, hideAdmin: Boolean): String {
@@ -780,6 +825,10 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         if (isDenied(name)) return notDone(str(R.string.dish_err_method_denied, name))
         val tokens = rest.drop(1)
         val hasAdminToken = tokens.any { it == "@admin" }
+        // Outside dpm this would clear the data of DhizukuF itself.
+        if (on != "dpm" && name == "clearApplicationUserData") {
+            return notDone(str(R.string.dish_err_method_denied, name))
+        }
         val candidates = clazz.methods.filter { it.name == name }.sortedBy { it.parameterTypes.size }
         if (candidates.isEmpty()) return notDone(str(R.string.dish_err_no_method, name) + " (try: api --list $name)")
 
@@ -984,6 +1033,12 @@ class DishCommands(private val context: Context, private val uid: Int = -1) {
         private val DEVICE_OWNER_ONLY = setOf(
             "reboot", "adb", "stay-awake", "timezone", "private-dns",
             "keyguard", "status-bar", "owner-info", "auto-time", "auto-timezone"
+        )
+
+        /** Commands with at least one dangerous form (see isDangerous). */
+        private val DANGEROUS_COMMANDS = setOf(
+            "reboot", "clear-data", "api", "settings", "permission", "permission-policy",
+            "keyguard", "status-bar", "adb", "private-dns"
         )
 
         private val OWNER_NOTES = mapOf(

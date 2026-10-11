@@ -23,6 +23,40 @@ the same way `rish` works for Shizuku.
 
 All dish console output is English only.
 
+## Android TV
+
+DhizukuF appears in the TV launcher and can be used with a remote control (D-pad): move the focus with the
+arrows, press the centre button to open a card or toggle a switch. TV boxes usually have no folder picker; then
+**Export dish files** saves `dish` and `dish_dhizukuf.dex` to `Android/data/com.EdS.DhizukuF/files/dish` and shows
+the path. Copy the files with `adb pull` / `adb push`, or run them from `adb shell`:
+
+```sh
+adb pull /sdcard/Android/data/com.EdS.DhizukuF/files/dish
+adb push dish/dish dish/dish_dhizukuf.dex /data/local/tmp/
+adb shell sh /data/local/tmp/dish
+```
+
+## Dangerous commands
+
+**Settings > Enable dangerous commands** is **off by default**. While it is off, dish refuses the risky
+forms and answers `NOT DONE: '<command>' is a dangerous command and is switched off`:
+
+| Command | Dangerous form |
+|-|-|
+| `reboot`, `clear-data` | always |
+| `api` / `call` | every call except `--list` and `--sig` |
+| `settings` | `put` |
+| `permission` | `grant`, `deny`, `default` |
+| `permission-policy` | `grant`, `deny` |
+| `keyguard`, `status-bar` | `disable` |
+| `adb` | `enable` |
+| `private-dns` | setting a value (`status` is allowed) |
+
+`dish help` marks these commands with `!`, `dish help COMMAND` has a `Dangerous:` line and
+`dish status` shows whether the switch is on. The same switch applies to the regular Dhizuku API
+(see [SECURITY.md](../SECURITY.md) for what can be recognised there). Wipe, factory reset, removing
+users and similar calls stay blocked even when the switch is on.
+
 ## Device Owner and Profile Owner
 
 dish works when DhizukuF is the **Device Owner** or the **Profile Owner**, but Profile Owner is a
