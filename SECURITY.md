@@ -38,6 +38,11 @@ device. This page explains how dish is protected and how to report a problem.
 
 ## Things to know
 
+- On devices without a folder picker (many Android TV boxes) *Export dish files* writes the two files to the app's
+  own folder `Android/data/<package>/files/dish`. On Android 10 and older, other apps that hold the storage
+  permission can write there. Check the files (or export them again) before you run them, and prefer the normal
+  export to a folder you trust whenever the device has a picker.
+
 - Approving a terminal gives it the full power of the Device Owner. Approve only terminal apps you trust,
   and keep the exported `dish` and `dish_dhizukuf.dex` files in a folder only you can write to
   (anyone who can replace the `.dex` can run code as your terminal).

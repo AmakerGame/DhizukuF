@@ -3,7 +3,7 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
-## 1.1.0-pre1 (2) — pre-release
+## 1.1.0 (3)
 
 ### Added
 - **Android TV support**: appears in the TV launcher with a banner, no touch screen required, full D-pad /
@@ -50,6 +50,8 @@ The newest changes are at the top.
 - New [SECURITY.md](SECURITY.md) with the protection model and how to report vulnerabilities.
 
 ### Fixed
+- Android TV / D-pad: on **Activation by DhizukuF** (and by Shizuku) the apps in the list could not be chosen, only
+  Back and OK were reachable. Each row is now one focus target with a focus frame; OK also has a frame.
 - Android TV / D-pad: buttons placed inside a card (**Export dish files**, **View command**, the delete button of a
   user, the checkbox when choosing an admin) could not be reached with the remote, because the card itself took
   the focus. Cards that only hold buttons are no longer focus targets, cards with an action and buttons skip the

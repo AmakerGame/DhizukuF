@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.page.settings.activate
 
+import com.EdS.DhizukuF.ui.widget.tvFocusBorder
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.selection.toggleable
 import com.EdS.DhizukuF.ui.widget.TvTextButton
 import androidx.compose.ui.focus.focusProperties
 import android.content.ComponentName
@@ -328,7 +332,7 @@ private fun ActivateFab(
     onClick: () -> Unit
 ) {
     ExtendedFloatingActionButton(
-        modifier = modifier,
+        modifier = modifier.tvFocusBorder(RoundedCornerShape(16.dp)),
         icon = {
             Icon(
                 imageVector = Icons.TwoTone.Check,
@@ -376,23 +380,30 @@ private fun LazyItemScope.ItemWidget(
         else null
     }
 
+    val checked = state.value?.compareTo(data.admin.component) == 0
+
+    // The whole row is one focus target (D-pad / remote friendly) and toggles the selection.
     ElevatedCard(
-        onClick = ::setCheckedChange,
-        interactionSource = interactionSource,
         modifier = Modifier
             .animateItem()
-            .fillMaxSize()
-            .focusProperties { canFocus = false }
+            .fillMaxWidth()
     ) {
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .tvFocusBorder(RoundedCornerShape(12.dp))
+                .toggleable(
+                    value = checked,
+                    role = Role.Checkbox,
+                    onValueChange = { setCheckedChange(it) }
+                )
+                .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
-                checked = state.value?.compareTo(data.admin.component) == 0,
-                onCheckedChange = ::setCheckedChange,
-                interactionSource = interactionSource
+                checked = checked,
+                onCheckedChange = null
             )
 
             val packageManager = LocalContext.current.packageManager
