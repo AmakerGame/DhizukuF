@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish bu ilova ichidagi terminal emas, balki buyruq qatori vositasi: fayllarni eksport qiling, soʻng dish’ni terminal ilovasida, yaxshisi Termux’da ishga tushiring.\n\n1. «dish fayllarini eksport qilish» tugmasini bosing va papka tanlang.\n2. Termux’da termux-setup-storage’ni bir marta ishga tushiring, dish va dish_dhizukuf.dex’ni $PREFIX/bin ga nusxalang va chmod +x $PREFIX/bin/dish’ni ishga tushiring.\n3. Konsolni ochish uchun dish, buyruqlarni koʻrish uchun dish help yozing.\n\nBirinchi ishga tushirishda DhizukuF kirishni tasdiqlashni soʻraydi.</string>
     <string name="enable_dangerous">Xavfli buyruqlarni yoqish</string>
     <string name="enable_dangerous_desc">dish va Dhizuku API uchun xavfli amallarga ruxsat beradi: qayta ishga tushirish, ilova maʼlumotlarini tozalash, sozlamalarni yozish, ruxsatlarni oʻzgartirish, API’ni toʻgʻridan-toʻgʻri chaqirish va shunga oʻxshashlar. Odatda oʻchiq.</string>
+    <string name="hub_title">Dhizuku moslik markazi</string>
+    <string name="hub_desc">Asl Dhizuku uchun yozilgan ilovalarga DhizukuF’dan foydalanish imkonini beradi. DhizukuF bilan bir xil kalit bilan imzolangan va bir xil versiyadagi kichik yashirin plaginni (com.rosan.dhizuku) oʻrnatadi. Oʻrnatilgandan keyin DhizukuF yopilishi mumkin; uni qayta oching.</string>
+    <string name="hub_install">Oʻrnatish</string>
+    <string name="hub_update">Yangilash</string>
+    <string name="hub_remove">Olib tashlash</string>
+    <string name="hub_state_none">Oʻrnatilmagan</string>
+    <string name="hub_state_ok">Oʻrnatilgan va yangi</string>
+    <string name="hub_state_old">Yangilanish mavjud</string>
+    <string name="hub_state_conflict">Boshqa Dhizuku (com.rosan.dhizuku) oʻrnatilgan. Avval uni olib tashlang.</string>
+    <string name="hub_failed">Markazni oʻzgartirib boʻlmadi: %1$s</string>
 </resources>

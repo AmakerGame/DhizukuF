@@ -9,6 +9,12 @@ The first release with the **dish** console, Android TV support and a security h
   ~50 commands, a direct `dish api` for any `DevicePolicyManager` method, clear `OK:` / `NOT DONE:` answers and a
   safe start (no prompt without access). Tap the *Terminal (dish)* card for a short how-to. Guide:
   [docs/DISH.md](docs/DISH.md).
+- **More commands, steadier client** — `log`, `batch`, `uninstall`, `app-restrictions`, `lock-task`, `vpn`,
+  `location`, `backup`, `time`, `lock-timeout`, `adb-wifi`, `ime`, `bugreport`; commands that hang are stopped
+  after 40 s; the client tries every ActivityManager variant and reconnects after DhizukuF restarts.
+- **Dhizuku Compatibility Hub** — a hidden plugin (`com.rosan.dhizuku`, same key and same version as DhizukuF) that lets
+  apps written for the original Dhizuku use DhizukuF. Install it from *Settings > Dhizuku Compatibility Hub*; DhizukuF
+  may close after the install, open it again. [docs/HUB.md](docs/HUB.md)
 - **Enable dangerous commands** (off by default) — reboot, clearing app data, writing settings, changing
   permissions and direct API calls need this switch, for dish and the Dhizuku API.
 - **Device Owner / Profile Owner aware** — `dish status` shows the mode; commands that need the full Device Owner

@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.page.settings.activate
 
+import kotlinx.coroutines.delay
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.foundation.lazy.itemsIndexed
 import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.semantics.Role
@@ -352,16 +356,31 @@ private fun ItemsWidget(
     contentPadding: PaddingValues,
     state: MutableState<ComponentName?>
 ) {
+    // On a TV (no touch screen) put the focus on the first app, so the remote can select at once.
+    val isTv = LocalContext.current.packageManager.hasSystemFeature("android.software.leanback")
+    val firstItem = remember { FocusRequester() }
+    val hasItems = viewModel.state.data.isNotEmpty()
+    LaunchedEffect(isTv, hasItems) {
+        if (isTv && hasItems) {
+            delay(200)
+            runCatching { firstItem.requestFocus() }
+        }
+    }
+
     LazyColumn(
         contentPadding = PaddingValues(16.dp) + contentPadding,
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        items(viewModel.state.data, key = { it.admin.component.flattenToShortString() }) {
+        itemsIndexed(
+            viewModel.state.data,
+            key = { _, item -> item.admin.component.flattenToShortString() }
+        ) { index, item ->
             ItemWidget(
                 viewModel = viewModel,
-                data = it,
-                state = state
+                data = item,
+                state = state,
+                rowModifier = if (index == 0) Modifier.focusRequester(firstItem) else Modifier
             )
         }
     }
@@ -371,7 +390,8 @@ private fun ItemsWidget(
 private fun LazyItemScope.ItemWidget(
     viewModel: ActivateViewModel,
     data: ActivateViewData,
-    state: MutableState<ComponentName?>
+    state: MutableState<ComponentName?>,
+    rowModifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -389,7 +409,7 @@ private fun LazyItemScope.ItemWidget(
             .fillMaxWidth()
     ) {
         Row(
-            modifier = Modifier
+            modifier = rowModifier
                 .fillMaxWidth()
                 .tvFocusBorder(RoundedCornerShape(12.dp))
                 .toggleable(

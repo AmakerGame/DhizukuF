@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish 不是此應用程式內的終端機，而是命令列工具：先匯出檔案，再在終端機應用程式（建議使用 Termux）中執行 dish。\n\n1. 點選「匯出 dish 檔案」並選擇資料夾。\n2. 在 Termux 中執行一次 termux-setup-storage，將 dish 與 dish_dhizukuf.dex 複製到 $PREFIX/bin，然後執行 chmod +x $PREFIX/bin/dish。\n3. 輸入 dish 開啟主控台，或輸入 dish help 查看指令。\n\n首次執行時，DhizukuF 會請您核准存取。</string>
     <string name="enable_dangerous">啟用危險指令</string>
     <string name="enable_dangerous_desc">允許 dish 與 Dhizuku API 執行有風險的操作：重新啟動、清除應用程式資料、寫入設定、變更權限、直接呼叫 API 等。預設為關閉。</string>
+    <string name="hub_title">Dhizuku 相容中心</string>
+    <string name="hub_desc">讓為原版 Dhizuku 編寫的應用程式可以使用 DhizukuF。安裝一個小型隱藏外掛 (com.rosan.dhizuku)，與 DhizukuF 使用相同的金鑰簽署且版本相同。安裝後 DhizukuF 可能會關閉，請重新開啟。</string>
+    <string name="hub_install">安裝</string>
+    <string name="hub_update">更新</string>
+    <string name="hub_remove">移除</string>
+    <string name="hub_state_none">未安裝</string>
+    <string name="hub_state_ok">已安裝且為最新</string>
+    <string name="hub_state_old">有可用更新</string>
+    <string name="hub_state_conflict">已安裝另一個 Dhizuku (com.rosan.dhizuku)。請先將其移除。</string>
+    <string name="hub_failed">無法變更相容中心：%1$s</string>
 </resources>

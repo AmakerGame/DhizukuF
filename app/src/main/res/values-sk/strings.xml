@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish nie je terminál vo vnútri tejto aplikácie, ale nástroj príkazového riadka: exportujte súbory a potom spustite dish v aplikácii terminálu, najlepšie v Termuxe.\n\n1. Ťuknite na „Exportovať súbory dish“ a vyberte priečinok.\n2. V Termuxe raz spustite termux-setup-storage, skopírujte dish a dish_dhizukuf.dex do $PREFIX/bin a spustite chmod +x $PREFIX/bin/dish.\n3. Zadaním dish otvoríte konzolu, alebo dish help zobrazíte príkazy.\n\nPri prvom spustení vás DhizukuF požiada o schválenie prístupu.</string>
     <string name="enable_dangerous">Povoliť nebezpečné príkazy</string>
     <string name="enable_dangerous_desc">Povolí riskantné akcie pre dish a rozhranie Dhizuku API: reštart, mazanie údajov aplikácií, zápis nastavení, zmenu povolení, priame volania API a podobne. Predvolene vypnuté.</string>
+    <string name="hub_title">Hub kompatibility Dhizuku</string>
+    <string name="hub_desc">Umožní aplikáciám napísaným pre pôvodný Dhizuku používať DhizukuF. Nainštaluje malý skrytý plugin (com.rosan.dhizuku) podpísaný rovnakým kľúčom a v rovnakej verzii ako DhizukuF. DhizukuF sa po inštalácii môže zavrieť; otvorte ho znova.</string>
+    <string name="hub_install">Nainštalovať</string>
+    <string name="hub_update">Aktualizovať</string>
+    <string name="hub_remove">Odstrániť</string>
+    <string name="hub_state_none">Nenainštalované</string>
+    <string name="hub_state_ok">Nainštalované a aktuálne</string>
+    <string name="hub_state_old">Je dostupná aktualizácia</string>
+    <string name="hub_state_conflict">Je nainštalovaný iný Dhizuku (com.rosan.dhizuku). Najprv ho odstráňte.</string>
+    <string name="hub_failed">Hub sa nepodarilo zmeniť: %1$s</string>
 </resources>

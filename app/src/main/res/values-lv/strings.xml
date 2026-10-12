@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish nav terminālis šajā lietotnē, bet komandrindas rīks: eksportējiet failus un pēc tam palaidiet dish termināļa lietotnē, vislabāk Termux.\n\n1. Pieskarieties «Eksportēt dish failus» un izvēlieties mapi.\n2. Termux vienreiz palaidiet termux-setup-storage, nokopējiet dish un dish_dhizukuf.dex uz $PREFIX/bin un palaidiet chmod +x $PREFIX/bin/dish.\n3. Ierakstiet dish, lai atvērtu konsoli, vai dish help, lai redzētu komandas.\n\nPirmajā palaišanas reizē DhizukuF lūgs apstiprināt piekļuvi.</string>
     <string name="enable_dangerous">Iespējot bīstamas komandas</string>
     <string name="enable_dangerous_desc">Atļauj riskantas darbības dish un Dhizuku API: restartēšanu, lietotņu datu dzēšanu, iestatījumu rakstīšanu, atļauju maiņu, tiešus API izsaukumus un tamlīdzīgi. Pēc noklusējuma izslēgts.</string>
+    <string name="hub_title">Dhizuku saderības centrs</string>
+    <string name="hub_desc">Ļauj lietotnēm, kas rakstītas oriģinālajam Dhizuku, izmantot DhizukuF. Instalē nelielu slēptu spraudni (com.rosan.dhizuku), kas parakstīts ar to pašu atslēgu un ir tādas pašas versijas kā DhizukuF. Pēc instalēšanas DhizukuF var aizvērties; atveriet to vēlreiz.</string>
+    <string name="hub_install">Instalēt</string>
+    <string name="hub_update">Atjaunināt</string>
+    <string name="hub_remove">Noņemt</string>
+    <string name="hub_state_none">Nav instalēts</string>
+    <string name="hub_state_ok">Instalēts un atjaunināts</string>
+    <string name="hub_state_old">Pieejams atjauninājums</string>
+    <string name="hub_state_conflict">Ir instalēts cits Dhizuku (com.rosan.dhizuku). Vispirms noņemiet to.</string>
+    <string name="hub_failed">Neizdevās mainīt centru: %1$s</string>
 </resources>

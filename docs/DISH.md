@@ -23,6 +23,51 @@ the same way `rish` works for Shizuku.
 
 All dish console output is English only.
 
+## Newer commands
+
+| Command | What it does |
+|-|-|
+| `log [N]`, `log clear` | the last commands run through dish (in memory only; only the first words of a command are kept) |
+| `batch [--keep-going] "CMD" "CMD"` | several commands in one call (max 50); each one keeps its own rules, the dangerous switch included; stops at the first failure |
+| `help -s WORD` | search the command descriptions |
+| `uninstall PKG` | silent uninstall as Device Owner (dangerous) |
+| `app-restrictions get\|set\|clear PKG [KEY VALUE]` | managed configuration of an app; `true`/`false` and numbers are typed |
+| `lock-task status\|set PKG...\|clear` | kiosk: apps allowed to pin themselves (dangerous to change) |
+| `vpn on PKG [lockdown]`, `vpn off`, `vpn status` | always-on VPN (turning it on is dangerous) |
+| `location`, `backup`, `lock-timeout`, `time set`, `adb-wifi`, `ime`, `bugreport` | location on/off, backup service, longest screen-lock time, set the clock, wireless debugging, allowed keyboards, bug report |
+
+Commands that run longer than 40 seconds are stopped with `NOT DONE`, so a stuck system call cannot block DhizukuF.
+
+The interactive console also knows `history`, `!!` (repeat the last command) and `clear`.
+
+## Compatibility
+
+DhizukuF needs Android 8.0 (API 26) or newer. A command that the running Android version does not have answers
+`NOT DONE: Not supported on this Android version` instead of failing.
+
+| Android | What it adds for dish |
+|-|-|
+| 8.0+ | everything not listed below |
+| 9+ | `timezone`, `install-existing`, `clear-data` |
+| 10+ | `private-dns` |
+| 11+ | `auto-time`, `auto-timezone` |
+| 12+ | granting sensor permissions (camera, microphone, location) may be refused by the system |
+| 14+ | the `.dex` file must be read-only; the `dish` launcher does this itself |
+
+Notes for the `dish` launcher:
+
+- On Android 14+ keep `dish` and `dish_dhizukuf.dex` in a normal folder (Termux: `$PREFIX/bin`, adb shell:
+  `/data/local/tmp`), not on shared storage (`/sdcard`): files there cannot be made read-only and the system
+  refuses to load them. The launcher prints this hint.
+- It works with `/system/bin/app_process`, and falls back to the 64-bit or 32-bit variant on images that only
+  ship one.
+- The client reaches DhizukuF with a broadcast sent through the hidden `IActivityManager` API. The call is matched by
+  name and parameter types, which covers Android 8 to current releases; if a future release changes it, dish prints
+  `cannot send the request to DhizukuF` with the reason, and an app update will be needed.
+- In **Profile Owner** mode the approval window can be refused by Android when it is opened from the background
+  (Device Owners are exempt). dish then says so and keeps the request in *App management*: switch the terminal
+  on there.
+
 ## Android TV
 
 DhizukuF appears in the TV launcher and can be used with a remote control (D-pad): move the focus with the
@@ -87,10 +132,10 @@ Every command says what happened:
 
 | Group | Commands |
 |-|-|
-| General | `help` `status` `version` `id` `device` `ping` `lock` `reboot` |
-| Apps | `list` `app-info` `hide` `unhide` `is-hidden` `suspend` `unsuspend` `is-suspended` `block-uninstall` `allow-uninstall` `is-uninstall-blocked` `enable-system-app` `install-existing` `clear-data` `permission` `permission-policy` |
+| General | `help` `status` `version` `id` `device` `ping` `log` `batch` `lock` `reboot` |
+| Apps | `list` `app-info` `hide` `unhide` `is-hidden` `suspend` `unsuspend` `is-suspended` `block-uninstall` `allow-uninstall` `is-uninstall-blocked` `enable-system-app` `install-existing` `clear-data` `uninstall` `app-restrictions` `permission` `permission-policy` |
 | Restrictions | `restriction` `camera` `screen-capture` `keyguard` `status-bar` `mute` |
-| Device | `adb` `stay-awake` `auto-time` `auto-timezone` `timezone` `private-dns` `owner-info` `org-name` |
+| Device | `adb` `adb-wifi` `stay-awake` `auto-time` `auto-timezone` `time` `timezone` `private-dns` `location` `backup` `lock-timeout` `lock-task` `vpn` `ime` `bugreport` `owner-info` `org-name` |
 | Settings | `settings get\|put\|list` |
 | API | `api` |
 
@@ -130,9 +175,18 @@ The client is plain Java in `dish-client/src` (no dependencies). The prebuilt de
 `app/src/main/assets/dish_dhizukuf.dex`. To rebuild it after editing the client:
 
 ```sh
-apt install openjdk-21-jdk-headless dalvik-exchange   # or set DX=/path/to/dx
+# JDK + the Android SDK build-tools (d8):  export ANDROID_HOME=~/Android/Sdk   (or D8=/path/to/d8)
+# or the old dx:                            apt install dalvik-exchange          (or DX=/path/to/dx)
 ./dish-client/build.sh
 ```
+
+`build.sh` checks the result with `dish-client/verify_dex.py` (header, checksums, sorted tables, instruction
+streams) before it replaces the committed file. The workflow **Rebuild dish dex** runs it whenever `dish-client/` changes on GitHub and commits the new
+`dish_dhizukuf.dex` back to the branch (run `git pull` afterwards; the branch must allow pushes from
+`github-actions`). The build and release workflows run it too, before `assembleRelease`; if it
+fails the committed dex is kept, and the repository variable `DISH_REBUILD_DEX=false` switches the rebuild off.
+The client improvements (every `IActivityManager` broadcast variant is tried, the request is sent twice, one
+reconnect after a dead binder, `history` / `!!` / `clear`) take effect in a build made this way.
 
 Transport: the client sends a broadcast through ActivityManager (as the terminal's own uid) that
 carries its Binder; DhizukuF (`DishReceiver`) answers with its Binder (`DishBinder`) and from then on

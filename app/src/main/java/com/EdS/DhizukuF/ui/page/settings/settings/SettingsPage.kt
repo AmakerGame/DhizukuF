@@ -130,6 +130,8 @@ fun SettingsPage(
                     }
                 }
             }
+
+            item { CompatHubCard() }
         }
     }
 }

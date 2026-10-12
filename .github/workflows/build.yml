@@ -27,6 +27,13 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Build dish client (dex)
+        # Rebuilds dish_dhizukuf.dex from dish-client/src with d8. If anything fails, the committed dex
+        # is kept. Set the repository variable DISH_REBUILD_DEX to "false" to always use the committed file.
+        if: ${{ vars.DISH_REBUILD_DEX != 'false' }}
+        continue-on-error: true
+        run: sh dish-client/build.sh
+
       - name: Set environments
         run: |
           {

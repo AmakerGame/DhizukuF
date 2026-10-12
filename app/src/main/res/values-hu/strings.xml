@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">A dish nem terminál ebben az alkalmazásban, hanem parancssori eszköz: exportálja a fájlokat, majd futtassa a dish-t egy terminálalkalmazásban, lehetőleg Termuxban.\n\n1. Koppintson a „dish fájlok exportálása” gombra, és válasszon mappát.\n2. Termuxban egyszer futtassa a termux-setup-storage parancsot, másolja a dish és dish_dhizukuf.dex fájlt a $PREFIX/bin mappába, majd futtassa: chmod +x $PREFIX/bin/dish.\n3. Írja be: dish a konzol megnyitásához, vagy dish help a parancsokhoz.\n\nAz első indításkor a DhizukuF jóváhagyást kér a hozzáféréshez.</string>
     <string name="enable_dangerous">Veszélyes parancsok engedélyezése</string>
     <string name="enable_dangerous_desc">Kockázatos műveleteket engedélyez a dish és a Dhizuku API számára: újraindítás, alkalmazásadatok törlése, beállítások írása, engedélyek módosítása, közvetlen API-hívások és hasonlók. Alapértelmezés szerint kikapcsolva.</string>
+    <string name="hub_title">Dhizuku kompatibilitási hub</string>
+    <string name="hub_desc">Lehetővé teszi, hogy az eredeti Dhizukuhoz írt alkalmazások a DhizukuF-et használják. Telepít egy kis rejtett beépülőt (com.rosan.dhizuku), amelyet ugyanazzal a kulccsal írtak alá, és ugyanaz a verziója, mint a DhizukuF-nek. A DhizukuF a telepítés után bezárulhat; nyissa meg újra.</string>
+    <string name="hub_install">Telepítés</string>
+    <string name="hub_update">Frissítés</string>
+    <string name="hub_remove">Eltávolítás</string>
+    <string name="hub_state_none">Nincs telepítve</string>
+    <string name="hub_state_ok">Telepítve és naprakész</string>
+    <string name="hub_state_old">Frissítés érhető el</string>
+    <string name="hub_state_conflict">Másik Dhizuku (com.rosan.dhizuku) van telepítve. Előbb távolítsa el.</string>
+    <string name="hub_failed">A hub módosítása nem sikerült: %1$s</string>
 </resources>

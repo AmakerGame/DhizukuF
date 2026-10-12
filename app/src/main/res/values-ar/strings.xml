@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish ليست طرفية داخل هذا التطبيق، بل أداة سطر أوامر: صدّر الملفات ثم شغّل dish في تطبيق طرفية، والأفضل Termux.\n\n1. اضغط «تصدير ملفات dish» واختر مجلدًا.\n2. في Termux شغّل termux-setup-storage مرة واحدة، وانسخ dish وdish_dhizukuf.dex إلى $PREFIX/bin ثم شغّل chmod +x $PREFIX/bin/dish.\n3. اكتب dish لفتح وحدة التحكم، أو dish help لعرض الأوامر.\n\nعند التشغيل الأول سيطلب DhizukuF الموافقة على الوصول.</string>
     <string name="enable_dangerous">تفعيل الأوامر الخطرة</string>
     <string name="enable_dangerous_desc">يسمح بإجراءات محفوفة بالمخاطر لـ dish وواجهة Dhizuku البرمجية: إعادة التشغيل ومسح بيانات التطبيقات وكتابة الإعدادات وتغيير الأذونات واستدعاءات API المباشرة وما شابه. معطّل افتراضيًا.</string>
+    <string name="hub_title">مركز توافق Dhizuku</string>
+    <string name="hub_desc">يتيح للتطبيقات المكتوبة لـ Dhizuku الأصلي استخدام DhizukuF. يثبّت إضافة صغيرة مخفية (com.rosan.dhizuku) موقّعة بالمفتاح نفسه وبالإصدار نفسه الخاص بـ DhizukuF. قد يُغلق DhizukuF بعد التثبيت؛ افتحه مرة أخرى.</string>
+    <string name="hub_install">تثبيت</string>
+    <string name="hub_update">تحديث</string>
+    <string name="hub_remove">إزالة</string>
+    <string name="hub_state_none">غير مثبّت</string>
+    <string name="hub_state_ok">مثبّت ومحدّث</string>
+    <string name="hub_state_old">يتوفر تحديث</string>
+    <string name="hub_state_conflict">يوجد Dhizuku آخر (com.rosan.dhizuku) مثبّت. أزله أولًا.</string>
+    <string name="hub_failed">تعذّر تغيير المركز: %1$s</string>
 </resources>

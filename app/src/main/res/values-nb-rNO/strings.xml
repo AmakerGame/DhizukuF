@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish er ikke en terminal inne i denne appen, men et kommandolinjeverktøy: eksporter filene og kjør deretter dish i en terminalapp, helst Termux.\n\n1. Trykk på «Eksporter dish-filer» og velg en mappe.\n2. Kjør termux-setup-storage én gang i Termux, kopier dish og dish_dhizukuf.dex til $PREFIX/bin og kjør chmod +x $PREFIX/bin/dish.\n3. Skriv dish for å åpne konsollen, eller dish help for å se kommandoene.\n\nVed første kjøring ber DhizukuF deg godkjenne tilgang.</string>
     <string name="enable_dangerous">Aktiver farlige kommandoer</string>
     <string name="enable_dangerous_desc">Tillater risikable handlinger for dish og Dhizuku-API-et: omstart, sletting av appdata, skriving av innstillinger, endring av tillatelser, direkte API-kall og lignende. Av som standard.</string>
+    <string name="hub_title">Dhizuku-kompatibilitetshub</string>
+    <string name="hub_desc">Lar apper skrevet for den opprinnelige Dhizuku bruke DhizukuF. Installerer en liten skjult plugin (com.rosan.dhizuku) signert med samme nøkkel og i samme versjon som DhizukuF. DhizukuF kan lukkes etter installasjonen; åpne den igjen.</string>
+    <string name="hub_install">Installer</string>
+    <string name="hub_update">Oppdater</string>
+    <string name="hub_remove">Fjern</string>
+    <string name="hub_state_none">Ikke installert</string>
+    <string name="hub_state_ok">Installert og oppdatert</string>
+    <string name="hub_state_old">Oppdatering tilgjengelig</string>
+    <string name="hub_state_conflict">En annen Dhizuku (com.rosan.dhizuku) er installert. Fjern den først.</string>
+    <string name="hub_failed">Kunne ikke endre huben: %1$s</string>
 </resources>

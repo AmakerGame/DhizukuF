@@ -31,6 +31,12 @@ device. This page explains how dish is protected and how to report a problem.
 - **Least privilege.** Unused storage permissions were removed, the unused FileProvider (it exposed
   whole directories such as all external storage) was removed, and the boot/owner-change receiver is no
   longer exported (the system can still deliver its broadcasts).
+- **Compatibility hub.** The hub (`com.rosan.dhizuku`) is signed with the same key as DhizukuF and forwards the Dhizuku
+  API only to a DhizukuF with that signature, so a look-alike `com.EdS.DhizukuF` cannot receive the calls of other
+  apps; DhizukuF installs and removes only a hub with its own signature. The hub carries the original's exported
+  provider and request activity but adds no access: DhizukuF still identifies the calling app of every request and
+  applies approvals, blocking, whitelist mode and the dangerous-commands switch. The hub APK is built with the app and
+  bundled in it, so it is not downloaded and cannot be swapped in transit.
 - **No backups.** `allowBackup` is off, so the approval database cannot be copied or restored
   from a backup onto another device.
 - **Verified changes.** Settings and restrictions are read back after a change, so a refused change

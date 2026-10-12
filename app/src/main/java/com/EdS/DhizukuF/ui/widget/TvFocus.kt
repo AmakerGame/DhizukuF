@@ -76,11 +76,13 @@ fun SwitchRow(
 fun TvTextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit
 ) {
     TextButton(
         onClick = onClick,
         modifier = modifier.tvFocusBorder(RoundedCornerShape(50)),
+        enabled = enabled,
         content = content
     )
 }

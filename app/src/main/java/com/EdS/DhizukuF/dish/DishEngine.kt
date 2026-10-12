@@ -33,6 +33,12 @@ object DishEngine : KoinComponent {
 
     private const val APPROVAL_TIMEOUT_MS = 60_000L
 
+    // A command that hangs inside the system must not block a Binder thread forever.
+    private const val COMMAND_TIMEOUT_S = 40L
+    private val pool = java.util.concurrent.Executors.newFixedThreadPool(4) { r ->
+        Thread(r, "dish-exec").apply { isDaemon = true }
+    }
+
     // A caller that is not approved yet must not be able to tie up Binder threads (a waiting
     // request blocks one for up to 60 s) or flood the user with dialogs.
     private const val MAX_WAITERS = 4
@@ -77,7 +83,10 @@ object DishEngine : KoinComponent {
 
         return when (val verdict = authorize(context, uid)) {
             Verdict.Allowed -> {
-                val result = DishCommands(context, uid, settingsRepo.isDangerousEnabled).execute(args)
+                val result = runLimited {
+                    DishCommands(context, uid, settingsRepo.isDangerousEnabled).execute(args)
+                }
+                DishAudit.record(uid, packageOf(context, uid), args, result.code)
                 Reply(KIND_EXECUTED, result.code, result.out, result.err)
             }
 
@@ -131,6 +140,29 @@ object DishEngine : KoinComponent {
             Thread.sleep(300)
         }
         return Reply(KIND_DENIED, message = str(context, R.string.dish_err_denied))
+    }
+
+    private fun packageOf(context: Context, uid: Int): String =
+        context.packageManager.getPackagesForUid(uid)?.firstOrNull() ?: "?"
+
+    private fun runLimited(block: () -> DishCommands.Result): DishCommands.Result {
+        val future = try {
+            pool.submit(java.util.concurrent.Callable { block() })
+        } catch (e: java.util.concurrent.RejectedExecutionException) {
+            return DishCommands.Result(err = "NOT DONE: dish is busy, try again\n", code = 1)
+        }
+        return try {
+            future.get(COMMAND_TIMEOUT_S, java.util.concurrent.TimeUnit.SECONDS)
+        } catch (e: java.util.concurrent.TimeoutException) {
+            future.cancel(true)
+            DishCommands.Result(err = "NOT DONE: the command did not finish in ${COMMAND_TIMEOUT_S}s\n", code = 1)
+        } catch (e: java.util.concurrent.ExecutionException) {
+            val cause = e.cause ?: e
+            DishCommands.Result(err = "NOT DONE: internal error (${cause.javaClass.simpleName})\n", code = 1)
+        } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
+            DishCommands.Result(err = "NOT DONE: interrupted\n", code = 1)
+        }
     }
 
     private fun launchDialog(context: Context, uid: Int) {

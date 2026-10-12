@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish bukan terminal di dalam aplikasi ini, melainkan alat baris perintah: ekspor file, lalu jalankan dish di aplikasi terminal, sebaiknya Termux.\n\n1. Ketuk «Ekspor file dish» dan pilih folder.\n2. Di Termux jalankan termux-setup-storage sekali, salin dish dan dish_dhizukuf.dex ke $PREFIX/bin, lalu jalankan chmod +x $PREFIX/bin/dish.\n3. Ketik dish untuk membuka konsol, atau dish help untuk melihat perintah.\n\nSaat pertama dijalankan, DhizukuF meminta Anda menyetujui akses.</string>
     <string name="enable_dangerous">Aktifkan perintah berbahaya</string>
     <string name="enable_dangerous_desc">Mengizinkan tindakan berisiko untuk dish dan API Dhizuku: mulai ulang, menghapus data aplikasi, menulis pengaturan, mengubah izin, panggilan API langsung, dan sejenisnya. Nonaktif secara default.</string>
+    <string name="hub_title">Hub Kompatibilitas Dhizuku</string>
+    <string name="hub_desc">Memungkinkan aplikasi yang dibuat untuk Dhizuku asli memakai DhizukuF. Memasang plugin tersembunyi kecil (com.rosan.dhizuku) yang ditandatangani dengan kunci yang sama dan versi yang sama dengan DhizukuF. DhizukuF dapat tertutup setelah pemasangan; buka lagi.</string>
+    <string name="hub_install">Pasang</string>
+    <string name="hub_update">Perbarui</string>
+    <string name="hub_remove">Hapus</string>
+    <string name="hub_state_none">Belum terpasang</string>
+    <string name="hub_state_ok">Terpasang dan terbaru</string>
+    <string name="hub_state_old">Pembaruan tersedia</string>
+    <string name="hub_state_conflict">Dhizuku lain (com.rosan.dhizuku) sudah terpasang. Hapus dulu.</string>
+    <string name="hub_failed">Tidak dapat mengubah hub: %1$s</string>
 </resources>

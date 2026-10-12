@@ -101,4 +101,14 @@
     <string name="home_dish_help_text">dish 不是此应用内的终端，而是命令行工具：先导出文件，再在终端应用（推荐 Termux）中运行 dish。\n\n1. 点按“导出 dish 文件”并选择一个文件夹。\n2. 在 Termux 中运行一次 termux-setup-storage，将 dish 和 dish_dhizukuf.dex 复制到 $PREFIX/bin，然后运行 chmod +x $PREFIX/bin/dish。\n3. 输入 dish 打开控制台，或输入 dish help 查看命令。\n\n首次运行时，DhizukuF 会请您批准访问。</string>
     <string name="enable_dangerous">启用危险命令</string>
     <string name="enable_dangerous_desc">允许 dish 和 Dhizuku API 执行有风险的操作：重启、清除应用数据、写入设置、更改权限、直接调用 API 等。默认关闭。</string>
+    <string name="hub_title">Dhizuku 兼容中心</string>
+    <string name="hub_desc">让为原版 Dhizuku 编写的应用可以使用 DhizukuF。安装一个小型隐藏插件 (com.rosan.dhizuku)，与 DhizukuF 使用相同的密钥签名且版本相同。安装后 DhizukuF 可能会关闭，请重新打开。</string>
+    <string name="hub_install">安装</string>
+    <string name="hub_update">更新</string>
+    <string name="hub_remove">移除</string>
+    <string name="hub_state_none">未安装</string>
+    <string name="hub_state_ok">已安装且为最新</string>
+    <string name="hub_state_old">有可用更新</string>
+    <string name="hub_state_conflict">已安装另一个 Dhizuku (com.rosan.dhizuku)。请先将其移除。</string>
+    <string name="hub_failed">无法更改兼容中心：%1$s</string>
 </resources>

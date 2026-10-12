@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish nie jest terminalem w tej aplikacji, lecz narzędziem wiersza poleceń: wyeksportuj pliki, a potem uruchom dish w aplikacji terminala, najlepiej w Termux.\n\n1. Dotknij „Eksportuj pliki dish” i wybierz folder.\n2. W Termux jednorazowo uruchom termux-setup-storage, skopiuj dish i dish_dhizukuf.dex do $PREFIX/bin i uruchom chmod +x $PREFIX/bin/dish.\n3. Wpisz dish, aby otworzyć konsolę, lub dish help, aby zobaczyć polecenia.\n\nPrzy pierwszym uruchomieniu DhizukuF poprosi o zatwierdzenie dostępu.</string>
     <string name="enable_dangerous">Włącz niebezpieczne polecenia</string>
     <string name="enable_dangerous_desc">Zezwala na ryzykowne działania dla dish i API Dhizuku: restart, czyszczenie danych aplikacji, zapis ustawień, zmianę uprawnień, bezpośrednie wywołania API i podobne. Domyślnie wyłączone.</string>
+    <string name="hub_title">Hub zgodności Dhizuku</string>
+    <string name="hub_desc">Pozwala aplikacjom napisanym dla oryginalnego Dhizuku korzystać z DhizukuF. Instaluje mały ukryty plugin (com.rosan.dhizuku) podpisany tym samym kluczem i w tej samej wersji co DhizukuF. DhizukuF może się zamknąć po instalacji; otwórz go ponownie.</string>
+    <string name="hub_install">Zainstaluj</string>
+    <string name="hub_update">Aktualizuj</string>
+    <string name="hub_remove">Usuń</string>
+    <string name="hub_state_none">Niezainstalowano</string>
+    <string name="hub_state_ok">Zainstalowano i aktualne</string>
+    <string name="hub_state_old">Dostępna aktualizacja</string>
+    <string name="hub_state_conflict">Zainstalowano inny Dhizuku (com.rosan.dhizuku). Najpierw go usuń.</string>
+    <string name="hub_failed">Nie udało się zmienić huba: %1$s</string>
 </resources>

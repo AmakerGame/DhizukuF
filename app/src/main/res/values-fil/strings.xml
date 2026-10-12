@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">Hindi terminal sa loob ng app na ito ang dish, kundi command-line tool: i-export ang mga file, saka patakbuhin ang dish sa isang terminal app, mas mainam sa Termux.\n\n1. I-tap ang «I-export ang mga file ng dish» at pumili ng folder.\n2. Sa Termux, patakbuhin nang isang beses ang termux-setup-storage, kopyahin ang dish at dish_dhizukuf.dex sa $PREFIX/bin, at patakbuhin ang chmod +x $PREFIX/bin/dish.\n3. I-type ang dish para buksan ang console, o dish help para makita ang mga command.\n\nSa unang takbo, hihingi ang DhizukuF ng pag-apruba sa access.</string>
     <string name="enable_dangerous">I-enable ang mga mapanganib na command</string>
     <string name="enable_dangerous_desc">Pinapayagan ang mga mapanganib na aksyon para sa dish at Dhizuku API: pag-reboot, pag-clear ng data ng app, pagsulat ng mga setting, pagbabago ng mga pahintulot, direktang tawag sa API at iba pa. Naka-off bilang default.</string>
+    <string name="hub_title">Dhizuku Compatibility Hub</string>
+    <string name="hub_desc">Pinapayagan ang mga app na isinulat para sa orihinal na Dhizuku na gamitin ang DhizukuF. Nag-i-install ng maliit na nakatagong plugin (com.rosan.dhizuku) na pinirmahan ng parehong key at may parehong bersyon ng DhizukuF. Maaaring magsara ang DhizukuF pagkatapos ng pag-install; buksan ulit.</string>
+    <string name="hub_install">I-install</string>
+    <string name="hub_update">I-update</string>
+    <string name="hub_remove">Alisin</string>
+    <string name="hub_state_none">Hindi naka-install</string>
+    <string name="hub_state_ok">Naka-install at napapanahon</string>
+    <string name="hub_state_old">May available na update</string>
+    <string name="hub_state_conflict">May naka-install na ibang Dhizuku (com.rosan.dhizuku). Alisin muna ito.</string>
+    <string name="hub_failed">Hindi mabago ang hub: %1$s</string>
 </resources>

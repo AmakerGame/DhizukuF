@@ -1,6 +1,12 @@
 package com.EdS.DhizukuF.dish
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.pm.PackageInstaller
+import android.location.LocationManager
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -93,17 +99,17 @@ class DishCommands(
 
     fun execute(args: List<String>): Result {
         if (args.isEmpty()) return help(emptyList())
-        val cmd = args[0].lowercase(Locale.ROOT)
-        val a = args.drop(1)
-        return try {
-            dispatch(cmd, a, args[0])
-        } catch (e: UsageException) {
-            Result(err = str(R.string.dish_err_usage, e.usage) + "\n", code = 2)
-        } catch (e: InvocationTargetException) {
-            fail(e.targetException ?: e)
-        } catch (e: Throwable) {
-            fail(e)
-        }
+        return runSafely(args[0].lowercase(Locale.ROOT), args.drop(1), args[0])
+    }
+
+    private fun runSafely(cmd: String, a: List<String>, raw: String): Result = try {
+        dispatch(cmd, a, raw)
+    } catch (e: UsageException) {
+        Result(err = str(R.string.dish_err_usage, e.usage) + "\n", code = 2)
+    } catch (e: InvocationTargetException) {
+        fail(e.targetException ?: e)
+    } catch (e: Throwable) {
+        fail(e)
     }
 
     private fun dispatch(cmd: String, a: List<String>, raw: String): Result {
@@ -132,6 +138,12 @@ class DishCommands(
             "keyguard", "status-bar" -> first == "disable"
             "adb" -> first == "enable"
             "private-dns" -> first != null && first != "status"
+            "uninstall" -> true
+            "lock-task" -> first == "set" || first == "clear"
+            "vpn" -> first == "on"
+            "time" -> first == "set"
+            "ime" -> first == "allow" || first == "reset"
+            "adb-wifi" -> first == "enable"
             else -> false
         }
     }
@@ -272,6 +284,31 @@ class DishCommands(
         "settings" -> settings(a)
         "api", "call" -> api(a)
 
+        "log" -> log(a)
+        "batch" -> batch(a)
+        "uninstall" -> uninstall(a)
+        "app-restrictions" -> appRestrictions(a)
+        "bugreport" -> outcome(
+            dpm.requestBugreport(admin),
+            "a bug report was requested; the user is asked to confirm it",
+            "the system refused the bug report (one is already running, or it is not allowed)"
+        )
+        "lock-task" -> lockTask(a)
+        "vpn" -> vpn(a)
+        "location" -> location(a)
+        "backup" -> onOff(
+            a, "backup", USAGE.getValue(cmd),
+            { dpm.setBackupServiceEnabled(admin, it) }, { dpm.isBackupServiceEnabled(admin) }
+        )
+        "time" -> setTime(a)
+        "lock-timeout" -> lockTimeout(a)
+        "adb-wifi" -> if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) unsupported()
+        else globalFlag(
+            a, "adb-wifi", USAGE.getValue(cmd), "adb_wifi_enabled", "1", "0",
+            enableWord = "enable", disableWord = "disable", onLabel = "enabled", offLabel = "disabled"
+        )
+        "ime" -> ime(a)
+
         else -> {
             val hints = USAGE.keys.filter { it.startsWith(cmd.take(2)) }.take(5)
             val extra = if (hints.isEmpty()) "" else "Did you mean: " + hints.joinToString(", ") + "?\n"
@@ -283,6 +320,14 @@ class DishCommands(
 
     /** `help` = names only, grouped. `help COMMAND` = description, usage, example. */
     private fun help(a: List<String>): Result {
+        if (a.firstOrNull() == "-s") {
+            val word = a.getOrNull(1)?.lowercase(Locale.ROOT) ?: throw UsageException("help -s WORD")
+            val hits = ENTRIES.filter {
+                it.name.contains(word) || it.desc.lowercase(Locale.ROOT).contains(word)
+            }
+            if (hits.isEmpty()) return Result(out = "No command matches \"$word\".\n")
+            return Result(out = hits.joinToString("\n") { "${it.name} - ${it.desc}" } + "\n")
+        }
         if (a.isEmpty()) {
             val sb = StringBuilder()
             sb.append("dish - Device Owner console\n")
@@ -743,6 +788,286 @@ class DishCommands(
         return Result(out = lines.joinToString("\n") + "\n${lines.size} setting(s)\n")
     }
 
+
+    // ------------------------------------------------------------------ log, batch and more
+
+    private fun log(a: List<String>): Result {
+        val usage = USAGE.getValue("log")
+        if (a.firstOrNull() == "clear") {
+            DishAudit.clear()
+            return done("the dish log is cleared")
+        }
+        val n = if (a.isEmpty()) 20 else a[0].toIntOrNull() ?: throw UsageException(usage)
+        val lines = DishAudit.last(n.coerceIn(1, 200))
+        if (lines.isEmpty()) return Result(out = "The dish log is empty.\n")
+        return Result(out = lines.joinToString("\n") + "\n")
+    }
+
+    /** Splits a command line into words; understands 'single' and "double" quotes and backslashes. */
+    private fun splitLine(line: String): List<String> {
+        val out = ArrayList<String>()
+        val cur = StringBuilder()
+        var quote = '\u0000'
+        var started = false
+        var i = 0
+        while (i < line.length) {
+            val c = line[i]
+            if (quote != '\u0000') {
+                if (c == quote) quote = '\u0000'
+                else if (c == '\\' && quote == '"' && i + 1 < line.length) cur.append(line[++i])
+                else cur.append(c)
+            } else if (c == '\'' || c == '"') {
+                quote = c
+                started = true
+            } else if (c == '\\' && i + 1 < line.length) {
+                cur.append(line[++i])
+                started = true
+            } else if (c.isWhitespace()) {
+                if (started || cur.isNotEmpty()) out.add(cur.toString())
+                cur.setLength(0)
+                started = false
+            } else {
+                cur.append(c)
+            }
+            i++
+        }
+        if (started || cur.isNotEmpty()) out.add(cur.toString())
+        return out
+    }
+
+    /** Runs several command lines in a row: batch "hide com.a" "camera disable". */
+    private fun batch(a: List<String>): Result {
+        val usage = USAGE.getValue("batch")
+        val keepGoing = a.firstOrNull() == "--keep-going"
+        val lines = if (keepGoing) a.drop(1) else a
+        if (lines.isEmpty()) throw UsageException(usage)
+        if (lines.size > 50) return notDone("a batch can hold at most 50 commands")
+        val out = StringBuilder()
+        val err = StringBuilder()
+        var worst = 0
+        for ((i, line) in lines.withIndex()) {
+            val words = splitLine(line)
+            if (words.isEmpty()) continue
+            out.append("[").append(i + 1).append("] ").append(line).append("\n")
+            val name = words[0].lowercase(Locale.ROOT)
+            val r = if (name == "batch") notDone("batches cannot be nested")
+            else runSafely(name, words.drop(1), words[0])
+            out.append(r.out)
+            err.append(r.err)
+            if (r.code != 0) {
+                worst = r.code
+                if (!keepGoing) {
+                    out.append("stopped after the first failure (use --keep-going to continue)\n")
+                    break
+                }
+            }
+        }
+        return Result(out.toString(), err.toString(), worst)
+    }
+
+    private fun uninstall(a: List<String>): Result {
+        need(a, 1, USAGE.getValue("uninstall"))
+        val pkg = a[0]
+        selfGuard("uninstall", pkg)?.let { return it }
+        val action = "${context.packageName}.DISH_UNINSTALL"
+        val latch = CountDownLatch(1)
+        var status = Int.MIN_VALUE
+        var message = ""
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(c: Context, i: Intent) {
+                status = i.getIntExtra(PackageInstaller.EXTRA_STATUS, Int.MIN_VALUE)
+                message = i.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE) ?: ""
+                latch.countDown()
+            }
+        }
+        val filter = IntentFilter(action)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            context.registerReceiver(receiver, filter)
+        }
+        try {
+            val flags = PendingIntent.FLAG_UPDATE_CURRENT or
+                (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0)
+            val pending = PendingIntent.getBroadcast(
+                context, 0, Intent(action).setPackage(context.packageName), flags
+            )
+            context.packageManager.packageInstaller.uninstall(pkg, pending.intentSender)
+            if (!latch.await(20, TimeUnit.SECONDS)) return notDone("uninstalling $pkg timed out")
+        } finally {
+            context.unregisterReceiver(receiver)
+        }
+        return when (status) {
+            PackageInstaller.STATUS_SUCCESS -> done("$pkg is uninstalled")
+            PackageInstaller.STATUS_PENDING_USER_ACTION ->
+                notDone("Android asks the user to confirm the uninstall of $pkg, so it was not done silently")
+            else -> notDone("could not uninstall $pkg (status $status${if (message.isEmpty()) "" else ": $message"})")
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun appRestrictions(a: List<String>): Result {
+        val usage = USAGE.getValue("app-restrictions")
+        need(a, 2, usage)
+        val pkg = a[1]
+        return when (a[0]) {
+            "get" -> {
+                val b = dpm.getApplicationRestrictions(admin, pkg)
+                if (b.size() == 0) Result(out = "$pkg has no restrictions set.\n")
+                else Result(out = b.keySet().sorted().joinToString("\n") { "$it=${b.get(it)}" } + "\n")
+            }
+
+            "set" -> {
+                need(a, 4, usage)
+                val b = Bundle(dpm.getApplicationRestrictions(admin, pkg))
+                val key = a[2]
+                val v = a[3]
+                when {
+                    v == "true" || v == "false" -> b.putBoolean(key, v == "true")
+                    v.toIntOrNull() != null -> b.putInt(key, v.toInt())
+                    else -> b.putString(key, v)
+                }
+                dpm.setApplicationRestrictions(admin, pkg, b)
+                done("$pkg: $key = $v")
+            }
+
+            "clear" -> {
+                dpm.setApplicationRestrictions(admin, pkg, Bundle())
+                done("restrictions of $pkg are cleared")
+            }
+
+            else -> throw UsageException(usage)
+        }
+    }
+
+    private fun lockTask(a: List<String>): Result {
+        val usage = USAGE.getValue("lock-task")
+        need(a, 1, usage)
+        return when (a[0]) {
+            "status" -> {
+                val p = dpm.getLockTaskPackages(admin)
+                Result(out = "lock task packages: " + (if (p.isEmpty()) "(none)" else p.joinToString(", ")) + "\n")
+            }
+
+            "set" -> {
+                need(a, 2, usage)
+                dpm.setLockTaskPackages(admin, a.drop(1).toTypedArray())
+                done("lock task packages: ${a.drop(1).joinToString(", ")}")
+            }
+
+            "clear" -> {
+                dpm.setLockTaskPackages(admin, emptyArray<String>())
+                done("lock task packages are cleared")
+            }
+
+            else -> throw UsageException(usage)
+        }
+    }
+
+    private fun vpn(a: List<String>): Result {
+        val usage = USAGE.getValue("vpn")
+        need(a, 1, usage)
+        return when (a[0]) {
+            "status" -> Result(out = "always-on VPN: ${dpm.getAlwaysOnVpnPackage(admin) ?: "off"}\n")
+
+            "off" -> {
+                dpm.setAlwaysOnVpnPackage(admin, null, false)
+                done("always-on VPN is off")
+            }
+
+            "on" -> {
+                need(a, 2, usage)
+                val lockdown = a.getOrNull(2) == "lockdown"
+                dpm.setAlwaysOnVpnPackage(admin, a[1], lockdown)
+                done("always-on VPN is ${a[1]}" + if (lockdown) " (lockdown: no traffic without the VPN)" else "")
+            }
+
+            else -> throw UsageException(usage)
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun locationOn(): Boolean {
+        val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) lm.isLocationEnabled
+        else Settings.Secure.getInt(context.contentResolver, Settings.Secure.LOCATION_MODE, 0) != 0
+    }
+
+    private fun location(a: List<String>): Result {
+        val usage = USAGE.getValue("location")
+        need(a, 1, usage)
+        return when (a[0]) {
+            "status" -> Result(out = "location: ${if (locationOn()) "on" else "off"}\n")
+
+            "on", "off" -> {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return unsupported()
+                val on = a[0] == "on"
+                dpm.setLocationEnabled(admin, on)
+                outcome(locationOn() == on, "location is ${a[0]}", "the system did not turn location ${a[0]}")
+            }
+
+            else -> throw UsageException(usage)
+        }
+    }
+
+    private fun setTime(a: List<String>): Result {
+        val usage = USAGE.getValue("time")
+        if (a.size < 2 || a[0] != "set") throw UsageException(usage)
+        val millis = a[1].toLongOrNull() ?: throw UsageException(usage)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return unsupported()
+        return outcome(
+            dpm.setTime(admin, millis),
+            "time is set to ${java.util.Date(millis)}",
+            "the system refused to set the time (turn auto-time off first)"
+        )
+    }
+
+    @Suppress("DEPRECATION")
+    private fun lockTimeout(a: List<String>): Result {
+        val usage = USAGE.getValue("lock-timeout")
+        need(a, 1, usage)
+        return when (a[0]) {
+            "status" -> Result(out = "lock timeout: ${dpm.getMaximumTimeToLock(admin)} ms (0 = no limit)\n")
+
+            "set" -> {
+                need(a, 2, usage)
+                val ms = a[1].toLongOrNull() ?: throw UsageException(usage)
+                dpm.setMaximumTimeToLock(admin, ms)
+                done("the screen locks after at most $ms ms")
+            }
+
+            else -> throw UsageException(usage)
+        }
+    }
+
+    private fun ime(a: List<String>): Result {
+        val usage = USAGE.getValue("ime")
+        need(a, 1, usage)
+        return when (a[0]) {
+            "list" -> {
+                val p = dpm.getPermittedInputMethods(admin)
+                Result(out = if (p == null) "all input methods are allowed\n" else p.joinToString("\n") + "\n")
+            }
+
+            "allow" -> {
+                need(a, 2, usage)
+                outcome(
+                    dpm.setPermittedInputMethods(admin, a.drop(1)),
+                    "only these input methods are allowed: ${a.drop(1).joinToString(", ")}",
+                    "the system refused the list (it must name installed input methods, and system ones stay allowed)"
+                )
+            }
+
+            "reset" -> outcome(
+                dpm.setPermittedInputMethods(admin, null),
+                "all input methods are allowed again",
+                "the system refused to reset the list"
+            )
+
+            else -> throw UsageException(usage)
+        }
+    }
+
     // ------------------------------------------------------------------ direct API
 
     private fun target(name: String): Pair<Class<*>, Any?>? {
@@ -970,6 +1295,11 @@ class DishCommands(
             Entry("id", GEN, "id", "Show the uid and app name of this terminal as DhizukuF sees it."),
             Entry("device", GEN, "device", "Show model, Android version, security patch and ABI."),
             Entry("ping", GEN, "ping", "Silent access check. Prints nothing and returns 0 when dish may run."),
+            Entry("log", GEN, "log [N] | log clear", "Show the last commands run through dish (kept in memory, newest last).",
+                "log 10"),
+            Entry("batch", GEN, "batch [--keep-going] \"CMD\" \"CMD\" ...",
+                "Run several commands in a row; stops at the first failure unless --keep-going.",
+                "batch \"hide com.a\" \"camera disable\""),
             Entry("lock", GEN, "lock", "Lock the screen now."),
             Entry("reboot", GEN, "reboot", "Reboot the device immediately."),
 
@@ -987,6 +1317,10 @@ class DishCommands(
             Entry("block-uninstall", APPS, "block-uninstall PKG", "Forbid uninstalling an app."),
             Entry("allow-uninstall", APPS, "allow-uninstall PKG", "Allow uninstalling an app again."),
             Entry("is-uninstall-blocked", APPS, "is-uninstall-blocked PKG", "Tell whether uninstalling an app is blocked."),
+            Entry("uninstall", APPS, "uninstall PKG", "Uninstall an app silently (as Device Owner).", "uninstall com.example.app"),
+            Entry("app-restrictions", APPS, "app-restrictions get|set|clear PKG [KEY VALUE]",
+                "Managed configuration of an app (true/false and numbers are typed).",
+                "app-restrictions set com.example.app server https://example.org"),
             Entry("enable-system-app", APPS, "enable-system-app PKG", "Enable a disabled system app."),
             Entry("install-existing", APPS, "install-existing PKG",
                 "Bring back an app that is on the device but removed for this user."),
@@ -1010,6 +1344,19 @@ class DishCommands(
             Entry("stay-awake", DEV, "stay-awake on|off|status", "Keep the screen on while charging."),
             Entry("auto-time", DEV, "auto-time on|off|status", "Automatic date and time (Android 11+)."),
             Entry("auto-timezone", DEV, "auto-timezone on|off|status", "Automatic time zone (Android 11+)."),
+            Entry("bugreport", DEV, "bugreport", "Ask Android to take a bug report (the user confirms it)."),
+            Entry("lock-task", DEV, "lock-task status|set PKG...|clear", "Kiosk mode: apps allowed to pin themselves.",
+                "lock-task set com.example.kiosk"),
+            Entry("vpn", DEV, "vpn on PKG [lockdown] | off | status", "Always-on VPN; lockdown blocks traffic without it.",
+                "vpn on org.example.vpn lockdown"),
+            Entry("location", DEV, "location on|off|status", "Turn device location on or off."),
+            Entry("backup", DEV, "backup on|off|status", "Turn the backup service on or off."),
+            Entry("time", DEV, "time set EPOCH_MS", "Set the clock (turn auto-time off first).", "time set 1760000000000"),
+            Entry("lock-timeout", DEV, "lock-timeout status | set MS", "Longest time before the screen locks.",
+                "lock-timeout set 60000"),
+            Entry("adb-wifi", DEV, "adb-wifi enable|disable|status", "Wireless debugging (Android 11+)."),
+            Entry("ime", DEV, "ime list | allow PKG... | reset", "Restrict which keyboards may be used.",
+                "ime allow com.google.android.inputmethod.latin"),
             Entry("timezone", DEV, "timezone ID", "Set the time zone.", "timezone Europe/Kyiv"),
             Entry("private-dns", DEV, "private-dns auto|HOSTNAME|status", "Set Private DNS (Android 10+).",
                 "private-dns dns.google"),
@@ -1032,19 +1379,23 @@ class DishCommands(
         /** Commands that change device-wide state: Device Owner only. */
         private val DEVICE_OWNER_ONLY = setOf(
             "reboot", "adb", "stay-awake", "timezone", "private-dns",
-            "keyguard", "status-bar", "owner-info", "auto-time", "auto-timezone"
+            "keyguard", "status-bar", "owner-info", "auto-time", "auto-timezone",
+            "bugreport", "lock-task", "location", "time", "adb-wifi"
         )
 
         /** Commands with at least one dangerous form (see isDangerous). */
         private val DANGEROUS_COMMANDS = setOf(
             "reboot", "clear-data", "api", "settings", "permission", "permission-policy",
-            "keyguard", "status-bar", "adb", "private-dns"
+            "keyguard", "status-bar", "adb", "private-dns", "uninstall", "lock-task", "vpn", "time",
+            "ime", "adb-wifi"
         )
 
         private val OWNER_NOTES = mapOf(
             "settings" to "Device Owner for: settings put global. Other forms work in both modes",
             "api" to "depends on the method; many DevicePolicyManager methods need Device Owner",
             "help" to "nothing special",
+            "log" to "nothing special",
+            "batch" to "each command inside keeps its own requirements",
             "ping" to "Device Owner or Profile Owner",
             "version" to "nothing special",
             "id" to "nothing special",

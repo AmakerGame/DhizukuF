@@ -96,4 +96,14 @@
     <string name="home_dish_help_text">dish はこのアプリ内のターミナルではなく、コマンドラインツールです。ファイルをエクスポートし、ターミナルアプリ (Termux がおすすめ) で dish を実行してください。\n\n1. 「dish ファイルをエクスポート」をタップしてフォルダを選びます。\n2. Termux で termux-setup-storage を一度実行し、dish と dish_dhizukuf.dex を $PREFIX/bin にコピーして、chmod +x $PREFIX/bin/dish を実行します。\n3. dish と入力するとコンソールが開きます。コマンド一覧は dish help です。\n\n初回実行時、DhizukuF がアクセスの承認を求めます。</string>
     <string name="enable_dangerous">危険なコマンドを有効にする</string>
     <string name="enable_dangerous_desc">dish と Dhizuku API で危険な操作 (再起動、アプリデータの消去、設定の書き込み、権限の変更、API の直接呼び出しなど) を許可します。デフォルトではオフです。</string>
+    <string name="hub_title">Dhizuku 互換ハブ</string>
+    <string name="hub_desc">オリジナルの Dhizuku 向けに作られたアプリが DhizukuF を使えるようにします。DhizukuF と同じ鍵で署名され、同じバージョンの小さな非表示プラグイン (com.rosan.dhizuku) をインストールします。インストール後に DhizukuF が閉じることがあります。もう一度開いてください。</string>
+    <string name="hub_install">インストール</string>
+    <string name="hub_update">更新</string>
+    <string name="hub_remove">削除</string>
+    <string name="hub_state_none">未インストール</string>
+    <string name="hub_state_ok">インストール済み (最新)</string>
+    <string name="hub_state_old">更新があります</string>
+    <string name="hub_state_conflict">別の Dhizuku (com.rosan.dhizuku) がインストールされています。先に削除してください。</string>
+    <string name="hub_failed">ハブを変更できませんでした: %1$s</string>
 </resources>

@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish یک ترمینال داخل این برنامه نیست، بلکه ابزار خط فرمان است: فایل‌ها را خروجی بگیرید و سپس dish را در یک برنامهٔ ترمینال، ترجیحاً Termux، اجرا کنید.\n\n1. روی «خروجی گرفتن از فایل‌های dish» بزنید و پوشه‌ای انتخاب کنید.\n2. در Termux یک بار termux-setup-storage را اجرا کنید، dish و dish_dhizukuf.dex را در $PREFIX/bin کپی کنید و chmod +x $PREFIX/bin/dish را اجرا کنید.\n3. برای باز کردن کنسول dish یا برای دیدن دستورها dish help را تایپ کنید.\n\nدر اجرای اول، DhizukuF از شما تأیید دسترسی می‌خواهد.</string>
     <string name="enable_dangerous">فعال‌سازی دستورهای خطرناک</string>
     <string name="enable_dangerous_desc">اقدام‌های پرخطر را برای dish و API دیژوکو مجاز می‌کند: راه‌اندازی مجدد، پاک کردن داده‌های برنامه، نوشتن تنظیمات، تغییر مجوزها، فراخوانی مستقیم API و موارد مشابه. به‌طور پیش‌فرض خاموش است.</string>
+    <string name="hub_title">هاب سازگاری Dhizuku</string>
+    <string name="hub_desc">به برنامه‌هایی که برای Dhizuku اصلی نوشته شده‌اند اجازه می‌دهد از DhizukuF استفاده کنند. یک افزونهٔ کوچک پنهان (com.rosan.dhizuku) را نصب می‌کند که با همان کلید و همان نسخهٔ DhizukuF امضا شده است. DhizukuF ممکن است پس از نصب بسته شود؛ دوباره بازش کنید.</string>
+    <string name="hub_install">نصب</string>
+    <string name="hub_update">به‌روزرسانی</string>
+    <string name="hub_remove">حذف</string>
+    <string name="hub_state_none">نصب نشده</string>
+    <string name="hub_state_ok">نصب‌شده و به‌روز</string>
+    <string name="hub_state_old">به‌روزرسانی موجود است</string>
+    <string name="hub_state_conflict">Dhizuku دیگری (com.rosan.dhizuku) نصب است. ابتدا آن را حذف کنید.</string>
+    <string name="hub_failed">تغییر هاب ممکن نشد: %1$s</string>
 </resources>

@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish אינו מסוף בתוך האפליקציה הזו אלא כלי שורת פקודה: ייצא את הקבצים והפעל את dish באפליקציית מסוף, עדיף Termux.\n\n1. הקש על «ייצוא קובצי dish» ובחר תיקייה.\n2. ב-Termux הרץ פעם אחת termux-setup-storage, העתק את dish ו-dish_dhizukuf.dex אל $PREFIX/bin והרץ chmod +x $PREFIX/bin/dish.\n3. הקלד dish כדי לפתוח את הקונסולה, או dish help כדי לראות את הפקודות.\n\nבהפעלה הראשונה DhizukuF יבקש ממך לאשר גישה.</string>
     <string name="enable_dangerous">הפעלת פקודות מסוכנות</string>
     <string name="enable_dangerous_desc">מאפשר פעולות מסוכנות עבור dish וה-API של Dhizuku: הפעלה מחדש, ניקוי נתוני אפליקציות, כתיבת הגדרות, שינוי הרשאות, קריאות API ישירות ודומיהן. כבוי כברירת מחדל.</string>
+    <string name="hub_title">רכזת תאימות של Dhizuku</string>
+    <string name="hub_desc">מאפשרת לאפליקציות שנכתבו עבור Dhizuku המקורי להשתמש ב-DhizukuF. מתקינה תוסף קטן ונסתר (com.rosan.dhizuku) החתום באותו מפתח ובאותה גרסה כמו DhizukuF. ייתכן ש-DhizukuF ייסגר לאחר ההתקנה; פתח אותו שוב.</string>
+    <string name="hub_install">התקנה</string>
+    <string name="hub_update">עדכון</string>
+    <string name="hub_remove">הסרה</string>
+    <string name="hub_state_none">לא מותקן</string>
+    <string name="hub_state_ok">מותקן ומעודכן</string>
+    <string name="hub_state_old">יש עדכון זמין</string>
+    <string name="hub_state_conflict">מותקן Dhizuku אחר (com.rosan.dhizuku). הסר אותו קודם.</string>
+    <string name="hub_failed">לא ניתן לשנות את הרכזת: %1$s</string>
 </resources>

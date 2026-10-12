@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish ba tasha ba ce a cikin wannan manhaja, kayan aikin layin umarni ne: fitar da fayilolin, sannan ka gudanar da dish a manhajar tasha, zai fi kyau a Termux.\n\n1. Danna «Fitar da fayilolin dish» ka zaɓi babban fayil.\n2. A Termux gudanar da termux-setup-storage sau ɗaya, kwafa dish da dish_dhizukuf.dex zuwa $PREFIX/bin sannan ka gudanar da chmod +x $PREFIX/bin/dish.\n3. Rubuta dish don buɗe na\'urar umarni, ko dish help don ganin umarnin.\n\nA gudanarwa ta farko, DhizukuF zai nemi ka amince da shiga.</string>
     <string name="enable_dangerous">Kunna umarni masu haɗari</string>
     <string name="enable_dangerous_desc">Yana ba da damar ayyuka masu haɗari ga dish da API na Dhizuku: sake kunnawa, share bayanan manhaja, rubuta saituna, canza izini, kiran API kai tsaye da makamantansu. A kashe yake ta tsohuwa.</string>
+    <string name="hub_title">Cibiyar daidaito ta Dhizuku</string>
+    <string name="hub_desc">Yana bari manhajojin da aka rubuta don Dhizuku na asali su yi amfani da DhizukuF. Yana shigar da ƙaramin plugin da aka ɓoye (com.rosan.dhizuku) wanda aka sanya wa hannu da maɓalli ɗaya kuma nau\'i ɗaya da DhizukuF. DhizukuF na iya rufewa bayan shigarwa; sake buɗe shi.</string>
+    <string name="hub_install">Shigar</string>
+    <string name="hub_update">Sabunta</string>
+    <string name="hub_remove">Cire</string>
+    <string name="hub_state_none">Ba a shigar ba</string>
+    <string name="hub_state_ok">An shigar kuma na zamani</string>
+    <string name="hub_state_old">Akwai sabuntawa</string>
+    <string name="hub_state_conflict">An shigar da wani Dhizuku (com.rosan.dhizuku). Cire shi tukuna.</string>
+    <string name="hub_failed">Ba a iya canza cibiyar ba: %1$s</string>
 </resources>

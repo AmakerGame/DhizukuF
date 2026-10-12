@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish nu este un terminal în această aplicație, ci un instrument de linie de comandă: exportați fișierele, apoi rulați dish într-o aplicație de terminal, de preferat Termux.\n\n1. Atingeți „Exportă fișierele dish” și alegeți un dosar.\n2. În Termux rulați o singură dată termux-setup-storage, copiați dish și dish_dhizukuf.dex în $PREFIX/bin și rulați chmod +x $PREFIX/bin/dish.\n3. Tastați dish pentru a deschide consola sau dish help pentru comenzi.\n\nLa prima rulare, DhizukuF vă cere să aprobați accesul.</string>
     <string name="enable_dangerous">Activează comenzile periculoase</string>
     <string name="enable_dangerous_desc">Permite acțiuni riscante pentru dish și API-ul Dhizuku: repornire, ștergerea datelor aplicațiilor, scrierea setărilor, modificarea permisiunilor, apeluri directe API și altele similare. Dezactivat implicit.</string>
+    <string name="hub_title">Hub de compatibilitate Dhizuku</string>
+    <string name="hub_desc">Permite aplicațiilor scrise pentru Dhizuku original să folosească DhizukuF. Instalează un mic plugin ascuns (com.rosan.dhizuku) semnat cu aceeași cheie și având aceeași versiune ca DhizukuF. DhizukuF se poate închide după instalare; deschideți-l din nou.</string>
+    <string name="hub_install">Instalează</string>
+    <string name="hub_update">Actualizează</string>
+    <string name="hub_remove">Elimină</string>
+    <string name="hub_state_none">Neinstalat</string>
+    <string name="hub_state_ok">Instalat și actualizat</string>
+    <string name="hub_state_old">Actualizare disponibilă</string>
+    <string name="hub_state_conflict">Este instalat un alt Dhizuku (com.rosan.dhizuku). Eliminați-l mai întâi.</string>
+    <string name="hub_failed">Hubul nu a putut fi modificat: %1$s</string>
 </resources>

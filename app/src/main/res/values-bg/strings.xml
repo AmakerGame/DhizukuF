@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish не е терминал в това приложение, а инструмент за команден ред: експортирайте файловете и след това стартирайте dish в приложение-терминал, най-добре в Termux.\n\n1. Докоснете „Експорт на файловете dish“ и изберете папка.\n2. В Termux изпълнете веднъж termux-setup-storage, копирайте dish и dish_dhizukuf.dex в $PREFIX/bin и изпълнете chmod +x $PREFIX/bin/dish.\n3. Въведете dish, за да отворите конзолата, или dish help за списъка с команди.\n\nПри първото стартиране DhizukuF ще поиска одобрение за достъп.</string>
     <string name="enable_dangerous">Включване на опасни команди</string>
     <string name="enable_dangerous_desc">Разрешава рискови действия за dish и API на Dhizuku: рестартиране, изчистване на данни на приложения, запис на настройки, промяна на разрешения, директни извиквания на API и подобни. По подразбиране е изключено.</string>
+    <string name="hub_title">Хъб за съвместимост на Dhizuku</string>
+    <string name="hub_desc">Позволява на приложения, написани за оригиналния Dhizuku, да използват DhizukuF. Инсталира малък скрит плъгин (com.rosan.dhizuku), подписан със същия ключ и със същата версия като DhizukuF. След инсталирането DhizukuF може да се затвори; отворете го отново.</string>
+    <string name="hub_install">Инсталиране</string>
+    <string name="hub_update">Обновяване</string>
+    <string name="hub_remove">Премахване</string>
+    <string name="hub_state_none">Не е инсталиран</string>
+    <string name="hub_state_ok">Инсталиран и актуален</string>
+    <string name="hub_state_old">Налично е обновление</string>
+    <string name="hub_state_conflict">Инсталиран е друг Dhizuku (com.rosan.dhizuku). Първо го премахнете.</string>
+    <string name="hub_failed">Хъбът не можа да бъде променен: %1$s</string>
 </resources>

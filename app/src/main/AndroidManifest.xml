@@ -29,9 +29,11 @@
         android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         tools:node="remove" />
 
+    <!-- Not required: many TV boxes do not declare it and would refuse the install. Without a working
+         device policy service the app just shows that it is not activated. -->
     <uses-feature
         android:name="android.software.device_admin"
-        android:required="true" />
+        android:required="false" />
 
     <!-- Android TV / set-top boxes: no touch screen needed, D-pad navigation is supported -->
     <uses-feature

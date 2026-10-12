@@ -126,4 +126,14 @@
     <string name="home_dish_help_text">dish is not a terminal inside this app. It is a command-line tool: export the files, then run dish in a terminal app, best of all in Termux.\n\n1. Tap Export dish files and pick a folder.\n2. In Termux run termux-setup-storage once, copy dish and dish_dhizukuf.dex to $PREFIX/bin and run chmod +x $PREFIX/bin/dish.\n3. Type dish to open the console, or dish help for the commands.\n\nOn the first run DhizukuF asks you to approve access.</string>
     <string name="enable_dangerous">Enable dangerous commands</string>
     <string name="enable_dangerous_desc">Allow risky actions for dish and the Dhizuku API: reboot, clearing app data, writing settings, changing permissions, direct API calls and similar. Off by default.</string>
+    <string name="hub_title">Dhizuku Compatibility Hub</string>
+    <string name="hub_desc">Lets apps written for the original Dhizuku use DhizukuF. Installs a small hidden plugin (com.rosan.dhizuku) signed with the same key and with the same version as DhizukuF. DhizukuF may close after the install; open it again.</string>
+    <string name="hub_install">Install</string>
+    <string name="hub_update">Update</string>
+    <string name="hub_remove">Remove</string>
+    <string name="hub_state_none">Not installed</string>
+    <string name="hub_state_ok">Installed and up to date</string>
+    <string name="hub_state_old">Update available</string>
+    <string name="hub_state_conflict">Another Dhizuku (com.rosan.dhizuku) is installed. Remove it first.</string>
+    <string name="hub_failed">Could not change the hub: %1$s</string>
 </resources>

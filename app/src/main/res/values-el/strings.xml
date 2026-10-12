@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">Το dish δεν είναι τερματικό μέσα σε αυτή την εφαρμογή, αλλά εργαλείο γραμμής εντολών: εξαγάγετε τα αρχεία και μετά εκτελέστε το dish σε εφαρμογή τερματικού, κατά προτίμηση στο Termux.\n\n1. Πατήστε «Εξαγωγή αρχείων dish» και επιλέξτε φάκελο.\n2. Στο Termux εκτελέστε μία φορά termux-setup-storage, αντιγράψτε τα dish και dish_dhizukuf.dex στο $PREFIX/bin και εκτελέστε chmod +x $PREFIX/bin/dish.\n3. Πληκτρολογήστε dish για να ανοίξει η κονσόλα ή dish help για τις εντολές.\n\nΣτην πρώτη εκτέλεση το DhizukuF θα ζητήσει να εγκρίνετε την πρόσβαση.</string>
     <string name="enable_dangerous">Ενεργοποίηση επικίνδυνων εντολών</string>
     <string name="enable_dangerous_desc">Επιτρέπει επικίνδυνες ενέργειες για το dish και το API του Dhizuku: επανεκκίνηση, εκκαθάριση δεδομένων εφαρμογών, εγγραφή ρυθμίσεων, αλλαγή αδειών, άμεσες κλήσεις API και παρόμοια. Απενεργοποιημένο από προεπιλογή.</string>
+    <string name="hub_title">Hub συμβατότητας Dhizuku</string>
+    <string name="hub_desc">Επιτρέπει σε εφαρμογές που γράφτηκαν για το αρχικό Dhizuku να χρησιμοποιούν το DhizukuF. Εγκαθιστά ένα μικρό κρυφό πρόσθετο (com.rosan.dhizuku) υπογεγραμμένο με το ίδιο κλειδί και στην ίδια έκδοση με το DhizukuF. Το DhizukuF μπορεί να κλείσει μετά την εγκατάσταση· ανοίξτε το ξανά.</string>
+    <string name="hub_install">Εγκατάσταση</string>
+    <string name="hub_update">Ενημέρωση</string>
+    <string name="hub_remove">Κατάργηση</string>
+    <string name="hub_state_none">Δεν είναι εγκατεστημένο</string>
+    <string name="hub_state_ok">Εγκατεστημένο και ενημερωμένο</string>
+    <string name="hub_state_old">Διαθέσιμη ενημέρωση</string>
+    <string name="hub_state_conflict">Είναι εγκατεστημένο άλλο Dhizuku (com.rosan.dhizuku). Καταργήστε το πρώτα.</string>
+    <string name="hub_failed">Δεν ήταν δυνατή η αλλαγή του hub: %1$s</string>
 </resources>

@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish என்பது இந்தப் பயன்பாட்டுக்குள் உள்ள முனையம் அல்ல, அது கட்டளை வரி கருவி: கோப்புகளை ஏற்றுமதி செய்து, முனைய பயன்பாட்டில், முன்னுரிமையாக Termux இல், dish ஐ இயக்கவும்.\n\n1. «dish கோப்புகளை ஏற்றுமதி செய்» என்பதைத் தட்டி கோப்புறையைத் தேர்ந்தெடுக்கவும்.\n2. Termux இல் termux-setup-storage ஐ ஒருமுறை இயக்கி, dish மற்றும் dish_dhizukuf.dex ஐ $PREFIX/bin இல் நகலெடுத்து chmod +x $PREFIX/bin/dish ஐ இயக்கவும்.\n3. கன்சோலைத் திறக்க dish என்றோ, கட்டளைகளைப் பார்க்க dish help என்றோ உள்ளிடவும்.\n\nமுதல் முறை இயக்கும்போது அணுகலை அங்கீகரிக்க DhizukuF கேட்கும்.</string>
     <string name="enable_dangerous">ஆபத்தான கட்டளைகளை இயக்கு</string>
     <string name="enable_dangerous_desc">dish மற்றும் Dhizuku API க்கான ஆபத்தான செயல்களை அனுமதிக்கிறது: மறுதொடக்கம், பயன்பாட்டுத் தரவை அழித்தல், அமைப்புகளை எழுதுதல், அனுமதிகளை மாற்றுதல், நேரடி API அழைப்புகள் போன்றவை. இயல்பாக அணைக்கப்பட்டிருக்கும்.</string>
+    <string name="hub_title">Dhizuku இணக்கத்தன்மை மையம்</string>
+    <string name="hub_desc">அசல் Dhizuku க்காக எழுதப்பட்ட பயன்பாடுகள் DhizukuF ஐப் பயன்படுத்த அனுமதிக்கிறது. DhizukuF ஐப் போன்ற அதே விசையால் கையொப்பமிடப்பட்ட, அதே பதிப்பிலான சிறிய மறைக்கப்பட்ட செருகுநிரலை (com.rosan.dhizuku) நிறுவுகிறது. நிறுவிய பின் DhizukuF மூடப்படலாம்; மீண்டும் திறக்கவும்.</string>
+    <string name="hub_install">நிறுவு</string>
+    <string name="hub_update">புதுப்பி</string>
+    <string name="hub_remove">அகற்று</string>
+    <string name="hub_state_none">நிறுவப்படவில்லை</string>
+    <string name="hub_state_ok">நிறுவப்பட்டது, புதியது</string>
+    <string name="hub_state_old">புதுப்பிப்பு உள்ளது</string>
+    <string name="hub_state_conflict">மற்றொரு Dhizuku (com.rosan.dhizuku) நிறுவப்பட்டுள்ளது. முதலில் அதை அகற்றவும்.</string>
+    <string name="hub_failed">மையத்தை மாற்ற முடியவில்லை: %1$s</string>
 </resources>

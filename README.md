@@ -39,6 +39,8 @@ Compared to upstream Dhizuku (full list in [CHANGELOG.md](CHANGELOG.md)):
   Dhizuku API (see [docs/DISH.md](docs/DISH.md#dangerous-commands)).
 - **Android TV** — launcher banner, D-pad / remote control navigation with a visible focus frame, and an
   export fallback for boxes without a folder picker (see [docs/DISH.md](docs/DISH.md#android-tv)).
+- **Dhizuku Compatibility Hub** — a hidden plugin (same key, same version) that lets apps written for the original
+  Dhizuku use DhizukuF; install it from Settings (see [docs/HUB.md](docs/HUB.md)).
 - **Safe start** — dish checks access before the prompt appears. If dish is switched off, DhizukuF
   is not the Device Owner, or you refuse the request, the console does not start.
 - **Enable dish** switch in Settings, next to **Enable Dhizuku**. The two are independent.

@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish bu uygulamanın içinde bir terminal değildir, bir komut satırı aracıdır: dosyaları dışa aktarın, ardından dish\'i bir terminal uygulamasında, en iyisi Termux\'ta çalıştırın.\n\n1. «dish dosyalarını dışa aktar» düğmesine dokunun ve bir klasör seçin.\n2. Termux\'ta bir kez termux-setup-storage çalıştırın, dish ve dish_dhizukuf.dex dosyalarını $PREFIX/bin içine kopyalayın ve chmod +x $PREFIX/bin/dish çalıştırın.\n3. Konsolu açmak için dish, komutlar için dish help yazın.\n\nİlk çalıştırmada DhizukuF erişimi onaylamanızı ister.</string>
     <string name="enable_dangerous">Tehlikeli komutları etkinleştir</string>
     <string name="enable_dangerous_desc">dish ve Dhizuku API için riskli eylemlere izin verir: yeniden başlatma, uygulama verilerini temizleme, ayar yazma, izinleri değiştirme, doğrudan API çağrıları ve benzerleri. Varsayılan olarak kapalıdır.</string>
+    <string name="hub_title">Dhizuku Uyumluluk Merkezi</string>
+    <string name="hub_desc">Orijinal Dhizuku için yazılmış uygulamaların DhizukuF\'yi kullanmasını sağlar. DhizukuF ile aynı anahtarla imzalanmış ve aynı sürümde küçük, gizli bir eklenti (com.rosan.dhizuku) yükler. Kurulumdan sonra DhizukuF kapanabilir; yeniden açın.</string>
+    <string name="hub_install">Yükle</string>
+    <string name="hub_update">Güncelle</string>
+    <string name="hub_remove">Kaldır</string>
+    <string name="hub_state_none">Yüklü değil</string>
+    <string name="hub_state_ok">Yüklü ve güncel</string>
+    <string name="hub_state_old">Güncelleme var</string>
+    <string name="hub_state_conflict">Başka bir Dhizuku (com.rosan.dhizuku) yüklü. Önce onu kaldırın.</string>
+    <string name="hub_failed">Merkez değiştirilemedi: %1$s</string>
 </resources>

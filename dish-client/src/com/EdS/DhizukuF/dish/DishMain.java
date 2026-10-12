@@ -96,6 +96,7 @@ public final class DishMain {
             System.err.println("dish - Device Owner console via DhizukuF. Type 'help', 'exit' to quit.");
         }
         int last = 0;
+        List<String> history = new ArrayList<String>();
         while (true) {
             if (tty) {
                 System.out.print("dish$ ");
@@ -106,6 +107,24 @@ public final class DishMain {
             line = line.trim();
             if (line.isEmpty()) continue;
             if (line.equals("exit") || line.equals("quit")) break;
+            if (line.equals("clear")) {
+                System.out.print("\u001b[H\u001b[2J");
+                System.out.flush();
+                continue;
+            }
+            if (line.equals("history")) {
+                for (int i = 0; i < history.size(); i++) System.out.println((i + 1) + "  " + history.get(i));
+                continue;
+            }
+            if (line.equals("!!")) {
+                if (history.isEmpty()) {
+                    System.err.println("dish: no previous command");
+                    continue;
+                }
+                line = history.get(history.size() - 1);
+                if (tty) System.out.println(line);
+            }
+            history.add(line);
             List<String> tokens;
             try {
                 tokens = tokenize(line);
@@ -145,31 +164,34 @@ public final class DishMain {
         String message = "";
     }
 
-    /** Hands our binder to DhizukuF and waits for its binder. Returns null if it never answers. */
+    /**
+     * Hands our binder to DhizukuF and waits for its binder. DhizukuF may have to start its process
+     * first, so the request is sent twice before giving up. Returns null if it never answers.
+     */
     private static IBinder connect() {
         if (server != null) return server;
         try {
-            callback = new CallbackBinder();
-            Bundle bundle = new Bundle();
-            bundle.putBinder("cb", callback);
-            Intent intent = new Intent();
-            intent.setComponent(new ComponentName(appPackage(), "com.EdS.DhizukuF.dish.DishReceiver"));
-            intent.addFlags(FLAGS);
-            intent.putExtra("dish", bundle);
-            sendBroadcast(intent);
-            if (!callback.latch.await(20, TimeUnit.SECONDS)) {
-                System.err.println("dish: DhizukuF did not answer. Make sure it is installed and "
-                        + "activated (Device Owner).");
-                return null;
+            for (int attempt = 1; attempt <= 2; attempt++) {
+                callback = new CallbackBinder();
+                Bundle bundle = new Bundle();
+                bundle.putBinder("cb", callback);
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(appPackage(), "com.EdS.DhizukuF.dish.DishReceiver"));
+                intent.addFlags(FLAGS);
+                intent.putExtra("dish", bundle);
+                sendBroadcast(intent);
+                if (callback.latch.await(attempt == 1 ? 10 : 15, TimeUnit.SECONDS)) {
+                    server = callback.received;
+                    return server;
+                }
             }
-            server = callback.received;
-            return server;
-        } catch (InvocationTargetException e) {
-            Throwable cause = e.getCause() != null ? e.getCause() : e;
-            System.err.println("dish: cannot send the request to DhizukuF: " + cause);
+            System.err.println("dish: DhizukuF did not answer. Make sure it is installed and "
+                    + "activated (Device Owner), and that Enable dish is on.");
             return null;
         } catch (Throwable e) {
-            System.err.println("dish: cannot send the request to DhizukuF: " + e);
+            Throwable cause = e instanceof InvocationTargetException && e.getCause() != null ? e.getCause() : e;
+            System.err.println("dish: cannot send the request to DhizukuF (Android API "
+                    + android.os.Build.VERSION.SDK_INT + "): " + cause);
             return null;
         }
     }
@@ -183,8 +205,28 @@ public final class DishMain {
         Class<?> stub = Class.forName("android.app.IActivityManager$Stub");
         Object am = stub.getMethod("asInterface", IBinder.class).invoke(null, binder);
 
-        Method method = findBroadcastMethod(am.getClass());
-        Class<?>[] types = method.getParameterTypes();
+        // The signature changes between Android versions, so every candidate is tried, the one
+        // with the most parameters first, until one is accepted.
+        List<Method> candidates = findBroadcastMethods(am.getClass());
+        if (candidates.isEmpty()) throw new NoSuchMethodException("no broadcast method on IActivityManager");
+        Throwable last = null;
+        for (Method method : candidates) {
+            try {
+                Object result = method.invoke(am, buildArgs(method.getParameterTypes(), intent));
+                if (result instanceof Integer && ((Integer) result) < 0) {
+                    throw new IllegalStateException("broadcast rejected, code " + result);
+                }
+                return;
+            } catch (InvocationTargetException e) {
+                last = e.getCause() != null ? e.getCause() : e;
+            } catch (Exception e) {
+                last = e;
+            }
+        }
+        throw new IllegalStateException("every broadcast variant failed, last: " + last);
+    }
+
+    private static Object[] buildArgs(Class<?>[] types, Intent intent) {
         Object[] args = new Object[types.length];
         int ints = 0;
         int userId = android.os.Process.myUid() / 100000;
@@ -202,28 +244,31 @@ public final class DishMain {
                 args[i] = null; // caller, strings, receiver, bundles, permissions
             }
         }
-        Object result = method.invoke(am, args);
-        if (result instanceof Integer && ((Integer) result) < 0) {
-            throw new IllegalStateException("broadcast rejected, code " + result);
-        }
+        return args;
     }
 
-    private static Method findBroadcastMethod(Class<?> type) throws NoSuchMethodException {
+    private static List<Method> findBroadcastMethods(Class<?> type) {
+        List<Method> found = new ArrayList<Method>();
         String[] names = {"broadcastIntentWithFeature", "broadcastIntent"};
         for (String name : names) {
-            Method best = null;
             for (Method m : type.getMethods()) {
                 if (!m.getName().equals(name)) continue;
                 boolean hasIntent = false;
                 for (Class<?> p : m.getParameterTypes()) if (p == Intent.class) hasIntent = true;
-                if (!hasIntent) continue;
-                if (best == null || m.getParameterTypes().length > best.getParameterTypes().length) {
-                    best = m;
-                }
+                if (hasIntent) found.add(m);
             }
-            if (best != null) return best;
         }
-        throw new NoSuchMethodException("no broadcast method on IActivityManager");
+        // newer API first (WithFeature), then by number of parameters, descending
+        java.util.Collections.sort(found, new java.util.Comparator<Method>() {
+            @Override
+            public int compare(Method x, Method y) {
+                boolean fx = x.getName().equals("broadcastIntentWithFeature");
+                boolean fy = y.getName().equals("broadcastIntentWithFeature");
+                if (fx != fy) return fx ? -1 : 1;
+                return y.getParameterTypes().length - x.getParameterTypes().length;
+            }
+        });
+        return found;
     }
 
     private static Reply call(IBinder target, int code, List<String> args) throws RemoteException {
@@ -277,10 +322,22 @@ public final class DishMain {
             return 1;
         } catch (RemoteException e) {
             server = null;
+            // A dead binder means DhizukuF restarted and the command was NOT delivered, so it is
+            // safe to connect again and repeat it once.
+            if (!retried && e.getClass().getSimpleName().equals("DeadObjectException")) {
+                retried = true;
+                try {
+                    return execute(args);
+                } finally {
+                    retried = false;
+                }
+            }
             System.err.println("dish: lost connection to DhizukuF (" + e + ")");
             return 2;
         }
     }
+
+    private static boolean retried;
 
     static List<String> tokenize(String line) {
         List<String> out = new ArrayList<String>();

@@ -94,4 +94,14 @@
     <string name="home_dish_help_text">dish không phải là terminal bên trong ứng dụng này mà là công cụ dòng lệnh: hãy xuất các tệp rồi chạy dish trong ứng dụng terminal, tốt nhất là Termux.\n\n1. Nhấn «Xuất tệp dish» và chọn một thư mục.\n2. Trong Termux, chạy termux-setup-storage một lần, sao chép dish và dish_dhizukuf.dex vào $PREFIX/bin rồi chạy chmod +x $PREFIX/bin/dish.\n3. Gõ dish để mở bảng điều khiển, hoặc dish help để xem các lệnh.\n\nLần chạy đầu tiên, DhizukuF sẽ yêu cầu bạn chấp thuận quyền truy cập.</string>
     <string name="enable_dangerous">Bật lệnh nguy hiểm</string>
     <string name="enable_dangerous_desc">Cho phép các hành động rủi ro đối với dish và API của Dhizuku: khởi động lại, xóa dữ liệu ứng dụng, ghi cài đặt, thay đổi quyền, gọi API trực tiếp và tương tự. Mặc định tắt.</string>
+    <string name="hub_title">Hub tương thích Dhizuku</string>
+    <string name="hub_desc">Cho phép các ứng dụng viết cho Dhizuku gốc dùng DhizukuF. Cài một plugin ẩn nhỏ (com.rosan.dhizuku) được ký bằng cùng khóa và cùng phiên bản với DhizukuF. DhizukuF có thể đóng sau khi cài; hãy mở lại.</string>
+    <string name="hub_install">Cài đặt</string>
+    <string name="hub_update">Cập nhật</string>
+    <string name="hub_remove">Gỡ bỏ</string>
+    <string name="hub_state_none">Chưa cài đặt</string>
+    <string name="hub_state_ok">Đã cài đặt và mới nhất</string>
+    <string name="hub_state_old">Có bản cập nhật</string>
+    <string name="hub_state_conflict">Đã cài một Dhizuku khác (com.rosan.dhizuku). Hãy gỡ nó trước.</string>
+    <string name="hub_failed">Không thể thay đổi hub: %1$s</string>
 </resources>
