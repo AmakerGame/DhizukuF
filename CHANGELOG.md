@@ -20,8 +20,8 @@ The newest changes are at the top.
 - dish client (source): every `IActivityManager` broadcast variant is tried until one works, the handshake is sent
   twice (DhizukuF may need to start first), one automatic reconnect after a dead binder, error messages include the
   Android API level, and the console has `history`, `!!` and `clear`.
-- New workflow **Rebuild dish dex**: when `dish-client/` changes it rebuilds the dex with d8, verifies it and commits it
-  back to the branch, so the repository always holds a dex that matches the source.
+- New workflow **Rebuild dish dex**: when `dish-client/` changes on a branch (never on a tag) it rebuilds the dex with d8,
+  verifies it and commits it back to that branch, so the repository always holds a dex that matches the source.
 - `dish-client/build.sh` supports d8 (Android SDK build-tools) as well as dx and verifies the dex with the new
   `dish-client/verify_dex.py`; both workflows rebuild the dex before the APK and keep the committed one if that fails.
 
