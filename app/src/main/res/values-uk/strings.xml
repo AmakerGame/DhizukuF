@@ -110,6 +110,10 @@
     <string name="hub_state_none">Не встановлено</string>
     <string name="hub_state_ok">Встановлено, актуальна версія</string>
     <string name="hub_state_old">Є оновлення</string>
-    <string name="hub_state_conflict">Встановлено інший Dhizuku (com.rosan.dhizuku). Спершу видаліть його.</string>
+    <string name="hub_state_conflict">Встановлено інший Dhizuku (com.rosan.dhizuku), який блокує хаб. Натисніть «Замінити», щоб видалити його й встановити хаб.</string>
     <string name="hub_failed">Не вдалося змінити хаб: %1$s</string>
+    <string name="hub_replace">Замінити</string>
+    <string name="hub_replace_title">Замінити встановлений Dhizuku?</string>
+    <string name="hub_replace_text">Увага: %1$s (com.rosan.dhizuku) буде видалено. Він блокує хаб, бо має таку саму назву пакета. Після встановлення хаба застосунки, що використовують Dhizuku, працюватимуть через DhizukuF.</string>
+    <string name="hub_replace_yes">Так, видалити й встановити</string>
 </resources>

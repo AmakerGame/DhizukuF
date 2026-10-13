@@ -104,4 +104,8 @@
     <string name="hub_state_old">Güncelleme var</string>
     <string name="hub_state_conflict">Başka bir Dhizuku (com.rosan.dhizuku) yüklü. Önce onu kaldırın.</string>
     <string name="hub_failed">Merkez değiştirilemedi: %1$s</string>
+    <string name="hub_replace">Değiştir</string>
+    <string name="hub_replace_title">Yüklü Dhizuku değiştirilsin mi?</string>
+    <string name="hub_replace_text">Dikkat: %1$s (com.rosan.dhizuku) kaldırılacak. Aynı paket adına sahip olduğu için merkezi engelliyor. Merkez yüklendikten sonra Dhizuku kullanan uygulamalar DhizukuF üzerinden çalışacak.</string>
+    <string name="hub_replace_yes">Evet, kaldır ve yükle</string>
 </resources>

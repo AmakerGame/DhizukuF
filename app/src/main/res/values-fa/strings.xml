@@ -104,4 +104,8 @@
     <string name="hub_state_old">به‌روزرسانی موجود است</string>
     <string name="hub_state_conflict">Dhizuku دیگری (com.rosan.dhizuku) نصب است. ابتدا آن را حذف کنید.</string>
     <string name="hub_failed">تغییر هاب ممکن نشد: %1$s</string>
+    <string name="hub_replace">جایگزینی</string>
+    <string name="hub_replace_title">Dhizuku نصب‌شده جایگزین شود؟</string>
+    <string name="hub_replace_text">هشدار: %1$s (com.rosan.dhizuku) حذف خواهد شد. چون نام بستهٔ یکسانی دارد، هاب را مسدود کرده است. پس از نصب هاب، برنامه‌هایی که از Dhizuku استفاده می‌کنند از طریق DhizukuF کار خواهند کرد.</string>
+    <string name="hub_replace_yes">بله، حذف و نصب</string>
 </resources>

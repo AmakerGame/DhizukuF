@@ -104,4 +104,8 @@
     <string name="hub_state_old">Frissítés érhető el</string>
     <string name="hub_state_conflict">Másik Dhizuku (com.rosan.dhizuku) van telepítve. Előbb távolítsa el.</string>
     <string name="hub_failed">A hub módosítása nem sikerült: %1$s</string>
+    <string name="hub_replace">Csere</string>
+    <string name="hub_replace_title">Lecseréli a telepített Dhizukut?</string>
+    <string name="hub_replace_text">Figyelem: a(z) %1$s (com.rosan.dhizuku) el lesz távolítva. Blokkolja a hubot, mert ugyanaz a csomagneve. A hub telepítése után a Dhizukut használó alkalmazások a DhizukuF-en keresztül fognak működni.</string>
+    <string name="hub_replace_yes">Igen, eltávolítás és telepítés</string>
 </resources>

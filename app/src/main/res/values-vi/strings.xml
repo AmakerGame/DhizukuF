@@ -104,4 +104,8 @@
     <string name="hub_state_old">Có bản cập nhật</string>
     <string name="hub_state_conflict">Đã cài một Dhizuku khác (com.rosan.dhizuku). Hãy gỡ nó trước.</string>
     <string name="hub_failed">Không thể thay đổi hub: %1$s</string>
+    <string name="hub_replace">Thay thế</string>
+    <string name="hub_replace_title">Thay thế Dhizuku đã cài?</string>
+    <string name="hub_replace_text">Cảnh báo: %1$s (com.rosan.dhizuku) sẽ bị gỡ. Nó chặn hub vì có cùng tên gói. Sau khi cài hub, các ứng dụng dùng Dhizuku sẽ hoạt động qua DhizukuF.</string>
+    <string name="hub_replace_yes">Có, gỡ và cài đặt</string>
 </resources>

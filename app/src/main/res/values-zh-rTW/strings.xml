@@ -104,4 +104,8 @@
     <string name="hub_state_old">有可用更新</string>
     <string name="hub_state_conflict">已安裝另一個 Dhizuku (com.rosan.dhizuku)。請先將其移除。</string>
     <string name="hub_failed">無法變更相容中心：%1$s</string>
+    <string name="hub_replace">取代</string>
+    <string name="hub_replace_title">取代已安裝的 Dhizuku？</string>
+    <string name="hub_replace_text">警告：%1$s (com.rosan.dhizuku) 將被移除。它的套件名稱相同，因此阻擋了相容中心。安裝相容中心後，使用 Dhizuku 的應用程式將透過 DhizukuF 運作。</string>
+    <string name="hub_replace_yes">是，移除並安裝</string>
 </resources>

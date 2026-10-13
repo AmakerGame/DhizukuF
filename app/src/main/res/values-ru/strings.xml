@@ -104,4 +104,8 @@
     <string name="hub_state_old">Доступно обновление</string>
     <string name="hub_state_conflict">Установлен другой Dhizuku (com.rosan.dhizuku). Сначала удалите его.</string>
     <string name="hub_failed">Не удалось изменить хаб: %1$s</string>
+    <string name="hub_replace">Заменить</string>
+    <string name="hub_replace_title">Заменить установленный Dhizuku?</string>
+    <string name="hub_replace_text">Внимание: %1$s (com.rosan.dhizuku) будет удалён. Он блокирует хаб, так как у него такое же имя пакета. После установки хаба приложения, использующие Dhizuku, будут работать через DhizukuF.</string>
+    <string name="hub_replace_yes">Да, удалить и установить</string>
 </resources>

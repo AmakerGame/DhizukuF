@@ -104,4 +104,8 @@
     <string name="hub_state_old">Yangilanish mavjud</string>
     <string name="hub_state_conflict">Boshqa Dhizuku (com.rosan.dhizuku) oʻrnatilgan. Avval uni olib tashlang.</string>
     <string name="hub_failed">Markazni oʻzgartirib boʻlmadi: %1$s</string>
+    <string name="hub_replace">Almashtirish</string>
+    <string name="hub_replace_title">Oʻrnatilgan Dhizuku almashtirilsinmi?</string>
+    <string name="hub_replace_text">Ogohlantirish: %1$s (com.rosan.dhizuku) olib tashlanadi. U paket nomi bir xil boʻlgani uchun markazni bloklaydi. Markaz oʻrnatilgandan keyin Dhizuku’dan foydalanadigan ilovalar DhizukuF orqali ishlaydi.</string>
+    <string name="hub_replace_yes">Ha, olib tashlash va oʻrnatish</string>
 </resources>

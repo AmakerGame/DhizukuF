@@ -106,4 +106,8 @@
     <string name="hub_state_old">更新があります</string>
     <string name="hub_state_conflict">別の Dhizuku (com.rosan.dhizuku) がインストールされています。先に削除してください。</string>
     <string name="hub_failed">ハブを変更できませんでした: %1$s</string>
+    <string name="hub_replace">置き換え</string>
+    <string name="hub_replace_title">インストール済みの Dhizuku を置き換えますか?</string>
+    <string name="hub_replace_text">警告: %1$s (com.rosan.dhizuku) が削除されます。同じパッケージ名のため、ハブをブロックしています。ハブのインストール後、Dhizuku を使うアプリは DhizukuF 経由で動作します。</string>
+    <string name="hub_replace_yes">はい、削除してインストール</string>
 </resources>

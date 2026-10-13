@@ -104,4 +104,8 @@
     <string name="hub_state_old">K dispozici je aktualizace</string>
     <string name="hub_state_conflict">Je nainstalován jiný Dhizuku (com.rosan.dhizuku). Nejprve jej odeberte.</string>
     <string name="hub_failed">Hub se nepodařilo změnit: %1$s</string>
+    <string name="hub_replace">Nahradit</string>
+    <string name="hub_replace_title">Nahradit nainstalovaný Dhizuku?</string>
+    <string name="hub_replace_text">Pozor: %1$s (com.rosan.dhizuku) bude odebrán. Blokuje hub, protože má stejný název balíčku. Po instalaci hubu budou aplikace používající Dhizuku fungovat přes DhizukuF.</string>
+    <string name="hub_replace_yes">Ano, odebrat a nainstalovat</string>
 </resources>

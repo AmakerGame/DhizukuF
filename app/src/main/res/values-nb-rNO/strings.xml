@@ -104,4 +104,8 @@
     <string name="hub_state_old">Oppdatering tilgjengelig</string>
     <string name="hub_state_conflict">En annen Dhizuku (com.rosan.dhizuku) er installert. Fjern den først.</string>
     <string name="hub_failed">Kunne ikke endre huben: %1$s</string>
+    <string name="hub_replace">Erstatt</string>
+    <string name="hub_replace_title">Erstatte den installerte Dhizuku?</string>
+    <string name="hub_replace_text">Advarsel: %1$s (com.rosan.dhizuku) blir fjernet. Den blokkerer huben fordi den har samme pakkenavn. Etter at huben er installert, fungerer apper som bruker Dhizuku via DhizukuF.</string>
+    <string name="hub_replace_yes">Ja, fjern og installer</string>
 </resources>

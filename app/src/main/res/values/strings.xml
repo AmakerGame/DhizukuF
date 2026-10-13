@@ -134,6 +134,10 @@
     <string name="hub_state_none">Not installed</string>
     <string name="hub_state_ok">Installed and up to date</string>
     <string name="hub_state_old">Update available</string>
-    <string name="hub_state_conflict">Another Dhizuku (com.rosan.dhizuku) is installed. Remove it first.</string>
+    <string name="hub_state_conflict">Another Dhizuku (com.rosan.dhizuku) is installed and blocks the hub. Use Replace to remove it and install the hub.</string>
     <string name="hub_failed">Could not change the hub: %1$s</string>
+    <string name="hub_replace">Replace</string>
+    <string name="hub_replace_title">Replace the installed Dhizuku?</string>
+    <string name="hub_replace_text">Warning: %1$s (com.rosan.dhizuku) will be removed. It blocks the hub because it has the same package name. After the hub is installed, apps that use Dhizuku will work through DhizukuF.</string>
+    <string name="hub_replace_yes">Yes, remove and install</string>
 </resources>

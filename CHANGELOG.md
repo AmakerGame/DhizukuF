@@ -9,7 +9,8 @@ The newest changes are at the top.
 - **Dhizuku Compatibility Hub**: a hidden plugin (`com.rosan.dhizuku`, no launcher icon) that forwards the Dhizuku API to
   DhizukuF, so apps written for the original Dhizuku work with DhizukuF. New module `:hub`, built with the app, signed with
   the same key and with the same version (it reads `version.properties`); the APK is carried in the app and installed
-  silently from *Settings > Dhizuku Compatibility Hub* (install / update / remove, with a status line). See
+  silently from *Settings > Dhizuku Compatibility Hub* (the first card; when the original Dhizuku blocks it the card
+  offers **Replace** with a confirmation naming the app that will be removed) (install / update / remove, with a status line). See
   [docs/HUB.md](docs/HUB.md). The release workflow also attaches `DhizukuF-Hub-<tag>.apk`.
 - New dish commands: `log` (audit log), `batch`, `uninstall`, `app-restrictions`, `lock-task`, `vpn`, `location`,
   `backup`, `time`, `lock-timeout`, `adb-wifi`, `ime`, `bugreport`, and `help -s WORD`. Dangerous forms (`uninstall`,

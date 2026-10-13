@@ -57,6 +57,18 @@ object CompatHub {
         return if (code >= BuildConfig.VERSION_CODE) Status.UP_TO_DATE else Status.OUTDATED
     }
 
+    /** The name of the app that blocks the hub (the original Dhizuku), or null when nothing blocks it. */
+    @Suppress("DEPRECATION")
+    fun conflictLabel(context: Context): String? {
+        if (status(context) != Status.CONFLICT) return null
+        val pm = context.packageManager
+        return try {
+            pm.getApplicationLabel(pm.getApplicationInfo(HUB_PACKAGE, 0)).toString()
+        } catch (_: Exception) {
+            HUB_PACKAGE
+        }
+    }
+
     private fun hasAsset(context: Context): Boolean = try {
         context.assets.open(ASSET).use { true }
     } catch (_: Exception) {
@@ -86,13 +98,28 @@ object CompatHub {
         }
     }
 
-    /** Removes the hub. Only a hub signed with our key is removed. */
+    /** Removes the hub. Only a hub signed with our key is removed; anything else needs [replaceConflicting]. */
     fun uninstall(context: Context): Outcome {
         if (status(context) == Status.CONFLICT) {
             return Outcome(false, "$HUB_PACKAGE is not our hub (another signature), it is not removed")
         }
+        return removePackage(context)
+    }
+
+    private fun removePackage(context: Context): Outcome {
         val installer = context.packageManager.packageInstaller
         return awaitResult(context) { sender -> installer.uninstall(HUB_PACKAGE, sender) }
+    }
+
+    /**
+     * Removes the app that blocks the hub (the original Dhizuku, same package name, other signature) and
+     * installs the hub. Call it only after the user confirmed, naming the app that will be removed.
+     */
+    fun replaceConflicting(context: Context): Outcome {
+        if (status(context) != Status.CONFLICT) return install(context)
+        val removed = removePackage(context)
+        if (!removed.ok) return removed
+        return install(context)
     }
 
     /** Starts an installer operation and waits for its result (up to two minutes for a user prompt). */

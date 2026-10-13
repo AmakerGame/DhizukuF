@@ -104,4 +104,8 @@
     <string name="hub_state_old">יש עדכון זמין</string>
     <string name="hub_state_conflict">מותקן Dhizuku אחר (com.rosan.dhizuku). הסר אותו קודם.</string>
     <string name="hub_failed">לא ניתן לשנות את הרכזת: %1$s</string>
+    <string name="hub_replace">החלפה</string>
+    <string name="hub_replace_title">להחליף את Dhizuku המותקן?</string>
+    <string name="hub_replace_text">אזהרה: %1$s (com.rosan.dhizuku) יוסר. הוא חוסם את הרכזת כי יש לו אותו שם חבילה. לאחר התקנת הרכזת, אפליקציות שמשתמשות ב-Dhizuku יפעלו דרך DhizukuF.</string>
+    <string name="hub_replace_yes">כן, הסר והתקן</string>
 </resources>

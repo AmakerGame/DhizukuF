@@ -104,4 +104,8 @@
     <string name="hub_state_old">Atualização disponível</string>
     <string name="hub_state_conflict">Está instalado outro Dhizuku (com.rosan.dhizuku). Remova-o primeiro.</string>
     <string name="hub_failed">Não foi possível alterar o hub: %1$s</string>
+    <string name="hub_replace">Substituir</string>
+    <string name="hub_replace_title">Substituir o Dhizuku instalado?</string>
+    <string name="hub_replace_text">Atenção: %1$s (com.rosan.dhizuku) será removido. Bloqueia o hub porque tem o mesmo nome de pacote. Depois de instalar o hub, as aplicações que usam o Dhizuku funcionarão através do DhizukuF.</string>
+    <string name="hub_replace_yes">Sim, remover e instalar</string>
 </resources>

@@ -104,4 +104,8 @@
     <string name="hub_state_old">업데이트 가능</string>
     <string name="hub_state_conflict">다른 Dhizuku(com.rosan.dhizuku)가 설치되어 있습니다. 먼저 제거하세요.</string>
     <string name="hub_failed">허브를 변경하지 못했습니다: %1$s</string>
+    <string name="hub_replace">교체</string>
+    <string name="hub_replace_title">설치된 Dhizuku를 교체할까요?</string>
+    <string name="hub_replace_text">경고: %1$s(com.rosan.dhizuku)이(가) 제거됩니다. 패키지 이름이 같아 허브를 막고 있습니다. 허브를 설치하면 Dhizuku를 사용하는 앱이 DhizukuF를 통해 동작합니다.</string>
+    <string name="hub_replace_yes">예, 제거하고 설치</string>
 </resources>

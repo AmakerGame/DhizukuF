@@ -21,8 +21,10 @@ forwards the Dhizuku API to DhizukuF, so such apps work with DhizukuF again.
 - The hub has **the same version** as DhizukuF: both read `version.properties`. When DhizukuF is updated the hub is
   older, the card says *Update available* and **Update** installs the matching hub.
 - If another app with the package `com.rosan.dhizuku` is installed (the original Dhizuku), Android will not let the
-  hub in. The card then says so; remove the original first. The hub is never installed over, or removed from, an app
-  with a different signature.
+  hub in. The card then shows **Replace**: a dialog names the app (*Warning: <name> (com.rosan.dhizuku) will be
+  removed*) and asks *Yes, remove and install* / *Cancel*. Only after *Yes* is the original removed and the hub
+  installed. If the original is the current Device Owner, Android refuses to remove it: hand the ownership over first.
+  The hub is never installed over, or removed from, an app with a different signature without that confirmation.
 
 ## How it works
 

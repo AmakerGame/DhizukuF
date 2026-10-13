@@ -104,4 +104,8 @@
     <string name="hub_state_old">Akwai sabuntawa</string>
     <string name="hub_state_conflict">An shigar da wani Dhizuku (com.rosan.dhizuku). Cire shi tukuna.</string>
     <string name="hub_failed">Ba a iya canza cibiyar ba: %1$s</string>
+    <string name="hub_replace">Maye gurbi</string>
+    <string name="hub_replace_title">A maye gurbin Dhizuku da aka shigar?</string>
+    <string name="hub_replace_text">Gargaɗi: za a cire %1$s (com.rosan.dhizuku). Yana toshe cibiyar saboda yana da sunan kunshi iri ɗaya. Bayan an shigar da cibiyar, manhajojin da ke amfani da Dhizuku za su yi aiki ta DhizukuF.</string>
+    <string name="hub_replace_yes">Eh, cire kuma shigar</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -38,9 +39,15 @@ fun CompatHubCard() {
     var status by remember { mutableStateOf<CompatHub.Status?>(null) }
     var busy by remember { mutableStateOf(false) }
     var refresh by remember { mutableStateOf(0) }
+    var conflictName by remember { mutableStateOf("") }
+    var askReplace by remember { mutableStateOf(false) }
 
     LaunchedEffect(refresh) {
-        status = withContext(Dispatchers.IO) { CompatHub.status(context) }
+        withContext(Dispatchers.IO) {
+            val s = CompatHub.status(context)
+            conflictName = CompatHub.conflictLabel(context) ?: ""
+            status = s
+        }
     }
 
     fun run(action: () -> CompatHub.Outcome) {
@@ -58,6 +65,30 @@ fun CompatHubCard() {
                 ).show()
             }
         }
+    }
+
+    if (askReplace) {
+        // Names the app that will be removed before anything is touched.
+        AlertDialog(
+            onDismissRequest = { askReplace = false },
+            title = { Text(stringResource(R.string.hub_replace_title)) },
+            text = {
+                Text(stringResource(R.string.hub_replace_text, conflictName.ifEmpty { CompatHub.HUB_PACKAGE }))
+            },
+            confirmButton = {
+                TvTextButton(onClick = {
+                    askReplace = false
+                    run { CompatHub.replaceConflicting(context) }
+                }) {
+                    Text(stringResource(R.string.hub_replace_yes))
+                }
+            },
+            dismissButton = {
+                TvTextButton(onClick = { askReplace = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
     }
 
     ElevatedCard {
@@ -107,7 +138,10 @@ fun CompatHubCard() {
                                 Text(stringResource(R.string.hub_remove))
                             }
 
-                        CompatHub.Status.CONFLICT -> Unit
+                        CompatHub.Status.CONFLICT ->
+                            TvTextButton(onClick = { askReplace = true }, enabled = !busy) {
+                                Text(stringResource(R.string.hub_replace))
+                            }
                     }
                 }
             }

@@ -111,4 +111,8 @@
     <string name="hub_state_old">有可用更新</string>
     <string name="hub_state_conflict">已安装另一个 Dhizuku (com.rosan.dhizuku)。请先将其移除。</string>
     <string name="hub_failed">无法更改兼容中心：%1$s</string>
+    <string name="hub_replace">替换</string>
+    <string name="hub_replace_title">替换已安装的 Dhizuku？</string>
+    <string name="hub_replace_text">警告：%1$s (com.rosan.dhizuku) 将被移除。它的包名相同，因此阻止了兼容中心。安装兼容中心后，使用 Dhizuku 的应用将通过 DhizukuF 运行。</string>
+    <string name="hub_replace_yes">是，移除并安装</string>
 </resources>

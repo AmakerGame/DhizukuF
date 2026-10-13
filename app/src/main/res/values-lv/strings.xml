@@ -104,4 +104,8 @@
     <string name="hub_state_old">Pieejams atjauninājums</string>
     <string name="hub_state_conflict">Ir instalēts cits Dhizuku (com.rosan.dhizuku). Vispirms noņemiet to.</string>
     <string name="hub_failed">Neizdevās mainīt centru: %1$s</string>
+    <string name="hub_replace">Aizstāt</string>
+    <string name="hub_replace_title">Vai aizstāt instalēto Dhizuku?</string>
+    <string name="hub_replace_text">Uzmanību: %1$s (com.rosan.dhizuku) tiks noņemts. Tas bloķē centru, jo tam ir tāds pats pakotnes nosaukums. Pēc centra instalēšanas lietotnes, kas izmanto Dhizuku, darbosies caur DhizukuF.</string>
+    <string name="hub_replace_yes">Jā, noņemt un instalēt</string>
 </resources>

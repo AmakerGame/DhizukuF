@@ -104,4 +104,8 @@
     <string name="hub_state_old">Διαθέσιμη ενημέρωση</string>
     <string name="hub_state_conflict">Είναι εγκατεστημένο άλλο Dhizuku (com.rosan.dhizuku). Καταργήστε το πρώτα.</string>
     <string name="hub_failed">Δεν ήταν δυνατή η αλλαγή του hub: %1$s</string>
+    <string name="hub_replace">Αντικατάσταση</string>
+    <string name="hub_replace_title">Αντικατάσταση του εγκατεστημένου Dhizuku;</string>
+    <string name="hub_replace_text">Προσοχή: το %1$s (com.rosan.dhizuku) θα αφαιρεθεί. Εμποδίζει το hub επειδή έχει το ίδιο όνομα πακέτου. Μετά την εγκατάσταση του hub, οι εφαρμογές που χρησιμοποιούν το Dhizuku θα λειτουργούν μέσω του DhizukuF.</string>
+    <string name="hub_replace_yes">Ναι, αφαίρεση και εγκατάσταση</string>
 </resources>

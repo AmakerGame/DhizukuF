@@ -104,4 +104,8 @@
     <string name="hub_state_old">Налично е обновление</string>
     <string name="hub_state_conflict">Инсталиран е друг Dhizuku (com.rosan.dhizuku). Първо го премахнете.</string>
     <string name="hub_failed">Хъбът не можа да бъде променен: %1$s</string>
+    <string name="hub_replace">Замяна</string>
+    <string name="hub_replace_title">Да се замени ли инсталираният Dhizuku?</string>
+    <string name="hub_replace_text">Внимание: %1$s (com.rosan.dhizuku) ще бъде премахнат. Той блокира хъба, защото има същото име на пакета. След инсталирането на хъба приложенията, които използват Dhizuku, ще работят чрез DhizukuF.</string>
+    <string name="hub_replace_yes">Да, премахни и инсталирай</string>
 </resources>

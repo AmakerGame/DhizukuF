@@ -77,6 +77,8 @@ fun SettingsPage(
                 .padding(it),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            item { CompatHubCard() }
+
             item {
                 ElevatedCard {
                     Column(
@@ -131,7 +133,6 @@ fun SettingsPage(
                 }
             }
 
-            item { CompatHubCard() }
         }
     }
 }

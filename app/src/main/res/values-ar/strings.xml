@@ -104,4 +104,8 @@
     <string name="hub_state_old">يتوفر تحديث</string>
     <string name="hub_state_conflict">يوجد Dhizuku آخر (com.rosan.dhizuku) مثبّت. أزله أولًا.</string>
     <string name="hub_failed">تعذّر تغيير المركز: %1$s</string>
+    <string name="hub_replace">استبدال</string>
+    <string name="hub_replace_title">استبدال Dhizuku المثبّت؟</string>
+    <string name="hub_replace_text">تحذير: سيتم حذف %1$s (com.rosan.dhizuku). إنه يحجب المركز لأن له اسم الحزمة نفسه. بعد تثبيت المركز ستعمل التطبيقات التي تستخدم Dhizuku عبر DhizukuF.</string>
+    <string name="hub_replace_yes">نعم، احذف وثبّت</string>
 </resources>

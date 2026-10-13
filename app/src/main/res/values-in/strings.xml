@@ -104,4 +104,8 @@
     <string name="hub_state_old">Pembaruan tersedia</string>
     <string name="hub_state_conflict">Dhizuku lain (com.rosan.dhizuku) sudah terpasang. Hapus dulu.</string>
     <string name="hub_failed">Tidak dapat mengubah hub: %1$s</string>
+    <string name="hub_replace">Ganti</string>
+    <string name="hub_replace_title">Ganti Dhizuku yang terpasang?</string>
+    <string name="hub_replace_text">Peringatan: %1$s (com.rosan.dhizuku) akan dihapus. Aplikasi ini memblokir hub karena memiliki nama paket yang sama. Setelah hub terpasang, aplikasi yang memakai Dhizuku akan berjalan melalui DhizukuF.</string>
+    <string name="hub_replace_yes">Ya, hapus dan pasang</string>
 </resources>

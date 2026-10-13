@@ -104,4 +104,8 @@
     <string name="hub_state_old">புதுப்பிப்பு உள்ளது</string>
     <string name="hub_state_conflict">மற்றொரு Dhizuku (com.rosan.dhizuku) நிறுவப்பட்டுள்ளது. முதலில் அதை அகற்றவும்.</string>
     <string name="hub_failed">மையத்தை மாற்ற முடியவில்லை: %1$s</string>
+    <string name="hub_replace">மாற்று</string>
+    <string name="hub_replace_title">நிறுவப்பட்ட Dhizuku ஐ மாற்றவா?</string>
+    <string name="hub_replace_text">எச்சரிக்கை: %1$s (com.rosan.dhizuku) அகற்றப்படும். அதே தொகுப்புப் பெயர் இருப்பதால் இது மையத்தைத் தடுக்கிறது. மையம் நிறுவப்பட்ட பிறகு, Dhizuku ஐப் பயன்படுத்தும் பயன்பாடுகள் DhizukuF வழியாக இயங்கும்.</string>
+    <string name="hub_replace_yes">ஆம், அகற்றி நிறுவு</string>
 </resources>
