@@ -4,6 +4,8 @@ Apps written for the **original Dhizuku** look for the package `com.rosan.dhizuk
 (`com.EdS.DhizukuF`), so those apps cannot find it. The **hub** is a tiny hidden app with the original package name that
 forwards the Dhizuku API to DhizukuF, so such apps work with DhizukuF again.
 
+The idea of the hub is by [@Jozinho-netizen](https://github.com/Jozinho-netizen).
+
 ## Install
 
 **DhizukuF > Settings > Dhizuku Compatibility Hub > Install.**

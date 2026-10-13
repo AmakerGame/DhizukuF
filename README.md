@@ -120,6 +120,7 @@ Bug reports and ideas: [open an issue](https://github.com/AmakerGame/DhizukuF/is
 
 ## Credits
 
+- The idea of the **Dhizuku Compatibility Hub** is by [@Jozinho-netizen](https://github.com/Jozinho-netizen).
 - [Dhizuku](https://github.com/iamr0s/Dhizuku) by iamr0s and contributors — the base of this fork.
 - [Dhizuku-API](https://github.com/iamr0s/Dhizuku-API) for app developers.
 - The dish idea follows [Shizuku](https://github.com/RikkaApps/Shizuku)'s `rish`.

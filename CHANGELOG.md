@@ -3,15 +3,15 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
-## 1.1.0 (3)
+## 1.2.0 (4)
 
 ### Added
 - **Dhizuku Compatibility Hub**: a hidden plugin (`com.rosan.dhizuku`, no launcher icon) that forwards the Dhizuku API to
   DhizukuF, so apps written for the original Dhizuku work with DhizukuF. New module `:hub`, built with the app, signed with
   the same key and with the same version (it reads `version.properties`); the APK is carried in the app and installed
-  silently from *Settings > Dhizuku Compatibility Hub* (the first card; when the original Dhizuku blocks it the card
-  offers **Replace** with a confirmation naming the app that will be removed) (install / update / remove, with a status line). See
-  [docs/HUB.md](docs/HUB.md). The release workflow also attaches `DhizukuF-Hub-<tag>.apk`.
+  silently from *Settings > Dhizuku Compatibility Hub*, the first card, with install / update / remove and a status line.
+  When the original Dhizuku blocks it the card offers **Replace**, with a confirmation naming the app that will be
+  removed. See [docs/HUB.md](docs/HUB.md). The idea of the hub is by @Jozinho-netizen. The release workflow also attaches `DhizukuF-Hub-<tag>.apk`.
 - New dish commands: `log` (audit log), `batch`, `uninstall`, `app-restrictions`, `lock-task`, `vpn`, `location`,
   `backup`, `time`, `lock-timeout`, `adb-wifi`, `ime`, `bugreport`, and `help -s WORD`. Dangerous forms (`uninstall`,
   `lock-task set|clear`, `vpn on`, `time set`, `ime allow|reset`, `adb-wifi enable`) need *Enable dangerous commands*.
@@ -24,6 +24,20 @@ The newest changes are at the top.
   back to the branch, so the repository always holds a dex that matches the source.
 - `dish-client/build.sh` supports d8 (Android SDK build-tools) as well as dx and verifies the dex with the new
   `dish-client/verify_dex.py`; both workflows rebuild the dex before the APK and keep the committed one if that fails.
+
+### Fixed
+- App management: switching a dish terminal **off** removes it from the list (the next dish request registers it
+  again). A terminal that was refused, not answered in time, or whose app was uninstalled no longer stays behind as a
+  disabled row either; blocked terminals keep their entry so the block is not lost.
+- Compatibility: the `android.software.device_admin` feature is no longer *required*, so the app installs on TV
+  boxes that do not declare it (without a device policy service it shows that it is not activated).
+- The `dish` launcher now finds `app_process` on images that only ship a 32/64-bit variant, resolves its own folder,
+  uses `getprop` by full path, and on Android 14+ explains how to place the files when the `.dex` cannot be made
+  read-only (shared storage).
+
+## 1.1.0 (3)
+
+### Added
 - **Android TV support**: appears in the TV launcher with a banner, no touch screen required, full D-pad /
   remote navigation (every card and switch row is focusable and shows a focus frame; a settings row is toggled
   with the centre button). If the device has no folder picker, *Export dish files* saves to the app folder
@@ -68,14 +82,6 @@ The newest changes are at the top.
 - New [SECURITY.md](SECURITY.md) with the protection model and how to report vulnerabilities.
 
 ### Fixed
-- App management: switching a dish terminal **off** removes it from the list (the next dish request registers it
-  again). A terminal that was refused, not answered in time, or whose app was uninstalled no longer stays behind as a
-  disabled row either; blocked terminals keep their entry so the block is not lost.
-- Compatibility: the `android.software.device_admin` feature is no longer *required*, so the app installs on TV
-  boxes that do not declare it (without a device policy service it shows that it is not activated).
-- The `dish` launcher now finds `app_process` on images that only ship a 32/64-bit variant, resolves its own folder,
-  uses `getprop` by full path, and on Android 14+ explains how to place the files when the `.dex` cannot be made
-  read-only (shared storage).
 - Android TV / D-pad: on **Activation by DhizukuF** (and by Shizuku) the apps in the list could not be chosen, only
   Back and OK were reachable. Each row is now one focus target with a focus frame; OK also has a frame. On a TV the first app is focused automatically when the list opens.
 - Android TV / D-pad: buttons placed inside a card (**Export dish files**, **View command**, the delete button of a
