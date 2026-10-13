@@ -129,6 +129,7 @@ object DishEngine : KoinComponent {
         val deadline = SystemClock.elapsedRealtime() + APPROVAL_TIMEOUT_MS
         while (SystemClock.elapsedRealtime() < deadline) {
             if (DishApproval.results[uid] == false) {
+                // the dialog already removed the refused terminal from the list
                 DishApproval.results.remove(uid)
                 return Reply(KIND_DENIED, message = str(context, R.string.dish_err_denied))
             }
@@ -139,7 +140,21 @@ object DishEngine : KoinComponent {
             }
             Thread.sleep(300)
         }
+        dropPending(uid)
         return Reply(KIND_DENIED, message = str(context, R.string.dish_err_denied))
+    }
+
+    /**
+     * A request that was refused or never answered must not stay in App management as a disabled row.
+     * Approved and blocked entries are never touched.
+     */
+    private fun dropPending(uid: Int) {
+        runBlocking {
+            val entity = appRepo.findByUID(uid)
+            if (entity != null && (entity.allowApi || entity.blocked)) return@runBlocking
+            DishRegistry.unregister(uid)
+            if (entity != null) appRepo.delete(entity)
+        }
     }
 
     private fun packageOf(context: Context, uid: Int): String =

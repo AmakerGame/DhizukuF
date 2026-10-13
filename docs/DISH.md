@@ -15,7 +15,9 @@ the same way `rish` works for Shizuku.
 4. The first run sends a registration request: the terminal appears in **DhizukuF > App management**
    (switch off) and the usual approval dialog opens, e.g. "Allow Termux (dish) to use Dhizuku?".
    dish waits up to 60 seconds; you can also flip the switch in the list. Later the entry can be
-   blocked or revoked from the same list.
+   blocked or removed from the same list: switching a terminal **off** makes it disappear (the next dish request
+   registers it again), a refused or unanswered request leaves nothing behind, and a *blocked* terminal stays listed so
+   the block is kept.
 
    Settings: **Enable dish** (default on, independent from **Enable Dhizuku**) turns the console on
    or off; **Show dish** (default on) adds the `(dish)` mark to the name in the dialog and in

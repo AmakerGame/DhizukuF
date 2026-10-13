@@ -121,6 +121,16 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
 
     fun setEnabled(uid: Int, bool: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
+            if (!bool && DishRegistry.isDish(uid)) {
+                // A dish terminal that is switched off is forgotten and leaves the list; its next dish
+                // request registers it again. A blocked terminal keeps its entry, or the block would be lost.
+                val current = repo.findByUID(uid)
+                if (current == null || !current.blocked) {
+                    DishRegistry.unregister(uid)
+                    if (current != null) repo.delete(current)
+                    return@launch
+                }
+            }
             val signature = packageManager.getPackageInfoForUid(uid)?.signature ?: return@launch
             val entity = repo.findByUID(uid)
             if (entity == null)

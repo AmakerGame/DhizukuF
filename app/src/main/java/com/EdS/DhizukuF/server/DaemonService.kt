@@ -15,6 +15,7 @@ import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
 import com.EdS.DhizukuF.data.common.util.signature
 import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
 import com.EdS.DhizukuF.data.settings.repo.AppRepo
+import com.EdS.DhizukuF.dish.DishRegistry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -39,6 +40,9 @@ class DaemonService : Service(), KoinComponent {
                 intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)
             ) return
             scope.launch {
+                if (DishRegistry.isDish(uid) && packageManager.getPackagesForUid(uid).isNullOrEmpty()) {
+                    DishRegistry.unregister(uid)
+                }
                 val entity = repo.findByUID(uid) ?: return@launch
                 if (verify(entity)) return@launch
                 repo.delete(entity)
@@ -77,7 +81,14 @@ class DaemonService : Service(), KoinComponent {
 
     private fun registerPackageReceiver() {
         scope.launch {
-            repo.all().filter { !verify(it) }.forEach { repo.delete(it) }
+            repo.all().filter { !verify(it) }.forEach {
+                DishRegistry.unregister(it.uid)
+                repo.delete(it)
+            }
+            // terminals whose app is gone
+            DishRegistry.all().keys
+                .filter { packageManager.getPackagesForUid(it).isNullOrEmpty() }
+                .forEach { DishRegistry.unregister(it) }
         }
 
         val filter = IntentFilter()

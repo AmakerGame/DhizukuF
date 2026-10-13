@@ -163,6 +163,17 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
             val signature = packageInfo.signature ?: return@launch
 
             val entity = appRepo.findByUID(uid)
+
+            // A dish terminal that was refused (or not answered) is forgotten, so it does not stay in
+            // App management as a disabled row. A block is kept, and so is an approved terminal.
+            if (!allowApi && !state.block && DishRegistry.isDish(uid)) {
+                if (entity == null || (!entity.allowApi && !entity.blocked)) {
+                    DishRegistry.unregister(uid)
+                    if (entity != null) appRepo.delete(entity)
+                }
+                return@launch
+            }
+
             if (entity == null)
                 appRepo.insert(
                     AppEntity(uid = uid, signature = signature, allowApi = allowApi, blocked = state.block)

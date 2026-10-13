@@ -24,6 +24,11 @@ object DishRegistry : KoinComponent {
         prefs.edit { putString(PREFIX + uid, label) }
     }
 
+    /** Forgets a terminal, so it disappears from the app list. A new dish request registers it again. */
+    fun unregister(uid: Int) {
+        if (prefs.contains(PREFIX + uid)) prefs.edit { remove(PREFIX + uid) }
+    }
+
     fun isDish(uid: Int): Boolean = prefs.contains(PREFIX + uid)
 
     fun all(): Map<Int, String> = prefs.all

@@ -68,6 +68,9 @@ The newest changes are at the top.
 - New [SECURITY.md](SECURITY.md) with the protection model and how to report vulnerabilities.
 
 ### Fixed
+- App management: switching a dish terminal **off** removes it from the list (the next dish request registers it
+  again). A terminal that was refused, not answered in time, or whose app was uninstalled no longer stays behind as a
+  disabled row either; blocked terminals keep their entry so the block is not lost.
 - Compatibility: the `android.software.device_admin` feature is no longer *required*, so the app installs on TV
   boxes that do not declare it (without a device policy service it shows that it is not activated).
 - The `dish` launcher now finds `app_process` on images that only ship a 32/64-bit variant, resolves its own folder,
