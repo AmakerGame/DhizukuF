@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF.ui.page.settings.user_manager
 
+import com.EdS.DhizukuF.ui.widget.TvIconButton
+
 import com.EdS.DhizukuF.ui.widget.TvTextButton
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.clickable
@@ -89,7 +91,7 @@ fun UserManagerPage(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    TvIconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.TwoTone.ArrowBack,
                             contentDescription = null
@@ -222,7 +224,7 @@ private fun UserCard(
                 }
             }
             if (curUserId != user.id) {
-                IconButton(onClick = { showing = true }) {
+                TvIconButton(onClick = { showing = true }) {
                     Icon(
                         imageVector = Icons.TwoTone.Delete,
                         contentDescription = stringResource(R.string.remove),

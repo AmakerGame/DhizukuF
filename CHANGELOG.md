@@ -3,7 +3,15 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
-## Unreleased
+## 1.3.0 (5)
+
+### Changed
+- **Remote / D-pad**: every button now shows the focus frame (app bar buttons, owner-type menu, block / unblock,
+  Freeze, Terminal and the other dialogs buttons) - before, only some of them did. The permission dialog starts with the
+  focus on **Refuse** on a TV or a box without a touch screen, so a key that is still held down from the previous screen
+  cannot grant access by accident. New helpers in `TvFocus.kt`: `TvButton`, `TvOutlinedButton`, `TvIconButton`.
+- A refusal of the permission dialog by any way (Back, timeout, losing focus) now reaches a waiting dish terminal at
+  once instead of after its timeout.
 
 ### Fixed
 - Settings and the dish registry now live in device protected storage (existing values are moved over). Before, a

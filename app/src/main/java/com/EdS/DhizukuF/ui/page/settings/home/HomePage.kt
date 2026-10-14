@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.page.settings.home
 
+import com.EdS.DhizukuF.ui.widget.TvOutlinedButton
+
+import com.EdS.DhizukuF.ui.widget.TvIconButton
+
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.platform.LocalUriHandler
@@ -191,7 +195,7 @@ private fun TopBarActions() {
         tooltip = { PlainTooltip { Text(stringResource(R.string.home_shutdown_title)) } },
         state = rememberTooltipState()
     ) {
-        IconButton(onClick = { shutdownDialogShow = true }) {
+        TvIconButton(onClick = { shutdownDialogShow = true }) {
             Icon(Icons.TwoTone.Cancel, contentDescription = stringResource(R.string.home_shutdown_title))
         }
     }
@@ -525,7 +529,7 @@ private fun LazyItemScope.AdbWidget() {
     }, text = {
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Box {
-                OutlinedButton(onClick = { ownerMenuExpanded = true }) {
+                TvOutlinedButton(onClick = { ownerMenuExpanded = true }) {
                     Text(
                         stringResource(
                             if (useProfileOwner) R.string.confirm_profile_owner

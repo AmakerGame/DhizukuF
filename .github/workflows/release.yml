@@ -15,6 +15,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Check that the tag matches version.properties
+        run: |
+          expected="v$(grep '^versionName=' version.properties | cut -d= -f2)"
+          if [ "${{ github.ref_name }}" != "$expected" ]; then
+            echo "Tag ${{ github.ref_name }} does not match version.properties ($expected)"
+            exit 1
+          fi
+          grep -q "^## DhizukuF ${expected}" RELEASE_NOTES.md || { echo "RELEASE_NOTES.md is not for ${expected}"; exit 1; }
+
       - name: Setup Java
         uses: actions/setup-java@v5
         with:

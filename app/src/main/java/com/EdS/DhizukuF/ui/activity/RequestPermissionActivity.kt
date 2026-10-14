@@ -1,6 +1,9 @@
 package com.EdS.DhizukuF.ui.activity
 
 import com.EdS.DhizukuF.ui.widget.tvFocusBorder
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.runtime.remember
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -183,6 +186,8 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         val allowApi = state.allowApi
         val block = state.block
         val listener = state.listener
+        // dish waits for this: every refusal (button, Back, timeout, losing focus) must reach it
+        if (!allowApi && uid != UID_ERR) DishApproval.results[uid] = false
         coroutineScope.launch {
             val packageInfo = packageManager.getPackageInfoForUid(uid) ?: return@launch
             val signature = packageInfo.signature ?: return@launch
@@ -380,6 +385,17 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                 }
             }
         }, confirmButton = {
+            // On a TV / box without a touch screen the dialog starts with the focus on "Refuse": a key
+            // that is still held down from the previous screen can then never grant access by accident.
+            val noTouch = !packageManager.hasSystemFeature("android.hardware.touchscreen") ||
+                packageManager.hasSystemFeature("android.software.leanback")
+            val safeFocus = remember { FocusRequester() }
+            LaunchedEffect(noTouch) {
+                if (noTouch) {
+                    delay(300)
+                    runCatching { safeFocus.requestFocus() }
+                }
+            }
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.clip(RoundedCornerShape(12.dp))
@@ -388,13 +404,15 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                 fun MyTextButton(
                     onClick: () -> Unit,
                     @StringRes textResId: Int,
-                    isPrimary: Boolean = false
+                    isPrimary: Boolean = false,
+                    focus: FocusRequester? = null
                 ) {
                     TextButton(
                         onClick = onClick,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .tvFocusBorder(RoundedCornerShape(8.dp)),
+                            .tvFocusBorder(RoundedCornerShape(8.dp))
+                            .then(if (focus != null) Modifier.focusRequester(focus) else Modifier),
                         shape = RoundedCornerShape(8.dp),
                         contentPadding = PaddingValues(16.dp),
                         colors = if (isPrimary) ButtonDefaults.buttonColors(
@@ -421,7 +439,7 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                     }
                     state = state.copy(allowApi = false, timedOut = true)
                     finish()
-                }, textResId = R.string.refuse)
+                }, textResId = R.string.refuse, focus = safeFocus)
                 if (settingsRepo.isAdvancedConfirmation) {
                     MyTextButton(onClick = {
                         if (state.uid != UID_ERR) {

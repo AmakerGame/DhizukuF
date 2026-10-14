@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.page.settings.activate
 
+import com.EdS.DhizukuF.ui.widget.TvOutlinedButton
+
+import com.EdS.DhizukuF.ui.widget.TvIconButton
+
 import kotlinx.coroutines.delay
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.FocusRequester
@@ -118,7 +122,7 @@ fun ActivatePage(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = {
+                    TvIconButton(onClick = {
                         navController.navigateUp()
                     }) {
                         Icon(
@@ -153,7 +157,7 @@ fun ActivatePage(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Box {
-                            OutlinedButton(onClick = { menuExpanded = true }) {
+                            TvOutlinedButton(onClick = { menuExpanded = true }) {
                                 Text(
                                     stringResource(
                                         when (ownerType) {

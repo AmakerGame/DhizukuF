@@ -5,7 +5,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TextButton
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
@@ -71,15 +77,75 @@ fun SwitchRow(
     }
 }
 
+private fun Shape.frame(): RoundedCornerShape = this as? RoundedCornerShape ?: RoundedCornerShape(50)
+
 /** TextButton with a visible focus frame for D-pad navigation. */
 @Composable
 fun TvTextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    colors: ButtonColors = ButtonDefaults.textButtonColors(),
     content: @Composable RowScope.() -> Unit
 ) {
     TextButton(
+        onClick = onClick,
+        modifier = modifier.tvFocusBorder(RoundedCornerShape(50)),
+        enabled = enabled,
+        colors = colors,
+        content = content
+    )
+}
+
+/** Button with a visible focus frame for D-pad navigation. */
+@Composable
+fun TvButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    shape: Shape = ButtonDefaults.shape,
+    colors: ButtonColors = ButtonDefaults.buttonColors(),
+    content: @Composable RowScope.() -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier.tvFocusBorder(shape.frame()),
+        enabled = enabled,
+        shape = shape,
+        colors = colors,
+        content = content
+    )
+}
+
+/** OutlinedButton with a visible focus frame for D-pad navigation. */
+@Composable
+fun TvOutlinedButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    shape: Shape = ButtonDefaults.shape,
+    colors: ButtonColors = ButtonDefaults.outlinedButtonColors(),
+    content: @Composable RowScope.() -> Unit
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier.tvFocusBorder(shape.frame()),
+        enabled = enabled,
+        shape = shape,
+        colors = colors,
+        content = content
+    )
+}
+
+/** IconButton with a visible focus frame for D-pad navigation (app bar buttons, row actions). */
+@Composable
+fun TvIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    IconButton(
         onClick = onClick,
         modifier = modifier.tvFocusBorder(RoundedCornerShape(50)),
         enabled = enabled,

@@ -1,5 +1,11 @@
 package com.EdS.DhizukuF.ui.page.settings.app_management
 
+import com.EdS.DhizukuF.ui.widget.TvButton
+
+import com.EdS.DhizukuF.ui.widget.TvOutlinedButton
+
+import com.EdS.DhizukuF.ui.widget.TvIconButton
+
 import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.selection.toggleable
@@ -88,7 +94,7 @@ fun AppManagementPage(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = {
+                    TvIconButton(onClick = {
                         navController.navigateUp()
                     }) {
                         Icon(
@@ -294,8 +300,7 @@ private fun LazyItemScope.ItemWidget(
                             }
                         }
 
-                        Button(
-                            onClick = {
+                        TvButton(onClick = {
                                 viewModel.setBlocked(data.applicationInfo.uid, false)
                             },
                             modifier = Modifier.fillMaxWidth(),
@@ -318,8 +323,7 @@ private fun LazyItemScope.ItemWidget(
                         }
                     }
                 } else {
-                    OutlinedButton(
-                        onClick = {
+                    TvOutlinedButton(onClick = {
                             viewModel.setBlocked(data.applicationInfo.uid, true)
                         },
                         modifier = Modifier.fillMaxWidth(),

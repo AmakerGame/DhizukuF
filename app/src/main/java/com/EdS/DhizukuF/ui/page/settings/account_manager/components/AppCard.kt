@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF.ui.page.settings.account_manager.components
 
+import com.EdS.DhizukuF.ui.widget.TvTextButton
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -95,8 +97,7 @@ fun AppCard(
                 )
             }
 
-            TextButton(
-                onClick = { onFreezeToggle(authenticator.auth.packageName, authenticator.isFrozen) },
+            TvTextButton(onClick = { onFreezeToggle(authenticator.auth.packageName, authenticator.isFrozen) },
                 enabled = !isToggling,
                 colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
                     contentColor = if (authenticator.isFrozen) {

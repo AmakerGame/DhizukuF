@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF.ui.page.settings.settings
 
+import com.EdS.DhizukuF.ui.widget.TvIconButton
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -56,7 +58,7 @@ fun SettingsPage(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = {
+                    TvIconButton(onClick = {
                         navController.navigateUp()
                     }) {
                         Icon(

@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF.ui.page.settings.account_manager
 
+import com.EdS.DhizukuF.ui.widget.TvIconButton
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -75,7 +77,7 @@ fun AccountManagerPage(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    TvIconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.TwoTone.ArrowBack,
                             contentDescription = null
@@ -84,7 +86,7 @@ fun AccountManagerPage(
                 },
                 title = { Text(stringResource(R.string.account_manager)) },
                 actions = {
-                    IconButton(onClick = {
+                    TvIconButton(onClick = {
                         try {
                             val intent = android.content.Intent(android.provider.Settings.ACTION_SYNC_SETTINGS)
                             intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -113,7 +115,7 @@ fun AccountManagerPage(
                     } else {
                         val allFrozen = viewModel.state.authenticators.isNotEmpty() &&
                                 viewModel.state.authenticators.all { it.isFrozen }
-                        IconButton(onClick = {
+                        TvIconButton(onClick = {
                             viewModel.dispatch(
                                 if (allFrozen) AccountManagerViewAction.UnfreezeAll
                                 else AccountManagerViewAction.FreezeAll
