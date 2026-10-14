@@ -4,6 +4,7 @@ import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
@@ -51,7 +52,9 @@ import com.EdS.DhizukuF.data.settings.repo.AppRepo
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import com.rosan.dhizuku.shared.DhizukuVariables
 import com.EdS.DhizukuF.ui.theme.DhizukuTheme
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -59,6 +62,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.math.cos
 import kotlin.math.sin
+import java.util.concurrent.atomic.AtomicBoolean
 
 class RequestPermissionActivity : ComponentActivity(), KoinComponent {
     companion object {
@@ -77,7 +81,14 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
         val block: Boolean = false
     )
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val coroutineScope = CoroutineScope(
+        SupervisorJob() + Dispatchers.IO +
+            CoroutineExceptionHandler { _, t -> Log.w("RequestPermission", "background task failed", t) }
+    )
+
+    // The answer of one request is saved and reported exactly once, however often finish() runs
+    // (a button, onPause, the timer and a recomposition can all call it).
+    private val answered = AtomicBoolean(false)
     private val appRepo by inject<AppRepo>()
     private val settingsRepo by inject<SettingsRepo>()
     private var state by mutableStateOf(ViewState())
@@ -96,7 +107,7 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                 settingsRepo.isDishEnabled else settingsRepo.isDhizukuEnabled
             if (!enabled) {
                 state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
-                finish()
+                runOnUiThread { finish() }
                 return@launch
             }
 
@@ -104,19 +115,19 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
 
             if (settingsRepo.isWhitelistMode && (entity == null || !entity.allowApi)) {
                 state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
-                finish()
+                runOnUiThread { finish() }
                 return@launch
             }
 
             if (entity?.blocked == true) {
                 state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
-                finish()
+                runOnUiThread { finish() }
                 return@launch
             }
 
             if (entity?.allowApi == true && entity.signature == state.signature) {
                 state = state.copy(allowApi = true, timedOut = false, shouldShowDialog = false)
-                finish()
+                runOnUiThread { finish() }
                 return@launch
             }
         }
@@ -136,29 +147,43 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                     }
                 }
 
-                if (state.shouldShowDialog && !showDialog()) finish()
-                if (!state.shouldShowDialog) finish()
+                // finish() is a side effect: never call it straight from composition
+                if (state.shouldShowDialog) {
+                    if (!showDialog()) LaunchedEffect("unknown-caller") { finish() }
+                } else {
+                    LaunchedEffect("no-dialog") { finish() }
+                }
             }
         }
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        if (registerAppEntity(intent)) return
+        // A request that is replaced by a new one must still get an answer, or its client waits forever.
+        if (answered.compareAndSet(false, true)) {
+            reply(state.listener, PackageManager.PERMISSION_DENIED)
+        }
+        if (registerAppEntity(intent)) {
+            answered.set(false)
+            return
+        }
         finish()
     }
 
     override fun onPause() {
         super.onPause()
-        finish()
+        if (!isChangingConfigurations) finish()
     }
 
     override fun finish() {
         super.finish()
+        if (!answered.compareAndSet(false, true)) return
 
+        val uid = state.uid
+        val allowApi = state.allowApi
+        val block = state.block
+        val listener = state.listener
         coroutineScope.launch {
-            val uid = state.uid
-            val allowApi = state.allowApi
             val packageInfo = packageManager.getPackageInfoForUid(uid) ?: return@launch
             val signature = packageInfo.signature ?: return@launch
 
@@ -166,7 +191,7 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
 
             // A dish terminal that was refused (or not answered) is forgotten, so it does not stay in
             // App management as a disabled row. A block is kept, and so is an approved terminal.
-            if (!allowApi && !state.block && DishRegistry.isDish(uid)) {
+            if (!allowApi && !block && DishRegistry.isDish(uid)) {
                 if (entity == null || (!entity.allowApi && !entity.blocked)) {
                     DishRegistry.unregister(uid)
                     if (entity != null) appRepo.delete(entity)
@@ -176,7 +201,7 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
 
             if (entity == null)
                 appRepo.insert(
-                    AppEntity(uid = uid, signature = signature, allowApi = allowApi, blocked = state.block)
+                    AppEntity(uid = uid, signature = signature, allowApi = allowApi, blocked = block)
                 )
             else
                 appRepo.update(
@@ -184,13 +209,23 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                         uid = uid,
                         signature = signature,
                         allowApi = allowApi,
-                        blocked = entity.blocked || state.block
+                        blocked = entity.blocked || block
                     )
                 )
         }.invokeOnCompletion {
-            val result = if (state.allowApi) PackageManager.PERMISSION_GRANTED
-            else PackageManager.PERMISSION_DENIED
-            state.listener?.onRequestPermission(result)
+            reply(
+                listener,
+                if (allowApi) PackageManager.PERMISSION_GRANTED else PackageManager.PERMISSION_DENIED
+            )
+        }
+    }
+
+    /** The client may be gone already: a dead listener must not crash DhizukuF. */
+    private fun reply(listener: IDhizukuRequestPermissionListener?, result: Int) {
+        try {
+            listener?.onRequestPermission(result)
+        } catch (t: Throwable) {
+            Log.w("RequestPermission", "cannot reach the client", t)
         }
     }
 

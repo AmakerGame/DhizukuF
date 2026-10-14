@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.EdS.DhizukuF.data.common.util.asFlow
+import com.EdS.DhizukuF.data.common.util.devicePrefs
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.component.KoinComponent
@@ -13,7 +14,7 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     private val context by inject<Context>()
 
     private val prefs: SharedPreferences by lazy {
-        context.getSharedPreferences("dhizuku_settings", Context.MODE_PRIVATE)
+        context.devicePrefs("dhizuku_settings")
     }
 
     override fun flowWhitelistMode(): Flow<Boolean> =

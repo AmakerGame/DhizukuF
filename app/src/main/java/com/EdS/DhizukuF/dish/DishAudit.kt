@@ -16,7 +16,8 @@ object DishAudit {
 
     @Synchronized
     fun record(uid: Int, pkg: String, args: List<String>, code: Int) {
-        val shown = args.take(3).joinToString(" ") + if (args.size > 3) " ..." else ""
+        val words = if (args.firstOrNull()?.lowercase() in setOf("batch", "api", "call")) 2 else 3
+        val shown = args.take(words).joinToString(" ") + if (args.size > words) " ..." else ""
         lines.addLast("${format.format(Date())}  uid=$uid $pkg  exit=$code  $shown")
         while (lines.size > MAX) lines.removeFirst()
     }

@@ -10,7 +10,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 
 fun PackageManager.getPackageNameForUid(uid: Int): String? =
-    getPackagesForUid(uid)?.first()
+    getPackagesForUid(uid)?.firstOrNull()
 
 fun PackageManager.getPackageInfoForUid(
     uid: Int,
@@ -20,8 +20,18 @@ fun PackageManager.getPackageInfoForUid(
     getPackageInfo(getPackageNameForUid(uid) ?: return null, flags)
 }.getOrNull()
 
+/**
+ * SHA-256 of the signing certificate. For a single-signer app this is the same value as before
+ * (stored entries stay valid). An app with several signers is identified by ALL of them, not just
+ * the first one.
+ */
 @OptIn(ExperimentalStdlibApi::class)
 val PackageInfo.signature: String?
-    get() = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) signingInfo?.apkContentsSigners
-    else signatures)?.firstOrNull()?.toByteArray()?.digest("sha256")
-        ?.toHexString(HexFormat.UpperCase)
+    get() {
+        val signers = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) signingInfo?.apkContentsSigners
+        else signatures)
+        if (signers.isNullOrEmpty()) return null
+        return signers.map { it.toByteArray().digest("sha256").toHexString(HexFormat.UpperCase) }
+            .sorted()
+            .joinToString(":")
+    }

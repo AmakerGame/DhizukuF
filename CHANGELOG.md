@@ -3,6 +3,21 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## Unreleased
+
+### Fixed
+- Settings and the dish registry now live in device protected storage (existing values are moved over). Before, a
+  call during Direct Boot (provider / boot receiver / daemon service) threw `IllegalStateException`.
+- Permission dialog: the answer is saved and sent to the client exactly once (it used to run on every `finish()`);
+  a request replaced by a new one is answered `DENIED` instead of hanging; a dead client no longer crashes the app;
+  no `finish()` from composition or from a background thread; rotation no longer denies the request.
+- Daemon service: calls `startForeground()` before stopping (no `ForegroundServiceDidNotStart` crash); a background
+  error no longer crashes the app; an unreadable signature no longer deletes (and so un-blocks) an entry.
+- dish: `api` was treated as harmless if `--list` / `--sig` appeared anywhere in the line; only leading options count now.
+  The in-memory log keeps fewer words of `batch` / `api` so values are not stored.
+- Signature check uses all signers of an app (identical value for single-signer apps), `getPackagesForUid` no longer
+  throws on an empty list.
+
 ## 1.2.0 (4)
 
 ### Added

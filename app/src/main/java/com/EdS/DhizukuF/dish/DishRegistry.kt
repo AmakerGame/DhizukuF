@@ -2,6 +2,7 @@ package com.EdS.DhizukuF.dish
 
 import android.content.Context
 import androidx.core.content.edit
+import com.EdS.DhizukuF.data.common.util.devicePrefs
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -16,7 +17,7 @@ object DishRegistry : KoinComponent {
     private val settingsRepo by inject<SettingsRepo>()
 
     private val prefs by lazy {
-        context.getSharedPreferences("dish_registry", Context.MODE_PRIVATE)
+        context.devicePrefs("dish_registry")
     }
 
     fun register(uid: Int, label: String) {

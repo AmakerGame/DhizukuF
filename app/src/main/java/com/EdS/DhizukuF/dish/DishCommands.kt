@@ -126,12 +126,24 @@ class DishCommands(
         return runCommand(cmd, a, raw)
     }
 
+    /** Only a leading --list / --sig option makes `api` harmless; the words later on are just arguments. */
+    private fun isApiReadOnly(a: List<String>): Boolean {
+        var i = 0
+        var readOnly = false
+        while (i < a.size && a[i].startsWith("--")) {
+            if (a[i] == "--list" || a[i] == "--sig") readOnly = true
+            if (a[i] == "--on") i++
+            i++
+        }
+        return readOnly
+    }
+
     /** Risky forms: irreversible, security-lowering, or free-form. Off unless the user enables them. */
     private fun isDangerous(cmd: String, a: List<String>): Boolean {
         val first = a.firstOrNull()
         return when (cmd) {
             "reboot", "clear-data" -> true
-            "api", "call" -> !(a.contains("--list") || a.contains("--sig"))
+            "api", "call" -> !isApiReadOnly(a)
             "settings" -> first == "put"
             "permission" -> first == "grant" || first == "deny" || first == "default"
             "permission-policy" -> first == "grant" || first == "deny"

@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -40,12 +41,16 @@ class DaemonService : Service(), KoinComponent {
                 intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)
             ) return
             scope.launch {
-                if (DishRegistry.isDish(uid) && packageManager.getPackagesForUid(uid).isNullOrEmpty()) {
-                    DishRegistry.unregister(uid)
+                try {
+                    if (DishRegistry.isDish(uid) && packageManager.getPackagesForUid(uid).isNullOrEmpty()) {
+                        DishRegistry.unregister(uid)
+                    }
+                    val entity = repo.findByUID(uid) ?: return@launch
+                    if (verify(entity)) return@launch
+                    repo.delete(entity)
+                } catch (t: Throwable) {
+                    Log.w("DaemonService", "package check failed", t)
                 }
-                val entity = repo.findByUID(uid) ?: return@launch
-                if (verify(entity)) return@launch
-                repo.delete(entity)
             }
         }
     }
@@ -61,11 +66,18 @@ class DaemonService : Service(), KoinComponent {
     override fun onCreate() {
         super.onCreate()
         registerPackageReceiver()
-        foreground(DhizukuState.state.isOwner)
+        // A service started with startForegroundService() must call startForeground() in time even
+        // when it is about to stop, otherwise Android kills the app.
+        foreground(true)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        foreground(DhizukuState.state.isOwner)
+        foreground(true)
+        if (!DhizukuState.state.isOwner) {
+            foreground(false)
+            stopSelf()
+            return START_NOT_STICKY
+        }
         return START_STICKY
     }
 
@@ -81,14 +93,18 @@ class DaemonService : Service(), KoinComponent {
 
     private fun registerPackageReceiver() {
         scope.launch {
-            repo.all().filter { !verify(it) }.forEach {
-                DishRegistry.unregister(it.uid)
-                repo.delete(it)
+            try {
+                repo.all().filter { !verify(it) }.forEach {
+                    DishRegistry.unregister(it.uid)
+                    repo.delete(it)
+                }
+                // terminals whose app is gone
+                DishRegistry.all().keys
+                    .filter { packageManager.getPackagesForUid(it).isNullOrEmpty() }
+                    .forEach { DishRegistry.unregister(it) }
+            } catch (t: Throwable) {
+                Log.w("DaemonService", "cleanup failed", t)
             }
-            // terminals whose app is gone
-            DishRegistry.all().keys
-                .filter { packageManager.getPackagesForUid(it).isNullOrEmpty() }
-                .forEach { DishRegistry.unregister(it) }
         }
 
         val filter = IntentFilter()
@@ -105,9 +121,10 @@ class DaemonService : Service(), KoinComponent {
         // service start or package change.
         val packageInfo = packageManager.getPackageInfoForUid(entity.uid) ?: return false
 
-        if (entity.signature != packageInfo.signature) return false
+        // No readable signature (e.g. the package is being updated) proves nothing: keep the entry.
+        val signature = packageInfo.signature ?: return true
 
-        return true
+        return entity.signature == signature
     }
 
     private fun foreground(enabled: Boolean) {
