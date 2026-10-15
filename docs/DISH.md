@@ -73,7 +73,8 @@ Notes for the `dish` launcher:
 ## Android TV
 
 DhizukuF appears in the TV launcher and can be used with a remote control (D-pad): move the focus with the
-arrows, press the centre button to open a card or toggle a switch. TV boxes usually have no folder picker; then
+arrows, press the centre button to open a card or toggle a switch. On the activation screen the apps and the **OK**
+button are one list: go down through the apps to **OK**. The remote's Back key leaves a screen. TV boxes usually have no folder picker; then
 **Export dish files** saves `dish` and `dish_dhizukuf.dex` to `Android/data/com.EdS.DhizukuF/files/dish` and shows
 the path. Copy the files with `adb pull` / `adb push`, or run them from `adb shell`:
 

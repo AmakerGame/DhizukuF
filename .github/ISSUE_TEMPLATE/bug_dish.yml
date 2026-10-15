@@ -1,0 +1,108 @@
+name: Bug - dish terminal
+description: A dish command fails, gives a wrong answer, or the launcher does not start.
+labels: [ "bug", "dish", "triage needed" ]
+title: "[dish] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for the report. English, Ukrainian and Russian are all fine.
+        Run `dish status` and paste its output below, it answers most of the questions.
+        **Do not post** serial numbers, IMEI, Wi-Fi passwords, account names or private package names you do not want to share.
+  - type: checkboxes
+    attributes:
+      label: Before you send
+      options:
+        - label: I use the latest release **and** the `dish` / `dish_dhizukuf.dex` files exported from that same version.
+          required: true
+        - label: I read [docs/DISH.md](https://github.com/AmakerGame/DhizukuF/blob/main/docs/DISH.md) (Compatibility, Dangerous commands, Device Owner and Profile Owner).
+          required: true
+        - label: I searched the [existing issues](https://github.com/AmakerGame/DhizukuF/issues?q=is%3Aissue) and found nothing like it.
+          required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong?
+      options:
+        - A command says NOT DONE and I think it should work
+        - A command says OK but nothing changed
+        - Wrong or confusing text in the answer / help
+        - dish does not start (launcher, dex, "cannot send the request to DhizukuF")
+        - The approval window does not open, or the terminal is refused
+        - dish hangs or is very slow (timeout)
+        - dish api (direct call of a method) gives a wrong result
+        - batch / interactive mode / history / quoting problem
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: The exact command
+      description: Copy it from the terminal, with the quotes.
+      placeholder: 'dish -c "settings put global stay_on_while_plugged_in 3"'
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: The full answer
+      description: Everything dish printed, including the `OK:` / `NOT DONE:` line and the exit code (`echo $?`).
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: Output of `dish status`
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where do you run dish?
+      options:
+        - Termux
+        - adb shell from a computer
+        - adb shell on the device itself (wireless debugging)
+        - Another shell app
+        - Another app / script that calls dish
+    validations:
+      required: true
+  - type: input
+    id: folder
+    attributes:
+      label: Folder with the `dish` and `.dex` files
+      description: On Android 14+ it must be a normal folder, not /sdcard.
+      placeholder: "$PREFIX/bin   or   /data/local/tmp"
+  - type: dropdown
+    id: dangerous
+    attributes:
+      label: "Settings > \"Dangerous commands\""
+      options:
+        - Off (default)
+        - "On"
+        - I do not know
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: "Poco C61, Android 16  /  H96 MAX (Amlogic S905L3), Android 9"
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Output of `dish log` (optional)
+      description: The last commands DhizukuF recorded for your terminal. Remove what is private.
+      render: shell

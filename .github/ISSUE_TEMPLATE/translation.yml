@@ -1,0 +1,40 @@
+name: Translation / text problem
+description: A wrong, missing or untranslated text (Ukrainian, Russian, other languages, dish messages).
+labels: [ "translation", "triage needed" ]
+title: "[Text] "
+body:
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where is the text?
+      options:
+        - App screens and dialogs
+        - dish answers and help
+        - Notification
+        - Documentation (README, docs/)
+    validations:
+      required: true
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      placeholder: Ukrainian
+    validations:
+      required: true
+  - type: textarea
+    id: now
+    attributes:
+      label: The text now (or "missing")
+    validations:
+      required: true
+  - type: textarea
+    id: better
+    attributes:
+      label: Your suggestion
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: DhizukuF version
+      placeholder: "1.3.0 (5)"

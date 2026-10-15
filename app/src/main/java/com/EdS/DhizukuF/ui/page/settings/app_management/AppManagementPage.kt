@@ -8,7 +8,7 @@ import com.EdS.DhizukuF.ui.widget.TvIconButton
 
 import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import androidx.compose.ui.semantics.Role
-import androidx.compose.foundation.selection.toggleable
+import com.EdS.DhizukuF.ui.widget.tvToggle
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -232,8 +232,8 @@ private fun LazyItemScope.ItemWidget(
                         modifier = Modifier
                             .fillMaxWidth()
                             .tvFocusBorder(RoundedCornerShape(8.dp))
-                            .toggleable(
-                                value = data.enabled,
+                            .tvToggle(
+                                checked = data.enabled,
                                 role = Role.Switch,
                                 onValueChange = { enabled ->
                                     viewModel.setEnabled(data.applicationInfo.uid, enabled)

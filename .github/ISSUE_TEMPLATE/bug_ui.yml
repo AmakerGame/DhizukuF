@@ -1,0 +1,116 @@
+name: Bug - app / screens (UI)
+description: Something is wrong in a DhizukuF screen, dialog, list or setting.
+labels: [ "bug", "ui", "triage needed" ]
+title: "[UI] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for the report. English, Ukrainian and Russian are all fine.
+        **Do not post** serial numbers, IMEI, Wi-Fi passwords, account names or e-mail addresses. Cover them in screenshots.
+        D-pad / remote problems have their own form: **Bug - Android TV / D-pad / remote**.
+  - type: checkboxes
+    attributes:
+      label: Before you send
+      options:
+        - label: I use the [latest release](https://github.com/AmakerGame/DhizukuF/releases/latest) and the problem is still there.
+          required: true
+        - label: I searched the [existing issues](https://github.com/AmakerGame/DhizukuF/issues?q=is%3Aissue) and found nothing like it.
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: DhizukuF version
+      description: Settings > About, or the file name of the APK.
+      placeholder: "1.3.0 (5)"
+    validations:
+      required: true
+  - type: dropdown
+    id: screen
+    attributes:
+      label: Where does it happen?
+      options:
+        - Home
+        - Activation (Dhizuku mode)
+        - Activation (Shizuku mode)
+        - App management
+        - Account manager
+        - User manager
+        - Settings
+        - Permission dialog ("Allow X to use Dhizuku?")
+        - Terminal (dish) card / export of dish files
+        - Dhizuku Compatibility Hub card
+        - Shutdown / reboot / other dialog
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: DhizukuF is
+      options:
+        - Device Owner
+        - Profile Owner
+        - Not activated yet
+        - I do not know
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: "Poco C61, Android 16  /  X96 Max Plus Ultra (Amlogic S905X4), Android 11"
+    validations:
+      required: true
+  - type: dropdown
+    id: input
+    attributes:
+      label: How do you control the device?
+      options:
+        - Touch screen
+        - Remote control (D-pad)
+        - Mouse / air mouse
+        - Keyboard
+    validations:
+      required: true
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme and language
+      description: Pick the one that matters, tell more in the description if both do.
+      multiple: true
+      options:
+        - Dark theme
+        - Light theme
+        - Dynamic colours (Material You)
+        - Ukrainian
+        - Russian
+        - English
+        - Other language
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshots or a screen recording
+      description: Drag the files here.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log (if the app crashes)
+      description: "`adb logcat -d | grep -i -E 'dhizuku|AndroidRuntime'` after the crash."
+      render: shell

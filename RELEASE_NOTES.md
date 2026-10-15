@@ -6,7 +6,8 @@ with better remote-control (D-pad) support for Android TV boxes.
 
 ### What's new
 
-- **Better D-pad / remote control** - every button shows a focus frame now, and the permission dialog starts on
+- **Better D-pad / remote control** - the activation screen can be used with a remote again (the focus used to skip the
+  list of apps; now apps and **OK** are one list), every button shows a focus frame now, and the permission dialog starts on
   **Refuse** on a TV, so a held-down key cannot grant access by accident.
 - **Safer `dish api`** - a call was treated as harmless if `--list` or `--sig` appeared anywhere in the line; now only the
   leading option counts, so *Enable dangerous commands* cannot be bypassed this way. The dish log keeps fewer words of

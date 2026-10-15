@@ -14,7 +14,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.toggleableState
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -45,6 +48,14 @@ fun Modifier.tvFocusBorder(shape: RoundedCornerShape = RoundedCornerShape(16.dp)
 }
 
 /**
+ * A row that toggles a value. It is a plain clickable (a normal D-pad focus target, the same as the
+ * other rows of the app) that reports its checked state to accessibility services.
+ */
+fun Modifier.tvToggle(checked: Boolean, role: Role, onValueChange: (Boolean) -> Unit): Modifier =
+    this.clickable(role = role, onClick = { onValueChange(!checked) })
+        .semantics { toggleableState = ToggleableState(checked) }
+
+/**
  * A settings row with a title, a description and a switch. The whole row is one focus target, so it
  * can be toggled with the D-pad centre / Enter key as well as by touch.
  */
@@ -60,7 +71,7 @@ fun SwitchRow(
         modifier = Modifier
             .fillMaxWidth()
             .tvFocusBorder(RoundedCornerShape(12.dp))
-            .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange)
+            .tvToggle(checked = checked, role = Role.Switch, onValueChange = onCheckedChange)
             .padding(horizontal = 8.dp, vertical = 6.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

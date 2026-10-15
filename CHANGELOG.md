@@ -10,8 +10,19 @@ The newest changes are at the top.
   Freeze, Terminal and the other dialogs buttons) - before, only some of them did. The permission dialog starts with the
   focus on **Refuse** on a TV or a box without a touch screen, so a key that is still held down from the previous screen
   cannot grant access by accident. New helpers in `TvFocus.kt`: `TvButton`, `TvOutlinedButton`, `TvIconButton`.
+- **Activation screen with a remote**: the D-pad jumped from the back arrow straight to **OK** and never reached the
+  list of apps, and once the focus was on "back" or "OK" nothing could be selected. On a TV or a box without a touch
+  screen the screen is now ONE list: the apps, then the **OK** button (and the owner-type menu in Shizuku mode) as its
+  last item; the back arrow is not a D-pad target there (the remote's Back key does the same). The rows are plain
+  clickable rows (like the other lists), point at each other explicitly, the first app gets the focus at start, and the
+  status dialog starts with the focus on its first button. The same row style is used in *App management* and for the
+  switch rows in *Settings* (`tvToggle` in `TvFocus.kt`).
 - A refusal of the permission dialog by any way (Back, timeout, losing focus) now reaches a waiting dish terminal at
   once instead of after its timeout.
+
+### Added
+- GitHub issue forms made for this project: app / UI, dish terminal, Android TV / D-pad, activation, Hub / API, idea,
+  translation (plus a private security link and a pull request template). `.github/create-labels.sh` creates their labels.
 
 ### Fixed
 - Settings and the dish registry now live in device protected storage (existing values are moved over). Before, a

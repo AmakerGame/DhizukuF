@@ -11,7 +11,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.semantics.Role
-import androidx.compose.foundation.selection.toggleable
+import com.EdS.DhizukuF.ui.widget.tvToggle
 import com.EdS.DhizukuF.ui.widget.TvTextButton
 import androidx.compose.ui.focus.focusProperties
 import android.content.ComponentName
@@ -67,6 +67,7 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -103,6 +104,16 @@ fun ActivatePage(
         mutableStateOf<ComponentName?>(null)
     }
 
+    val pm = LocalContext.current.packageManager
+    val useListFooter = remember {
+        pm.hasSystemFeature("android.software.leanback") || !pm.hasSystemFeature("android.hardware.touchscreen")
+    }
+
+    // One focus requester per list row; the rows point at each other explicitly.
+    val rowFocus = remember(viewModel.state.data.size) {
+        List(viewModel.state.data.size) { FocusRequester() }
+    }
+
     LaunchedEffect(viewModel.state.data) {
         compState.value = viewModel.state.data.find { it.enabled }?.admin?.component
     }
@@ -124,6 +135,9 @@ fun ActivatePage(
                 navigationIcon = {
                     TvIconButton(onClick = {
                         navController.navigateUp()
+                    }, modifier = Modifier.focusProperties {
+                        // On a TV the remote's Back key does this; the D-pad stays inside the list.
+                        canFocus = !useListFooter
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.TwoTone.ArrowBack,
@@ -138,120 +152,13 @@ fun ActivatePage(
         },
         bottomBar = {
             val comp by compState
-            AnimatedVisibility(
+            // On a TV / box without a touch screen the confirm button is part of the list (see ItemsWidget).
+            if (!useListFooter) AnimatedVisibility(
                 visible = comp != null,
                 enter = scaleIn(),
                 exit = scaleOut()
             ) {
-                if (mode == SettingsRoute.Activate.Mode.Shizuku) {
-                    var ownerType by remember { mutableStateOf(ActivateViewModel.OwnerType.Device) }
-                    var menuExpanded by remember { mutableStateOf(false) }
-                    var profileOwnerWarningShow by remember { mutableStateOf(false) }
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .navigationBarsPadding()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Box {
-                            TvOutlinedButton(onClick = { menuExpanded = true }) {
-                                Text(
-                                    stringResource(
-                                        when (ownerType) {
-                                            ActivateViewModel.OwnerType.Profile -> R.string.confirm_profile_owner
-                                            else -> R.string.confirm_device_owner
-                                        }
-                                    )
-                                )
-                                Icon(imageVector = Icons.TwoTone.ArrowDropDown, contentDescription = null)
-                            }
-                            DropdownMenu(
-                                expanded = menuExpanded,
-                                onDismissRequest = { menuExpanded = false }
-                            ) {
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.confirm_device_owner)) },
-                                    onClick = {
-                                        ownerType = ActivateViewModel.OwnerType.Device
-                                        menuExpanded = false
-                                    }
-                                )
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.confirm_profile_owner)) },
-                                    onClick = {
-                                        menuExpanded = false
-                                        profileOwnerWarningShow = true
-                                    }
-                                )
-                            }
-                        }
-
-                        if (profileOwnerWarningShow) {
-                            AlertDialog(
-                                onDismissRequest = { profileOwnerWarningShow = false },
-                                icon = {
-                                    Icon(
-                                        imageVector = Icons.TwoTone.Warning,
-                                        contentDescription = null
-                                    )
-                                },
-                                title = {
-                                    Text(stringResource(R.string.profile_owner_warning_title))
-                                },
-                                text = {
-                                    Text(stringResource(R.string.profile_owner_warning_dsp))
-                                },
-                                confirmButton = {
-                                    TvTextButton(onClick = {
-                                        ownerType = ActivateViewModel.OwnerType.Profile
-                                        profileOwnerWarningShow = false
-                                    }) {
-                                        Text(stringResource(R.string.confirm))
-                                    }
-                                },
-                                dismissButton = {
-                                    TvTextButton(onClick = { profileOwnerWarningShow = false }) {
-                                        Text(stringResource(R.string.cancel))
-                                    }
-                                }
-                            )
-                        }
-
-                        ActivateFab(
-                            textRes = R.string.confirm,
-                            onClick = {
-                                comp?.let {
-                                    when (ownerType) {
-                                        ActivateViewModel.OwnerType.Profile ->
-                                            viewModel.activateAsProfileOwner(mode = mode, comp = it)
-
-                                        else ->
-                                            viewModel.activateAsDeviceOwner(mode = mode, comp = it)
-                                    }
-                                }
-                            }
-                        )
-                    }
-                } else {
-                    ActivateFab(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .navigationBarsPadding()
-                            .padding(16.dp),
-                        textRes = R.string.confirm,
-                        onClick = {
-                            comp?.let {
-                                if (DhizukuState.state.isProfileOwner)
-                                    viewModel.activateAsProfileOwner(mode = mode, comp = it)
-                                else
-                                    viewModel.activateAsDeviceOwner(mode = mode, comp = it)
-                            }
-                        }
-                    )
-                }
+                ConfirmBar(mode = mode, viewModel = viewModel, compState = compState)
             }
         }) {
         val pullToRefreshState = rememberPullToRefreshState()
@@ -265,7 +172,23 @@ fun ActivatePage(
                     }
                 )
         ) {
-            ItemsWidget(viewModel = viewModel, contentPadding = it, state = compState)
+            ItemsWidget(
+                viewModel = viewModel,
+                contentPadding = it,
+                state = compState,
+                rowFocus = rowFocus,
+                footer = if (useListFooter) {
+                    {
+                        AnimatedVisibility(
+                            visible = compState.value != null,
+                            enter = scaleIn(),
+                            exit = scaleOut()
+                        ) {
+                            ConfirmBar(mode = mode, viewModel = viewModel, compState = compState)
+                        }
+                    }
+                } else null
+            )
             PullToRefreshDefaults.Indicator(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
@@ -285,7 +208,19 @@ fun ActivatePage(
         val isSuccess =
             !isRunning && (viewModel.state.status as ActivateViewState.Status.End).error == null
 
-        if (isRunning || !isSuccess) TvTextButton(onClick = { viewModel.cancel() }) {
+        // The remote has to be able to press a button of this dialog at once: focus the first one.
+        val dialogFocus = remember { FocusRequester() }
+        LaunchedEffect(viewModel.state.status) {
+            if (useListFooter) {
+                delay(250)
+                runCatching { dialogFocus.requestFocus() }
+            }
+        }
+
+        if (isRunning || !isSuccess) TvTextButton(
+            onClick = { viewModel.cancel() },
+            modifier = Modifier.focusRequester(dialogFocus)
+        ) {
             Text(stringResource(R.string.cancel))
         }
         if (isRunning) return@AlertDialog
@@ -299,7 +234,10 @@ fun ActivatePage(
             }
         }) {
             Text(stringResource(R.string.retry))
-        } else TvTextButton(onClick = { navController.navigateUp() }) {
+        } else TvTextButton(
+            onClick = { navController.navigateUp() },
+            modifier = Modifier.focusRequester(dialogFocus)
+        ) {
             Text(stringResource(R.string.finish))
         }
     }, title = {
@@ -333,6 +271,128 @@ fun ActivatePage(
     })
 }
 
+/**
+ * The owner type menu (Shizuku only) and the confirm button. On a phone it sits in the bottom bar; on a
+ * TV / box without a touch screen it is the LAST ITEM OF THE LIST, so the D-pad moves through one single list
+ * (apps, then OK) and never has to jump to another part of the screen.
+ */
+@Composable
+private fun ConfirmBar(
+    mode: SettingsRoute.Activate.Mode,
+    viewModel: ActivateViewModel,
+    compState: State<ComponentName?>
+) {
+    if (mode == SettingsRoute.Activate.Mode.Shizuku) {
+        var ownerType by remember { mutableStateOf(ActivateViewModel.OwnerType.Device) }
+        var menuExpanded by remember { mutableStateOf(false) }
+        var profileOwnerWarningShow by remember { mutableStateOf(false) }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .navigationBarsPadding()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box {
+                TvOutlinedButton(onClick = { menuExpanded = true }) {
+                    Text(
+                        stringResource(
+                            when (ownerType) {
+                                ActivateViewModel.OwnerType.Profile -> R.string.confirm_profile_owner
+                                else -> R.string.confirm_device_owner
+                            }
+                        )
+                    )
+                    Icon(imageVector = Icons.TwoTone.ArrowDropDown, contentDescription = null)
+                }
+                DropdownMenu(
+                    expanded = menuExpanded,
+                    onDismissRequest = { menuExpanded = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.confirm_device_owner)) },
+                        onClick = {
+                            ownerType = ActivateViewModel.OwnerType.Device
+                            menuExpanded = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.confirm_profile_owner)) },
+                        onClick = {
+                            menuExpanded = false
+                            profileOwnerWarningShow = true
+                        }
+                    )
+                }
+            }
+
+            if (profileOwnerWarningShow) {
+                AlertDialog(
+                    onDismissRequest = { profileOwnerWarningShow = false },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.TwoTone.Warning,
+                            contentDescription = null
+                        )
+                    },
+                    title = {
+                        Text(stringResource(R.string.profile_owner_warning_title))
+                    },
+                    text = {
+                        Text(stringResource(R.string.profile_owner_warning_dsp))
+                    },
+                    confirmButton = {
+                        TvTextButton(onClick = {
+                            ownerType = ActivateViewModel.OwnerType.Profile
+                            profileOwnerWarningShow = false
+                        }) {
+                            Text(stringResource(R.string.confirm))
+                        }
+                    },
+                    dismissButton = {
+                        TvTextButton(onClick = { profileOwnerWarningShow = false }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    }
+                )
+            }
+
+            ActivateFab(
+                textRes = R.string.confirm,
+                onClick = {
+                    compState.value?.let {
+                        when (ownerType) {
+                            ActivateViewModel.OwnerType.Profile ->
+                                viewModel.activateAsProfileOwner(mode = mode, comp = it)
+
+                            else ->
+                                viewModel.activateAsDeviceOwner(mode = mode, comp = it)
+                        }
+                    }
+                }
+            )
+        }
+    } else {
+        ActivateFab(
+            modifier = Modifier
+                .fillMaxWidth()
+                .navigationBarsPadding()
+                .padding(16.dp),
+            textRes = R.string.confirm,
+            onClick = {
+                compState.value?.let {
+                    if (DhizukuState.state.isProfileOwner)
+                        viewModel.activateAsProfileOwner(mode = mode, comp = it)
+                    else
+                        viewModel.activateAsDeviceOwner(mode = mode, comp = it)
+                }
+            }
+        )
+    }
+}
+
 @Composable
 private fun ActivateFab(
     modifier: Modifier = Modifier,
@@ -358,15 +418,19 @@ private fun ActivateFab(
 private fun ItemsWidget(
     viewModel: ActivateViewModel,
     contentPadding: PaddingValues,
-    state: MutableState<ComponentName?>
+    state: MutableState<ComponentName?>,
+    rowFocus: List<FocusRequester>,
+    footer: (@Composable () -> Unit)? = null
 ) {
-    // On a TV (no touch screen) put the focus on the first app, so the remote can select at once.
-    val isTv = LocalContext.current.packageManager.hasSystemFeature("android.software.leanback")
-    val firstItem = remember { FocusRequester() }
-    val hasItems = viewModel.state.data.isNotEmpty()
-    LaunchedEffect(isTv, hasItems) {
-        if (isTv && hasItems) {
-            delay(200)
+    // On a TV or a box without a touch screen put the focus on the first app, so the remote can
+    // select at once.
+    val pm = LocalContext.current.packageManager
+    val isTv = pm.hasSystemFeature("android.software.leanback") ||
+        !pm.hasSystemFeature("android.hardware.touchscreen")
+    val firstItem = rowFocus.firstOrNull()
+    LaunchedEffect(isTv, rowFocus) {
+        if (isTv && firstItem != null) {
+            delay(300)
             runCatching { firstItem.requestFocus() }
         }
     }
@@ -384,8 +448,18 @@ private fun ItemsWidget(
                 viewModel = viewModel,
                 data = item,
                 state = state,
-                rowModifier = if (index == 0) Modifier.focusRequester(firstItem) else Modifier
+                rowModifier = rowFocus.getOrNull(index)?.let { own ->
+                    Modifier
+                        .focusRequester(own)
+                        .focusProperties {
+                            up = rowFocus.getOrNull(index - 1) ?: FocusRequester.Default
+                            down = rowFocus.getOrNull(index + 1) ?: FocusRequester.Default
+                        }
+                } ?: Modifier
             )
+        }
+        if (footer != null) {
+            item(key = "confirm") { footer() }
         }
     }
 }
@@ -416,8 +490,8 @@ private fun LazyItemScope.ItemWidget(
             modifier = rowModifier
                 .fillMaxWidth()
                 .tvFocusBorder(RoundedCornerShape(12.dp))
-                .toggleable(
-                    value = checked,
+                .tvToggle(
+                    checked = checked,
                     role = Role.Checkbox,
                     onValueChange = { setCheckedChange(it) }
                 )
