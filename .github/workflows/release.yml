@@ -15,6 +15,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Check that the repository is complete
+        # A folder that .gitignore hides (or that was never committed) is missing on the runner, and Gradle
+        # then stops with a confusing message about project directories.
+        run: |
+          missing=0
+          for d in app hub hidden-api dish-client keystore; do
+            if [ ! -d "$d" ]; then
+              echo "::error::Folder '$d' is missing in the repository. If .gitignore hides it, add it with: git add -f $d"
+              missing=1
+            fi
+          done
+          if [ -d keystore ] && [ ! -f keystore/debug.properties ]; then
+            echo "::error::keystore/debug.properties is missing in the repository (git add -f keystore)"
+            missing=1
+          fi
+          exit $missing
+
       - name: Check that the tag matches version.properties
         run: |
           expected="v$(grep '^versionName=' version.properties | cut -d= -f2)"

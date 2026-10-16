@@ -101,12 +101,11 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
     private var authenticating = false
 
     /**
-     * Allow, Refuse and Block are decisions about what an app may do with Device Owner power. With *Require
-     * authentication > on confirmation* each of them needs the screen lock / fingerprint / face first. Without a
-     * screen lock (or with the option off) the decision is taken at once. Doing nothing (the timer, Back) still
-     * refuses without a prompt, so a request can always be turned down.
+     * "Allow" gives an app Device Owner power, so with *Require authentication > on confirmation* it needs the
+     * screen lock / fingerprint / face first. Without a screen lock (or with the option off) it is allowed at once.
+     * Refuse and Block only take power away: they never ask, and neither do the timer and Back.
      */
-    private fun decideWithConfirmation(subtitleRes: Int, decide: () -> Unit) {
+    private fun allowWithConfirmation(subtitleRes: Int, decide: () -> Unit) {
         if (!settingsRepo.authMode.onConfirm || !DeviceAuth.canAuthenticate(this)) {
             decide()
             return
@@ -463,29 +462,25 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
                     }
                 }
                 MyTextButton(onClick = {
-                    decideWithConfirmation(R.string.auth_prompt_allow) {
+                    allowWithConfirmation(R.string.auth_prompt_allow) {
                         state = state.copy(allowApi = true, timedOut = true)
                         finish()
                     }
                 }, textResId = R.string.agree, isPrimary = true)
                 MyTextButton(onClick = {
-                    decideWithConfirmation(R.string.auth_prompt_refuse) {
-                        if (state.uid != UID_ERR) {
-                            DishApproval.results[state.uid] = false
-                        }
-                        state = state.copy(allowApi = false, timedOut = true)
-                        finish()
+                    if (state.uid != UID_ERR) {
+                        DishApproval.results[state.uid] = false
                     }
+                    state = state.copy(allowApi = false, timedOut = true)
+                    finish()
                 }, textResId = R.string.refuse, focus = safeFocus)
                 if (settingsRepo.isAdvancedConfirmation) {
                     MyTextButton(onClick = {
-                        decideWithConfirmation(R.string.auth_prompt_block) {
-                            if (state.uid != UID_ERR) {
-                                DishApproval.results[state.uid] = false
-                            }
-                            state = state.copy(allowApi = false, timedOut = true, block = true)
-                            finish()
+                        if (state.uid != UID_ERR) {
+                            DishApproval.results[state.uid] = false
                         }
+                        state = state.copy(allowApi = false, timedOut = true, block = true)
+                        finish()
                     }, textResId = R.string.block)
                 }
             }

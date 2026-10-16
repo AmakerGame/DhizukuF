@@ -41,9 +41,16 @@ request and the approvals in *App management* work as before. The hub only trust
 
 ## Limits and what is not verified
 
-- This was written from the manifest contract of DhizukuF (authorities, actions, permission). The Dhizuku client library
-  was not available while writing it, so test with a real Dhizuku app: *App management* should list the app after it
-  asks for permission.
+- **What was checked.** The contract was compared with the source of the Dhizuku client library (Dhizuku-API).
+  Clients built with a library from June 2024 or later ask Android which app is the owner and then look for
+  `<owner package>.dhizuku_server.provider` and `<owner package>.action.REQUEST_DHIZUKU_PERMISSION`. DhizukuF declares
+  both itself, so such clients work **without** the hub; for them the hub only satisfies an "is Dhizuku installed" check.
+  Clients built with an **older** library hard-code `com.rosan.dhizuku`: finding the server and asking for permission
+  work through the hub (they send their data in the extra `bundle`, which the hub passes on).
+- **The limit.** Those older clients also pass the official admin component `com.rosan.dhizuku/.server.DhizukuDAReceiver`
+  to `DevicePolicyManager`. The owner is DhizukuF, so Android refuses such a call ("no active admin"). The hub does not
+  rewrite it, so an old client can connect and be approved but its Device Owner calls fail until the app is updated to a
+  newer Dhizuku-API. Test with a real app: *App management* should list it after it asks for permission.
 - Features that run client code inside the Dhizuku process (user services) are not forwarded.
 - The Dhizuku API switches in DhizukuF (*Settings > Enable DhizukuF*, *Security > whitelist mode / dangerous commands*) apply to hub
   clients exactly as to direct ones.

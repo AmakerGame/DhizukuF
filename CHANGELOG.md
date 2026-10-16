@@ -3,18 +3,22 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
-## Unreleased
+## 1.4.0 (6)
 
 ### Added
 - **Security** screen (new card on the home screen): *Whitelist mode* and *Enable dangerous commands* moved here from
   *Settings*, plus **Require device authentication** with four choices: *Off* (default), *Only on confirmation*,
   *Only when opening the app*, *On confirmation and when opening the app*. The screen lock (PIN, pattern, password),
   fingerprint or face is asked through the system prompt (AndroidX Biometric 1.1.0).
-  - *On confirmation*: **Allow, Refuse and Block** in the permission dialog, and the same decisions (allow, refuse, block,
-    unblock) in *App management*, ask first. The countdown waits while the prompt is open; doing nothing still refuses.
+  - *On confirmation*: **Allow** (permission dialog, and switching an app on in *App management*) asks first.
+    Refuse, Block, Unblock, switching an app off and doing nothing (timer, Back) never ask. The countdown of the dialog
+    waits while the prompt is open.
   - *When opening the app*: DhizukuF is locked until the prompt is passed and again after 30 seconds in the background.
   - The device is checked for a screen lock. Without one (many TV boxes) a message explains it, with a button to the
     Android settings, and the option stays off. Changing the mode asks for the lock too.
+- GitHub issue forms made for this project: app / UI, dish terminal, Android TV / D-pad, activation, Hub / API, idea,
+  translation (plus a private security link and a pull request template). `.github/create-labels.sh` creates their labels.
+
 ### Changed
 - **Dangerous commands now really apply to the Dhizuku API.** The Dhizuku library passes only function names such as
   `remote_transact` to DhizukuF, so the old name filter never matched anything. DhizukuF now reads the target interface
@@ -23,12 +27,13 @@ The newest changes are at the top.
   (they run code as the owner or hand out its powers). With the switch on everything passes. A client sees a
   `SecurityException` that names the switch. Hub clients are covered the same way.
 - Build: Kotlin 2.4.21 and Gradle 9.8.1, like the original Dhizuku.
-
-### Added
-- GitHub issue forms made for this project: app / UI, dish terminal, Android TV / D-pad, activation, Hub / API, idea,
-  translation (plus a private security link and a pull request template). `.github/create-labels.sh` creates their labels.
+- *docs/HUB.md* now says what was checked against the source of the Dhizuku client library, and the limit that follows
+  from it (see Hub below).
 
 ### Fixed
+- Dhizuku API: the names of the Binder transactions are read through hidden API; the exemption is now set where it is
+  used and an empty answer is not remembered, so the dangerous-call check cannot stay silently off after one early failure.
+- Hub: an install of the hub that fails before the commit no longer leaves its install session behind.
 - dish `camera` and `screen-capture` (`disable` / `enable`) said `OK` without checking; the value is read back now and a
   refusal of the system is reported as `NOT DONE`.
 - The icon cache counted every icon 256 times too big, so it held about one icon and the lists reloaded icons while

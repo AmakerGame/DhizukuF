@@ -86,14 +86,20 @@ object CompatHub {
                 params.setRequireUserAction(PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED)
             }
             val id = installer.createSession(params)
-            installer.openSession(id).use { session ->
-                context.assets.open(ASSET).use { input ->
-                    session.openWrite("dhizuku_compat_hub.apk", 0, -1).use { out ->
-                        input.copyTo(out)
-                        session.fsync(out)
+            try {
+                installer.openSession(id).use { session ->
+                    context.assets.open(ASSET).use { input ->
+                        session.openWrite("dhizuku_compat_hub.apk", 0, -1).use { out ->
+                            input.copyTo(out)
+                            session.fsync(out)
+                        }
                     }
+                    session.commit(sender)
                 }
-                session.commit(sender)
+            } catch (t: Throwable) {
+                // Before the commit nothing else will ever close this session.
+                runCatching { installer.abandonSession(id) }
+                throw t
             }
         }
     }

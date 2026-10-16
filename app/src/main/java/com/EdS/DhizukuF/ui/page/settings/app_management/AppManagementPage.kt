@@ -166,14 +166,11 @@ private fun LazyItemScope.ItemWidget(
     viewModel: AppManagementViewModel,
     data: AppManagementViewData
 ) {
-    // Allow, refuse, block and unblock are the same decisions as in the permission dialog: when
-    // "Require authentication > on confirmation" is on, each of them asks for the screen lock first.
+    // Allowing an app is the same decision as "Allow" in the permission dialog: when
+    // "Require authentication > on confirmation" is on it asks for the screen lock first.
     val gate = rememberAuthGate()
     val promptTitle = stringResource(R.string.auth_prompt_title)
     val promptAllow = stringResource(R.string.auth_prompt_allow)
-    val promptRefuse = stringResource(R.string.auth_prompt_refuse)
-    val promptBlock = stringResource(R.string.auth_prompt_block)
-    val promptUnblock = stringResource(R.string.auth_prompt_unblock)
     Card(
         modifier = Modifier
             .animateItem()
@@ -246,12 +243,10 @@ private fun LazyItemScope.ItemWidget(
                                 checked = data.enabled,
                                 role = Role.Switch,
                                 onValueChange = { enabled ->
-                                    gate.confirm(
-                                        promptTitle,
-                                        if (enabled) promptAllow else promptRefuse
-                                    ) {
-                                        viewModel.setEnabled(data.applicationInfo.uid, enabled)
-                                    }
+                                    // only allowing asks; switching an app off never does
+                                    if (enabled) gate.confirm(promptTitle, promptAllow) {
+                                        viewModel.setEnabled(data.applicationInfo.uid, true)
+                                    } else viewModel.setEnabled(data.applicationInfo.uid, false)
                                 }
                             )
                             .padding(horizontal = 12.dp, vertical = 8.dp),
@@ -316,9 +311,7 @@ private fun LazyItemScope.ItemWidget(
                         }
 
                         TvButton(onClick = {
-                                gate.confirm(promptTitle, promptUnblock) {
-                                    viewModel.setBlocked(data.applicationInfo.uid, false)
-                                }
+                                viewModel.setBlocked(data.applicationInfo.uid, false)
                             },
                             modifier = Modifier.fillMaxWidth(),
                             colors = ButtonDefaults.buttonColors(
@@ -341,9 +334,7 @@ private fun LazyItemScope.ItemWidget(
                     }
                 } else {
                     TvOutlinedButton(onClick = {
-                            gate.confirm(promptTitle, promptBlock) {
-                                viewModel.setBlocked(data.applicationInfo.uid, true)
-                            }
+                            viewModel.setBlocked(data.applicationInfo.uid, true)
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.outlinedButtonColors(

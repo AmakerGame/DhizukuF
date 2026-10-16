@@ -124,7 +124,7 @@
     <string name="auth_mode_off">Вимкнути</string>
     <string name="auth_mode_off_desc">Без додаткової перевірки</string>
     <string name="auth_mode_confirm">Лише під час підтвердження</string>
-    <string name="auth_mode_confirm_desc">Коли застосунок просить доступ до Dhizuku API, а також у «Керуванні застосунками»: Дозволити, Відмовити і Заблокувати потребують блокування екрана, відбитка або обличчя</string>
+    <string name="auth_mode_confirm_desc">Дозвіл застосунку користуватися Dhizuku API (у діалозі дозволу та в «Керуванні застосунками») потребує блокування екрана, відбитка або обличчя. Відмова і блокування пароля не вимагають</string>
     <string name="auth_mode_entry">Лише під час входу в застосунок</string>
     <string name="auth_mode_entry_desc">DhizukuF блокується під час відкриття та після 30 секунд у фоні</string>
     <string name="auth_mode_both">Під час підтвердження і входу в застосунок</string>
@@ -138,9 +138,6 @@
     <string name="auth_prompt_title">Підтвердіть, що це ви</string>
     <string name="auth_prompt_security">Зміна налаштування безпеки</string>
     <string name="auth_prompt_allow">Дозвіл застосунку використовувати DhizukuF</string>
-    <string name="auth_prompt_refuse">Відмова застосунку</string>
-    <string name="auth_prompt_block">Блокування застосунку</string>
-    <string name="auth_prompt_unblock">Розблокування застосунку</string>
     <string name="auth_prompt_entry_title">Розблокуйте DhizukuF</string>
     <string name="auth_prompt_entry_subtitle">Використайте блокування екрана, відбиток пальця або обличчя</string>
     <string name="locked_title">DhizukuF заблоковано</string>

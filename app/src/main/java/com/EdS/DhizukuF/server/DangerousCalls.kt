@@ -2,6 +2,7 @@ package com.EdS.DhizukuF.server
 
 import android.os.IBinder
 import android.util.Log
+import org.lsposed.hiddenapibypass.HiddenApiBypass
 import java.lang.reflect.Modifier
 import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
@@ -82,13 +83,20 @@ object DangerousCalls {
             return null
         } ?: return null
         if (descriptor != DPM && descriptor != USER_MANAGER && descriptor !in OTHER_DANGEROUS) return null
-        val name = transactionNames.getOrPut(descriptor) { loadNames(descriptor) }[code] ?: return null
+        val names = transactionNames[descriptor] ?: loadNames(descriptor).also {
+            // An empty answer is not remembered: the next call tries again.
+            if (it.isNotEmpty()) transactionNames[descriptor] = it
+        }
+        val name = names[code] ?: return null
         val hit = if (catastrophicOnly) isCatastrophic(name) else isDangerous(descriptor, name)
         return if (hit) name else null
     }
 
     /** `TRANSACTION_xxx` constants of the generated Stub class of the interface, by code. */
     private fun loadNames(descriptor: String): Map<Int, String> = try {
+        // The constants are hidden API: without the exemption the system hides them from reflection (Android 9+),
+        // and the names would stay unknown. It is also set at start-up; setting it twice does no harm.
+        runCatching { HiddenApiBypass.addHiddenApiExemptions("") }
         val stub = Class.forName("$descriptor\$Stub")
         val result = HashMap<Int, String>()
         for (field in stub.declaredFields) {

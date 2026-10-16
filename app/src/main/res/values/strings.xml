@@ -148,7 +148,7 @@
     <string name="auth_mode_off">Off</string>
     <string name="auth_mode_off_desc">No extra check</string>
     <string name="auth_mode_confirm">Only on confirmation</string>
-    <string name="auth_mode_confirm_desc">When an app asks to use the Dhizuku API, and in App management: Allow, Refuse and Block need the screen lock, fingerprint or face</string>
+    <string name="auth_mode_confirm_desc">Allowing an app to use the Dhizuku API (in the permission dialog and in App management) needs the screen lock, fingerprint or face. Refuse and Block never ask</string>
     <string name="auth_mode_entry">Only when opening the app</string>
     <string name="auth_mode_entry_desc">DhizukuF is locked when you open it and after 30 seconds in the background</string>
     <string name="auth_mode_both">On confirmation and when opening the app</string>
@@ -162,9 +162,6 @@
     <string name="auth_prompt_title">Confirm that it is you</string>
     <string name="auth_prompt_security">Change a security setting</string>
     <string name="auth_prompt_allow">Allow an app to use DhizukuF</string>
-    <string name="auth_prompt_refuse">Refuse an app</string>
-    <string name="auth_prompt_block">Block an app</string>
-    <string name="auth_prompt_unblock">Unblock an app</string>
     <string name="auth_prompt_entry_title">Unlock DhizukuF</string>
     <string name="auth_prompt_entry_subtitle">Use your screen lock, fingerprint or face</string>
     <string name="locked_title">DhizukuF is locked</string>
