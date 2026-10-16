@@ -56,6 +56,7 @@ import androidx.compose.material.icons.twotone.Cancel
 import androidx.compose.material.icons.twotone.Code
 import androidx.compose.material.icons.twotone.DoNotDisturbOn
 import androidx.compose.material.icons.twotone.RoomPreferences
+import androidx.compose.material.icons.twotone.Security
 import androidx.compose.material.icons.twotone.SentimentVeryDissatisfied
 import androidx.compose.material.icons.twotone.SentimentVerySatisfied
 import androidx.compose.material.icons.twotone.Settings
@@ -160,6 +161,9 @@ fun HomePage(
             }
             if (dhizukuState.isOwner) item("settings") {
                 SettingsWidget(navController)
+            }
+            if (dhizukuState.isOwner) item("security") {
+                SecurityWidget(navController)
             }
             if (dhizukuState.isOwner) item("app_management") {
                 AppManagementWidget(navController)
@@ -278,6 +282,19 @@ private fun LazyItemScope.SettingsWidget(navController: NavController) {
         Text(stringResource(R.string.settings))
     }, text = {
         Text(stringResource(R.string.settings_desc))
+    })
+}
+
+@Composable
+private fun LazyItemScope.SecurityWidget(navController: NavController) {
+    CardWidget(onClick = {
+        navController.navigate(SettingsRoute.Security.route)
+    }, icon = {
+        Icon(imageVector = Icons.TwoTone.Security, contentDescription = null)
+    }, title = {
+        Text(stringResource(R.string.security))
+    }, text = {
+        Text(stringResource(R.string.security_desc))
     })
 }
 

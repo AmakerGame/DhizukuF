@@ -86,7 +86,7 @@ body:
   - type: dropdown
     id: dangerous
     attributes:
-      label: "Settings > \"Dangerous commands\""
+      label: "Security > \"Enable dangerous commands\""
       options:
         - Off (default)
         - "On"

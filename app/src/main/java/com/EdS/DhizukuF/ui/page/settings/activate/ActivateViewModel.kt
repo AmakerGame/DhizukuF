@@ -35,6 +35,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 import org.koin.core.component.KoinComponent
@@ -136,7 +137,7 @@ class ActivateViewModel : ViewModel(), KoinComponent {
                 if (it is InvocationTargetException) it.targetException
                 else it
             }
-            if (exceptionOrNull is CancellationException) return@launch
+            if (exceptionOrNull is CancellationException || !isActive) return@launch
             state = state.copy(status = ActivateViewState.Status.End(error = exceptionOrNull))
         }
     }
@@ -158,7 +159,7 @@ class ActivateViewModel : ViewModel(), KoinComponent {
                 if (it is InvocationTargetException) it.targetException
                 else it
             }
-            if (exceptionOrNull is CancellationException) return@launch
+            if (exceptionOrNull is CancellationException || !isActive) return@launch
             state = state.copy(status = ActivateViewState.Status.End(error = exceptionOrNull))
         }
     }

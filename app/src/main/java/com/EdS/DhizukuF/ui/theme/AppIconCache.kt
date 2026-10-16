@@ -37,7 +37,7 @@ object AppIconCache : KoinComponent {
         val availableCacheSize = (maxMemory / 4).toInt()
         object : LruCache<String, Bitmap>(availableCacheSize) {
             override fun sizeOf(key: String, value: Bitmap): Int {
-                return value.byteCount / 4
+                return (value.byteCount / 1024).coerceAtLeast(1)
             }
         }
     }

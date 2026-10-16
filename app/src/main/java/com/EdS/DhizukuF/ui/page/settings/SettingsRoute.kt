@@ -8,6 +8,7 @@ sealed class SettingsRoute(val route: String) {
         fun route(userId: Int) = "account_management/$userId"
     }
     data object Settings : SettingsRoute("settings")
+    data object Security : SettingsRoute("security")
     data object Activate : SettingsRoute("activate/{mode}") {
         enum class Mode {
             Dhizuku,

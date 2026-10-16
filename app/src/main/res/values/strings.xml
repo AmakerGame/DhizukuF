@@ -140,4 +140,34 @@
     <string name="hub_replace_title">Replace the installed Dhizuku?</string>
     <string name="hub_replace_text">Warning: %1$s (com.rosan.dhizuku) will be removed. It blocks the hub because it has the same package name. After the hub is installed, apps that use Dhizuku will work through DhizukuF.</string>
     <string name="hub_replace_yes">Yes, remove and install</string>
+    <!-- Security -->
+    <string name="security">Security</string>
+    <string name="security_desc">Whitelist, dangerous commands and confirming an app\'s access with the screen lock, fingerprint or face</string>
+    <string name="security_auth_title">Require device authentication</string>
+    <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
+    <string name="auth_mode_off">Off</string>
+    <string name="auth_mode_off_desc">No extra check</string>
+    <string name="auth_mode_confirm">Only on confirmation</string>
+    <string name="auth_mode_confirm_desc">When an app asks to use the Dhizuku API, and in App management: Allow, Refuse and Block need the screen lock, fingerprint or face</string>
+    <string name="auth_mode_entry">Only when opening the app</string>
+    <string name="auth_mode_entry_desc">DhizukuF is locked when you open it and after 30 seconds in the background</string>
+    <string name="auth_mode_both">On confirmation and when opening the app</string>
+    <string name="auth_mode_both_desc">Both checks</string>
+    <string name="security_no_lock_title">No screen lock</string>
+    <string name="security_no_lock_msg">This device has no PIN, pattern or password, so there is nothing to confirm with. Set a screen lock in the Android settings first, then choose this option again.</string>
+    <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
+    <string name="security_not_enforced">The option you chose is NOT enforced until a screen lock is set again.</string>
+    <string name="security_open_lock_settings">Screen lock settings</string>
+    <string name="security_open_lock_settings_failed">This device has no such screen. Open Android settings > Security and set a PIN, pattern or password.</string>
+    <string name="auth_prompt_title">Confirm that it is you</string>
+    <string name="auth_prompt_security">Change a security setting</string>
+    <string name="auth_prompt_allow">Allow an app to use DhizukuF</string>
+    <string name="auth_prompt_refuse">Refuse an app</string>
+    <string name="auth_prompt_block">Block an app</string>
+    <string name="auth_prompt_unblock">Unblock an app</string>
+    <string name="auth_prompt_entry_title">Unlock DhizukuF</string>
+    <string name="auth_prompt_entry_subtitle">Use your screen lock, fingerprint or face</string>
+    <string name="locked_title">DhizukuF is locked</string>
+    <string name="locked_unlock">Unlock</string>
+    <string name="locked_close">Close</string>
 </resources>

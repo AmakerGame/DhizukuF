@@ -1,3 +1,0 @@
-- Corrigido o widget do cartão da Shizuku
-- Adicionado modo de lista branca
-- Adicionada função para alternar o estado da Dhizuku

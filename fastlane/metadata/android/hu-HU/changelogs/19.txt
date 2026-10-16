@@ -1,2 +1,0 @@
--Profil tulajdonos használat támogatás hozzáadva
--Dhizuku-API javítása

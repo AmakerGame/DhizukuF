@@ -1,6 +1,0 @@
-- Support Android 16
-- Support EdgeToEdge
-- Update donation link
-- Fix Shizuku's card widget
-- Add language: Persian, Filipino, Vietnamese
-- Update translations

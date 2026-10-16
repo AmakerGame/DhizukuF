@@ -143,6 +143,8 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.activity.compose)
+    // Screen lock / fingerprint / face confirmation (Security page)
+    implementation(libs.androidx.biometric)
 
     implementation(libs.compose.ui)
     debugImplementation(libs.compose.ui.tooling)

@@ -37,6 +37,7 @@ body:
         - Account manager
         - User manager
         - Settings
+        - Security (whitelist, dangerous commands, screen-lock confirmation)
         - Permission dialog ("Allow X to use Dhizuku?")
         - Terminal (dish) card / export of dish files
         - Dhizuku Compatibility Hub card

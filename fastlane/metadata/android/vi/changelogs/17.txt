@@ -1,3 +1,0 @@
-- Sửa lỗi widget thẻ của Shizuku
-- Thêm chế độ danh sách trắng
-- Thêm tính năng chuyển đổi trạng thái của Dhizuku

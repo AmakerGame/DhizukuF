@@ -1,3 +1,0 @@
-- Corregir el widget de la tarjeta de Shizuku
-- Añadir modo de lista blanca
-- Añadir función para cambiar el estado de Dhizuku

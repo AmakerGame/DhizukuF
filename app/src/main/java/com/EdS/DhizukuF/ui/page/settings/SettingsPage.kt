@@ -16,6 +16,7 @@ import com.EdS.DhizukuF.ui.page.settings.activate.ActivatePage
 import com.EdS.DhizukuF.ui.page.settings.account_manager.AccountManagerPage
 import com.EdS.DhizukuF.ui.page.settings.app_management.AppManagementPage
 import com.EdS.DhizukuF.ui.page.settings.home.HomePage
+import com.EdS.DhizukuF.ui.page.settings.security.SecurityPage
 import com.EdS.DhizukuF.ui.page.settings.settings.SettingsPage
 import com.EdS.DhizukuF.ui.page.settings.user_manager.UserManagerPage
 
@@ -81,6 +82,12 @@ fun SettingsPage(windowInsets: WindowInsets) {
                 windowInsets = windowInsets,
                 userId = userId,
                 onBack = navController::navigateUp
+            )
+        }
+        composable(route = SettingsRoute.Security.route) {
+            SecurityPage(
+                windowInsets = windowInsets,
+                navController = navController
             )
         }
         composable(route = SettingsRoute.Settings.route) {

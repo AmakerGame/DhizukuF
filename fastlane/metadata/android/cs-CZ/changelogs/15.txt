@@ -1,3 +1,0 @@
-- Přidány "Podmínky užití" a "Zásady ochrany osobních údajů"
-- Přidáno dialogové okno ohledně přijetí.
-- Aktualizace překladů

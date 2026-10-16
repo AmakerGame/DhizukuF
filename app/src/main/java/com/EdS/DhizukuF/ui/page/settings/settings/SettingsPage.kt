@@ -104,21 +104,6 @@ fun SettingsPage(
                         )
 
                         SwitchRow(
-                            title = stringResource(R.string.enable_dangerous),
-                            description = stringResource(R.string.enable_dangerous_desc),
-                            checked = viewModel.state.dangerousEnabled,
-                            onCheckedChange = viewModel::setDangerousEnabled,
-                            titleColor = MaterialTheme.colorScheme.error
-                        )
-
-                        SwitchRow(
-                            title = stringResource(R.string.whitelist_mode),
-                            description = stringResource(R.string.whitelist_mode_desc),
-                            checked = viewModel.state.whitelistMode,
-                            onCheckedChange = viewModel::setWhitelistMode
-                        )
-
-                        SwitchRow(
                             title = stringResource(R.string.advanced_confirmation),
                             description = stringResource(R.string.advanced_confirmation_desc),
                             checked = viewModel.state.advancedConfirmation,

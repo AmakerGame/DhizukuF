@@ -1,1 +1,0 @@
-Et verktøy som kan dele enhetseiertillatelser med andre applikasjoner.

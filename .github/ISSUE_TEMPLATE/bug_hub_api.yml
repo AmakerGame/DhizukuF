@@ -67,6 +67,7 @@ body:
         - '"Dhizuku" is switched on'
         - '"Whitelist mode" is on'
         - '"Dangerous commands" is on'
+        - '"Require device authentication" is on'
         - The app is blocked in App management
         - The app is listed in App management and allowed
         - The app is not listed in App management

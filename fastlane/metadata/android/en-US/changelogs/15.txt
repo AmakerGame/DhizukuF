@@ -1,3 +1,0 @@
-- Add "Terms of Use" and "Privacy Policy"
-- Add agreement dialog
-- Update translate

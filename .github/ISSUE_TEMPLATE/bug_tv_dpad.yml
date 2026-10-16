@@ -35,6 +35,7 @@ body:
         - Account manager
         - User manager
         - Settings
+        - Security (whitelist, dangerous commands, screen-lock confirmation)
         - Permission dialog ("Allow X to use Dhizuku?")
         - A dialog (status, warning, confirm, shutdown)
         - Drop-down menu (owner type, ...)

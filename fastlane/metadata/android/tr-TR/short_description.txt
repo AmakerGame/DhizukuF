@@ -1,1 +1,0 @@
-Cihaz sahibi izinlerini diğer uygulamalarla paylaşmaya yaran bir araç.

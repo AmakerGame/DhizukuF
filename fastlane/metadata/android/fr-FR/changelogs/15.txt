@@ -1,3 +1,0 @@
-- Ajout des « Conditions d'utilisation » et de la « Politique de confidentialité »
-- Ajout de la boîte de dialogue d'accord
-- Mise à jour de la traduction

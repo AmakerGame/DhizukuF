@@ -607,8 +607,12 @@ class DishCommands(
             "disable", "enable" -> {
                 val disable = a[0] == "disable"
                 val r = set(disable)
+                // Read the value back when the feature has a getter (camera, screen capture); a setter
+                // that returns nothing says nothing about the result.
+                val applied = if (get != null) runCatching { get() == disable }.getOrDefault(r != false)
+                else r != false
                 outcome(
-                    r != false,
+                    applied,
                     "$label is ${if (disable) "disabled" else "enabled"}",
                     "the system refused to ${a[0]} $label"
                 )

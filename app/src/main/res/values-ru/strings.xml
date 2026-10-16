@@ -108,4 +108,34 @@
     <string name="hub_replace_title">Заменить установленный Dhizuku?</string>
     <string name="hub_replace_text">Внимание: %1$s (com.rosan.dhizuku) будет удалён. Он блокирует хаб, так как у него такое же имя пакета. После установки хаба приложения, использующие Dhizuku, будут работать через DhizukuF.</string>
     <string name="hub_replace_yes">Да, удалить и установить</string>
+    <!-- Безопасность -->
+    <string name="security">Безопасность</string>
+    <string name="security_desc">Белый список, опасные команды и подтверждение доступа приложений блокировкой экрана, отпечатком или лицом</string>
+    <string name="security_auth_title">Требовать аутентификацию устройства</string>
+    <string name="security_auth_desc">Запрашивать блокировку экрана (PIN, графический ключ, пароль), отпечаток пальца или лицо. По умолчанию выключено.</string>
+    <string name="auth_mode_off">Выключить</string>
+    <string name="auth_mode_off_desc">Без дополнительной проверки</string>
+    <string name="auth_mode_confirm">Только при подтверждении</string>
+    <string name="auth_mode_confirm_desc">Когда приложение просит доступ к Dhizuku API, а также в «Управлении приложениями»: Разрешить, Отказать и Заблокировать требуют блокировку экрана, отпечаток или лицо</string>
+    <string name="auth_mode_entry">Только при входе в приложение</string>
+    <string name="auth_mode_entry_desc">DhizukuF блокируется при открытии и после 30 секунд в фоне</string>
+    <string name="auth_mode_both">При подтверждении и входе в приложение</string>
+    <string name="auth_mode_both_desc">Обе проверки</string>
+    <string name="security_no_lock_title">Нет блокировки экрана</string>
+    <string name="security_no_lock_msg">На этом устройстве нет PIN-кода, графического ключа или пароля, поэтому подтверждать нечем. Сначала установите блокировку экрана в настройках Android, затем выберите этот пункт снова.</string>
+    <string name="security_auth_unavailable_msg">Сейчас устройство не может запросить аутентификацию (блокировка экрана задана, но система сообщает, что подтверждение недоступно). Проверьте блокировку экрана и биометрию в настройках Android.</string>
+    <string name="security_not_enforced">Выбранный пункт НЕ действует, пока снова не будет установлена блокировка экрана.</string>
+    <string name="security_open_lock_settings">Настройки блокировки экрана</string>
+    <string name="security_open_lock_settings_failed">На этом устройстве нет такого экрана. Откройте настройки Android > Безопасность и установите PIN-код, графический ключ или пароль.</string>
+    <string name="auth_prompt_title">Подтвердите, что это вы</string>
+    <string name="auth_prompt_security">Изменение настройки безопасности</string>
+    <string name="auth_prompt_allow">Разрешение приложению использовать DhizukuF</string>
+    <string name="auth_prompt_refuse">Отказ приложению</string>
+    <string name="auth_prompt_block">Блокировка приложения</string>
+    <string name="auth_prompt_unblock">Разблокировка приложения</string>
+    <string name="auth_prompt_entry_title">Разблокируйте DhizukuF</string>
+    <string name="auth_prompt_entry_subtitle">Используйте блокировку экрана, отпечаток пальца или лицо</string>
+    <string name="locked_title">DhizukuF заблокирован</string>
+    <string name="locked_unlock">Разблокировать</string>
+    <string name="locked_close">Закрыть</string>
 </resources>

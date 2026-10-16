@@ -10,6 +10,7 @@ interface SettingsRepo {
     fun flowDonateButtonHidden(): Flow<Boolean>
     fun flowShowDishLabel(): Flow<Boolean>
     fun flowAdvancedConfirmation(): Flow<Boolean>
+    fun flowAuthMode(): Flow<AuthMode>
     var isWhitelistMode: Boolean
     var isDhizukuEnabled: Boolean
     var isDishEnabled: Boolean
@@ -17,4 +18,5 @@ interface SettingsRepo {
     var isDonateButtonHidden: Boolean
     var isShowDishLabel: Boolean
     var isAdvancedConfirmation: Boolean
+    var authMode: AuthMode
 }

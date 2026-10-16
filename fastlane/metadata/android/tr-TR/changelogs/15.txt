@@ -1,3 +1,0 @@
-- Kullanım Koşulları" ve "Gizlilik Politikası" ekle
-- Sözleşme (kabul) iletişim kutusu ekle
-- Çeviriyi güncelle

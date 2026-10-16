@@ -3,6 +3,7 @@ package com.EdS.DhizukuF.di
 import com.EdS.DhizukuF.ui.page.settings.activate.ActivateViewModel
 import com.EdS.DhizukuF.ui.page.settings.app_management.AppManagementViewModel
 import com.EdS.DhizukuF.ui.page.settings.account_manager.AccountManagerViewModel
+import com.EdS.DhizukuF.ui.page.settings.security.SecurityViewModel
 import com.EdS.DhizukuF.ui.page.settings.settings.SettingsViewModel
 import com.EdS.DhizukuF.ui.page.settings.user_manager.UserManagerViewModel
 
@@ -18,6 +19,9 @@ val viewModelModule = module {
     }
     viewModel {
         SettingsViewModel()
+    }
+    viewModel {
+        SecurityViewModel()
     }
     viewModel {
         UserManagerViewModel()

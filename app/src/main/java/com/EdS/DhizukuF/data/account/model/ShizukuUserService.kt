@@ -39,6 +39,8 @@ class ShizukuUserService(private val context: Context) : UserService {
             val dir = context.getExternalFilesDir(null)
             if (dir != null) {
                 val logFile = File(dir, "log.txt")
+                // keep the file small: it is only a diagnostic aid
+                if (logFile.length() > 256 * 1024) logFile.writeText("")
                 val time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(Date())
                 logFile.appendText("[$time] $message\n")
             }

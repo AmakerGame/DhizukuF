@@ -8,7 +8,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
+import androidx.fragment.app.FragmentActivity
+import com.EdS.DhizukuF.security.DeviceAuth
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.compose.animation.core.LinearEasing
@@ -67,7 +68,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 import java.util.concurrent.atomic.AtomicBoolean
 
-class RequestPermissionActivity : ComponentActivity(), KoinComponent {
+class RequestPermissionActivity : FragmentActivity(), KoinComponent {
     companion object {
         const val UID_ERR = -1
         const val AUTO_DENY_SECONDS = 15
@@ -92,6 +93,35 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
     // The answer of one request is saved and reported exactly once, however often finish() runs
     // (a button, onPause, the timer and a recomposition can all call it).
     private val answered = AtomicBoolean(false)
+
+    // True while the system asks for the screen lock / fingerprint / face. The PIN screen is an activity of its
+    // own, so this window pauses: that must not count as "the user left" (it would refuse the request), and the
+    // countdown waits.
+    @Volatile
+    private var authenticating = false
+
+    /**
+     * Allow, Refuse and Block are decisions about what an app may do with Device Owner power. With *Require
+     * authentication > on confirmation* each of them needs the screen lock / fingerprint / face first. Without a
+     * screen lock (or with the option off) the decision is taken at once. Doing nothing (the timer, Back) still
+     * refuses without a prompt, so a request can always be turned down.
+     */
+    private fun decideWithConfirmation(subtitleRes: Int, decide: () -> Unit) {
+        if (!settingsRepo.authMode.onConfirm || !DeviceAuth.canAuthenticate(this)) {
+            decide()
+            return
+        }
+        authenticating = true
+        DeviceAuth.authenticate(
+            this,
+            getString(R.string.auth_prompt_title),
+            getString(subtitleRes)
+        ) { ok ->
+            authenticating = false
+            if (ok) decide()
+        }
+    }
+
     private val appRepo by inject<AppRepo>()
     private val settingsRepo by inject<SettingsRepo>()
     private var state by mutableStateOf(ViewState())
@@ -139,9 +169,12 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
             DhizukuTheme {
                 if (state.shouldShowDialog) {
                     LaunchedEffect(Unit) {
-                        repeat(AUTO_DENY_SECONDS) { second ->
+                        var left = AUTO_DENY_SECONDS
+                        while (left > 0) {
                             delay(1000)
-                            state = state.copy(timeLeft = AUTO_DENY_SECONDS - second - 1)
+                            if (authenticating) continue
+                            left--
+                            state = state.copy(timeLeft = left)
                         }
                         if (!state.timedOut) {
                             state = state.copy(allowApi = false, timedOut = true)
@@ -175,7 +208,7 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
 
     override fun onPause() {
         super.onPause()
-        if (!isChangingConfigurations) finish()
+        if (!isChangingConfigurations && !authenticating) finish()
     }
 
     override fun finish() {
@@ -430,23 +463,29 @@ class RequestPermissionActivity : ComponentActivity(), KoinComponent {
                     }
                 }
                 MyTextButton(onClick = {
-                    state = state.copy(allowApi = true, timedOut = true)
-                    finish()
+                    decideWithConfirmation(R.string.auth_prompt_allow) {
+                        state = state.copy(allowApi = true, timedOut = true)
+                        finish()
+                    }
                 }, textResId = R.string.agree, isPrimary = true)
                 MyTextButton(onClick = {
-                    if (state.uid != UID_ERR) {
-                        DishApproval.results[state.uid] = false
-                    }
-                    state = state.copy(allowApi = false, timedOut = true)
-                    finish()
-                }, textResId = R.string.refuse, focus = safeFocus)
-                if (settingsRepo.isAdvancedConfirmation) {
-                    MyTextButton(onClick = {
+                    decideWithConfirmation(R.string.auth_prompt_refuse) {
                         if (state.uid != UID_ERR) {
                             DishApproval.results[state.uid] = false
                         }
-                        state = state.copy(allowApi = false, timedOut = true, block = true)
+                        state = state.copy(allowApi = false, timedOut = true)
                         finish()
+                    }
+                }, textResId = R.string.refuse, focus = safeFocus)
+                if (settingsRepo.isAdvancedConfirmation) {
+                    MyTextButton(onClick = {
+                        decideWithConfirmation(R.string.auth_prompt_block) {
+                            if (state.uid != UID_ERR) {
+                                DishApproval.results[state.uid] = false
+                            }
+                            state = state.copy(allowApi = false, timedOut = true, block = true)
+                            finish()
+                        }
                     }, textResId = R.string.block)
                 }
             }

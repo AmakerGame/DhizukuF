@@ -1,3 +1,0 @@
-- La til "Brukervilkår" og "Rettningslinjer for personvern"
-- La til dialog for samtykke
-- Oppdaterte oversettelser

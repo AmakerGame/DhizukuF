@@ -1,3 +1,0 @@
-- Naprawa widżetu karty Shizuku
-- Dodano tryb białej listy
-- Dodano funkcję przełączania stanu Dhizuku

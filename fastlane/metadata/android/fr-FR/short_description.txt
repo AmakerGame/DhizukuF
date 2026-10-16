@@ -1,1 +1,0 @@
-Un outil qui peut partager les permissions du Propriétaire avec d'autres applis.

@@ -1,5 +1,0 @@
-Dhizuku Compatibility Hub: apps written for the original Dhizuku can use DhizukuF (Settings, first card).
-New dish commands: log, batch, uninstall, app-restrictions, lock-task, vpn, location, backup, time, ime and more.
-Steadier dish client and commands that cannot hang.
-Switching a dish terminal off removes it from the list.
-Installs on more Android TV boxes.

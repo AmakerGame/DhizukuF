@@ -5,8 +5,10 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.EdS.DhizukuF.data.common.util.asFlow
 import com.EdS.DhizukuF.data.common.util.devicePrefs
+import com.EdS.DhizukuF.data.settings.repo.AuthMode
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -37,6 +39,15 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
 
     override fun flowAdvancedConfirmation(): Flow<Boolean> =
         prefs.asFlow("advanced_confirmation", false)
+
+    override fun flowAuthMode(): Flow<AuthMode> =
+        prefs.asFlow("auth_mode", AuthMode.Off.name).map { AuthMode.parse(it) }
+
+    override var authMode: AuthMode
+        get() = AuthMode.parse(prefs.getString("auth_mode", AuthMode.Off.name))
+        set(value) = prefs.edit(true) {
+            putString("auth_mode", value.name)
+        }
 
     override var isShowDishLabel: Boolean
         get() = prefs.getBoolean("show_dish_label", true)

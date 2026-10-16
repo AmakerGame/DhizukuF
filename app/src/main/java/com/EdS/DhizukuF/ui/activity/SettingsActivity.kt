@@ -12,12 +12,36 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
-import androidx.activity.ComponentActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.twotone.Lock
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.unit.dp
+import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
+import com.EdS.DhizukuF.security.DeviceAuth
+import com.EdS.DhizukuF.security.EntryLock
+import com.EdS.DhizukuF.ui.widget.TvButton
+import kotlinx.coroutines.delay
+import org.koin.core.component.inject
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.AlertDialog
@@ -41,7 +65,7 @@ import com.EdS.DhizukuF.ui.theme.DhizukuTheme
 import org.koin.core.component.KoinComponent
 import androidx.core.net.toUri
 
-class SettingsActivity : ComponentActivity(), KoinComponent {
+class SettingsActivity : FragmentActivity(), KoinComponent {
     private val appPrefs by lazy {
         getSharedPreferences("app", MODE_PRIVATE)
     }
@@ -52,16 +76,65 @@ class SettingsActivity : ComponentActivity(), KoinComponent {
 
     private lateinit var stringLauncher: ActivityResultLauncher<String>
 
+    private val settingsRepo by inject<SettingsRepo>()
+
+    // "Require authentication > when opening the app": the page stays hidden until the user passes the prompt.
+    private var locked by mutableStateOf(false)
+    private var started = false
+
+    private fun entryAuthNeeded(): Boolean =
+        settingsRepo.authMode.onEntry && DeviceAuth.canAuthenticate(this) && !EntryLock.isUnlocked()
+
+    private fun unlock() {
+        DeviceAuth.authenticate(
+            this,
+            getString(R.string.auth_prompt_entry_title),
+            getString(R.string.auth_prompt_entry_subtitle)
+        ) { ok ->
+            if (ok) {
+                locked = false
+                startUp()
+            }
+        }
+    }
+
+    /** The system requests that used to run at once, now after the unlock. */
+    private fun startUp() {
+        if (started) return
+        started = true
+        requestPostNotificationPermission()
+        requestIgnoreBatteryOptimization()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EntryLock.onReturned()
+        if (!locked && entryAuthNeeded()) {
+            locked = true
+            unlock()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (!isChangingConfigurations) EntryLock.onLeft()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        locked = entryAuthNeeded()
         setContent {
             DhizukuTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    AgreementDialog()
-                    SettingsPage(windowInsets = WindowInsets.safeDrawing)
+                    if (locked) {
+                        LockScreen()
+                    } else {
+                        AgreementDialog()
+                        SettingsPage(windowInsets = WindowInsets.safeDrawing)
+                    }
                 }
             }
         }
@@ -69,8 +142,41 @@ class SettingsActivity : ComponentActivity(), KoinComponent {
         stringLauncher = registerForActivityResult(
             RequestPermission()
         ) { _: Boolean -> }
-        requestPostNotificationPermission()
-        requestIgnoreBatteryOptimization()
+        if (locked) unlock() else startUp()
+    }
+
+    @Composable
+    private fun LockScreen() {
+        val focus = remember { FocusRequester() }
+        LaunchedEffect(Unit) {
+            delay(400)
+            runCatching { focus.requestFocus() }
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(32.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                imageVector = Icons.TwoTone.Lock,
+                contentDescription = null,
+                modifier = Modifier.size(64.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = stringResource(R.string.locked_title),
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            TvButton(onClick = { unlock() }, modifier = Modifier.focusRequester(focus)) {
+                Text(stringResource(R.string.locked_unlock))
+            }
+            TvTextButton(onClick = { finish() }) {
+                Text(stringResource(R.string.locked_close))
+            }
+        }
     }
 
     fun requestPostNotificationPermission() {

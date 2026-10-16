@@ -131,8 +131,9 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
                     return@launch
                 }
             }
-            val signature = packageManager.getPackageInfoForUid(uid)?.signature ?: return@launch
             val entity = repo.findByUID(uid)
+            val signature = packageManager.getPackageInfoForUid(uid)?.signature
+                ?: entity?.signature ?: return@launch
             if (entity == null)
                 repo.insert(AppEntity(uid = uid, signature = signature, allowApi = bool))
             else
@@ -142,8 +143,9 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
 
     fun setBlocked(uid: Int, bool: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            val signature = packageManager.getPackageInfoForUid(uid)?.signature ?: return@launch
             val entity = repo.findByUID(uid)
+            val signature = packageManager.getPackageInfoForUid(uid)?.signature
+                ?: entity?.signature ?: return@launch
             if (entity == null)
                 repo.insert(AppEntity(uid = uid, signature = signature, allowApi = false, blocked = bool))
             else
