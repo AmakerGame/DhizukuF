@@ -1,0 +1,251 @@
+package com.EdS.DhizukuF.dish
+
+import android.content.Context
+import android.content.Intent
+import android.os.SystemClock
+import android.util.Log
+import com.EdS.DhizukuF.R
+import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
+import com.EdS.DhizukuF.data.common.util.signature
+import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
+import com.EdS.DhizukuF.data.settings.repo.AppRepo
+import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
+import com.EdS.DhizukuF.server.DhizukuState
+import com.EdS.DhizukuF.ui.activity.RequestPermissionActivity
+import com.rosan.dhizuku.shared.DhizukuVariables
+import kotlinx.coroutines.runBlocking
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+/**
+ * Brain of dish. The client reaches it through DishBinder, so the caller's uid always comes from
+ * Binder.getCallingUid() (Android guarantees it) and the caller is authorized exactly like any
+ * other Dhizuku client.
+ */
+object DishEngine : KoinComponent {
+    private const val TAG = "DishEngine"
+
+    // Reply kinds (keep in sync with DishMain.java)
+    const val KIND_EXECUTED = 0
+    const val KIND_NEED_APPROVAL = 1
+    const val KIND_DENIED = 2
+    const val KIND_APPROVED = 3
+
+    private const val APPROVAL_TIMEOUT_MS = 60_000L
+
+    // A command that hangs inside the system must not block a Binder thread forever.
+    private const val COMMAND_TIMEOUT_S = 40L
+    private val pool = java.util.concurrent.Executors.newFixedThreadPool(4) { r ->
+        Thread(r, "dish-exec").apply { isDaemon = true }
+    }
+
+    // A caller that is not approved yet must not be able to tie up Binder threads (a waiting
+    // request blocks one for up to 60 s) or flood the user with dialogs.
+    private const val MAX_WAITERS = 4
+    private const val DIALOG_COOLDOWN_MS = 10_000L
+    private val waiters = java.util.concurrent.atomic.AtomicInteger(0)
+    private val waitingUids: MutableSet<Int> = java.util.concurrent.ConcurrentHashMap.newKeySet()
+    private val lastDialog = java.util.concurrent.ConcurrentHashMap<Int, Long>()
+
+    class Reply(
+        val kind: Int,
+        val code: Int = 0,
+        val out: String = "",
+        val err: String = "",
+        val message: String = ""
+    )
+
+    private sealed interface Verdict {
+        data object Allowed : Verdict
+        data object NeedPermission : Verdict
+        class Denied(val message: String) : Verdict
+    }
+
+    private val appRepo by inject<AppRepo>()
+    private val settingsRepo by inject<SettingsRepo>()
+
+    private var binder: DishBinder? = null
+
+    @Synchronized
+    fun binder(context: Context): DishBinder =
+        binder ?: DishBinder(context.applicationContext).also { binder = it }
+
+    private fun str(context: Context, id: Int, vararg args: Any) = context.getString(id, *args)
+
+    /** Runs a command for [uid], or explains why it cannot run yet. */
+    fun execute(context: Context, uid: Int, args: List<String>): Reply {
+        // Refuse early: when dish is off (or DhizukuF is not the owner) nothing is registered and
+        // no approval window opens.
+        gate(context)?.let { return Reply(KIND_DENIED, message = it) }
+
+        // Registration request: the terminal shows up in the app list as "dish (<app>)".
+        DishRegistry.register(uid, label(context, uid))
+
+        return when (val verdict = authorize(context, uid)) {
+            Verdict.Allowed -> {
+                val result = runLimited {
+                    DishCommands(context, uid, settingsRepo.isDangerousEnabled).execute(args)
+                }
+                DishAudit.record(uid, packageOf(context, uid), args, result.code)
+                Reply(KIND_EXECUTED, result.code, result.out, result.err)
+            }
+
+            is Verdict.Denied -> Reply(KIND_DENIED, message = verdict.message)
+
+            Verdict.NeedPermission -> {
+                DishApproval.results.remove(uid)
+                val now = SystemClock.elapsedRealtime()
+                val last = lastDialog[uid]
+                if (last == null || now - last >= DIALOG_COOLDOWN_MS) {
+                    lastDialog[uid] = now
+                    launchDialog(context, uid)
+                }
+                val name = DishRegistry.displayName(uid, label(context, uid))
+                Reply(KIND_NEED_APPROVAL, message = str(context, R.string.dish_need_permission, name))
+            }
+        }
+    }
+
+    /** Blocks until the user approves (dialog or app list), refuses, or the time runs out. */
+    fun awaitApproval(context: Context, uid: Int): Reply {
+        gate(context)?.let { return Reply(KIND_DENIED, message = it) }
+        if (!waitingUids.add(uid)) {
+            return Reply(KIND_DENIED, message = "Another dish request of this app is already waiting")
+        }
+        if (waiters.incrementAndGet() > MAX_WAITERS) {
+            waiters.decrementAndGet()
+            waitingUids.remove(uid)
+            return Reply(KIND_DENIED, message = "Too many dish requests are waiting, try again later")
+        }
+        try {
+            return waitLoop(context, uid)
+        } finally {
+            waiters.decrementAndGet()
+            waitingUids.remove(uid)
+        }
+    }
+
+    private fun waitLoop(context: Context, uid: Int): Reply {
+        val deadline = SystemClock.elapsedRealtime() + APPROVAL_TIMEOUT_MS
+        while (SystemClock.elapsedRealtime() < deadline) {
+            if (DishApproval.results[uid] == false) {
+                // the dialog already removed the refused terminal from the list
+                DishApproval.results.remove(uid)
+                return Reply(KIND_DENIED, message = str(context, R.string.dish_err_denied))
+            }
+            when (val verdict = authorize(context, uid)) {
+                Verdict.Allowed -> return Reply(KIND_APPROVED)
+                is Verdict.Denied -> return Reply(KIND_DENIED, message = verdict.message)
+                Verdict.NeedPermission -> Unit
+            }
+            Thread.sleep(300)
+        }
+        dropPending(uid)
+        return Reply(KIND_DENIED, message = str(context, R.string.dish_err_denied))
+    }
+
+    /**
+     * A request that was refused or never answered must not stay in App management as a disabled row.
+     * Approved and blocked entries are never touched.
+     */
+    private fun dropPending(uid: Int) {
+        runBlocking {
+            val entity = appRepo.findByUID(uid)
+            if (entity != null && (entity.allowApi || entity.blocked)) return@runBlocking
+            DishRegistry.unregister(uid)
+            if (entity != null) appRepo.delete(entity)
+        }
+    }
+
+    private fun packageOf(context: Context, uid: Int): String =
+        context.packageManager.getPackagesForUid(uid)?.firstOrNull() ?: "?"
+
+    private fun runLimited(block: () -> DishCommands.Result): DishCommands.Result {
+        val future = try {
+            pool.submit(java.util.concurrent.Callable { block() })
+        } catch (e: java.util.concurrent.RejectedExecutionException) {
+            return DishCommands.Result(err = "NOT DONE: dish is busy, try again\n", code = 1)
+        }
+        return try {
+            future.get(COMMAND_TIMEOUT_S, java.util.concurrent.TimeUnit.SECONDS)
+        } catch (e: java.util.concurrent.TimeoutException) {
+            future.cancel(true)
+            DishCommands.Result(err = "NOT DONE: the command did not finish in ${COMMAND_TIMEOUT_S}s\n", code = 1)
+        } catch (e: java.util.concurrent.ExecutionException) {
+            val cause = e.cause ?: e
+            DishCommands.Result(err = "NOT DONE: internal error (${cause.javaClass.simpleName})\n", code = 1)
+        } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
+            DishCommands.Result(err = "NOT DONE: interrupted\n", code = 1)
+        }
+    }
+
+    private fun launchDialog(context: Context, uid: Int) {
+        try {
+            context.startActivity(
+                Intent()
+                    .setClassName(context.packageName, RequestPermissionActivity::class.java.name)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra(DhizukuVariables.PARAM_CLIENT_UID, uid)
+            )
+        } catch (e: Exception) {
+            // Background start can be refused; the app list still has the pending entry.
+            Log.w(TAG, "cannot open the approval dialog", e)
+        }
+    }
+
+    private fun gate(context: Context): String? = when {
+        !DhizukuState.state.isOwner -> str(context, R.string.dish_err_not_owner)
+        !settingsRepo.isDishEnabled -> str(context, R.string.dish_err_disabled)
+        else -> null
+    }
+
+    private fun authorize(context: Context, uid: Int): Verdict {
+        if (!DhizukuState.state.isOwner) {
+            return Verdict.Denied(str(context, R.string.dish_err_not_owner))
+        }
+        if (!settingsRepo.isDishEnabled) {
+            return Verdict.Denied(str(context, R.string.dish_err_disabled))
+        }
+
+        val signature = context.packageManager.getPackageInfoForUid(uid)?.signature
+            ?: return Verdict.Denied(str(context, R.string.dish_err_unknown_caller))
+        val entity = runBlocking { appRepo.findByUID(uid) }
+
+        if (entity?.blocked == true) return Verdict.Denied(str(context, R.string.dish_err_blocked))
+        if (entity != null && entity.allowApi && entity.signature == signature) return Verdict.Allowed
+
+        // Make the caller visible in DhizukuF > App management (switch off) so it can also be
+        // approved from the list, exactly like every other client app.
+        registerPending(uid, signature, entity)
+
+        if (settingsRepo.isWhitelistMode) {
+            return Verdict.Denied(str(context, R.string.dish_err_whitelist))
+        }
+        return Verdict.NeedPermission
+    }
+
+    private fun registerPending(uid: Int, signature: String, entity: AppEntity?) {
+        try {
+            runBlocking {
+                if (entity == null) {
+                    appRepo.insert(AppEntity(uid = uid, signature = signature, allowApi = false))
+                } else if (entity.signature != signature) {
+                    appRepo.update(entity.copy(signature = signature, allowApi = false))
+                }
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "cannot register pending app $uid", e)
+        }
+    }
+
+    fun label(context: Context, uid: Int): String {
+        val pm = context.packageManager
+        val pkg = pm.getPackagesForUid(uid)?.firstOrNull() ?: return "uid $uid"
+        return try {
+            pm.getApplicationInfo(pkg, 0).loadLabel(pm).toString()
+        } catch (e: Exception) {
+            pkg
+        }
+    }
+}

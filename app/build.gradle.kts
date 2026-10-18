@@ -7,6 +7,25 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
+// Copies the hub APK (built by :hub, same key and version) into this app's assets.
+abstract class CopyHubApk : DefaultTask() {
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val hubApk: ConfigurableFileCollection
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @TaskAction
+    fun copyApk() {
+        val dir = outputDir.get().asFile
+        dir.mkdirs()
+        val apk = hubApk.files.firstOrNull { it.name.endsWith(".apk") }
+            ?: throw GradleException("the hub APK was not built")
+        apk.copyTo(File(dir, "dhizuku_compat_hub.apk"), overwrite = true)
+    }
+}
+
 val keystoreDir: String = "$rootDir/keystore"
 
 val keystoreProps: Properties = Properties()
@@ -18,7 +37,7 @@ for (name in arrayOf("r0s.properties", "debug.properties")) {
 }
 
 android {
-    namespace = "com.rosan.dhizuku"
+    namespace = "com.EdS.DhizukuF"
     compileSdk = 37
     buildToolsVersion = "37.0.0"
 
@@ -104,15 +123,31 @@ ksp {
     arg("room.schemaLocation", "$projectDir/schemas")
 }
 
+val hubApkTree = fileTree(project(":hub").layout.buildDirectory.dir("outputs/apk/release")) {
+    include("*.apk")
+    builtBy(":hub:assembleRelease")
+}
+
+androidComponents {
+    onVariants { variant ->
+        val copyHub = tasks.register<CopyHubApk>("copy${variant.name.replaceFirstChar { it.uppercase() }}HubApk") {
+            hubApk.from(hubApkTree)
+        }
+        variant.sources.assets?.addGeneratedSourceDirectory(copyHub, CopyHubApk::outputDir)
+    }
+}
+
 dependencies {
     compileOnly(project(":hidden-api"))
 
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.activity.compose)
+    // Screen lock / fingerprint / face confirmation (Security page)
+    implementation(libs.androidx.biometric)
 
     implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.navigation)
     implementation(libs.compose.materialIcons)
     implementation(libs.material)

@@ -1,0 +1,86 @@
+name: Bug - Hub / Dhizuku API in another app
+description: An app that uses the Dhizuku API (or the compatibility hub) does not work with DhizukuF.
+labels: [ "bug", "hub", "api", "triage needed" ]
+title: "[Hub/API] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Apps written for the original Dhizuku look for `com.rosan.dhizuku`. The hub forwards them to DhizukuF, see
+        [docs/HUB.md](https://github.com/AmakerGame/DhizukuF/blob/main/docs/HUB.md). English, Ukrainian and Russian are all fine.
+  - type: checkboxes
+    attributes:
+      label: Before you send
+      options:
+        - label: I use the [latest release](https://github.com/AmakerGame/DhizukuF/releases/latest) and the hub card says *Installed and up to date*.
+          required: true
+        - label: I read [docs/HUB.md](https://github.com/AmakerGame/DhizukuF/blob/main/docs/HUB.md).
+          required: true
+        - label: I searched the [existing issues](https://github.com/AmakerGame/DhizukuF/issues?q=is%3Aissue) and found nothing like it.
+          required: true
+  - type: input
+    id: client
+    attributes:
+      label: The app that does not work
+      description: Name, package name and version (and a link, if it is open source).
+      placeholder: "Example App, com.example.app 2.3"
+    validations:
+      required: true
+  - type: dropdown
+    id: hub
+    attributes:
+      label: Status of the hub card (Settings > Dhizuku Compatibility Hub)
+      options:
+        - Installed and up to date
+        - Update available
+        - Not installed
+        - Blocked by the original Dhizuku (package com.rosan.dhizuku exists)
+        - I do not use the hub, the app knows DhizukuF
+    validations:
+      required: true
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Where does it fail?
+      options:
+        - The app does not find Dhizuku / says it is not installed
+        - The permission dialog does not open
+        - The permission dialog opens, I allow, but the app still has no access
+        - The app has access but a Device Owner action fails
+        - The app crashes
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What exactly happens?
+    validations:
+      required: true
+  - type: dropdown
+    id: switches
+    attributes:
+      label: Settings in DhizukuF
+      description: Pick everything that is true.
+      multiple: true
+      options:
+        - '"Dhizuku" is switched on'
+        - '"Whitelist mode" is on'
+        - '"Dangerous commands" is on'
+        - '"Require device authentication" is on'
+        - The app is blocked in App management
+        - The app is listed in App management and allowed
+        - The app is not listed in App management
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: "Poco C61, Android 16"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log (optional)
+      description: "`adb logcat -d | grep -i -E 'dhizuku|AndroidRuntime'`"
+      render: shell

@@ -1,0 +1,22 @@
+package com.EdS.DhizukuF.data.settings.repo
+
+import kotlinx.coroutines.flow.Flow
+
+interface SettingsRepo {
+    fun flowWhitelistMode(): Flow<Boolean>
+    fun flowDhizukuEnabled(): Flow<Boolean>
+    fun flowDishEnabled(): Flow<Boolean>
+    fun flowDangerousEnabled(): Flow<Boolean>
+    fun flowDonateButtonHidden(): Flow<Boolean>
+    fun flowShowDishLabel(): Flow<Boolean>
+    fun flowAdvancedConfirmation(): Flow<Boolean>
+    fun flowAuthMode(): Flow<AuthMode>
+    var isWhitelistMode: Boolean
+    var isDhizukuEnabled: Boolean
+    var isDishEnabled: Boolean
+    var isDangerousEnabled: Boolean
+    var isDonateButtonHidden: Boolean
+    var isShowDishLabel: Boolean
+    var isAdvancedConfirmation: Boolean
+    var authMode: AuthMode
+}
