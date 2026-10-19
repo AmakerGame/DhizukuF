@@ -82,7 +82,7 @@ fun LogsPage(
 
     LaunchedEffect(Unit) {
         // Translated event titles are part of what the search looks at.
-        viewModel.setTitles(LogEvent.entries.associateWith { context.getString(it.titleRes()) })
+        viewModel.provideTitles(LogEvent.entries.associateWith { context.getString(it.titleRes()) })
         viewModel.load()
         // New entries while the screen is open: reload shortly after the last one (not once per entry).
         LogManager.changes.drop(1).collectLatest {
@@ -123,13 +123,13 @@ fun LogsPage(
         ) {
             OutlinedTextField(
                 value = viewModel.query,
-                onValueChange = viewModel::setQuery,
+                onValueChange = viewModel::updateQuery,
                 singleLine = true,
                 label = { Text(stringResource(R.string.logs_search)) },
                 leadingIcon = { Icon(imageVector = Icons.TwoTone.Search, contentDescription = null) },
                 trailingIcon = {
                     if (viewModel.query.isNotEmpty()) {
-                        TvIconButton(onClick = { viewModel.setQuery("") }) {
+                        TvIconButton(onClick = { viewModel.updateQuery("") }) {
                             Icon(imageVector = Icons.TwoTone.Clear, contentDescription = null)
                         }
                     }

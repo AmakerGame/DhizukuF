@@ -40,7 +40,7 @@ class LogsViewModel : ViewModel() {
     private var loadJob: Job? = null
     private var filterJob: Job? = null
 
-    fun setTitles(value: Map<LogEvent, String>) {
+    fun provideTitles(value: Map<LogEvent, String>) {
         titles = value
     }
 
@@ -54,7 +54,7 @@ class LogsViewModel : ViewModel() {
         }
     }
 
-    fun setQuery(value: String) {
+    fun updateQuery(value: String) {
         query = value
         filterJob?.cancel()
         filterJob = viewModelScope.launch(Dispatchers.Default) {
