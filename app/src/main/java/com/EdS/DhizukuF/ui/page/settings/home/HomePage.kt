@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF.ui.page.settings.home
 
+import androidx.compose.material.icons.twotone.Description
+
 import com.EdS.DhizukuF.ui.widget.TvOutlinedButton
 
 import com.EdS.DhizukuF.ui.widget.TvIconButton
@@ -134,6 +136,10 @@ fun HomePage(
     navController: NavController
 ) {
     val dhizukuState = DhizukuState.state
+    // "Logs" is hidden by default: it appears only while logging is switched on in Settings > Logs.
+    val settingsRepo = koinInject<SettingsRepo>()
+    val logsFlow = remember { settingsRepo.flowLogConfig() }
+    val logsEnabled by logsFlow.collectAsState(initial = settingsRepo.logConfig)
     Scaffold(
         modifier = Modifier
             .windowInsetsPadding(windowInsets.exclude(WindowInsetsSides.Bottom))
@@ -173,6 +179,9 @@ fun HomePage(
             }
             if (dhizukuState.isOwner) item("dhizuku") {
                 DhizukuWidget(navController)
+            }
+            if (logsEnabled.enabled) item("logs") {
+                LogsWidget(navController)
             }
             item("dish") {
                 DishWidget()
@@ -282,6 +291,19 @@ private fun LazyItemScope.SettingsWidget(navController: NavController) {
         Text(stringResource(R.string.settings))
     }, text = {
         Text(stringResource(R.string.settings_desc))
+    })
+}
+
+@Composable
+private fun LazyItemScope.LogsWidget(navController: NavController) {
+    CardWidget(onClick = {
+        navController.navigate(SettingsRoute.Logs.route)
+    }, icon = {
+        Icon(imageVector = Icons.TwoTone.Description, contentDescription = null)
+    }, title = {
+        Text(stringResource(R.string.logs))
+    }, text = {
+        Text(stringResource(R.string.logs_desc))
     })
 }
 

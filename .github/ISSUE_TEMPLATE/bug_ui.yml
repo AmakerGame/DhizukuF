@@ -115,3 +115,8 @@ body:
       label: Log (if the app crashes)
       description: "`adb logcat -d | grep -i -E 'dhizuku|AndroidRuntime'` after the crash."
       render: shell
+  - type: textarea
+    id: dhizukuf-logs
+    attributes:
+      label: DhizukuF logs (optional)
+      description: "Settings > Logs > Enable logs, repeat the problem, then Export logs and drag the .txt file here (or paste the part that matters). Look through it first: it names apps and packages."

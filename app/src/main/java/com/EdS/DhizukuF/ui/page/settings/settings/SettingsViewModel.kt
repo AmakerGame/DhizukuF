@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.page.settings.settings
 
+import com.EdS.DhizukuF.logging.LogManager
+
+import com.EdS.DhizukuF.logging.LogEvent
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -80,12 +84,14 @@ class SettingsViewModel : ViewModel(), KoinComponent {
     fun setDishEnabled(enabled: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.isDishEnabled = enabled
+            LogManager.log(LogEvent.ConnectionChanged, message = "dish terminal access switched " + if (enabled) "on" else "off")
         }
     }
 
     fun setDhizukuEnabled(enabled: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.isDhizukuEnabled = enabled
+            LogManager.log(LogEvent.ConnectionChanged, message = "Dhizuku API access switched " + if (enabled) "on" else "off")
         }
     }
 }

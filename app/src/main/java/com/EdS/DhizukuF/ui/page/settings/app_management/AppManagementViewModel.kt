@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.page.settings.app_management
 
+import com.EdS.DhizukuF.logging.LogManager
+
+import com.EdS.DhizukuF.logging.LogEvent
+
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -121,6 +125,10 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
 
     fun setEnabled(uid: Int, bool: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
+            LogManager.log(
+                if (bool) LogEvent.PermissionGranted else LogEvent.PermissionDenied,
+                uid = uid, message = "Changed in App management"
+            )
             if (!bool && DishRegistry.isDish(uid)) {
                 // A dish terminal that is switched off is forgotten and leaves the list; its next dish
                 // request registers it again. A blocked terminal keeps its entry, or the block would be lost.
@@ -143,6 +151,10 @@ class AppManagementViewModel : ViewModel(), KoinComponent {
 
     fun setBlocked(uid: Int, bool: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
+            LogManager.log(
+                if (bool) LogEvent.AppBlocked else LogEvent.PermissionDenied,
+                uid = uid, message = if (bool) "Blocked in App management" else "Unblocked in App management (not allowed)"
+            )
             val entity = repo.findByUID(uid)
             val signature = packageManager.getPackageInfoForUid(uid)?.signature
                 ?: entity?.signature ?: return@launch

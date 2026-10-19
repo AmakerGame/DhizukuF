@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.widget
 
+import androidx.compose.material3.RadioButton
+
+import androidx.compose.foundation.selection.selectable
+
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -162,4 +166,29 @@ fun TvIconButton(
         enabled = enabled,
         content = content
     )
+}
+
+
+/** One choice of a list of exclusive options: a plain selectable row (a normal D-pad focus target with a frame). */
+@Composable
+fun TvRadioRow(
+    title: String,
+    description: String? = null,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .tvFocusBorder(RoundedCornerShape(12.dp))
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
+            .padding(horizontal = 8.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(selected = selected, onClick = null)
+        Column(modifier = Modifier.padding(start = 12.dp)) {
+            Text(title, style = MaterialTheme.typography.titleMedium)
+            if (description != null) Text(description, style = MaterialTheme.typography.bodyMedium)
+        }
+    }
 }

@@ -3,6 +3,22 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## Unreleased
+
+### Added
+- **Logs.** *Settings > Logs* (off by default) turns on a journal of DhizukuF: service started / stopped, Device Owner
+  status, app requested access / connected / disconnected, permission granted / denied / blocked, commands from apps
+  (Dhizuku API and dish) with their result, blocked dangerous calls and errors (a crash is written too).
+  - A **Logs** card on the home screen, **above Terminal**, shown only while logging is on. The **Logs** screen has
+    *Search* (text, app name, package, event type, command, result), newest entries first, and a details view with
+    everything that is known (time, type, package, UID, app, command, result, error).
+  - Options: *Enable logs*, *Log level* (Errors only / Warnings / Normal / Debug), *Log categories* (service,
+    permission, app requests, commands, errors, debug), *Maximum log size* (1 / 5 / 10 / 25 MB, oldest entries are
+    deleted), *Export logs* (`dhizukuf-logs-YYYY-MM-DD.txt`), *Clear logs*.
+  - Off means off: no file, no thread, no saved event. Commands are recorded by their first words only; see
+    [docs/LOGS.md](docs/LOGS.md) for what is and is not recorded.
+- The bug report forms ask for the exported journal.
+
 ## 1.4.1 (7)
 
 A fix release: one crash, a stale dish file and several small things found in a full review of the project.

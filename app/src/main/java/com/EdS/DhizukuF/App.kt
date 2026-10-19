@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF
 
+import com.EdS.DhizukuF.logging.LogManager
+
 import android.app.Application
 import android.content.Context
 
@@ -29,10 +31,18 @@ class App : Application(), KoinComponent {
             modules(appModules)
             modules(module { single { this@App } })
         }
+        // The journal (Settings > Logs) is off by default; this only remembers the context.
+        LogManager.init(this)
     }
 
     override fun onCreate() {
         super.onCreate()
+        // Settings > Logs: when logging is on, a crash is written to the journal before the process dies.
+        val previousHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            runCatching { LogManager.crash(throwable, thread.name) }
+            previousHandler?.uncaughtException(thread, throwable)
+        }
         DhizukuState.sync(this)
         Sui.init(packageName)
         DynamicColors.applyToActivitiesIfAvailable(this)

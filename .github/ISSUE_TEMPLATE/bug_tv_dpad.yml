@@ -109,3 +109,8 @@ body:
     attributes:
       label: Video or screenshots
       description: Drag the files here. Show the whole screen so the focus frame is visible.
+  - type: textarea
+    id: dhizukuf-logs
+    attributes:
+      label: DhizukuF logs (optional)
+      description: "Settings > Logs > Enable logs, repeat the problem, then Export logs and drag the .txt file here (or paste the part that matters). Look through it first: it names apps and packages."

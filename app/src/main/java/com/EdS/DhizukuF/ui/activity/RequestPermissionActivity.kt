@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.activity
 
+import com.EdS.DhizukuF.logging.LogManager
+
+import com.EdS.DhizukuF.logging.LogEvent
+
 import com.EdS.DhizukuF.ui.widget.tvFocusBorder
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -220,6 +224,16 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
         val listener = state.listener
         // dish waits for this: every refusal (button, Back, timeout, losing focus) must reach it
         if (!allowApi && uid != UID_ERR) DishApproval.results[uid] = false
+        if (uid != UID_ERR) {
+            LogManager.log(
+                when {
+                    allowApi -> LogEvent.PermissionGranted
+                    block -> LogEvent.AppBlocked
+                    else -> LogEvent.PermissionDenied
+                },
+                uid = uid, message = "Decision in the permission dialog"
+            )
+        }
         coroutineScope.launch {
             val packageInfo = packageManager.getPackageInfoForUid(uid) ?: return@launch
             val signature = packageInfo.signature ?: return@launch
@@ -288,6 +302,10 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
             uid = uid,
             signature = packageManager.getPackageInfoForUid(uid)?.signature ?: "",
             listener = listener
+        )
+        LogManager.log(
+            LogEvent.AppRequestedAccess, uid = uid,
+            message = if (DishRegistry.isDish(uid)) "dish terminal asks for approval" else "Permission dialog"
         )
         return true
     }

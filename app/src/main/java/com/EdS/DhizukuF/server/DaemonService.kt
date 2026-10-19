@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.server
 
+import com.EdS.DhizukuF.logging.LogManager
+
+import com.EdS.DhizukuF.logging.LogEvent
+
 import android.app.NotificationManager
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -50,6 +54,7 @@ class DaemonService : Service(), KoinComponent {
                     repo.delete(entity)
                 } catch (t: Throwable) {
                     Log.w("DaemonService", "package check failed", t)
+                    LogManager.error("DaemonService: package check failed", t)
                 }
             }
         }
@@ -65,6 +70,7 @@ class DaemonService : Service(), KoinComponent {
 
     override fun onCreate() {
         super.onCreate()
+        LogManager.log(LogEvent.ServiceStarted, message = "Foreground service created")
         registerPackageReceiver()
         // A service started with startForegroundService() must call startForeground() in time even
         // when it is about to stop, otherwise Android kills the app.
@@ -88,6 +94,7 @@ class DaemonService : Service(), KoinComponent {
         } catch (_: IllegalArgumentException) {
         }
         scope.cancel()
+        LogManager.log(LogEvent.ServiceStopped, message = "Foreground service destroyed")
         super.onDestroy()
     }
 
@@ -104,6 +111,7 @@ class DaemonService : Service(), KoinComponent {
                     .forEach { DishRegistry.unregister(it) }
             } catch (t: Throwable) {
                 Log.w("DaemonService", "cleanup failed", t)
+                LogManager.error("DaemonService: cleanup failed", t)
             }
         }
 

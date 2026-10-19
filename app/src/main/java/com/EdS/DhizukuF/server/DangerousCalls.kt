@@ -92,6 +92,26 @@ object DangerousCalls {
         return if (hit) name else null
     }
 
+    private val unresolvable = ConcurrentHashMap.newKeySet<String>()
+
+    /**
+     * "IDevicePolicyManager.setApplicationHidden" for the journal, or null when the name is not known. Used only
+     * while logging is on. An interface whose names cannot be read is remembered, so it is tried once.
+     */
+    fun methodLabel(binder: IBinder, code: Int): String? {
+        val descriptor = try {
+            binder.interfaceDescriptor
+        } catch (_: Throwable) {
+            null
+        } ?: return null
+        val names = transactionNames[descriptor]
+            ?: if (descriptor in unresolvable) emptyMap() else loadNames(descriptor).also {
+                if (it.isNotEmpty()) transactionNames[descriptor] = it else unresolvable.add(descriptor)
+            }
+        val name = names[code] ?: return null
+        return descriptor.substringAfterLast('.') + "." + name
+    }
+
     /** `TRANSACTION_xxx` constants of the generated Stub class of the interface, by code. */
     private fun loadNames(descriptor: String): Map<Int, String> = try {
         // The constants are hidden API: without the exemption the system hides them from reflection (Android 9+),

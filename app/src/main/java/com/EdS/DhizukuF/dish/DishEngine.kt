@@ -1,5 +1,13 @@
 package com.EdS.DhizukuF.dish
 
+import com.EdS.DhizukuF.logging.LogManager
+
+import com.EdS.DhizukuF.logging.LogLevel
+
+import com.EdS.DhizukuF.logging.LogEvent
+
+import com.EdS.DhizukuF.logging.LogCategory
+
 import android.content.Context
 import android.content.Intent
 import android.os.SystemClock
@@ -83,14 +91,32 @@ object DishEngine : KoinComponent {
 
         return when (val verdict = authorize(context, uid)) {
             Verdict.Allowed -> {
+                // The journal (Settings > Logs): only the first words of the command, never the values behind them.
+                val logging = LogManager.isActive(LogCategory.Command)
+                val summary = if (logging) LogManager.summarize(args, if (args.firstOrNull() in setOf("batch", "api", "call")) 2 else 3) else ""
+                if (logging) LogManager.log(LogEvent.CommandFromApp, uid = uid, command = summary, message = "dish")
                 val result = runLimited {
                     DishCommands(context, uid, settingsRepo.isDangerousEnabled).execute(args)
+                }
+                if (logging) {
+                    LogManager.log(
+                        if (result.code == 0) LogEvent.CommandCompleted else LogEvent.CommandFailed,
+                        uid = uid, command = summary,
+                        result = statusLine(result.out + result.err) ?: "exit code ${result.code}",
+                        message = "dish, exit code ${result.code}"
+                    )
                 }
                 DishAudit.record(uid, packageOf(context, uid), args, result.code)
                 Reply(KIND_EXECUTED, result.code, result.out, result.err)
             }
 
-            is Verdict.Denied -> Reply(KIND_DENIED, message = verdict.message)
+            is Verdict.Denied -> {
+                LogManager.log(
+                    LogEvent.PermissionDenied, uid = uid, level = LogLevel.Warning,
+                    message = verdict.message, command = "dish"
+                )
+                Reply(KIND_DENIED, message = verdict.message)
+            }
 
             Verdict.NeedPermission -> {
                 DishApproval.results.remove(uid)
@@ -160,6 +186,15 @@ object DishEngine : KoinComponent {
     private fun packageOf(context: Context, uid: Int): String =
         context.packageManager.getPackagesForUid(uid)?.firstOrNull() ?: "?"
 
+    /**
+     * The last line of the output when it is dish's own status line (`OK: ...` / `NOT DONE: ...`). Anything else
+     * can hold values of the device (a setting, a list of apps), so it is not copied into the journal.
+     */
+    private fun statusLine(text: String): String? {
+        val last = text.lineSequence().map { it.trim() }.lastOrNull { it.isNotEmpty() } ?: return null
+        return if (last.startsWith("OK") || last.startsWith("NOT DONE")) last.take(160) else null
+    }
+
     private fun runLimited(block: () -> DishCommands.Result): DishCommands.Result {
         val future = try {
             pool.submit(java.util.concurrent.Callable { block() })
@@ -173,6 +208,7 @@ object DishEngine : KoinComponent {
             DishCommands.Result(err = "NOT DONE: the command did not finish in ${COMMAND_TIMEOUT_S}s\n", code = 1)
         } catch (e: java.util.concurrent.ExecutionException) {
             val cause = e.cause ?: e
+            LogManager.error("dish: a command threw an exception", cause)
             DishCommands.Result(err = "NOT DONE: internal error (${cause.javaClass.simpleName})\n", code = 1)
         } catch (e: InterruptedException) {
             Thread.currentThread().interrupt()

@@ -1,5 +1,13 @@
 package com.EdS.DhizukuF.ui.page.settings.settings
 
+import com.EdS.DhizukuF.ui.widget.tvFocusBorder
+
+import com.EdS.DhizukuF.ui.page.settings.SettingsRoute
+
+import androidx.compose.foundation.shape.RoundedCornerShape
+
+import androidx.compose.material.icons.twotone.Description
+
 import com.EdS.DhizukuF.ui.widget.TvIconButton
 
 import androidx.compose.foundation.layout.Arrangement
@@ -120,6 +128,34 @@ fun SettingsPage(
                 }
             }
 
+            item {
+                LogsEntry(onClick = { navController.navigate(SettingsRoute.LogSettings.route) })
+            }
+        }
+    }
+}
+
+/** The "Logs" row of Settings: opens the page with the logging options. */
+@Composable
+private fun LogsEntry(onClick: () -> Unit) {
+    ElevatedCard(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .tvFocusBorder(RoundedCornerShape(12.dp))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Icon(imageVector = Icons.TwoTone.Description, contentDescription = null)
+            Column(modifier = Modifier.weight(1f)) {
+                Text(stringResource(R.string.logs), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.logs_settings_desc), style = MaterialTheme.typography.bodyMedium)
+            }
         }
     }
 }

@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.server
 
+import com.EdS.DhizukuF.logging.LogManager
+
+import com.EdS.DhizukuF.logging.LogEvent
+
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -35,6 +39,26 @@ data object DhizukuState {
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val syncMutex = Mutex()
 
+    // What the journal last saw, to tell a real change from the first look after the process started.
+    @Volatile
+    private var lastLoggedState: State? = null
+
+    private fun describe(s: State) = when {
+        s.isDeviceOwner -> "Device Owner"
+        s.isProfileOwner -> "Profile Owner"
+        else -> "not an owner"
+    }
+
+    private fun logOwnerStatus(now: State) {
+        val before = lastLoggedState
+        lastLoggedState = now
+        if (before == null) {
+            LogManager.log(LogEvent.DebugInfo, message = "Owner status at start: ${describe(now)}")
+        } else if (before != now) {
+            LogManager.log(LogEvent.OwnerStatusChanged, message = "${describe(before)} -> ${describe(now)}")
+        }
+    }
+
     fun sync(context: Context) {
         val app = context.applicationContext
         val dpm = app.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
@@ -44,6 +68,7 @@ data object DhizukuState {
             isProfileOwner = dpm.isProfileOwnerApp(admin.packageName)
         )
         state = newState
+        logOwnerStatus(newState)
         // Expensive (many binder calls): never on the main thread, never concurrently.
         syncScope.launch {
             syncMutex.withLock {
@@ -51,6 +76,7 @@ data object DhizukuState {
                     onReceive(app, dpm, admin, newState)
                 } catch (t: Throwable) {
                     Log.w("DhizukuState", "sync failed", t)
+                    LogManager.error("DhizukuState: sync failed", t)
                 }
             }
         }

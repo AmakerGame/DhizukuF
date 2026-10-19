@@ -1,5 +1,9 @@
 package com.EdS.DhizukuF.ui.page.settings
 
+import com.EdS.DhizukuF.ui.page.settings.logs.LogSettingsPage
+
+import com.EdS.DhizukuF.ui.page.settings.logs.LogsPage
+
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
@@ -86,6 +90,18 @@ fun SettingsPage(windowInsets: WindowInsets) {
         }
         composable(route = SettingsRoute.Security.route) {
             SecurityPage(
+                windowInsets = windowInsets,
+                navController = navController
+            )
+        }
+        composable(route = SettingsRoute.Logs.route) {
+            LogsPage(
+                windowInsets = windowInsets,
+                navController = navController
+            )
+        }
+        composable(route = SettingsRoute.LogSettings.route) {
+            LogSettingsPage(
                 windowInsets = windowInsets,
                 navController = navController
             )
