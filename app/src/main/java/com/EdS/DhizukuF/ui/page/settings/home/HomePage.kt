@@ -1,5 +1,31 @@
 package com.EdS.DhizukuF.ui.page.settings.home
 
+import com.EdS.DhizukuF.ui.page.settings.customization.AppIconImage
+
+import com.EdS.DhizukuF.customization.HomeLayoutLogic
+
+import androidx.compose.ui.draw.alpha
+
+import androidx.compose.foundation.layout.width
+
+import androidx.compose.foundation.lazy.items
+
+import androidx.compose.foundation.lazy.itemsIndexed
+
+import androidx.compose.material.icons.twotone.VisibilityOff
+
+import androidx.compose.material.icons.twotone.Visibility
+
+import androidx.compose.material.icons.twotone.Palette
+
+import androidx.compose.material.icons.twotone.Edit
+
+import androidx.compose.material.icons.twotone.Check
+
+import androidx.compose.material.icons.twotone.ArrowUpward
+
+import androidx.compose.material.icons.twotone.ArrowDownward
+
 import androidx.compose.material.icons.twotone.Description
 
 import com.EdS.DhizukuF.ui.widget.TvOutlinedButton
@@ -136,10 +162,43 @@ fun HomePage(
     navController: NavController
 ) {
     val dhizukuState = DhizukuState.state
-    // "Logs" is hidden by default: it appears only while logging is switched on in Settings > Logs.
+    val owner = dhizukuState.isOwner
     val settingsRepo = koinInject<SettingsRepo>()
+    // "Logs" is hidden by default: it appears only while logging is switched on in Settings > Logs.
     val logsFlow = remember { settingsRepo.flowLogConfig() }
     val logsEnabled by logsFlow.collectAsState(initial = settingsRepo.logConfig)
+    // Customization: the name and icon in the title, the order of the cards and the hidden ones.
+    val appearanceFlow = remember { settingsRepo.flowAppearance() }
+    val appearance by appearanceFlow.collectAsState(initial = settingsRepo.appearance)
+    val layoutFlow = remember { settingsRepo.flowHomeLayout() }
+    val layout by layoutFlow.collectAsState(initial = settingsRepo.homeLayout)
+    val scope = rememberCoroutineScope()
+    var editMode by remember { mutableStateOf(false) }
+
+    // The cards that exist on this screen right now (some depend on the state of DhizukuF).
+    val available = buildSet {
+        add("dhizuku_state")
+        if (owner) add("settings")
+        if (owner) add("security")
+        add("customization")
+        if (owner) add("app_management")
+        add("user_management")
+        if (owner) add("dhizuku")
+        if (logsEnabled.enabled) add("logs")
+        add("dish")
+        if (!owner) add("shizuku")
+        if (!owner) add("adb")
+        if (owner) add("home_deactivate_title")
+    }
+    val arranged = remember(layout.order) { HomeLayoutLogic.arrange(HOME_DEFAULT_ORDER, layout.order) }
+    fun saveOrder(order: List<String>) {
+        scope.launch(Dispatchers.IO) { settingsRepo.homeOrder = order }
+    }
+
+    fun saveHidden(hidden: Set<String>) {
+        scope.launch(Dispatchers.IO) { settingsRepo.homeHidden = hidden }
+    }
+
     Scaffold(
         modifier = Modifier
             .windowInsetsPadding(windowInsets.exclude(WindowInsetsSides.Bottom))
@@ -148,10 +207,19 @@ fun HomePage(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(stringResource(R.string.app_name))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        AppIconImage(
+                            choice = appearance.effectiveIcon,
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clip(RoundedCornerShape(7.dp))
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(appearance.shownName ?: stringResource(R.string.app_name))
+                    }
                 },
                 actions = {
-                    TopBarActions()
+                    TopBarActions(editMode = editMode, onToggleEdit = { editMode = !editMode })
                 }
             )
         }) {
@@ -162,47 +230,178 @@ fun HomePage(
                 .padding(it),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            item("dhizuku_state") {
-                DhizukuStateWidget()
-            }
-            if (dhizukuState.isOwner) item("settings") {
-                SettingsWidget(navController)
-            }
-            if (dhizukuState.isOwner) item("security") {
-                SecurityWidget(navController)
-            }
-            if (dhizukuState.isOwner) item("app_management") {
-                AppManagementWidget(navController)
-            }
-            item("user_management") {
-                UserManagementWidget(navController)
-            }
-            if (dhizukuState.isOwner) item("dhizuku") {
-                DhizukuWidget(navController)
-            }
-            if (logsEnabled.enabled) item("logs") {
-                LogsWidget(navController)
-            }
-            item("dish") {
-                DishWidget()
-            }
-            if (!dhizukuState.isOwner) item("shizuku") {
-                ShizukuWidget(navController)
-            }
-            if (!dhizukuState.isOwner) item("adb") {
-                AdbWidget()
-            }
-            if (dhizukuState.isOwner) item("home_deactivate_title") {
-                DeactivateWidget()
+            if (editMode) {
+                item("edit_hint") {
+                    EditHint(onReset = {
+                        saveOrder(HOME_DEFAULT_ORDER)
+                        saveHidden(emptySet())
+                    })
+                }
+                val shown = arranged.filter { key -> key in available }
+                itemsIndexed(shown, key = { _, key -> "edit_$key" }) { index, key ->
+                    HomeEditRow(
+                        title = stringResource(homeTitleRes(key)),
+                        hidden = key in layout.hidden,
+                        canUp = index > 0,
+                        canDown = index < shown.lastIndex,
+                        onUp = { saveOrder(HomeLayoutLogic.move(arranged, available, key, -1)) },
+                        onDown = { saveOrder(HomeLayoutLogic.move(arranged, available, key, +1)) },
+                        onToggle = { saveHidden(HomeLayoutLogic.toggleHidden(layout.hidden, key)) }
+                    )
+                }
+            } else {
+                val visible = HomeLayoutLogic.visible(arranged, available, layout.hidden)
+                items(visible, key = { key -> key }) { key ->
+                    HomeCard(key, navController)
+                }
+                if (visible.isEmpty()) {
+                    item("all_hidden") { AllHiddenHint() }
+                }
             }
         }
     }
 }
 
+/** The order of the cards when nothing was changed. Logs stays above Terminal (dish). */
+private val HOME_DEFAULT_ORDER = listOf(
+    "dhizuku_state", "settings", "security", "customization", "app_management", "user_management",
+    "dhizuku", "logs", "dish", "shizuku", "adb", "home_deactivate_title"
+)
+
+private fun homeTitleRes(key: String): Int = when (key) {
+    "dhizuku_state" -> R.string.home_edit_status
+    "settings" -> R.string.settings
+    "security" -> R.string.security
+    "customization" -> R.string.customization
+    "app_management" -> R.string.home_app_management_title
+    "user_management" -> R.string.user_manager
+    "dhizuku" -> R.string.home_dhizuku_title
+    "logs" -> R.string.logs
+    "dish" -> R.string.home_dish_title
+    "shizuku" -> R.string.home_shizuku_title
+    "adb" -> R.string.home_adb_title
+    else -> R.string.home_deactivate_title
+}
+
+@Composable
+private fun LazyItemScope.HomeCard(key: String, navController: NavController) {
+    when (key) {
+        "dhizuku_state" -> DhizukuStateWidget()
+        "settings" -> SettingsWidget(navController)
+        "security" -> SecurityWidget(navController)
+        "customization" -> CustomizationWidget(navController)
+        "app_management" -> AppManagementWidget(navController)
+        "user_management" -> UserManagementWidget(navController)
+        "dhizuku" -> DhizukuWidget(navController)
+        "logs" -> LogsWidget(navController)
+        "dish" -> DishWidget()
+        "shizuku" -> ShizukuWidget(navController)
+        "adb" -> AdbWidget()
+        "home_deactivate_title" -> DeactivateWidget()
+    }
+}
+
+@Composable
+private fun LazyItemScope.CustomizationWidget(navController: NavController) {
+    CardWidget(onClick = {
+        navController.navigate(SettingsRoute.Customization.route)
+    }, icon = {
+        Icon(imageVector = Icons.TwoTone.Palette, contentDescription = null)
+    }, title = {
+        Text(stringResource(R.string.customization))
+    }, text = {
+        Text(stringResource(R.string.customization_desc))
+    })
+}
+
+/** One card in the editing mode: no navigation here, only the order and the visibility. */
+@Composable
+private fun LazyItemScope.HomeEditRow(
+    title: String,
+    hidden: Boolean,
+    canUp: Boolean,
+    canDown: Boolean,
+    onUp: () -> Unit,
+    onDown: () -> Unit,
+    onToggle: () -> Unit
+) {
+    ElevatedCard(modifier = Modifier
+        .fillMaxWidth()
+        .animateItem()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, top = 4.dp, end = 4.dp, bottom = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .weight(1f)
+                    .alpha(if (hidden) 0.45f else 1f)
+            )
+            TvIconButton(onClick = onUp, enabled = canUp) {
+                Icon(Icons.TwoTone.ArrowUpward, contentDescription = stringResource(R.string.home_edit_move_up))
+            }
+            TvIconButton(onClick = onDown, enabled = canDown) {
+                Icon(Icons.TwoTone.ArrowDownward, contentDescription = stringResource(R.string.home_edit_move_down))
+            }
+            TvIconButton(onClick = onToggle) {
+                Icon(
+                    if (hidden) Icons.TwoTone.VisibilityOff else Icons.TwoTone.Visibility,
+                    contentDescription = stringResource(if (hidden) R.string.home_edit_show else R.string.home_edit_hide)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun LazyItemScope.EditHint(onReset: () -> Unit) {
+    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(stringResource(R.string.home_edit_hint), style = MaterialTheme.typography.bodyMedium)
+            TvOutlinedButton(onClick = onReset, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(8.dp)) {
+                Text(stringResource(R.string.home_edit_reset))
+            }
+        }
+    }
+}
+
+@Composable
+private fun LazyItemScope.AllHiddenHint() {
+    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            stringResource(R.string.home_edit_all_hidden),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(16.dp)
+        )
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopBarActions() {
+private fun TopBarActions(editMode: Boolean, onToggleEdit: () -> Unit) {
     var shutdownDialogShow by remember { mutableStateOf(false) }
+    // The pencil: edit the home screen (order of the cards, hide / show them). It is left of the X.
+    TooltipBox(
+        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+        tooltip = { PlainTooltip { Text(stringResource(R.string.home_edit_title)) } },
+        state = rememberTooltipState()
+    ) {
+        TvIconButton(onClick = onToggleEdit) {
+            Icon(
+                if (editMode) Icons.TwoTone.Check else Icons.TwoTone.Edit,
+                contentDescription = stringResource(R.string.home_edit_title)
+            )
+        }
+    }
     TooltipBox(
         positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
         tooltip = { PlainTooltip { Text(stringResource(R.string.home_shutdown_title)) } },

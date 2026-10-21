@@ -1,5 +1,15 @@
 package com.EdS.DhizukuF.data.settings.repo
 
+import com.EdS.DhizukuF.customization.ThemeMode
+
+import com.EdS.DhizukuF.customization.ThemeConfig
+
+import com.EdS.DhizukuF.customization.IconChoice
+
+import com.EdS.DhizukuF.customization.HomeLayout
+
+import com.EdS.DhizukuF.customization.AppearanceConfig
+
 import com.EdS.DhizukuF.logging.LogCategory
 import com.EdS.DhizukuF.logging.LogConfig
 import com.EdS.DhizukuF.logging.LogLevel
@@ -22,6 +32,28 @@ interface SettingsRepo {
     var logLevel: LogLevel
     var logCategories: Set<LogCategory>
     var logMaxSizeMb: Int
+
+    /** Settings > Customization. */
+    fun flowThemeConfig(): Flow<ThemeConfig>
+    val themeConfig: ThemeConfig
+    var themeMode: ThemeMode
+    var dynamicColors: Boolean
+
+    fun flowAppearance(): Flow<AppearanceConfig>
+    val appearance: AppearanceConfig
+    var appDisplayName: String
+    var selectedIcon: IconChoice
+    var rememberAppearance: Boolean
+    var customIconIds: List<String>
+
+    /** The versionCode of DhizukuF at which the name and the icon were last put in place (see AppearanceManager). */
+    var appearanceVersion: Int
+
+    /** The order of the cards of the home screen and the hidden ones (Home > pencil). */
+    fun flowHomeLayout(): Flow<HomeLayout>
+    val homeLayout: HomeLayout
+    var homeOrder: List<String>
+    var homeHidden: Set<String>
     var isWhitelistMode: Boolean
     var isDhizukuEnabled: Boolean
     var isDishEnabled: Boolean

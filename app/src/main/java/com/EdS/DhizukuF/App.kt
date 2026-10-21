@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF
 
+import com.EdS.DhizukuF.customization.AppearanceManager
+
 import com.EdS.DhizukuF.logging.LogManager
 
 import android.app.Application
@@ -43,6 +45,12 @@ class App : Application(), KoinComponent {
             runCatching { LogManager.crash(throwable, thread.name) }
             previousHandler?.uncaughtException(thread, throwable)
         }
+        // Customization: put the saved icon back (and honour "remember for updates"). Off the main thread.
+        Thread {
+            runCatching {
+                AppearanceManager.restore(this, org.koin.mp.KoinPlatform.getKoin().get())
+            }
+        }.start()
         DhizukuState.sync(this)
         Sui.init(packageName)
         DynamicColors.applyToActivitiesIfAvailable(this)

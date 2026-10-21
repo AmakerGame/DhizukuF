@@ -1,5 +1,17 @@
 package com.EdS.DhizukuF.data.settings.model.preferences.impl
 
+import com.EdS.DhizukuF.customization.ThemeMode
+
+import com.EdS.DhizukuF.customization.ThemeConfig
+
+import com.EdS.DhizukuF.customization.IconChoice
+
+import com.EdS.DhizukuF.customization.HomeLayout
+
+import com.EdS.DhizukuF.customization.CustomIcons
+
+import com.EdS.DhizukuF.customization.AppearanceConfig
+
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
@@ -98,6 +110,87 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override var logMaxSizeMb: Int
         get() = logConfig.maxSizeMb
         set(value) = prefs.edit(true) { putInt("log_max_mb", value) }
+
+    // ---------------------------------------------------------------- Customization
+
+    private fun parseTheme(name: String?) = ThemeMode.entries.firstOrNull { it.name == name } ?: ThemeMode.System
+
+    private fun parseList(text: String?): List<String> =
+        (text ?: "").split(',').map { it.trim() }.filter { it.isNotEmpty() }
+
+    override fun flowThemeConfig(): Flow<ThemeConfig> = combine(
+        prefs.asFlow("theme_mode", ThemeMode.System.name),
+        prefs.asFlow("theme_dynamic", true)
+    ) { mode, dynamic -> ThemeConfig(parseTheme(mode), dynamic) }
+
+    override val themeConfig: ThemeConfig
+        get() = ThemeConfig(parseTheme(prefs.getString("theme_mode", null)), prefs.getBoolean("theme_dynamic", true))
+
+    override var themeMode: ThemeMode
+        get() = themeConfig.mode
+        set(value) = prefs.edit(true) { putString("theme_mode", value.name) }
+
+    override var dynamicColors: Boolean
+        get() = prefs.getBoolean("theme_dynamic", true)
+        set(value) = prefs.edit(true) { putBoolean("theme_dynamic", value) }
+
+    private fun buildAppearance(name: String?, icon: String?, remember: Boolean, icons: String?) = AppearanceConfig(
+        displayName = name ?: "",
+        icon = IconChoice.parse(icon),
+        rememberForUpdates = remember,
+        customIcons = parseList(icons).filter { CustomIcons.isValidId(it) }.distinct().take(CustomIcons.MAX)
+    )
+
+    override fun flowAppearance(): Flow<AppearanceConfig> = combine(
+        prefs.asFlow("app_name", ""),
+        prefs.asFlow("app_icon", IconChoice.Default.key),
+        prefs.asFlow("appearance_remember", true),
+        prefs.asFlow("custom_icons", "")
+    ) { name, icon, remember, icons -> buildAppearance(name, icon, remember, icons) }
+
+    override val appearance: AppearanceConfig
+        get() = buildAppearance(
+            prefs.getString("app_name", null),
+            prefs.getString("app_icon", null),
+            prefs.getBoolean("appearance_remember", true),
+            prefs.getString("custom_icons", null)
+        )
+
+    override var appDisplayName: String
+        get() = appearance.displayName
+        set(value) = prefs.edit(true) { putString("app_name", value.take(40)) }
+
+    override var selectedIcon: IconChoice
+        get() = appearance.icon
+        set(value) = prefs.edit(true) { putString("app_icon", value.key) }
+
+    override var rememberAppearance: Boolean
+        get() = prefs.getBoolean("appearance_remember", true)
+        set(value) = prefs.edit(true) { putBoolean("appearance_remember", value) }
+
+    override var customIconIds: List<String>
+        get() = appearance.customIcons
+        set(value) = prefs.edit(true) { putString("custom_icons", value.joinToString(",")) }
+
+    override var appearanceVersion: Int
+        get() = prefs.getInt("appearance_version", 0)
+        set(value) = prefs.edit(true) { putInt("appearance_version", value) }
+
+    override fun flowHomeLayout(): Flow<HomeLayout> = combine(
+        prefs.asFlow("home_order", ""),
+        prefs.asFlow("home_hidden", "")
+    ) { order, hidden -> HomeLayout(parseList(order), parseList(hidden).toSet()) }
+
+    override val homeLayout: HomeLayout
+        get() = HomeLayout(parseList(prefs.getString("home_order", null)), parseList(prefs.getString("home_hidden", null)).toSet())
+
+    override var homeOrder: List<String>
+        get() = homeLayout.order
+        set(value) = prefs.edit(true) { putString("home_order", value.joinToString(",")) }
+
+    override var homeHidden: Set<String>
+        get() = homeLayout.hidden
+        set(value) = prefs.edit(true) { putString("home_hidden", value.joinToString(",")) }
 
     override var authMode: AuthMode
         get() = AuthMode.parse(prefs.getString("auth_mode", AuthMode.Off.name))

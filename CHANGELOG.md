@@ -5,6 +5,23 @@ The newest changes are at the top.
 
 ## Unreleased
 
+### Added (Customization)
+- **Customization** card on the home screen: *Theme* (System / Light / Dark / **AMOLED** with a pure black background,
+  and Dynamic colors), *App name*, *Icon* and *Remember for updates*. Answers the feature request for changing the
+  name and icon of the app, the update option and an AMOLED theme. The package name does not change.
+  - **New icon** (from the icon pack): default for the app and the TV launcher (with a new banner). The icon of the
+    **original Dhizuku is kept** as a choice (*Dhizuku*), together with its TV banner; both built-in icons can never
+    be deleted. They are two launcher entries (`activity-alias`): choosing one switches the other off, so the app
+    always has one entry.
+  - **Your own icons**: add pictures (up to 8), choose them and delete them. A chosen picture becomes a launcher
+    shortcut with your name (needs a launcher that supports it; TV boxes use it inside DhizukuF only) and is shown in
+    the title of the home screen.
+  - *Remember the name and icon for updates* (on by default): the choice survives updates and is put back at start.
+    Off: an update returns them to the defaults.
+- **Edit the home screen**: a **pencil** left of the X at the top right switches on editing mode with arrows (order)
+  and an eye (hide / show) on every card; any card can be hidden, the pencil always stays; *Reset* restores the default
+  order. The order and the hidden cards are kept.
+
 ### Added
 - **Logs.** *Settings > Logs* (off by default) turns on a journal of DhizukuF: service started / stopped, Device Owner
   status, app requested access / connected / disconnected, permission granted / denied / blocked, commands from apps

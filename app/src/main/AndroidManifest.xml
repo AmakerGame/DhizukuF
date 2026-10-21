@@ -6,7 +6,7 @@
     <permission
         android:name="${applicationId}.permission.API"
         android:description="@string/permission_description"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_original_foreground"
         android:label="@string/app_name"
         android:protectionLevel="dangerous" />
 
@@ -47,7 +47,7 @@
         android:name=".App"
         android:allowBackup="false"
         android:appCategory="productivity"
-        android:banner="@drawable/banner"
+        android:banner="@drawable/banner_dhizukuf"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:pageSizeCompat="enabled"
@@ -56,15 +56,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dhizuku">
 
+        <!-- The launcher entry lives in the two aliases below (Settings > Customization switches between them). -->
         <activity
             android:name=".ui.activity.SettingsActivity"
-            android:exported="true">
+            android:exported="true" />
+
+        <!-- The DhizukuF icon: the default entry. -->
+        <activity-alias
+            android:name=".alias.LauncherDefault"
+            android:banner="@drawable/banner_dhizukuf"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:targetActivity=".ui.activity.SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+
+        <!-- The icon (and the name) of the original Dhizuku: off until the user picks it. -->
+        <activity-alias
+            android:name=".alias.LauncherOriginal"
+            android:banner="@drawable/banner"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_original"
+            android:label="@string/app_name_original"
+            android:roundIcon="@mipmap/ic_original_round"
+            android:targetActivity=".ui.activity.SettingsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
 
         <activity
             android:name=".ui.activity.RequestPermissionActivity"

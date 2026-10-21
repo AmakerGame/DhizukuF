@@ -2,6 +2,7 @@ package com.EdS.DhizukuF.ui.page.settings
 
 import com.EdS.DhizukuF.ui.page.settings.logs.LogSettingsPage
 
+import com.EdS.DhizukuF.ui.page.settings.customization.CustomizationPage
 import com.EdS.DhizukuF.ui.page.settings.logs.LogsPage
 
 import androidx.compose.foundation.layout.WindowInsets
@@ -90,6 +91,12 @@ fun SettingsPage(windowInsets: WindowInsets) {
         }
         composable(route = SettingsRoute.Security.route) {
             SecurityPage(
+                windowInsets = windowInsets,
+                navController = navController
+            )
+        }
+        composable(route = SettingsRoute.Customization.route) {
+            CustomizationPage(
                 windowInsets = windowInsets,
                 navController = navController
             )

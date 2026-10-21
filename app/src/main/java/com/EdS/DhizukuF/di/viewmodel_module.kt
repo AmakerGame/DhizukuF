@@ -2,6 +2,7 @@ package com.EdS.DhizukuF.di
 
 import com.EdS.DhizukuF.ui.page.settings.logs.LogSettingsViewModel
 
+import com.EdS.DhizukuF.ui.page.settings.customization.CustomizationViewModel
 import com.EdS.DhizukuF.ui.page.settings.logs.LogsViewModel
 
 import com.EdS.DhizukuF.ui.page.settings.activate.ActivateViewModel
@@ -26,6 +27,9 @@ val viewModelModule = module {
     }
     viewModel {
         SecurityViewModel()
+    }
+    viewModel {
+        CustomizationViewModel()
     }
     viewModel {
         LogsViewModel()
