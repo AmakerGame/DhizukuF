@@ -22,7 +22,7 @@ body:
     attributes:
       label: DhizukuF version
       description: Settings > About, or the file name of the APK.
-      placeholder: "1.4.1 (7)"
+      placeholder: "1.5.0 (8)"
     validations:
       required: true
   - type: dropdown

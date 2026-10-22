@@ -3,24 +3,31 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
-## Unreleased
+## 1.5.0 (8)
+
+New: **Customization** (theme with AMOLED, name and icon, remember for updates, editing of the home screen) and **Logs**.
+Closes [#2](https://github.com/AmakerGame/DhizukuF/issues/2) (*change the name and icon of the app, keep them for
+updates, AMOLED theme*). This version also carries the fixes of 1.4.1 below.
 
 ### Added (Customization)
-- **Customization** card on the home screen: *Theme* (System / Light / Dark / **AMOLED** with a pure black background,
-  and Dynamic colors), *App name*, *Icon* and *Remember for updates*. Answers the feature request for changing the
-  name and icon of the app, the update option and an AMOLED theme. The package name does not change.
+- **Customization** card on the home screen ([#2](https://github.com/AmakerGame/DhizukuF/issues/2)): *Theme* (System /
+  Light / Dark / **AMOLED** with a pure black background, and Dynamic colors), *App name*, *Icon* and *Remember for
+  updates*. The package name does not change.
   - **New icon** (from the icon pack): default for the app and the TV launcher (with a new banner). The icon of the
     **original Dhizuku is kept** as a choice (*Dhizuku*), together with its TV banner; both built-in icons can never
     be deleted. They are two launcher entries (`activity-alias`): choosing one switches the other off, so the app
-    always has one entry.
+    always has one entry. The default entry keeps the **old component name**, so icons that earlier versions left on
+    the home screen keep working after the update.
   - **Your own icons**: add pictures (up to 8), choose them and delete them. A chosen picture becomes a launcher
     shortcut with your name (needs a launcher that supports it; TV boxes use it inside DhizukuF only) and is shown in
     the title of the home screen.
-  - *Remember the name and icon for updates* (on by default): the choice survives updates and is put back at start.
+  - *Remember the name and icon for updates* (on by default; asked in
+    [#2](https://github.com/AmakerGame/DhizukuF/issues/2)): the choice survives updates and is put back at start.
     Off: an update returns them to the defaults.
 - **Edit the home screen**: a **pencil** left of the X at the top right switches on editing mode with arrows (order)
   and an eye (hide / show) on every card; any card can be hidden, the pencil always stays; *Reset* restores the default
-  order. The order and the hidden cards are kept.
+  order. The order and the hidden cards are kept. Changes show at once and only the newest state is saved.
+- Details in [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md).
 
 ### Added
 - **Logs.** *Settings > Logs* (off by default) turns on a journal of DhizukuF: service started / stopped, Device Owner

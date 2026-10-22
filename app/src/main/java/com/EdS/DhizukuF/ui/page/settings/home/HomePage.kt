@@ -1,5 +1,11 @@
 package com.EdS.DhizukuF.ui.page.settings.home
 
+import kotlinx.coroutines.withContext
+
+import kotlinx.coroutines.delay
+
+import androidx.compose.runtime.LaunchedEffect
+
 import com.EdS.DhizukuF.ui.page.settings.customization.AppIconImage
 
 import com.EdS.DhizukuF.customization.HomeLayoutLogic
@@ -172,7 +178,6 @@ fun HomePage(
     val appearance by appearanceFlow.collectAsState(initial = settingsRepo.appearance)
     val layoutFlow = remember { settingsRepo.flowHomeLayout() }
     val layout by layoutFlow.collectAsState(initial = settingsRepo.homeLayout)
-    val scope = rememberCoroutineScope()
     var editMode by remember { mutableStateOf(false) }
 
     // The cards that exist on this screen right now (some depend on the state of DhizukuF).
@@ -190,14 +195,26 @@ fun HomePage(
         if (!owner) add("adb")
         if (owner) add("home_deactivate_title")
     }
-    val arranged = remember(layout.order) { HomeLayoutLogic.arrange(HOME_DEFAULT_ORDER, layout.order) }
-    fun saveOrder(order: List<String>) {
-        scope.launch(Dispatchers.IO) { settingsRepo.homeOrder = order }
+    // What is on the screen is kept here and changes at once; the saved copy follows. Two quick taps then both work on
+    // the latest order, and the writes cannot overtake each other (only the newest state is saved).
+    var order by remember { mutableStateOf(layout.order) }
+    var hiddenKeys by remember { mutableStateOf(layout.hidden) }
+    LaunchedEffect(layout) {
+        if (!editMode) {
+            order = layout.order
+            hiddenKeys = layout.hidden
+        }
     }
-
-    fun saveHidden(hidden: Set<String>) {
-        scope.launch(Dispatchers.IO) { settingsRepo.homeHidden = hidden }
+    LaunchedEffect(order, hiddenKeys, editMode) {
+        if (order != layout.order || hiddenKeys != layout.hidden) {
+            if (editMode) delay(300) // while editing, wait until the taps stop; on leaving the mode, save at once
+            withContext(Dispatchers.IO) {
+                settingsRepo.homeOrder = order
+                settingsRepo.homeHidden = hiddenKeys
+            }
+        }
     }
+    val arranged = remember(order) { HomeLayoutLogic.arrange(HOME_DEFAULT_ORDER, order) }
 
     Scaffold(
         modifier = Modifier
@@ -233,24 +250,24 @@ fun HomePage(
             if (editMode) {
                 item("edit_hint") {
                     EditHint(onReset = {
-                        saveOrder(HOME_DEFAULT_ORDER)
-                        saveHidden(emptySet())
+                        order = HOME_DEFAULT_ORDER
+                        hiddenKeys = emptySet()
                     })
                 }
                 val shown = arranged.filter { key -> key in available }
                 itemsIndexed(shown, key = { _, key -> "edit_$key" }) { index, key ->
                     HomeEditRow(
                         title = stringResource(homeTitleRes(key)),
-                        hidden = key in layout.hidden,
+                        hidden = key in hiddenKeys,
                         canUp = index > 0,
                         canDown = index < shown.lastIndex,
-                        onUp = { saveOrder(HomeLayoutLogic.move(arranged, available, key, -1)) },
-                        onDown = { saveOrder(HomeLayoutLogic.move(arranged, available, key, +1)) },
-                        onToggle = { saveHidden(HomeLayoutLogic.toggleHidden(layout.hidden, key)) }
+                        onUp = { order = HomeLayoutLogic.move(arranged, available, key, -1) },
+                        onDown = { order = HomeLayoutLogic.move(arranged, available, key, +1) },
+                        onToggle = { hiddenKeys = HomeLayoutLogic.toggleHidden(hiddenKeys, key) }
                     )
                 }
             } else {
-                val visible = HomeLayoutLogic.visible(arranged, available, layout.hidden)
+                val visible = HomeLayoutLogic.visible(arranged, available, hiddenKeys)
                 items(visible, key = { key -> key }) { key ->
                     HomeCard(key, navController)
                 }

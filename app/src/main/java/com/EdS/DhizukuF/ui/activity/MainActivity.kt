@@ -65,7 +65,7 @@ import com.EdS.DhizukuF.ui.theme.DhizukuTheme
 import org.koin.core.component.KoinComponent
 import androidx.core.net.toUri
 
-class SettingsActivity : FragmentActivity(), KoinComponent {
+class MainActivity : FragmentActivity(), KoinComponent {
     private val appPrefs by lazy {
         getSharedPreferences("app", MODE_PRIVATE)
     }
@@ -230,7 +230,7 @@ class SettingsActivity : FragmentActivity(), KoinComponent {
             })
         }, dismissButton = {
             TvTextButton(onClick = {
-                this@SettingsActivity.finish()
+                this@MainActivity.finish()
             }) {
                 Text(text = stringResource(id = R.string.cancel))
             }

@@ -14,7 +14,7 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import com.EdS.DhizukuF.BuildConfig
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
-import com.EdS.DhizukuF.ui.activity.SettingsActivity
+import com.EdS.DhizukuF.ui.activity.MainActivity
 import java.io.File
 import kotlin.math.max
 import kotlin.math.min
@@ -31,7 +31,8 @@ import kotlin.math.min
  */
 object AppearanceManager {
     private const val TAG = "AppearanceManager"
-    private const val ALIAS_DEFAULT = "com.EdS.DhizukuF.alias.LauncherDefault"
+    // The name of the old launcher activity: icons of earlier versions on the home screen point to it (see the manifest).
+    private const val ALIAS_DEFAULT = "com.EdS.DhizukuF.ui.activity.SettingsActivity"
     private const val ALIAS_ORIGINAL = "com.EdS.DhizukuF.alias.LauncherOriginal"
 
     /** Side of the saved picture. */
@@ -139,7 +140,7 @@ object AppearanceManager {
                 .setShortLabel(label.take(24))
                 .setLongLabel(label)
                 .setIcon(IconCompat.createWithAdaptiveBitmap(padded(bitmap)))
-                .setIntent(Intent(context, SettingsActivity::class.java).setAction(Intent.ACTION_MAIN))
+                .setIntent(Intent(context, MainActivity::class.java).setAction(Intent.ACTION_MAIN))
                 .build()
             // a shortcut that is already on the home screen gets the new name and picture
             runCatching { ShortcutManagerCompat.updateShortcuts(context, listOf(info)) }

@@ -56,21 +56,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dhizuku">
 
-        <!-- The launcher entry lives in the two aliases below (Settings > Customization switches between them). -->
+        <!-- The launcher entry lives in the two aliases below (Customization switches between them). -->
         <activity
-            android:name=".ui.activity.SettingsActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true" />
 
-        <!-- The DhizukuF icon: the default entry. -->
+        <!-- The DhizukuF icon: the default entry. Its name is the OLD name of the launcher activity on purpose: icons
+             that were put on the home screen by earlier versions point to that name and keep working after an update. -->
         <activity-alias
-            android:name=".alias.LauncherDefault"
+            android:name=".ui.activity.SettingsActivity"
             android:banner="@drawable/banner_dhizukuf"
             android:enabled="true"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:targetActivity=".ui.activity.SettingsActivity">
+            android:targetActivity=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -87,7 +88,7 @@
             android:icon="@mipmap/ic_original"
             android:label="@string/app_name_original"
             android:roundIcon="@mipmap/ic_original_round"
-            android:targetActivity=".ui.activity.SettingsActivity">
+            android:targetActivity=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

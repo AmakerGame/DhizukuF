@@ -1,5 +1,8 @@
 # Customization
 
+Requested in [#2](https://github.com/AmakerGame/DhizukuF/issues/2): change the name and icon of the app, remember them for
+future beta / release updates, and an AMOLED theme.
+
 *Home > Customization* changes how DhizukuF looks. Nothing here changes what DhizukuF does, and **the package name
 (`com.EdS.DhizukuF`) never changes**, so updates, approved apps and the Device Owner are not affected.
 
@@ -26,6 +29,9 @@ How it works, and why it is done this way: Android cannot rename or redraw the l
   your picture and your *App name* (the system shows its own confirmation). The normal DhizukuF entry stays. The
   picture and the name are also used inside DhizukuF (the title of the home screen). A TV box has no pinned
   shortcuts: there the picture is used inside DhizukuF only, and the screen says so.
+- The default entry keeps the **old component name** of the launcher activity, so an icon that an earlier version left
+  on your home screen keeps working after the update. (If you switch to the *Dhizuku* icon, that old home screen icon
+  stops working: add the new one from the app drawer.)
 - Deleting a picture removes the file and switches its shortcut off (a shortcut on the home screen can only be
   disabled by an app; you can remove it by hand).
 - *App name*: shown in the title of DhizukuF and on the shortcut of your own picture. Blank means "DhizukuF". The two
