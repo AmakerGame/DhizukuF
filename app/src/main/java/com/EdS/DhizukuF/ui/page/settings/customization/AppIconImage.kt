@@ -1,5 +1,7 @@
 package com.EdS.DhizukuF.ui.page.settings.customization
 
+import androidx.compose.ui.res.painterResource
+
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -12,10 +14,21 @@ import com.EdS.DhizukuF.customization.AppearanceManager
 import com.EdS.DhizukuF.customization.IconChoice
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
-/** The picture of an icon choice: the DhizukuF icon, the original Dhizuku icon, or a picture of the user. */
+/**
+ * The picture of an icon choice: the DhizukuF icon, the original Dhizuku icon, or a picture of the user.
+ * With [tvBanner] the two built-in choices show their TV banner (the wide picture that a TV launcher shows).
+ */
 @Composable
-fun AppIconImage(choice: IconChoice, modifier: Modifier = Modifier) {
+fun AppIconImage(choice: IconChoice, modifier: Modifier = Modifier, tvBanner: Boolean = false) {
     val context = LocalContext.current
+    if (tvBanner && choice !is IconChoice.Custom) {
+        Image(
+            painter = painterResource(if (choice == IconChoice.Original) R.drawable.banner else R.drawable.banner_dhizukuf),
+            contentDescription = null,
+            modifier = modifier
+        )
+        return
+    }
     if (choice is IconChoice.Custom) {
         val bitmap = remember(choice.id) { AppearanceManager.loadCustomIcon(context, choice.id)?.asImageBitmap() }
         if (bitmap != null) {

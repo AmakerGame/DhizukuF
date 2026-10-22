@@ -1,5 +1,21 @@
 package com.EdS.DhizukuF.ui.widget
 
+import androidx.compose.ui.platform.LocalContext
+
+import androidx.compose.ui.platform.LocalFocusManager
+
+import androidx.compose.ui.input.key.type
+
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+
+import androidx.compose.ui.input.key.key
+
+import androidx.compose.ui.input.key.KeyEventType
+
+import androidx.compose.ui.input.key.Key
+
+import androidx.compose.ui.focus.FocusDirection
+
 import androidx.compose.material3.RadioButton
 
 import androidx.compose.foundation.selection.selectable
@@ -190,5 +206,33 @@ fun TvRadioRow(
             Text(title, style = MaterialTheme.typography.titleMedium)
             if (description != null) Text(description, style = MaterialTheme.typography.bodyMedium)
         }
+    }
+}
+
+
+/**
+ * A text field takes the arrow keys of a remote: with the cursor in it, Up and Down no longer leave it and the user is
+ * stuck. This lets Up and Down move the focus out of the field (Left and Right still move the cursor; Back closes the
+ * keyboard). Put it on every text field.
+ */
+@Composable
+fun Modifier.tvTextFieldNavigation(): Modifier {
+    val focusManager = LocalFocusManager.current
+    return this.onPreviewKeyEvent { event ->
+        if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+        when (event.key) {
+            Key.DirectionDown -> focusManager.moveFocus(FocusDirection.Down)
+            Key.DirectionUp -> focusManager.moveFocus(FocusDirection.Up)
+            else -> false
+        }
+    }
+}
+
+/** A TV or a box without a touch screen: controlled with a remote, and its launcher shows wide banners. */
+@Composable
+fun rememberIsTv(): Boolean {
+    val pm = LocalContext.current.packageManager
+    return remember {
+        pm.hasSystemFeature("android.software.leanback") || !pm.hasSystemFeature("android.hardware.touchscreen")
     }
 }

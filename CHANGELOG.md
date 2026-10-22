@@ -9,6 +9,15 @@ New: **Customization** (theme with AMOLED, name and icon, remember for updates, 
 Closes [#2](https://github.com/AmakerGame/DhizukuF/issues/2) (*change the name and icon of the app, keep them for
 updates, AMOLED theme*). This version also carries the fixes of 1.4.1 below.
 
+### Fixed (found while testing Customization on a TV)
+- A text field took the arrow keys of a remote, so from *App name* (and from the *Logs* search) the focus could not
+  leave: **Up and Down now move the focus out of a text field**, and *Done / Search* on the keyboard does the same.
+- *Customization* on a TV showed small square icons. On a TV it now shows the **TV banners** (the wide pictures that a
+  TV launcher shows) of the two built-in entries, with a note about how a TV launcher works.
+- Switching the launcher entry is **verified**: the state is read back from the system, a failure is reported
+  ("The system did not switch the launcher entry") instead of "Icon changed", and the screen shows which launcher
+  entry is in use now.
+
 ### Added (Customization)
 - **Customization** card on the home screen ([#2](https://github.com/AmakerGame/DhizukuF/issues/2)): *Theme* (System /
   Light / Dark / **AMOLED** with a pure black background, and Dynamic colors), *App name*, *Icon* and *Remember for

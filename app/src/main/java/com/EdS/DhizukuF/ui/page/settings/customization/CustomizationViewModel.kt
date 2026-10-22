@@ -61,11 +61,11 @@ class CustomizationViewModel : ViewModel(), KoinComponent {
     // ---------------------------------------------------------------- icon
 
     /** The DhizukuF icon or the icon of the original Dhizuku: the launcher entry is switched. */
-    fun chooseBuiltIn(context: Context, choice: IconChoice, done: () -> Unit) {
+    fun chooseBuiltIn(context: Context, choice: IconChoice, done: (Boolean) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.selectedIcon = choice
-            runCatching { AppearanceManager.applyBuiltIn(context, choice) }
-            withContext(Dispatchers.Main) { done() }
+            val switched = AppearanceManager.applyBuiltIn(context, choice)
+            withContext(Dispatchers.Main) { done(switched) }
         }
     }
 

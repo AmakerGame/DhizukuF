@@ -37,6 +37,14 @@ How it works, and why it is done this way: Android cannot rename or redraw the l
 - *App name*: shown in the title of DhizukuF and on the shortcut of your own picture. Blank means "DhizukuF". The two
   built-in entries keep their own names (DhizukuF and Dhizuku).
 
+### On a TV
+
+A TV launcher shows the wide **banner** of an app, taken from the app itself (the manifest): the DhizukuF banner or the
+Dhizuku banner of the chosen entry. So on a TV only the two built-in entries change what the launcher shows (the screen
+shows their banners), and your own pictures are used inside DhizukuF only. After a change the launcher may need a few
+seconds, or a restart of the launcher or of the device, to refresh. The screen shows "Launcher entry in use now", read
+from the system, so you can tell whether the switch worked. Text fields can be left with the Up / Down keys.
+
 ## Remember for updates
 
 *Remember the name and icon for updates* (on by default): when DhizukuF is updated (beta or release), the chosen

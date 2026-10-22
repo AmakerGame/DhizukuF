@@ -62,16 +62,23 @@ object AppearanceManager {
      * Switches to the DhizukuF icon or to the icon of the original Dhizuku. The new entry is switched on first and
      * the old one off afterwards, so there is never a moment without a launcher entry. The app is not restarted.
      */
-    fun applyBuiltIn(context: Context, choice: IconChoice) {
+    fun applyBuiltIn(context: Context, choice: IconChoice): Boolean {
         val wanted = if (choice == IconChoice.Original) ALIAS_ORIGINAL else ALIAS_DEFAULT
         val other = if (wanted == ALIAS_ORIGINAL) ALIAS_DEFAULT else ALIAS_ORIGINAL
-        val pm = context.packageManager
-        pm.setComponentEnabledSetting(
-            component(context, wanted), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
-        )
-        pm.setComponentEnabledSetting(
-            component(context, other), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
-        )
+        return try {
+            val pm = context.packageManager
+            pm.setComponentEnabledSetting(
+                component(context, wanted), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+            )
+            pm.setComponentEnabledSetting(
+                component(context, other), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            // Do not trust the call: read the state back, so a system that did not switch is not reported as done.
+            builtInInUse(context) == (if (choice == IconChoice.Original) IconChoice.Original else IconChoice.Default)
+        } catch (t: Throwable) {
+            Log.w(TAG, "cannot switch the launcher entry", t)
+            false
+        }
     }
 
     // ---------------------------------------------------------------- icons of the user

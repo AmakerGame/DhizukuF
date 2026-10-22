@@ -17,6 +17,8 @@ app, keep them for updates, and an AMOLED theme*. It also adds a **Logs** journa
 - **Logs** (off by default) - *Settings > Logs* turns on a journal of service events, permissions, commands and errors,
   with a *Logs* screen (search, details), level, categories, size limit and a text export for bug reports. Off means
   off: nothing is saved. See [docs/LOGS.md](docs/LOGS.md).
+- **TV and remote** - Customization shows the TV banners on a TV, the app name field can be left with the Up / Down keys, and a
+  failed switch of the launcher entry is reported instead of silently ignored.
 - **Fixes of 1.4.1** - a crash in the Arabic translation (permission dialog), an up-to-date dish dex, Sui support with the
   right package name, *Freeze all* asks first, a backslash inside double quotes in dish is kept.
 

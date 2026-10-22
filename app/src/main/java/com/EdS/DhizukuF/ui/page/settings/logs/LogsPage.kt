@@ -1,5 +1,13 @@
 package com.EdS.DhizukuF.ui.page.settings.logs
 
+import com.EdS.DhizukuF.ui.widget.tvTextFieldNavigation
+
+import androidx.compose.ui.platform.LocalFocusManager
+
+import androidx.compose.ui.focus.FocusDirection
+
+import androidx.compose.foundation.text.KeyboardActions
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -78,6 +86,7 @@ fun LogsPage(
 ) {
     val context = LocalContext.current
     val export = rememberLogExporter()
+    val focusManager = LocalFocusManager.current
     var opened by remember { mutableStateOf<LogEntry?>(null) }
 
     LaunchedEffect(Unit) {
@@ -135,9 +144,11 @@ fun LogsPage(
                     }
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = { focusManager.moveFocus(FocusDirection.Down) }),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .tvTextFieldNavigation()
             )
 
             val state = viewModel.state

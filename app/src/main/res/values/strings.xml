@@ -297,4 +297,7 @@
     <string name="home_edit_show">Show</string>
     <string name="home_edit_status">Status</string>
     <string name="home_edit_all_hidden">All cards are hidden. Press the pencil at the top to bring them back.</string>
+    <string name="customization_tv_note">On a TV the launcher shows the wide banner of the chosen entry (shown below). A TV launcher takes it from the app itself, so only the two built-in entries can change it; your own pictures are used inside DhizukuF only. The launcher may need a few seconds, or a restart of the launcher, to refresh.</string>
+    <string name="icon_apply_failed">The system did not switch the launcher entry. Try again, or restart the launcher or the device.</string>
+    <string name="customization_entry_now">Launcher entry in use now: %1$s</string>
 </resources>

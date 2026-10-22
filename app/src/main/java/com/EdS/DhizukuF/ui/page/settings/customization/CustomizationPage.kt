@@ -1,5 +1,19 @@
 package com.EdS.DhizukuF.ui.page.settings.customization
 
+import com.EdS.DhizukuF.ui.widget.tvTextFieldNavigation
+
+import com.EdS.DhizukuF.ui.widget.rememberIsTv
+
+import androidx.compose.ui.text.input.ImeAction
+
+import androidx.compose.ui.platform.LocalFocusManager
+
+import androidx.compose.ui.focus.FocusDirection
+
+import androidx.compose.foundation.text.KeyboardOptions
+
+import androidx.compose.foundation.text.KeyboardActions
+
 import android.content.ActivityNotFoundException
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -76,6 +90,10 @@ fun CustomizationPage(
     val theme = viewModel.theme
     val appearance = viewModel.appearance
     val pinSupported = remember { ShortcutManagerCompat.isRequestPinShortcutSupported(context) }
+    val isTv = rememberIsTv()
+    // The launcher entry that is really switched on (read from the system, not from the saved choice).
+    var entryInUse by remember { mutableStateOf(AppearanceManager.builtInInUse(context)) }
+    val focusManager = LocalFocusManager.current
     // The text field keeps its own text once the user types: the saved value must not overwrite it half way.
     var typedName by remember { mutableStateOf<String?>(null) }
     var askDelete by remember { mutableStateOf<String?>(null) }
@@ -185,7 +203,12 @@ fun CustomizationPage(
                         singleLine = true,
                         label = { Text(stringResource(R.string.customization_name_label)) },
                         placeholder = { Text(stringResource(R.string.app_name)) },
-                        modifier = Modifier.fillMaxWidth()
+                        // Done on the keyboard leaves the field; so do Up and Down of a remote
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                        keyboardActions = KeyboardActions(onDone = { focusManager.moveFocus(FocusDirection.Down) }),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .tvTextFieldNavigation()
                     )
                     if ((typedName ?: appearance.displayName).isNotEmpty()) {
                         TvTextButton(onClick = {
@@ -206,6 +229,19 @@ fun CustomizationPage(
                         style = MaterialTheme.typography.bodyMedium
                     )
                     val selected = appearance.effectiveIcon
+                    Text(
+                        stringResource(
+                            R.string.customization_entry_now,
+                            stringResource(if (entryInUse == IconChoice.Original) R.string.app_name_original else R.string.app_name)
+                        ),
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                    if (isTv) {
+                        Text(
+                            stringResource(R.string.customization_tv_note),
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
 
                     // The two built-in icons: always there, they cannot be deleted.
                     IconRow(
@@ -213,8 +249,12 @@ fun CustomizationPage(
                         title = stringResource(R.string.icon_default_title),
                         description = stringResource(R.string.icon_default_desc),
                         selected = selected == IconChoice.Default,
+                        tvBanner = isTv,
                         onClick = {
-                            viewModel.chooseBuiltIn(context, IconChoice.Default) { context.toast(R.string.icon_changed) }
+                            viewModel.chooseBuiltIn(context, IconChoice.Default) { switched ->
+                                entryInUse = AppearanceManager.builtInInUse(context)
+                                context.toast(if (switched) R.string.icon_changed else R.string.icon_apply_failed)
+                            }
                         },
                         onDelete = null
                     )
@@ -223,8 +263,12 @@ fun CustomizationPage(
                         title = stringResource(R.string.icon_original_title),
                         description = stringResource(R.string.icon_original_desc),
                         selected = selected == IconChoice.Original,
+                        tvBanner = isTv,
                         onClick = {
-                            viewModel.chooseBuiltIn(context, IconChoice.Original) { context.toast(R.string.icon_changed) }
+                            viewModel.chooseBuiltIn(context, IconChoice.Original) { switched ->
+                                entryInUse = AppearanceManager.builtInInUse(context)
+                                context.toast(if (switched) R.string.icon_changed else R.string.icon_apply_failed)
+                            }
                         },
                         onDelete = null
                     )
@@ -235,6 +279,7 @@ fun CustomizationPage(
                             title = stringResource(R.string.icon_custom_title, index + 1),
                             description = stringResource(R.string.icon_custom_desc),
                             selected = selected == IconChoice.Custom(id),
+                            tvBanner = isTv,
                             onClick = {
                                 viewModel.chooseCustom(context, id) { result ->
                                     context.toast(
@@ -318,6 +363,7 @@ private fun IconRow(
     title: String,
     description: String,
     selected: Boolean,
+    tvBanner: Boolean,
     onClick: () -> Unit,
     onDelete: (() -> Unit)?
 ) {
@@ -331,12 +377,17 @@ private fun IconRow(
             verticalAlignment = Alignment.CenterVertically
         ) {
             RadioButton(selected = selected, onClick = null)
+            // On a TV the TV launcher shows the wide banner, so the banner is what is shown here too.
             AppIconImage(
                 choice = icon,
+                tvBanner = tvBanner,
                 modifier = Modifier
                     .padding(start = 12.dp)
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .then(
+                        if (tvBanner && icon !is IconChoice.Custom) Modifier.size(width = 128.dp, height = 72.dp)
+                        else Modifier.size(48.dp)
+                    )
+                    .clip(RoundedCornerShape(if (tvBanner && icon !is IconChoice.Custom) 8.dp else 12.dp))
             )
             Column(modifier = Modifier.padding(start = 12.dp)) {
                 Text(title, style = MaterialTheme.typography.titleMedium)
