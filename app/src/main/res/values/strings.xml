@@ -261,31 +261,13 @@
     <string name="customization_dynamic">Dynamic colors</string>
     <string name="customization_dynamic_desc">Takes the colors from the wallpaper (Android 12 and newer)</string>
     <string name="customization_name_title">App name</string>
-    <string name="customization_name_desc">Shown in the title of DhizukuF and on the launcher shortcut of your own picture. Android cannot rename the launcher entry of an installed app: the two built-in icons keep their names (DhizukuF and Dhizuku). Empty means DhizukuF. The package name never changes.</string>
-    <string name="customization_name_label">Name</string>
-    <string name="customization_name_reset">Use the default name</string>
+    <string name="customization_name_desc">The name that the launcher shows for DhizukuF. Android does not let an app type its own name, so these four are ready-made. The name and the icon are chosen independently: changing one keeps the other. The package name never changes.</string>
     <string name="customization_icon_title">Icon</string>
-    <string name="customization_icon_desc">The DhizukuF icon and the icon of the original Dhizuku switch the launcher entry of the app (the package name stays the same). A picture of your own becomes a launcher shortcut with your name and is also used inside DhizukuF. The built-in icons cannot be deleted.</string>
+    <string name="customization_icon_desc">The DhizukuF icon or the icon of the original Dhizuku. Both are built in and cannot be deleted.</string>
     <string name="icon_default_title">DhizukuF</string>
     <string name="icon_default_desc">The new icon (default)</string>
     <string name="icon_original_title">Dhizuku</string>
     <string name="icon_original_desc">The icon of the original Dhizuku</string>
-    <string name="icon_custom_title">My icon %1$d</string>
-    <string name="icon_custom_desc">Your picture: choose it to add a launcher shortcut</string>
-    <string name="icon_add">Add an icon</string>
-    <string name="icon_add_limit">The limit is %1$d icons: delete one to add another</string>
-    <string name="icon_delete">Delete</string>
-    <string name="icon_delete_title">Delete this icon?</string>
-    <string name="icon_delete_text">Only your picture is deleted. The DhizukuF icon is used instead, and a shortcut on the home screen stops working.</string>
-    <string name="icon_deleted_shortcut">This icon was deleted in DhizukuF</string>
-    <string name="icon_changed">Icon changed. The launcher may need a few seconds to refresh.</string>
-    <string name="icon_added">Icon added</string>
-    <string name="icon_add_failed">Could not add the picture (it must be an image)</string>
-    <string name="icon_pin_requested">Confirm the shortcut in the launcher dialog</string>
-    <string name="icon_pin_unsupported">The launcher cannot add shortcuts: the picture is used inside DhizukuF only</string>
-    <string name="icon_pin_failed">Could not add the shortcut</string>
-    <string name="icon_picker_missing">This device has no file picker</string>
-    <string name="customization_no_pin_note">This device or launcher cannot add shortcuts (TV boxes cannot). A picture of your own is then used only inside DhizukuF.</string>
     <string name="customization_remember">Remember the name and icon for updates</string>
     <string name="customization_remember_desc">Keeps your name and icon when DhizukuF is updated (beta or release). When off, an update puts them back to the default ones.</string>
     <string name="home_edit_title">Edit the home screen</string>
@@ -297,7 +279,10 @@
     <string name="home_edit_show">Show</string>
     <string name="home_edit_status">Status</string>
     <string name="home_edit_all_hidden">All cards are hidden. Press the pencil at the top to bring them back.</string>
-    <string name="customization_tv_note">On a TV the launcher shows the wide banner of the chosen entry (shown below). A TV launcher takes it from the app itself, so only the two built-in entries can change it; your own pictures are used inside DhizukuF only. The launcher may need a few seconds, or a restart of the launcher, to refresh.</string>
-    <string name="icon_apply_failed">The system did not switch the launcher entry. Try again, or restart the launcher or the device.</string>
-    <string name="customization_entry_now">Launcher entry in use now: %1$s</string>
+    <string name="customization_tv_note">On a TV the launcher shows the wide banner of the chosen name and icon (shown below). The launcher may need a few seconds, or a restart of the launcher or of the device, to refresh.</string>
+    <string name="customization_entry_now">Launcher entry in use now: %1$s (%2$s)</string>
+    <string name="launcher_name_profile_owner" translatable="false">Profile Owner</string>
+    <string name="launcher_name_device_owner" translatable="false">Device Owner</string>
+    <string name="customization_changed">Changed. The launcher may need a few seconds to refresh.</string>
+    <string name="customization_apply_failed">The system did not switch the launcher entry. Try again, or restart the launcher or the device.</string>
 </resources>

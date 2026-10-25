@@ -226,13 +226,13 @@ fun HomePage(
                 title = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         AppIconImage(
-                            choice = appearance.effectiveIcon,
+                            choice = appearance.icon,
                             modifier = Modifier
                                 .size(28.dp)
                                 .clip(RoundedCornerShape(7.dp))
                         )
                         Spacer(modifier = Modifier.width(10.dp))
-                        Text(appearance.shownName ?: stringResource(R.string.app_name))
+                        Text(appearance.name.label)
                     }
                 },
                 actions = {

@@ -47,7 +47,7 @@
         android:name=".App"
         android:allowBackup="false"
         android:appCategory="productivity"
-        android:banner="@drawable/banner_dhizukuf"
+        android:banner="@drawable/banner_dhizukuf_new"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:pageSizeCompat="enabled"
@@ -61,11 +61,15 @@
             android:name=".ui.activity.MainActivity"
             android:exported="true" />
 
-        <!-- The DhizukuF icon: the default entry. Its name is the OLD name of the launcher activity on purpose: icons
-             that were put on the home screen by earlier versions point to that name and keep working after an update. -->
+        <!-- The launcher entries: every name (DhizukuF, Dhizuku, Profile Owner, Device Owner) with every icon (new, original
+             Dhizuku), each with its TV banner. Exactly one is switched on; Settings > Customization switches them. The first
+             one (DhizukuF + new icon) is the default and keeps the OLD name of the launcher activity on purpose: icons that
+             earlier versions left on the home screen point to that name and keep working after an update. The names
+             must match LauncherAliases.className() in the code. -->
+
         <activity-alias
             android:name=".ui.activity.SettingsActivity"
-            android:banner="@drawable/banner_dhizukuf"
+            android:banner="@drawable/banner_dhizukuf_new"
             android:enabled="true"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
@@ -79,14 +83,109 @@
             </intent-filter>
         </activity-alias>
 
-        <!-- The icon (and the name) of the original Dhizuku: off until the user picks it. -->
         <activity-alias
-            android:name=".alias.LauncherOriginal"
-            android:banner="@drawable/banner"
+            android:name=".alias.DhizukuFOriginal"
+            android:banner="@drawable/banner_dhizukuf_orig"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_original"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_original_round"
+            android:targetActivity=".ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".alias.DhizukuDefault"
+            android:banner="@drawable/banner_dhizuku_new"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name_original"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:targetActivity=".ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".alias.DhizukuOriginal"
+            android:banner="@drawable/banner_dhizuku_orig"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_original"
             android:label="@string/app_name_original"
+            android:roundIcon="@mipmap/ic_original_round"
+            android:targetActivity=".ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".alias.ProfileOwnerDefault"
+            android:banner="@drawable/banner_profile_owner_new"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/launcher_name_profile_owner"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:targetActivity=".ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".alias.ProfileOwnerOriginal"
+            android:banner="@drawable/banner_profile_owner_orig"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_original"
+            android:label="@string/launcher_name_profile_owner"
+            android:roundIcon="@mipmap/ic_original_round"
+            android:targetActivity=".ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".alias.DeviceOwnerDefault"
+            android:banner="@drawable/banner_device_owner_new"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/launcher_name_device_owner"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:targetActivity=".ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".alias.DeviceOwnerOriginal"
+            android:banner="@drawable/banner_device_owner_orig"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_original"
+            android:label="@string/launcher_name_device_owner"
             android:roundIcon="@mipmap/ic_original_round"
             android:targetActivity=".ui.activity.MainActivity">
             <intent-filter>

@@ -8,8 +8,8 @@ import com.EdS.DhizukuF.customization.IconChoice
 
 import com.EdS.DhizukuF.customization.HomeLayout
 
-import com.EdS.DhizukuF.customization.CustomIcons
 
+import com.EdS.DhizukuF.customization.AppName
 import com.EdS.DhizukuF.customization.AppearanceConfig
 
 import android.content.Context
@@ -134,31 +134,28 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
         get() = prefs.getBoolean("theme_dynamic", true)
         set(value) = prefs.edit(true) { putBoolean("theme_dynamic", value) }
 
-    private fun buildAppearance(name: String?, icon: String?, remember: Boolean, icons: String?) = AppearanceConfig(
-        displayName = name ?: "",
+    private fun buildAppearance(name: String?, icon: String?, remember: Boolean) = AppearanceConfig(
+        name = AppName.parse(name),
         icon = IconChoice.parse(icon),
-        rememberForUpdates = remember,
-        customIcons = parseList(icons).filter { CustomIcons.isValidId(it) }.distinct().take(CustomIcons.MAX)
+        rememberForUpdates = remember
     )
 
     override fun flowAppearance(): Flow<AppearanceConfig> = combine(
-        prefs.asFlow("app_name", ""),
+        prefs.asFlow("launcher_name", AppName.DhizukuF.key),
         prefs.asFlow("app_icon", IconChoice.Default.key),
-        prefs.asFlow("appearance_remember", true),
-        prefs.asFlow("custom_icons", "")
-    ) { name, icon, remember, icons -> buildAppearance(name, icon, remember, icons) }
+        prefs.asFlow("appearance_remember", true)
+    ) { name, icon, remember -> buildAppearance(name, icon, remember) }
 
     override val appearance: AppearanceConfig
         get() = buildAppearance(
-            prefs.getString("app_name", null),
+            prefs.getString("launcher_name", null),
             prefs.getString("app_icon", null),
-            prefs.getBoolean("appearance_remember", true),
-            prefs.getString("custom_icons", null)
+            prefs.getBoolean("appearance_remember", true)
         )
 
-    override var appDisplayName: String
-        get() = appearance.displayName
-        set(value) = prefs.edit(true) { putString("app_name", value.take(40)) }
+    override var appName: AppName
+        get() = appearance.name
+        set(value) = prefs.edit(true) { putString("launcher_name", value.key) }
 
     override var selectedIcon: IconChoice
         get() = appearance.icon
@@ -167,10 +164,6 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override var rememberAppearance: Boolean
         get() = prefs.getBoolean("appearance_remember", true)
         set(value) = prefs.edit(true) { putBoolean("appearance_remember", value) }
-
-    override var customIconIds: List<String>
-        get() = appearance.customIcons
-        set(value) = prefs.edit(true) { putString("custom_icons", value.joinToString(",")) }
 
     override var appearanceVersion: Int
         get() = prefs.getInt("appearance_version", 0)

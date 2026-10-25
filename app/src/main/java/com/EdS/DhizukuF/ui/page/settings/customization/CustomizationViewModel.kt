@@ -1,16 +1,16 @@
 package com.EdS.DhizukuF.ui.page.settings.customization
 
 import android.content.Context
-import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.EdS.DhizukuF.customization.AppName
 import com.EdS.DhizukuF.customization.AppearanceConfig
 import com.EdS.DhizukuF.customization.AppearanceManager
-import com.EdS.DhizukuF.customization.CustomIcons
 import com.EdS.DhizukuF.customization.IconChoice
+import com.EdS.DhizukuF.customization.LauncherEntry
 import com.EdS.DhizukuF.customization.ThemeConfig
 import com.EdS.DhizukuF.customization.ThemeMode
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
@@ -29,7 +29,11 @@ class CustomizationViewModel : ViewModel(), KoinComponent {
     var appearance by mutableStateOf(AppearanceConfig())
         private set
 
+    private var collecting = false
+
     fun collect() {
+        if (collecting) return // the screen can call this again (rotation); one collector is enough
+        collecting = true
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.flowThemeConfig().collect { theme = it }
         }
@@ -48,58 +52,27 @@ class CustomizationViewModel : ViewModel(), KoinComponent {
         viewModelScope.launch(Dispatchers.IO) { settingsRepo.dynamicColors = on }
     }
 
-    // ---------------------------------------------------------------- name
-
-    fun changeName(name: String) {
-        viewModelScope.launch(Dispatchers.IO) { settingsRepo.appDisplayName = name }
-    }
-
     fun changeRemember(on: Boolean) {
         viewModelScope.launch(Dispatchers.IO) { settingsRepo.rememberAppearance = on }
     }
 
-    // ---------------------------------------------------------------- icon
+    // ---------------------------------------------------------------- name and icon (independent of each other)
 
-    /** The DhizukuF icon or the icon of the original Dhizuku: the launcher entry is switched. */
-    fun chooseBuiltIn(context: Context, choice: IconChoice, done: (Boolean) -> Unit) {
+    /** The name that the launcher shows. The icon that is chosen stays as it is. */
+    fun chooseName(context: Context, name: AppName, done: (Boolean) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.selectedIcon = choice
-            val switched = AppearanceManager.applyBuiltIn(context, choice)
+            settingsRepo.appName = name
+            val switched = AppearanceManager.apply(context, LauncherEntry(name, settingsRepo.selectedIcon))
             withContext(Dispatchers.Main) { done(switched) }
         }
     }
 
-    /** Adds a picture of the user. Returns the id through [done] (null: the file is not a picture, or too many). */
-    fun addIcon(context: Context, uri: Uri, done: (String?) -> Unit) {
+    /** The icon: the new one or the one of the original Dhizuku. The name that is chosen stays as it is. */
+    fun chooseIcon(context: Context, icon: IconChoice, done: (Boolean) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val current = settingsRepo.customIconIds
-            val id = if (current.size >= CustomIcons.MAX) null else AppearanceManager.addCustomIcon(context, uri)
-            if (id != null) settingsRepo.customIconIds = current + id
-            withContext(Dispatchers.Main) { done(id) }
-        }
-    }
-
-    /**
-     * Uses a picture of the user: it becomes the icon inside DhizukuF and a launcher shortcut is requested.
-     * The normal launcher entry (the DhizukuF icon, unless the original one was chosen) stays.
-     */
-    fun chooseCustom(context: Context, id: String, done: (AppearanceManager.PinResult) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.selectedIcon = IconChoice.Custom(id)
-            // the normal launcher entry is the DhizukuF icon; the picture is an extra shortcut
-            runCatching { AppearanceManager.applyBuiltIn(context, IconChoice.Default) }
-            val label = settingsRepo.appearance.shownName ?: "DhizukuF"
-            val result = AppearanceManager.pinShortcut(context, id, label)
-            withContext(Dispatchers.Main) { done(result) }
-        }
-    }
-
-    /** Deletes a picture of the user. The built-in icons are not in this list and cannot be deleted. */
-    fun deleteCustom(context: Context, id: String, disabledMessage: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (settingsRepo.selectedIcon == IconChoice.Custom(id)) settingsRepo.selectedIcon = IconChoice.Default
-            settingsRepo.customIconIds = settingsRepo.customIconIds - id
-            AppearanceManager.deleteCustomIcon(context, id, disabledMessage)
+            settingsRepo.selectedIcon = icon
+            val switched = AppearanceManager.apply(context, LauncherEntry(settingsRepo.appName, icon))
+            withContext(Dispatchers.Main) { done(switched) }
         }
     }
 }

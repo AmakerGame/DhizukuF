@@ -8,6 +8,7 @@ import com.EdS.DhizukuF.customization.IconChoice
 
 import com.EdS.DhizukuF.customization.HomeLayout
 
+import com.EdS.DhizukuF.customization.AppName
 import com.EdS.DhizukuF.customization.AppearanceConfig
 
 import com.EdS.DhizukuF.logging.LogCategory
@@ -41,10 +42,9 @@ interface SettingsRepo {
 
     fun flowAppearance(): Flow<AppearanceConfig>
     val appearance: AppearanceConfig
-    var appDisplayName: String
+    var appName: AppName
     var selectedIcon: IconChoice
     var rememberAppearance: Boolean
-    var customIconIds: List<String>
 
     /** The versionCode of DhizukuF at which the name and the icon were last put in place (see AppearanceManager). */
     var appearanceVersion: Int

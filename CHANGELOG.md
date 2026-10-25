@@ -9,27 +9,18 @@ New: **Customization** (theme with AMOLED, name and icon, remember for updates, 
 Closes [#2](https://github.com/AmakerGame/DhizukuF/issues/2) (*change the name and icon of the app, keep them for
 updates, AMOLED theme*). This version also carries the fixes of 1.4.1 below.
 
-### Fixed (found while testing Customization on a TV)
-- A text field took the arrow keys of a remote, so from *App name* (and from the *Logs* search) the focus could not
-  leave: **Up and Down now move the focus out of a text field**, and *Done / Search* on the keyboard does the same.
-- *Customization* on a TV showed small square icons. On a TV it now shows the **TV banners** (the wide pictures that a
-  TV launcher shows) of the two built-in entries, with a note about how a TV launcher works.
-- Switching the launcher entry is **verified**: the state is read back from the system, a failure is reported
-  ("The system did not switch the launcher entry") instead of "Icon changed", and the screen shows which launcher
-  entry is in use now.
-
 ### Added (Customization)
 - **Customization** card on the home screen ([#2](https://github.com/AmakerGame/DhizukuF/issues/2)): *Theme* (System /
   Light / Dark / **AMOLED** with a pure black background, and Dynamic colors), *App name*, *Icon* and *Remember for
   updates*. The package name does not change.
-  - **New icon** (from the icon pack): default for the app and the TV launcher (with a new banner). The icon of the
-    **original Dhizuku is kept** as a choice (*Dhizuku*), together with its TV banner; both built-in icons can never
-    be deleted. They are two launcher entries (`activity-alias`): choosing one switches the other off, so the app
-    always has one entry. The default entry keeps the **old component name**, so icons that earlier versions left on
-    the home screen keep working after the update.
-  - **Your own icons**: add pictures (up to 8), choose them and delete them. A chosen picture becomes a launcher
-    shortcut with your name (needs a launcher that supports it; TV boxes use it inside DhizukuF only) and is shown in
-    the title of the home screen.
+  - **App name**: DhizukuF, Dhizuku, Profile Owner or Device Owner. **Icon**: the **new icon** (default) or the icon of
+    the **original Dhizuku** (kept, it cannot be deleted). The two are chosen **independently**: changing one keeps the
+    other. Android cannot rename the launcher entry of an installed app, so the manifest has **8 launcher entries** (4
+    names x 2 icons, `activity-alias`), each with its own **TV banner**; one is switched on at a time, the new one first,
+    so the app always has an entry. The default entry keeps the **old component name**, so icons that earlier versions
+    left on the home screen keep working after the update.
+  - On a TV the screen shows the **TV banner** of the chosen name and icon. The switch is **verified** (read back from
+    the system); a failure is reported, and "Launcher entry in use now" shows what the system has.
   - *Remember the name and icon for updates* (on by default; asked in
     [#2](https://github.com/AmakerGame/DhizukuF/issues/2)): the choice survives updates and is put back at start.
     Off: an update returns them to the defaults.
@@ -37,6 +28,10 @@ updates, AMOLED theme*). This version also carries the fixes of 1.4.1 below.
   and an eye (hide / show) on every card; any card can be hidden, the pencil always stays; *Reset* restores the default
   order. The order and the hidden cards are kept. Changes show at once and only the newest state is saved.
 - Details in [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md).
+
+### Fixed (found while testing Customization on a TV)
+- A text field took the arrow keys of a remote, so the focus could not leave it (the *Logs* search): **Up and Down now
+  move the focus out of a text field**, and *Search* on the keyboard does the same.
 
 ### Added
 - **Logs.** *Settings > Logs* (off by default) turns on a journal of DhizukuF: service started / stopped, Device Owner

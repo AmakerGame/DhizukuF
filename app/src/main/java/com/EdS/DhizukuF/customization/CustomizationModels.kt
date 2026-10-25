@@ -17,63 +17,64 @@ data class ThemeConfig(
     val dynamicColors: Boolean = true
 )
 
-/** The icon that is chosen. [Default] and [Original] are built in and can never be removed. */
-sealed interface IconChoice {
-    val key: String
-
-    /** The DhizukuF icon. */
-    data object Default : IconChoice {
-        override val key = "default"
-    }
-
-    /** The icon of the original Dhizuku. */
-    data object Original : IconChoice {
-        override val key = "original"
-    }
-
-    /** An icon of the user (a picture that was added in Customization). */
-    data class Custom(val id: String) : IconChoice {
-        override val key = "custom:$id"
-    }
+/** The name that the launcher shows for DhizukuF. The package name never changes. */
+enum class AppName(val key: String, val label: String) {
+    DhizukuF("dhizukuf", "DhizukuF"),
+    Dhizuku("dhizuku", "Dhizuku"),
+    ProfileOwner("profile_owner", "Profile Owner"),
+    DeviceOwner("device_owner", "Device Owner");
 
     companion object {
-        fun parse(key: String?): IconChoice = when {
-            key == null || key == Default.key -> Default
-            key == Original.key -> Original
-            key.startsWith("custom:") && CustomIcons.isValidId(key.removePrefix("custom:")) ->
-                Custom(key.removePrefix("custom:"))
-
-            else -> Default
-        }
+        fun parse(key: String?): AppName = entries.firstOrNull { it.key == key } ?: DhizukuF
     }
 }
 
-object CustomIcons {
-    /** How many pictures of the user are kept. */
-    const val MAX = 8
+/** The icon: the new one, or the icon of the original Dhizuku. Both are built in. */
+enum class IconChoice(val key: String) {
+    /** The DhizukuF icon (default). */
+    Default("default"),
 
-    private val ID = Regex("[a-z0-9]{6,32}")
+    /** The icon of the original Dhizuku. */
+    Original("original");
 
-    fun isValidId(id: String): Boolean = ID.matches(id)
+    companion object {
+        fun parse(key: String?): IconChoice = entries.firstOrNull { it.key == key } ?: Default
+    }
+}
 
-    fun newId(): String = java.util.UUID.randomUUID().toString().replace("-", "").take(12)
+/** One launcher entry of the manifest: a name together with an icon. Exactly one is switched on at a time. */
+data class LauncherEntry(
+    val name: AppName = AppName.DhizukuF,
+    val icon: IconChoice = IconChoice.Default
+) {
+    companion object {
+        val DEFAULT = LauncherEntry()
+    }
+}
+
+/** The names of the launcher entries (`activity-alias`) of the manifest. */
+object LauncherAliases {
+    private const val PACKAGE = "com.EdS.DhizukuF"
+
+    /** Every name with every icon: the name and the icon are chosen independently of each other. */
+    val all: List<LauncherEntry> = AppName.entries.flatMap { name -> IconChoice.entries.map { LauncherEntry(name, it) } }
+
+    /**
+     * The default entry (DhizukuF, new icon) keeps the OLD name of the launcher activity: icons that earlier versions
+     * left on the home screen point to that name and keep working after an update.
+     */
+    fun className(entry: LauncherEntry): String =
+        if (entry == LauncherEntry.DEFAULT) "$PACKAGE.ui.activity.SettingsActivity"
+        else "$PACKAGE.alias.${entry.name.name}${entry.icon.name}"
 }
 
 data class AppearanceConfig(
-    /** The name as it was typed. Shown in DhizukuF and on the launcher shortcut of a custom icon; blank = "DhizukuF". */
-    val displayName: String = "",
+    val name: AppName = AppName.DhizukuF,
     val icon: IconChoice = IconChoice.Default,
     /** Keep the name and the icon when DhizukuF is updated (beta to release and so on). */
-    val rememberForUpdates: Boolean = true,
-    val customIcons: List<String> = emptyList()
+    val rememberForUpdates: Boolean = true
 ) {
-    /** The name to show, or null when it is blank (then the default name is used). */
-    val shownName: String? get() = displayName.trim().ifEmpty { null }
-
-    /** A selected custom icon that was deleted must never stay selected. */
-    val effectiveIcon: IconChoice
-        get() = (icon as? IconChoice.Custom)?.takeIf { it.id in customIcons } ?: icon.takeUnless { it is IconChoice.Custom }
-            ?: IconChoice.Default
+    val entry: LauncherEntry get() = LauncherEntry(name, icon)
 }
 
 /** The order of the cards of the home screen and which of them are hidden (Home > pencil). */
@@ -126,27 +127,25 @@ object HomeLayoutLogic {
 data class RestorePlan(
     /** "Remember for updates" is off and DhizukuF was updated: name and icon go back to the default ones. */
     val resetToDefault: Boolean,
-    /** The built-in launcher entry that must be switched on, or null when the right one is on already. */
-    val switchTo: IconChoice?,
+    /** The launcher entry that must be switched on, or null when the right one is on already. */
+    val switchTo: LauncherEntry?,
     /** Remember that the name and icon belong to this version now. */
     val storeVersion: Boolean
 )
 
 object RestoreLogic {
-    fun plan(config: AppearanceConfig, storedVersion: Int, currentVersion: Int, inUse: IconChoice): RestorePlan {
+    /** [inUse] is the entry that is switched on now, or null when it cannot be told. */
+    fun plan(config: AppearanceConfig, storedVersion: Int, currentVersion: Int, inUse: LauncherEntry?): RestorePlan {
         val updated = storedVersion != currentVersion
         // storedVersion 0 = nothing was ever put in place (a fresh install): there is nothing to give up
         if (updated && !config.rememberForUpdates && storedVersion != 0) {
             return RestorePlan(
                 resetToDefault = true,
-                switchTo = IconChoice.Default.takeIf { inUse != IconChoice.Default },
+                switchTo = LauncherEntry.DEFAULT.takeIf { inUse != it },
                 storeVersion = true
             )
         }
         if (!config.rememberForUpdates) return RestorePlan(false, null, updated)
-        // the launcher entry is the original icon only when that was chosen; a custom icon is a shortcut and the
-        // normal entry is then the DhizukuF icon
-        val wanted = if (config.effectiveIcon == IconChoice.Original) IconChoice.Original else IconChoice.Default
-        return RestorePlan(false, wanted.takeIf { it != inUse }, updated)
+        return RestorePlan(false, config.entry.takeIf { it != inUse }, updated)
     }
 }

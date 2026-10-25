@@ -9,25 +9,25 @@ app, keep them for updates, and an AMOLED theme*. It also adds a **Logs** journa
 ### What's new
 
 - **Customization** (new card on the home screen) - *Theme*: System, Light, Dark or **AMOLED** (pure black background);
-  *Icon*: the **new icon** (default, with a TV banner), the icon of the **original Dhizuku** (kept, it can be chosen at
-  any time) and your own pictures (add, choose, delete; the two built-in icons cannot be deleted); *App name*;
-  *Remember the name and icon for updates* (on by default). The package name never changes.
+  *App name*: DhizukuF, Dhizuku, Profile Owner or Device Owner; *Icon*: the **new icon** (default) or the icon of the
+  **original Dhizuku** (kept, it cannot be deleted). The name and the icon are chosen **independently**: changing one
+  keeps the other. Every combination has its own **TV banner**. *Remember the name and icon for updates* (on by default).
+  The package name never changes.
 - **Edit the home screen** - a **pencil** next to the X: move the cards with arrows, hide or show any card with the eye,
   or reset. Works with a remote (D-pad).
 - **Logs** (off by default) - *Settings > Logs* turns on a journal of service events, permissions, commands and errors,
   with a *Logs* screen (search, details), level, categories, size limit and a text export for bug reports. Off means
   off: nothing is saved. See [docs/LOGS.md](docs/LOGS.md).
-- **TV and remote** - Customization shows the TV banners on a TV, the app name field can be left with the Up / Down keys, and a
-  failed switch of the launcher entry is reported instead of silently ignored.
+- **TV and remote** - Customization shows the TV banner of the chosen name and icon on a TV, a text field can be left with the
+  Up / Down keys, and a failed switch of the launcher entry is reported instead of silently ignored.
 - **Fixes of 1.4.1** - a crash in the Arabic translation (permission dialog), an up-to-date dish dex, Sui support with the
   right package name, *Freeze all* asks first, a backslash inside double quotes in dish is kept.
 
 ### Good to know
 
-- Android cannot rename or redraw the launcher entry of an installed app. The two built-in icons switch between two
-  launcher entries; a picture of your own becomes a launcher **shortcut** (phones; a TV box uses it inside DhizukuF
-  only). The launcher may need a few seconds to refresh after a change. Icons that earlier versions left on the home
-  screen keep working. See [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md).
+- Android cannot rename or redraw the launcher entry of an installed app, so the names and icons are ready-made: 8 launcher
+  entries (4 names x 2 icons) switch between each other. The launcher may need a few seconds to refresh after a change. Icons
+  that earlier versions left on the home screen keep working. See [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md).
 
 ### Install
 
