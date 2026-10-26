@@ -1,45 +1,27 @@
-## DhizukuF v1.5.0 (8)
+## DhizukuF v1.5.1 (9)
 
 DhizukuF is a fork of [Dhizuku](https://github.com/iamr0s/Dhizuku) that shares Android **Device Owner** permissions with
 other apps and adds **dish**, a Device Owner console for any terminal.
 
-This release answers the request [#2](https://github.com/AmakerGame/DhizukuF/issues/2): *change the name and icon of the
-app, keep them for updates, and an AMOLED theme*. It also adds a **Logs** journal and carries the fixes of 1.4.1.
+This is a **dish client** release: the console utility is reworked for stability and compatibility. App features of 1.5.0 (Customization, Logs) are unchanged.
 
-### What's new
+### What's new (dish client 1.1)
 
-- **Customization** (new card on the home screen) - *Theme*: System, Light, Dark or **AMOLED** (pure black background);
-  *App name*: DhizukuF, Dhizuku, Profile Owner or Device Owner; *Icon*: the **new icon** (default) or the icon of the
-  **original Dhizuku** (kept, it cannot be deleted). The name and the icon are chosen **independently**: changing one
-  keeps the other. Every combination has its own **TV banner**. *Remember the name and icon for updates* (on by default).
-  The package name never changes.
-- **Edit the home screen** - a **pencil** next to the X: move the cards with arrows, hide or show any card with the eye,
-  or reset. Works with a remote (D-pad).
-- **Logs** (off by default) - *Settings > Logs* turns on a journal of service events, permissions, commands and errors,
-  with a *Logs* screen (search, details), level, categories, size limit and a text export for bug reports. Off means
-  off: nothing is saved. See [docs/LOGS.md](docs/LOGS.md).
-- **TV and remote** - Customization shows the TV banner of the chosen name and icon on a TV, a text field can be left with the
-  Up / Down keys, and a failed switch of the launcher entry is reported instead of silently ignored.
-- **Fixes of 1.4.1** - a crash in the Arabic translation (permission dialog), an up-to-date dish dex, Sui support with the
-  right package name, *Freeze all* asks first, a backslash inside double quotes in dish is kept.
+- **Clearer client code** - split into `DishMain`, `DishShell`, `DishConnection`, `DishProtocol` (same protocol 1 as the app).
+- **Stronger handshake** - API-aware `IActivityManager` order (prefers `broadcastIntentWithFeature` on Android 11+), looks up `activity` and `activity_task`, retries with a longer wait, checks the binder with `pingBinder`, reconnects once after a dead binder.
+- **CLI** - `dish -c ""` exits 0; `dish --help` / `--version` work without talking to the app; several commands in one line with `;` (`dish -c "status ; device"`).
+- **Interactive** - `!n` (nth history line), `reconnect`, `client-version`; history capped at 100 entries.
+- **Tokenize** - bare `;` is a separator; inside double quotes only `"`, `\`, `$` and the backtick are escaped (shell-like).
+- **Tuning** - env `DISH_DEBUG`, `DISH_CONNECT_ATTEMPTS`, `DISH_CONNECT_TIMEOUT` for slow devices / TV boxes.
+- **Docs** - [docs/DISH.md](docs/DISH.md) describes the client, builtins and environment.
 
 ### Good to know
 
-- Android cannot rename or redraw the launcher entry of an installed app, so the names and icons are ready-made: 8 launcher
-  entries (4 names x 2 icons) switch between each other. The launcher may need a few seconds to refresh after a change. Icons
-  that earlier versions left on the home screen keep working. See [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md).
+- After installing this build, **export dish files again** from the Terminal (dish) card so the terminal gets the new `dish` script and `dish_dhizukuf.dex`. An old dex on disk keeps the previous client.
+- Full list of changes: [CHANGELOG.md](CHANGELOG.md). dish guide: [docs/DISH.md](docs/DISH.md).
 
 ### Install
 
-1. Download `DhizukuF-v1.5.0.apk` below and install it (application ID `com.EdS.DhizukuF`). `DhizukuF-Hub-v1.5.0.apk`
-   is the same hub that the app installs for you; use it only for a manual install. If you use the hub, open
-   *Settings > Dhizuku Compatibility Hub* and press **Update** (its version follows DhizukuF).
-2. Make DhizukuF the Device Owner - see the
-   [Dhizuku activation tutorial](https://github.com/iamr0s/Dhizuku/discussions/19).
-   Set the device up **without accounts**, or remove them first.
-3. Tap **Terminal (dish)** for instructions, then follow [docs/DISH.md](docs/DISH.md). Re-export the dish files to get
-   the current dex.
-
-Requires Android 8.0 or newer. Updating keeps all settings and approved apps.
-
-Full list of changes: [CHANGELOG.md](CHANGELOG.md).
+1. Install the APK (or the Hub APK if you use the Compatibility Hub).
+2. Keep DhizukuF as Device Owner (or Profile Owner where supported).
+3. Export dish files again if you use the terminal console.

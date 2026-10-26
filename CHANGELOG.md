@@ -3,6 +3,22 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## 1.5.1 (9)
+
+Dish client 1.1: clearer structure, stronger handshake across Android versions, and a more complete console CLI.
+
+### Changed (dish client)
+- Client sources split into `DishMain`, `DishShell`, `DishConnection`, `DishProtocol` (same protocol 1).
+- Handshake: API-aware `IActivityManager` order (WithFeature on API 30+), `activity` / `activity_task`,
+  up to 3 attempts with growing timeout, `pingBinder` before use, reconnect after a dead binder.
+- CLI: `dish -c ""` exits 0; `dish --help` / `--version` without a connection; `;` chains commands.
+- Interactive: `!n`, `reconnect`, `client-version`; history capped at 100; consecutive duplicates skipped.
+- Tokenize: bare `;` is a separator; inside double quotes only `"`, `\\`, `$` and backtick are escaped.
+- Env: `DISH_DEBUG`, `DISH_CONNECT_ATTEMPTS`, `DISH_CONNECT_TIMEOUT`.
+- Docs: `docs/DISH.md` updated for client 1.1.
+
+Rebuild `dish_dhizukuf.dex` with `./dish-client/build.sh` so the APK ships the new client.
+
 ## 1.5.0 (8)
 
 New: **Customization** (theme with AMOLED, name and icon, remember for updates, editing of the home screen) and **Logs**.

@@ -11,8 +11,6 @@ if [ ! -f "$DEX" ]; then
   exit 1
 fi
 
-# app_process is /system/bin/app_process on every Android version; some images only ship a
-# 32/64 bit variant, so try those too.
 APP_PROCESS=
 for p in /system/bin/app_process /system/bin/app_process64 /system/bin/app_process32; do
   if [ -x "$p" ]; then APP_PROCESS=$p; break; fi
@@ -26,7 +24,7 @@ GETPROP=getprop
 command -v getprop >/dev/null 2>&1 || GETPROP=/system/bin/getprop
 SDK=$($GETPROP ro.build.version.sdk 2>/dev/null)
 
-# Android 14+ refuses to load a dex file that is writable.
+# Android 14+ refuses to load a writable dex.
 case "$SDK" in
   ''|*[!0-9]*) ;;
   *)
@@ -45,14 +43,23 @@ esac
 export DISH_PACKAGE=__PACKAGE__
 
 run() {
-  "$APP_PROCESS" -Djava.class.path="$DEX" /system/bin --nice-name=dish com.EdS.DhizukuF.dish.DishMain "$@"
+  "$APP_PROCESS" -Djava.class.path="$DEX" /system/bin --nice-name=dish \
+    com.EdS.DhizukuF.dish.DishMain "$@"
 }
 
+# Local flags that the Java client handles without needing an active session still need the dex.
+# Empty -c / missing command line: exit 0 without a full interactive session.
+if [ $# -eq 1 ] && { [ "$1" = "-c" ] || [ "$1" = "--command" ]; }; then
+  exit 0
+fi
+if [ $# -ge 2 ] && { [ "$1" = "-c" ] || [ "$1" = "--command" ]; }; then
+  # dish -c ""  or  dish -c ''  -> empty, exit 0
+  if [ $# -eq 2 ] && [ -z "$2" ]; then
+    exit 0
+  fi
+fi
+
 if [ $# -eq 0 ]; then
-  # Interactive mode: make sure dish may run BEFORE the console opens. If dish is disabled in
-  # DhizukuF, DhizukuF is not the Device Owner, or the access is refused, stop here and no
-  # prompt is shown. The first run also shows the approval window.
-  # Set DISH_SKIP_CHECK=1 to skip this check.
   if [ -z "$DISH_SKIP_CHECK" ]; then
     run -c ping
     rc=$?
@@ -62,7 +69,9 @@ if [ $# -eq 0 ]; then
     fi
   fi
   if [ -t 0 ]; then export DISH_TTY=1; fi
-  exec "$APP_PROCESS" -Djava.class.path="$DEX" /system/bin --nice-name=dish com.EdS.DhizukuF.dish.DishMain
+  exec "$APP_PROCESS" -Djava.class.path="$DEX" /system/bin --nice-name=dish \
+    com.EdS.DhizukuF.dish.DishMain
 fi
 
-exec "$APP_PROCESS" -Djava.class.path="$DEX" /system/bin --nice-name=dish com.EdS.DhizukuF.dish.DishMain "$@"
+exec "$APP_PROCESS" -Djava.class.path="$DEX" /system/bin --nice-name=dish \
+  com.EdS.DhizukuF.dish.DishMain "$@"

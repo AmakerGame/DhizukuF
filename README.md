@@ -96,7 +96,8 @@ Builds are published on the [Releases page](https://github.com/AmakerGame/Dhizuk
 ./gradlew assembleRelease
 ```
 
-The dish client (`dish-client/`) is plain Java without dependencies. The prebuilt
+The dish client (`dish-client/src`, classes `DishMain` / `DishShell` / `DishConnection` /
+`DishProtocol`) is plain Java without dependencies. The prebuilt
 `app/src/main/assets/dish_dhizukuf.dex` can be rebuilt with `dish-client/build.sh`
 (see [docs/DISH.md](docs/DISH.md#rebuilding-the-dex)).
 

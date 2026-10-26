@@ -10,6 +10,8 @@ the same way `rish` works for Shizuku.
    - adb: `adb push dish dish_dhizukuf.dex /data/local/tmp/` then `adb shell sh /data/local/tmp/dish`
    - anything else: `sh /path/to/dish`
 3. Run `dish` (interactive, prompt `dish$ `), `dish help`, or `dish -c "status"`.
+   Also: `dish --help` / `dish --version` (no connection), `dish -c ""` (empty, exit 0),
+   `dish -c "status ; device"` (several commands, stop on first failure).
    Before the prompt appears dish checks access. If dish is off, DhizukuF is not the Device Owner
    or access is refused, it prints the reason and does not start. (`DISH_SKIP_CHECK=1` skips the check.)
 4. The first run sends a registration request: the terminal appears in **DhizukuF > App management**
@@ -40,7 +42,58 @@ All dish console output is English only.
 
 Commands that run longer than 40 seconds are stopped with `NOT DONE`, so a stuck system call cannot block DhizukuF.
 
-The interactive console also knows `history`, `!!` (repeat the last command) and `clear`.
+## Client (console utility)
+
+The dish client is version **1.1** (protocol 1). Source is split into:
+
+| Class | Role |
+|-|-|
+| `DishMain` | entry, flags (`-c`, `--help`, `--version`) |
+| `DishShell` | interactive REPL, history, tokenize |
+| `DishConnection` | handshake, broadcast, Binder calls, reconnect |
+| `DishProtocol` | transaction codes and reply kinds (keep in sync with `DishBinder` / `DishEngine`) |
+
+### Usage
+
+```sh
+dish                      # interactive (after access check)
+dish help                 # one Device Owner command
+dish -c "status"          # command line
+dish -c ""                # empty line, exit 0
+dish -c "status ; device" # several commands; stop on first failure
+dish --help               # client help, no connection
+dish --version            # client version, no connection
+```
+
+### Interactive builtins
+
+| Builtin | Meaning |
+|-|-|
+| `exit` / `quit` | leave the console |
+| `clear` | clear the screen |
+| `history` | list previous lines (max 100; consecutive duplicates skipped) |
+| `!!` | repeat the last line |
+| `!n` | repeat history entry *n* |
+| `reconnect` | drop the Binder and connect again |
+| `client-version` | client version, SDK, package |
+
+### Environment
+
+| Variable | Default | Meaning |
+|-|-|-|
+| `DISH_PACKAGE` | `com.EdS.DhizukuF` | app package (set by the launcher) |
+| `DISH_TTY` | unset | `1` shows the prompt and banners |
+| `DISH_DEBUG` | unset | `1` logs handshake / broadcast attempts |
+| `DISH_CONNECT_ATTEMPTS` | `3` | handshake tries (1–8) |
+| `DISH_CONNECT_TIMEOUT` | `8` | seconds for the first try (later tries wait longer) |
+| `DISH_SKIP_CHECK` | unset | `1` skips the access `ping` before interactive mode |
+
+### Stability (Android versions)
+
+- Broadcast goes through hidden `IActivityManager`: on API 30+ `broadcastIntentWithFeature` is preferred, on older APIs `broadcastIntent`. Every overload is still tried as fallback.
+- Service lookup uses `activity`, then `activity_task`.
+- Dead binders are detected (`pingBinder`, `DeadObjectException`); the client reconnects once and repeats the command.
+- Tokenize treats bare `;` outside quotes as a separator and, inside double quotes, only escapes `"`, `\`, `$` and `` ` `` (shell-like).
 
 ## Compatibility
 
@@ -189,12 +242,13 @@ streams) before it replaces the committed file. The workflow **Rebuild dish dex*
 `dish_dhizukuf.dex` back to the branch (run `git pull` afterwards; the branch must allow pushes from
 `github-actions`). The build and release workflows run it too, before `assembleRelease`; if it
 fails the committed dex is kept, and the repository variable `DISH_REBUILD_DEX=false` switches the rebuild off.
-The client improvements (every `IActivityManager` broadcast variant is tried, the request is sent twice, one
-reconnect after a dead binder, `history` / `!!` / `clear`) take effect in a build made this way.
+Client 1.1 improvements (API-aware broadcast order, more handshake attempts, `pingBinder`,
+`reconnect`, `;` chains, `--help` / `--version`, history `!n`, shell-like escapes) take effect after
+this rebuild.
 
 Transport: the client sends a broadcast through ActivityManager (as the terminal's own uid) that
 carries its Binder; DhizukuF (`DishReceiver`) answers with its Binder (`DishBinder`) and from then on
 every command is a direct Binder call. DhizukuF learns the caller's real uid from
 `Binder.getCallingUid()`, so it cannot be spoofed. No sockets and no `am` are used, so it works from
 any terminal and also wakes DhizukuF if it was killed. Keep the transaction codes and reply kinds in
-`DishMain.java`, `DishBinder.kt` and `DishEngine.kt` in sync. Keep the codes in `DishMain.java` and `DishEngine.kt` in sync.
+`DishProtocol.java`, `DishBinder.kt` and `DishEngine.kt` in sync.
