@@ -26,9 +26,9 @@ import org.koin.core.component.inject
 object AppIconCache : KoinComponent {
     private val context by inject<Context>()
 
-    private val defaultImageBitMap by lazy {
-        ContextCompat.getDrawable(context, android.R.drawable.sym_def_app_icon)
-            ?: context.packageManager.defaultActivityIcon
+    private val defaultImageBitMap: ImageBitmap by lazy {
+        (ContextCompat.getDrawable(context, android.R.drawable.sym_def_app_icon)
+            ?: context.packageManager.defaultActivityIcon)
             .toBitmap()
             .asImageBitmap()
     }
@@ -36,6 +36,7 @@ object AppIconCache : KoinComponent {
     private val lruCache by lazy {
         val maxMemory = Runtime.getRuntime().maxMemory() / 1024
         val availableCacheSize = (maxMemory / 4).toInt()
+
         object : LruCache<String, Bitmap>(availableCacheSize) {
             override fun sizeOf(key: String, value: Bitmap): Int {
                 return (value.byteCount / 1024).coerceAtLeast(1)
@@ -44,16 +45,24 @@ object AppIconCache : KoinComponent {
     }
 
     @Composable
-    fun rememberImageBitmapState(applicationInfo: ApplicationInfo): MutableState<ImageBitmap> {
+    fun rememberImageBitmapState(
+        applicationInfo: ApplicationInfo
+    ): MutableState<ImageBitmap> {
         val key = "${applicationInfo.packageName}_${applicationInfo.uid}"
-        val state = remember(key) { mutableStateOf(defaultImageBitMap) }
+        val state = remember(key) {
+            mutableStateOf(defaultImageBitMap)
+        }
 
         LaunchedEffect(key) {
             val bitmap = withContext(Dispatchers.IO) {
-                lruCache[key] ?: applicationInfo.loadIcon(context.packageManager)?.toBitmap()?.also {
-                    lruCache.put(key, it)
-                }
+                lruCache[key]
+                    ?: applicationInfo.loadIcon(context.packageManager)
+                        ?.toBitmap()
+                        ?.also {
+                            lruCache.put(key, it)
+                        }
             }
+
             bitmap?.let {
                 state.value = it.asImageBitmap()
             }
@@ -63,16 +72,26 @@ object AppIconCache : KoinComponent {
     }
 
     @Composable
-    fun rememberImageBitmapState(admin: DeviceAdminInfo): MutableState<ImageBitmap> {
-        val key = "${admin.component.flattenToShortString()}_${admin.activityInfo.applicationInfo.uid}"
-        val state = remember(key) { mutableStateOf(defaultImageBitMap) }
+    fun rememberImageBitmapState(
+        admin: DeviceAdminInfo
+    ): MutableState<ImageBitmap> {
+        val key =
+            "${admin.component.flattenToShortString()}_${admin.activityInfo.applicationInfo.uid}"
+
+        val state = remember(key) {
+            mutableStateOf(defaultImageBitMap)
+        }
 
         LaunchedEffect(key) {
             val bitmap = withContext(Dispatchers.IO) {
-                lruCache[key] ?: admin.loadIcon(context.packageManager)?.toBitmap()?.also {
-                    lruCache.put(key, it)
-                }
+                lruCache[key]
+                    ?: admin.loadIcon(context.packageManager)
+                        ?.toBitmap()
+                        ?.also {
+                            lruCache.put(key, it)
+                        }
             }
+
             bitmap?.let {
                 state.value = it.asImageBitmap()
             }
@@ -82,20 +101,27 @@ object AppIconCache : KoinComponent {
     }
 
     @Composable
-    fun rememberImageBitmapState(packageName: String, drawable: Drawable): MutableState<ImageBitmap> {
+    fun rememberImageBitmapState(
+        packageName: String,
+        drawable: Drawable
+    ): MutableState<ImageBitmap> {
         val key = packageName
-        val state = remember(key) { mutableStateOf(defaultImageBitMap) }
+        val state = remember(key) {
+            mutableStateOf(defaultImageBitMap)
+        }
 
         LaunchedEffect(key) {
             val bitmap = withContext(Dispatchers.IO) {
-                lruCache[key] ?: try {
-                    drawable.toBitmap()
-                } catch (_: Exception) {
-                    null
-                }?.also {
-                    lruCache.put(key, it)
-                }
+                lruCache[key]
+                    ?: try {
+                        drawable.toBitmap()
+                    } catch (_: Exception) {
+                        null
+                    }?.also {
+                        lruCache.put(key, it)
+                    }
             }
+
             bitmap?.let {
                 state.value = it.asImageBitmap()
             }
