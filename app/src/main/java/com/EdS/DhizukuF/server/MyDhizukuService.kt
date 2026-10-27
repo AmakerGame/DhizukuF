@@ -138,10 +138,7 @@ class MyDhizukuService(context: Context, admin: ComponentName?, client: IDhizuku
         if (!entity.allowApi || entity.blocked) {
             return deny(callingUid, func, if (entity.blocked) "The app is blocked" else "The app is not allowed")
         }
-
-        if (settingsRepo.isWhitelistMode && !entity.allowApi) {
-            return false
-        }
+        // Whitelist mode is enforced above: only allowApi apps pass. Blocked entries never pass.
 
         // Never cache the signature: an updated app with another certificate must be refused.
         val signature = context.packageManager.getPackageInfoForUid(callingUid)?.signature

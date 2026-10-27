@@ -284,7 +284,9 @@ class ActivateViewModel : ViewModel(), KoinComponent {
             field = manager.javaClass.getDeclaredField("mService")
             field.isAccessible = true
             iInterface = field.get(manager) as IInterface
-            val binder = wrapper.invoke(iInterface.asBinder()!!)
+            val raw = iInterface.asBinder()
+                ?: error("DevicePolicyManager service binder is null")
+            val binder = wrapper.invoke(raw)
             field.set(manager, IDevicePolicyManager.Stub.asInterface(binder))
             action.invoke(manager)
         } finally {

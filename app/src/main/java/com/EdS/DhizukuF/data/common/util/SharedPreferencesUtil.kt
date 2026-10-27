@@ -13,10 +13,9 @@ inline fun <reified T> SharedPreferences.asFlow(
         else defaultValue
     }
 ) = callbackFlow {
-    // 初始值发射
+    // Emit the current value first.
     trySend(getter())
 
-    // 监听数据变化
     val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, changedKey ->
         if (changedKey == key) {
             trySend(getter())
@@ -24,7 +23,6 @@ inline fun <reified T> SharedPreferences.asFlow(
     }
     registerOnSharedPreferenceChangeListener(listener)
 
-    // 取消监听
     awaitClose { unregisterOnSharedPreferenceChangeListener(listener) }
 }
 

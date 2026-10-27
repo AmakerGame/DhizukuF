@@ -9,8 +9,9 @@ import java.io.OutputStream
 import java.util.ArrayDeque
 
 /**
- * The journal file. Appending, trimming and clearing exclude each other; reading does not lock: the file only
- * grows at its end, and a trim replaces it atomically, so a reader sees either the old or the new file.
+ * The journal file. Appending, trimming, clearing and export exclude each other.
+ * Lightweight reads (readNewest) do not take the lock: the file only grows at its end, and a trim
+ * replaces it atomically, so a reader sees either the old or the new file.
  */
 class LogStore(private val file: File) {
     private val lock = Any()
@@ -91,12 +92,14 @@ class LogStore(private val file: File) {
         }
     }
 
-    /** Writes the whole journal as a readable text file, oldest entry first. Returns the number of entries. */
-    fun writeReadable(out: OutputStream, header: String): Int {
+    /**
+     * Writes the whole journal as a readable text file, oldest entry first. Returns the number of entries.
+     * Holds [lock] for the whole export so append/trim cannot change the file mid-read.
+     */
+    fun writeReadable(out: OutputStream, header: String): Int = synchronized(lock) {
         val writer = out.bufferedWriter(Charsets.UTF_8)
         var count = 0
         val body = StringBuilder()
-        // The count goes in the header, so entries are counted first and written after.
         forEachEntry { count++ }
         writer.write(header)
         writer.write("Entries: $count\n")
@@ -107,6 +110,6 @@ class LogStore(private val file: File) {
             writer.write(body.toString())
         }
         writer.flush()
-        return count
+        count
     }
 }

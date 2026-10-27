@@ -226,12 +226,14 @@ fun ActivatePage(
         }
         if (isRunning) return@AlertDialog
         if (!isSuccess) TvTextButton(onClick = {
+            val c = comp
+            if (c == null) return@TvTextButton
             when (viewModel.ownerType) {
                 ActivateViewModel.OwnerType.Profile ->
-                    viewModel.activateAsProfileOwner(mode = mode, comp = comp!!)
+                    viewModel.activateAsProfileOwner(mode = mode, comp = c)
 
                 else ->
-                    viewModel.activateAsDeviceOwner(mode = mode, comp = comp!!)
+                    viewModel.activateAsDeviceOwner(mode = mode, comp = c)
             }
         }) {
             Text(stringResource(R.string.retry))

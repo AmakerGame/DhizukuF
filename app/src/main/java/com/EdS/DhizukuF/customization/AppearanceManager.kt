@@ -46,8 +46,22 @@ object AppearanceManager {
 
     /** Switches to [entry]. Returns true only when the system really switched (the state is read back). */
     fun apply(context: Context, entry: LauncherEntry): Boolean = try {
+        if (!switchOnce(context, entry)) {
+            // OEM / race: try once more so leftover aliases are disabled
+            Log.w(TAG, "launcher switch not confirmed, retrying")
+            switchOnce(context, entry)
+        }
+        val ok = inUse(context) == entry
+        if (!ok) Log.w(TAG, "launcher entry still not $entry after apply")
+        ok
+    } catch (t: Throwable) {
+        Log.w(TAG, "cannot switch the launcher entry", t)
+        false
+    }
+
+    private fun switchOnce(context: Context, entry: LauncherEntry): Boolean {
         val pm = context.packageManager
-        // the new entry first: there is always at least one entry in the launcher
+        // Enable the new entry first so the app never disappears from the launcher.
         pm.setComponentEnabledSetting(
             component(context, entry), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
         )
@@ -57,10 +71,7 @@ object AppearanceManager {
                 component(context, other), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
             )
         }
-        inUse(context) == entry
-    } catch (t: Throwable) {
-        Log.w(TAG, "cannot switch the launcher entry", t)
-        false
+        return inUse(context) == entry
     }
 
     /**

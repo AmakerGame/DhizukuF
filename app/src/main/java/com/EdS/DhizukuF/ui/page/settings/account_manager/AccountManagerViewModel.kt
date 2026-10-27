@@ -270,7 +270,7 @@ class AccountManagerViewModel(
                                         androidx.core.content.ContextCompat.getDrawable(
                                             context,
                                             android.R.drawable.sym_def_app_icon
-                                        )!!
+                                        ) ?: context.packageManager.defaultActivityIcon
                                     }
                                     val placeholderAuth = com.EdS.DhizukuF.data.account.entity.AccountAuthenticatorEntity(
                                         userId = userId,
@@ -296,7 +296,7 @@ class AccountManagerViewModel(
                                     androidx.core.content.ContextCompat.getDrawable(
                                         context,
                                         android.R.drawable.sym_def_app_icon
-                                    )!!
+                                    ) ?: context.packageManager.defaultActivityIcon
                                 }
                                 val placeholderAuth = com.EdS.DhizukuF.data.account.entity.AccountAuthenticatorEntity(
                                     userId = userId,

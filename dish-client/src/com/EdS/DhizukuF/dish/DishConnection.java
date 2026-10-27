@@ -132,8 +132,13 @@ final class DishConnection {
             System.err.println(r.message);
             return 1;
         } catch (RemoteException e) {
+            String name = e.getClass().getSimpleName();
+            if ("TransactionTooLargeException".equals(name)) {
+                System.err.println("dish: command or result too large for Binder");
+                return 1;
+            }
             reset();
-            if (allowDeadRetry && isDeadObject(e)) {
+            if (allowDeadRetry && "DeadObjectException".equals(name)) {
                 DishProtocol.log("DeadObjectException, reconnecting");
                 return execute(args, false);
             }
@@ -143,8 +148,7 @@ final class DishConnection {
     }
 
     private static boolean isDeadObject(RemoteException e) {
-        String n = e.getClass().getSimpleName();
-        return "DeadObjectException".equals(n) || "TransactionTooLargeException".equals(n);
+        return "DeadObjectException".equals(e.getClass().getSimpleName());
     }
 
     private static boolean binderAlive(IBinder b) {

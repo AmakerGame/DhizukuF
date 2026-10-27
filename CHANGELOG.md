@@ -3,6 +3,27 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## 1.5.2 (10)
+
+Bugfix and dish hardening after 1.5.1. Ships the rebuilt dish client dex and small safety fixes.
+
+### Fixed
+- **dish dex** committed in sync with `dish-client/src` (client 1.1 classes in the APK / export).
+- Activation **Retry** no longer uses `comp!!` (null-safe).
+- dish client: `TransactionTooLargeException` returns a clear error instead of a useless reconnect.
+- Dead whitelist branch removed from `MyDhizukuService` (unreachable after the allowApi check).
+- Account manager: safer fallback icon when the package icon cannot be loaded.
+- **Logs export** holds the store lock for the whole write (no race with append/trim).
+- **Customization** launcher switch retries once if the system did not confirm the new entry.
+- SharedPreferences flow helper: English comments only.
+- **Deactivate**: clears only profile-owner *or* device-owner (not both); refreshes owner state after.
+- Activation binder wrapper: clear error if service binder is null (no `!!`).
+- App icon cache: safer default drawable fallback.
+
+### dish client (still 1.1 protocol)
+- Unchanged protocol. Rebuild with `./dish-client/build.sh` if you edit the client again.
+- After install: export dish files again from the Terminal card so terminals pick up the new dex.
+
 ## 1.5.1 (9)
 
 Dish client 1.1: clearer structure, stronger handshake across Android versions, and a more complete console CLI.

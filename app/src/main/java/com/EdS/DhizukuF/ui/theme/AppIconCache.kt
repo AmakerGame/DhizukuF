@@ -27,7 +27,8 @@ object AppIconCache : KoinComponent {
     private val context by inject<Context>()
 
     private val defaultImageBitMap by lazy {
-        ContextCompat.getDrawable(context, android.R.drawable.sym_def_app_icon)!!
+        ContextCompat.getDrawable(context, android.R.drawable.sym_def_app_icon)
+            ?: context.packageManager.defaultActivityIcon
             .toBitmap()
             .asImageBitmap()
     }

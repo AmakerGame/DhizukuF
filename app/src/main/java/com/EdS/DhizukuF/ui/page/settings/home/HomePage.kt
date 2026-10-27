@@ -846,17 +846,16 @@ private fun LazyItemScope.DeactivateWidget() {
         TvTextButton(onClick = {
             try {
                 @Suppress("DEPRECATION")
-                manager.clearProfileOwner(DhizukuState.admin)
-            } catch (e: Throwable) {
-                e.printStackTrace()
-            }
-            try {
-                @Suppress("DEPRECATION")
-                manager.clearDeviceOwnerApp(context.packageName)
+                if (DhizukuState.state.isProfileOwner) {
+                    manager.clearProfileOwner(DhizukuState.admin)
+                } else {
+                    manager.clearDeviceOwnerApp(context.packageName)
+                }
             } catch (e: Throwable) {
                 e.printStackTrace()
             }
             state = false
+            DhizukuState.sync(context)
         }) {
             Text(stringResource(R.string.confirm))
         }
