@@ -16,5 +16,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Dhizuku"
-include("app", "hidden-api")
+rootProject.name = "DhizukuF"
+include("app", "hidden-api", "hub")

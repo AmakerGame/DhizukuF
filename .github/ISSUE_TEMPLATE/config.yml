@@ -1,14 +1,17 @@
 blank_issues_enabled: false
 contact_links:
-  - name: How do I activate Dhizuku
+  - name: Security problem (private report)
+    url: https://github.com/AmakerGame/DhizukuF/security/advisories/new
+    about: A way around the permission dialog, the "dangerous commands" switch or the dish approval? Report it privately, not as a public issue.
+  - name: How do I use dish (terminal)?
+    url: https://github.com/AmakerGame/DhizukuF/blob/main/docs/DISH.md
+    about: Install, commands, Device Owner / Profile Owner, dangerous commands, Android 14 notes.
+  - name: What is the Dhizuku Compatibility Hub?
+    url: https://github.com/AmakerGame/DhizukuF/blob/main/docs/HUB.md
+    about: Apps written for the original Dhizuku (com.rosan.dhizuku) and how they work with DhizukuF.
+  - name: How do I make DhizukuF the Device Owner?
     url: https://github.com/iamr0s/Dhizuku/discussions/19
-    about: For beginners
-  - name: Cannot set device owner (Occured IllegalStateException)
+    about: Activation tutorial of the original project (it applies to DhizukuF too). Remove all accounts first.
+  - name: Cannot set device owner (IllegalStateException)
     url: https://github.com/iamr0s/Dhizuku/discussions/19#already_accounts
-    about: Not allowed to set the device owner because there are already some accounts on the device.
-  - name: How to setup with QR code
-    url: https://github.com/iamr0s/Dhizuku/discussions/118
-    about: Android 7.0 or later
-  - name: How to do if you cannot connect with Dhizuku v2.9
-    url: https://github.com/iamr0s/Dhizuku/discussions/114
-    about: For developers
+    about: Android refuses a Device Owner while accounts exist on the device.

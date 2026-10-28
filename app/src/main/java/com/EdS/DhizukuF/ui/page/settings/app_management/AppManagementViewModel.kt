@@ -1,0 +1,174 @@
+package com.EdS.DhizukuF.ui.page.settings.app_management
+
+import com.EdS.DhizukuF.logging.LogManager
+
+import com.EdS.DhizukuF.logging.LogEvent
+
+import android.content.Context
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.util.Log
+import com.EdS.DhizukuF.dish.DishRegistry
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+
+import com.EdS.DhizukuF.data.common.util.getPackageInfoForUid
+import com.EdS.DhizukuF.data.common.util.signature
+import com.EdS.DhizukuF.data.settings.model.room.entity.AppEntity
+import com.EdS.DhizukuF.data.settings.repo.AppRepo
+import com.rosan.dhizuku.shared.DhizukuVariables
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.component.inject
+
+class AppManagementViewModel : ViewModel(), KoinComponent {
+    val context by lazy {
+        get<Context>()
+    }
+
+    private val packageManager: PackageManager by lazy {
+        context.packageManager
+    }
+
+    private val repo by inject<AppRepo>()
+
+    var state by mutableStateOf(AppManagementViewState())
+        private set
+
+    fun collect() {
+        collectRepo()
+    }
+
+    private var collectRepoJob: Job? = null
+
+    private class Candidate(val applicationInfo: ApplicationInfo, val requested: Boolean)
+
+    private val labelCache = java.util.concurrent.ConcurrentHashMap<String, String>()
+
+    // Scanning every installed package is slow, so it is done once per refresh
+    // (not on every database change) and never on the main thread.
+    private fun scanPackages(): List<Candidate> {
+        return packageManager
+            .getInstalledPackages(PackageManager.GET_PERMISSIONS)
+            .mapNotNull { packageInfo ->
+                if (packageInfo.packageName == context.packageName) return@mapNotNull null
+                val applicationInfo = packageInfo.applicationInfo ?: return@mapNotNull null
+                Candidate(
+                    applicationInfo,
+                    packageInfo.requestedPermissions
+                        ?.contains(DhizukuVariables.PERMISSION_API) ?: false
+                )
+            }
+            .distinctBy { it.applicationInfo.packageName }
+    }
+
+    fun collectRepo() {
+        state = state.copy(loading = true)
+        collectRepoJob?.cancel()
+        collectRepoJob = viewModelScope.launch(Dispatchers.Default) {
+            val candidates = try {
+                scanPackages()
+            } catch (e: Exception) {
+                Log.w("AppManagement", "package scan failed", e)
+                state = state.copy(loading = false)
+                return@launch
+            }
+            repo.flowAll().collect { entities ->
+                val byUid = entities.associateBy { it.uid }
+                val dishUids = DishRegistry.all()
+                val data = candidates.mapNotNull { c ->
+                    val entity = byUid[c.applicationInfo.uid]
+                    if (!c.requested && entity == null) return@mapNotNull null
+                    val baseLabel = labelCache.getOrPut(c.applicationInfo.packageName) {
+                        c.applicationInfo.loadLabel(packageManager).toString()
+                    }
+                    AppManagementViewData(
+                        applicationInfo = c.applicationInfo,
+                        label = if (c.applicationInfo.uid in dishUids) {
+                            DishRegistry.displayName(c.applicationInfo.uid, baseLabel)
+                        } else baseLabel,
+                        enabled = entity?.allowApi ?: false,
+                        blocked = entity?.blocked ?: false
+                    )
+                }
+                // A dish client whose package cannot be resolved is still listed, so the
+                // registration request is never invisible.
+                val covered = data.map { it.applicationInfo.uid }.toSet()
+                val extra = dishUids.keys.filter { it !in covered }.mapNotNull { uid ->
+                    val entity = byUid[uid] ?: return@mapNotNull null
+                    AppManagementViewData(
+                        applicationInfo = ApplicationInfo().apply {
+                            packageName = "dish.uid.$uid"
+                            this.uid = uid
+                        },
+                        label = DishRegistry.displayName(uid, null),
+                        enabled = entity.allowApi,
+                        blocked = entity.blocked
+                    )
+                }
+                state = state.copy(
+                    data = (data + extra).sortedBy { it.applicationInfo.packageName },
+                    loading = false
+                )
+            }
+        }
+    }
+
+    fun setEnabled(uid: Int, bool: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            LogManager.log(
+                if (bool) LogEvent.PermissionGranted else LogEvent.PermissionDenied,
+                uid = uid, message = "Changed in App management"
+            )
+            if (!bool && DishRegistry.isDish(uid)) {
+                // A dish terminal that is switched off is forgotten and leaves the list; its next dish
+                // request registers it again. A blocked terminal keeps its entry, or the block would be lost.
+                val current = repo.findByUID(uid)
+                if (current == null || !current.blocked) {
+                    DishRegistry.unregister(uid)
+                    if (current != null) repo.delete(current)
+                    return@launch
+                }
+            }
+            val entity = repo.findByUID(uid)
+            val signature = packageManager.getPackageInfoForUid(uid)?.signature
+                ?: entity?.signature ?: return@launch
+            // Allow must clear block: otherwise UI shows "on" while authorize still denies.
+            if (entity == null)
+                repo.insert(AppEntity(uid = uid, signature = signature, allowApi = bool, blocked = false))
+            else
+                repo.update(
+                    entity.copy(
+                        signature = signature,
+                        allowApi = bool,
+                        blocked = if (bool) false else entity.blocked
+                    )
+                )
+        }
+    }
+
+    fun setBlocked(uid: Int, bool: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            LogManager.log(
+                if (bool) LogEvent.AppBlocked else LogEvent.PermissionDenied,
+                uid = uid, message = if (bool) "Blocked in App management" else "Unblocked in App management (not allowed)"
+            )
+            val entity = repo.findByUID(uid)
+            val signature = packageManager.getPackageInfoForUid(uid)?.signature
+                ?: entity?.signature ?: return@launch
+            if (entity == null)
+                repo.insert(AppEntity(uid = uid, signature = signature, allowApi = false, blocked = bool))
+            else
+                repo.update(entity.copy(signature = signature, blocked = bool, allowApi = if (bool) false else entity.allowApi))
+        }
+    }
+}

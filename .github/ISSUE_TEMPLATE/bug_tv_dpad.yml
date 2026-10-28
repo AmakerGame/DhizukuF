@@ -1,0 +1,116 @@
+name: Bug - Android TV / D-pad / remote
+description: The focus jumps, a button cannot be reached or pressed, or a dialog cannot be used with a remote.
+labels: [ "bug", "tv", "dpad", "triage needed" ]
+title: "[TV/D-pad] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        D-pad bugs are hard to see in text. **A short video (even from a phone) or screenshots of the focus frame help a lot.**
+        English, Ukrainian and Russian are all fine.
+  - type: checkboxes
+    attributes:
+      label: Before you send
+      options:
+        - label: I use the [latest release](https://github.com/AmakerGame/DhizukuF/releases/latest) and the problem is still there.
+          required: true
+        - label: I searched the [existing issues](https://github.com/AmakerGame/DhizukuF/issues?q=is%3Aissue) and found nothing like it.
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: DhizukuF version
+      placeholder: "1.5.0 (8)"
+    validations:
+      required: true
+  - type: dropdown
+    id: screen
+    attributes:
+      label: Which screen?
+      options:
+        - Home
+        - Activation (Dhizuku mode)
+        - Activation (Shizuku mode)
+        - App management
+        - Account manager
+        - User manager
+        - Settings
+        - Security (whitelist, dangerous commands, screen-lock confirmation)
+        - Permission dialog ("Allow X to use Dhizuku?")
+        - A dialog (status, warning, confirm, shutdown)
+        - Drop-down menu (owner type, ...)
+        - Terminal (dish) card / export files
+        - Hub card
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: what
+    attributes:
+      label: What goes wrong?
+      options:
+        - The focus never reaches an element (skips it)
+        - The focus is stuck on an element, I cannot leave it
+        - There is no visible focus frame
+        - The centre / OK key does nothing on the focused element
+        - The focus jumps to a strange place
+        - A dialog opens but the remote cannot press its buttons
+        - The Back key does not work as expected
+        - The list does not scroll with the arrows
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Which keys did you press, and what happened?
+      placeholder: |
+        Opened Activation. Focus was on "DhizukuF". Pressed Down -> focus went to ...
+        Pressed OK on "OK" -> nothing happened.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen?
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device, SoC and Android version
+      placeholder: "X96 Max Plus Ultra, Amlogic S905X4, Android 11"
+    validations:
+      required: true
+  - type: dropdown
+    id: remote
+    attributes:
+      label: Remote / input device
+      options:
+        - Original remote of the box (IR)
+        - Bluetooth remote
+        - Air mouse remote (gyro)
+        - Gamepad
+        - USB / Bluetooth keyboard
+        - adb shell input keyevent
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: leanback
+    attributes:
+      label: Does the device show DhizukuF in the TV launcher (with the banner)?
+      options:
+        - "Yes"
+        - No, I start it from the list of apps
+        - I do not know
+  - type: textarea
+    id: media
+    attributes:
+      label: Video or screenshots
+      description: Drag the files here. Show the whole screen so the focus frame is visible.
+  - type: textarea
+    id: dhizukuf-logs
+    attributes:
+      label: DhizukuF logs (optional)
+      description: "Settings > Logs > Enable logs, repeat the problem, then Export logs and drag the .txt file here (or paste the part that matters). Look through it first: it names apps and packages."

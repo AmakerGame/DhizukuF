@@ -1,0 +1,91 @@
+name: Bug - activation / Device Owner / permissions
+description: Cannot make DhizukuF the Device Owner, the permission dialog or the app list behaves wrongly.
+labels: [ "bug", "activation", "triage needed" ]
+title: "[Activation] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before you write: Android refuses a Device Owner while **accounts** (Google or other) exist on the device, and some devices
+        refuse `dpm set-device-owner` altogether. Please read the
+        [activation tutorial](https://github.com/iamr0s/Dhizuku/discussions/19) first.
+        English, Ukrainian and Russian are all fine.
+  - type: checkboxes
+    attributes:
+      label: Before you send
+      options:
+        - label: I use the [latest release](https://github.com/AmakerGame/DhizukuF/releases/latest).
+          required: true
+        - label: I removed all accounts from the device (or the problem is not about accounts).
+          required: true
+        - label: I searched the [existing issues](https://github.com/AmakerGame/DhizukuF/issues?q=is%3Aissue) and found nothing like it.
+          required: true
+  - type: dropdown
+    id: how
+    attributes:
+      label: How do you activate?
+      options:
+        - '"Activation through Dhizuku" (another Device Owner app hands over)'
+        - '"Activation through Shizuku"'
+        - adb shell dpm set-device-owner
+        - adb shell dpm set-profile-owner
+        - QR code / provisioning
+        - Root (su)
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: owner
+    attributes:
+      label: Owner type you want
+      options:
+        - Device Owner
+        - Profile Owner
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: The exact error text
+      description: "Copy the text of the dialog or the adb output, for example `java.lang.IllegalStateException: ...`"
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What did you do, step by step?
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: "Poco C61, Android 16  /  H96 MAX (Amlogic S905L3), Android 9"
+    validations:
+      required: true
+  - type: dropdown
+    id: previous
+    attributes:
+      label: Is another Device Owner app set already (Dhizuku, a MDM, a launcher with admin)?
+      options:
+        - "No"
+        - Yes, the original Dhizuku
+        - Yes, another app
+        - I do not know
+  - type: textarea
+    id: owner-state
+    attributes:
+      label: Output of `adb shell dpm list-owners` (optional)
+      render: shell
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log (optional)
+      description: "`adb logcat -d | grep -i -E 'dhizuku|DevicePolicy|AndroidRuntime'`"
+      render: shell
+  - type: textarea
+    id: dhizukuf-logs
+    attributes:
+      label: DhizukuF logs (optional)
+      description: "Settings > Logs > Enable logs, repeat the problem, then Export logs and drag the .txt file here (or paste the part that matters). Look through it first: it names apps and packages."

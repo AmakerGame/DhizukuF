@@ -1,0 +1,80 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Build & Release
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Check that the repository is complete
+        # A folder that .gitignore hides (or that was never committed) is missing on the runner, and Gradle
+        # then stops with a confusing message about project directories.
+        run: |
+          missing=0
+          for d in app hub hidden-api dish-client keystore; do
+            if [ ! -d "$d" ]; then
+              echo "::error::Folder '$d' is missing in the repository. If .gitignore hides it, add it with: git add -f $d"
+              missing=1
+            fi
+          done
+          if [ -d keystore ] && [ ! -f keystore/debug.properties ]; then
+            echo "::error::keystore/debug.properties is missing in the repository (git add -f keystore)"
+            missing=1
+          fi
+          exit $missing
+
+      - name: Check that the tag matches version.properties
+        run: |
+          expected="v$(grep '^versionName=' version.properties | cut -d= -f2)"
+          if [ "${{ github.ref_name }}" != "$expected" ]; then
+            echo "Tag ${{ github.ref_name }} does not match version.properties ($expected)"
+            exit 1
+          fi
+          grep -q "^## DhizukuF ${expected}" RELEASE_NOTES.md || { echo "RELEASE_NOTES.md is not for ${expected}"; exit 1; }
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build dish client (dex)
+        # Rebuilds dish_dhizukuf.dex from dish-client/src with d8. If anything fails, the committed dex
+        # is kept. Set the repository variable DISH_REBUILD_DEX to "false" to always use the committed file.
+        if: ${{ vars.DISH_REBUILD_DEX != 'false' }}
+        continue-on-error: true
+        run: sh dish-client/build.sh
+
+      - name: Build Release APK
+        run: |
+          chmod +x ./gradlew
+          ./gradlew --no-daemon assembleRelease
+
+      - name: Rename APK
+        run: |
+          mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/DhizukuF-${{ github.ref_name }}.apk
+          cp hub/build/outputs/apk/release/hub-release.apk hub/build/outputs/apk/release/DhizukuF-Hub-${{ github.ref_name }}.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            app/build/outputs/apk/release/DhizukuF-${{ github.ref_name }}.apk
+            hub/build/outputs/apk/release/DhizukuF-Hub-${{ github.ref_name }}.apk
+          generate_release_notes: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          body_path: RELEASE_NOTES.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

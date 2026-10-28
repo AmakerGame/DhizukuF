@@ -1,0 +1,62 @@
+name: Feature request / idea
+description: Suggest a new dish command, a UI improvement, TV support or anything else.
+labels: [ "enhancement", "triage needed" ]
+title: "[Idea] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. English, Ukrainian and Russian are all fine. Please one idea per issue.
+  - type: dropdown
+    id: area
+    attributes:
+      label: What is it about?
+      options:
+        - A new dish command
+        - A change of an existing dish command
+        - dish api / direct calls
+        - Terminal features (history, completion, quoting, batch)
+        - UI (screens, dialogs, texts)
+        - Android TV / D-pad / remote
+        - Permission dialog / approval of apps
+        - Dhizuku Compatibility Hub / Dhizuku API
+        - Translations
+        - Build / release / documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem do you want to solve?
+      description: What can you not do today?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How should it work?
+      description: For a dish command give the name, the arguments and an example of the answer.
+      placeholder: |
+        dish example --flag PACKAGE
+        OK: ...
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Is it a risky action (data loss, locks the device, wipes something)?
+      description: Risky actions stay behind the "Dangerous commands" switch.
+      options:
+        - "No"
+        - Yes, it should be a dangerous command
+        - I am not sure
+  - type: input
+    id: android
+    attributes:
+      label: Android version it needs (if you know)
+      placeholder: "Android 11+"
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Other ways you tried (adb, dpm, other apps)

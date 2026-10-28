@@ -1,80 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 通用 -->
-    <string name="permission_description">使用 Dhizuku 的 API</string>
-    <!-- 使用协议 -->
     <string name="agreement_title">温馨提示</string>
     <string name="agreement_text">根据相关政策规定，您需要先阅读并同意&lt;a href=https://iamr0s.github.io/Dhizuku/TERMS.html&gt;《用户条款》&lt;/a&gt;与&lt;a href=https://iamr0s.github.io/Dhizuku/PRIVACY.html&gt;《隐私政策》&lt;/a&gt;后才能开始使用本软件。同意后不再弹出此提示，可通过设置页点击链接可再次查看相关文件内容。</string>
     <string name="agree_text">同意</string>
-    <!-- 常用 -->
-    <string name="copy">复制</string>
+    <!-- Commonly  used characters -->
     <string name="cancel">取消</string>
-    <string name="confirm">确认</string>
     <string name="retry">重试</string>
-    <string name="finish">完成</string>
-    <!-- 主页 - 状态 -->
+    <!-- Home - Status -->
     <string name="home_status_owner_granted">已获得所有者权限！</string>
-    <string name="home_status_owner_transferred">%1$s已转移！！！</string>
     <string name="home_status_owner_denied">等待激活</string>
-    <!-- 主页 - 应用管理 -->
+    <!-- Home - Application Management -->
     <string name="home_app_management_title">应用管理</string>
     <string name="home_app_management_dsp">已申请或声明使用 Dhizuku 的应用将在此显示。</string>
-    <!-- 主页 - Dhizuku -->
-    <string name="home_dhizuku_title">激活（通过 Dhizuku）</string>
+    <string name="home_user_management_dsp">管理系统用户及其账户。</string>
+    <!-- Home - Shutdown -->
+    <string name="home_shutdown_title">关闭</string>
+    <string name="home_shutdown_dsp">除非 DhizukuF 自愿关闭，否则系统将无法关闭 DhizukuF。</string>
+    <!-- Home - Dhizuku -->
+    <string name="home_dhizuku_title">激活（通过 DhizukuF）</string>
     <string name="home_dhizuku_dsp">如果您安装了其他的Dhizuku实现，您可以随意在它们之间切换。请&lt;a href=%1$s&gt;阅读帮助&lt;/a&gt;.</string>
-    <!-- 主页 - Shizuku -->
+    <!-- Home - Shizuku -->
     <string name="home_shizuku_title">激活（通过 Shizuku）</string>
     <string name="home_shizuku_dsp">使用Shizuku，您无需电脑就可以运行ADB命令。请&lt;a href=%1$s&gt;阅读帮助&lt;/a&gt;.</string>
-    <!-- 主页 - ADB -->
+    <!-- Home - Adb -->
     <string name="home_adb_title">激活（通过 ADB）</string>
     <string name="home_adb_dsp">通过ADB（Android Debug Bridge）连接，可以执行一些特权命令。请&lt;a href=%1$s&gt;阅读帮助&lt;/a&gt;.</string>
     <string name="home_adb_btn_view_command">查看命令</string>
-    <!-- 主页 - 关机 -->
-    <string name="home_shutdown_title">关闭</string>
-    <string name="home_shutdown_dsp">除非 Dhizuku 自愿关闭，否则系统将无法关闭 Dhizuku。</string>
-    <!-- 主页 - 停用 -->
+    <string name="confirm">确认</string>
+    <string name="finish">完成</string>
     <string name="home_deactivate_title">取消激活</string>
     <string name="home_deactivate_dsp">确认要取消激活吗？</string>
-    <!-- 所有者 -->
+    <string name="donate">捐赠</string>
+    <string name="request_permission_text">是否允许<b>%1$s</b>访问DhizukuF?</string>
+    <string name="agree">同意</string>
+    <string name="refuse">拒绝</string>
+    <string name="service_channel_name">后台服务</string>
+    <string name="service_running">Dhizuku正在运行</string>
+    <string name="permission_description">使用 Dhizuku 的 API</string>
+    <string name="settings">设置</string>
+    <string name="settings_desc">配置 DhizukuF 行为</string>
+    <string name="user_manager">用户管理</string>
+    <string name="user_name_default">未命名</string>
+    <string name="delete_user_warning">确定要删除此用户吗？\n所有处于此用户空间的应用和数据都会消失！！！</string>
+    <string name="delete_user_confirm">是的，我确定！</string>
+    <string name="delete_user_cancel">取消</string>
+    <string name="remove">移除</string>
+    <string name="account_manager">账号管理</string>
+    <string name="account_empty">没有账户存在</string>
+    <string name="copied_format_hail">复制成功，请在【雹】中导入！</string>
+    <string name="action_freeze">冷冻</string>
+    <string name="action_unfreeze">解冻</string>
+    <string name="action_open_sync_settings">打开同步设置</string>
+    <string name="action_freeze_all">一键冻结</string>
+    <string name="action_unfreeze_all">一键解冻</string>
+    <string name="error_open_sync_settings">无法打开系统账号设置界面</string>
+    <string name="enable_dhizuku">启用 DhizukuF</string>
+    <string name="enable_dhizuku_desc">允许其他应用使用 DhizukuF</string>
+    <string name="whitelist_mode">白名单模式</string>
+    <string name="whitelist_mode_desc">仅允许已授权应用访问 DhizukuF</string>
+    <string name="block_app">屏蔽应用</string>
+    <string name="auto_deny_in">自动拒绝：</string>
+    <string name="block_app_desc">拒绝访问 DhizukuF</string>
+    <string name="app_blocked_notice">此应用已被屏蔽，无法访问 DhizukuF</string>
+    <string name="allow_dhizuku_access">允许访问 DhizukuF</string>
+    <string name="unblock_app">取消屏蔽应用</string>
+    <string name="auto_deny_in_seconds">将在 %d 秒后自动拒绝</string>
+    <string name="denying_access">拒绝访问…</string>
+    <string name="daemon_service_notification_title">Dhizuku 守护进程</string>
+    <string name="daemon_service_notification_text">这是一个DhizukuF的通知，用于保证随时提供服务，你可以长按隐藏此通知。</string>
+    <string name="copy">复制</string>
     <string name="confirm_device_owner">设备所有者</string>
     <string name="confirm_profile_owner">资料所有者</string>
     <string name="profile_owner_warning_title">警告</string>
-    <string name="profile_owner_warning_dsp">此更改只应由了解其影响的用户进行。Dhizuku 的开发者无法对此模式更改导致的任何意外行为做出任何保证。</string>
-    <!-- 捐赠 -->
-    <string name="donate">捐赠</string>
+    <string name="profile_owner_warning_dsp">此更改只应由了解其影响的用户进行。DhizukuF 的开发者无法对此模式更改导致的任何意外行为做出任何保证。</string>
     <string name="donate_hide_action">隐藏</string>
     <string name="donate_hide_confirm_title">隐藏捐赠按钮</string>
     <string name="donate_hide_confirm_dsp">此操作无法在应用内撤销。确定要永久隐藏捐赠按钮吗？</string>
-    <!-- 权限请求 -->
-    <string name="request_permission_text">是否允许<b>%1$s</b>访问Dhizuku?</string>
-    <string name="agree">同意</string>
-    <string name="refuse">拒绝</string>
-    <string name="block_app">屏蔽应用</string>
-    <string name="block_app_desc">拒绝访问 Dhizuku</string>
-    <string name="app_blocked_notice">此应用已被屏蔽，无法访问 Dhizuku</string>
-    <string name="allow_dhizuku_access">允许访问 Dhizuku</string>
-    <string name="unblock_app">取消屏蔽应用</string>
-    <string name="auto_deny_in">自动拒绝：</string>
-    <string name="auto_deny_in_seconds">将在 %d 秒后自动拒绝</string>
-    <string name="denying_access">拒绝访问…</string>
-    <!-- 设置 -->
-    <string name="settings">设置</string>
-    <string name="settings_desc">配置 Dhizuku 行为</string>
-    <string name="enable_dhizuku">启用 Dhizuku</string>
-    <string name="enable_dhizuku_desc">允许其他应用使用 Dhizuku</string>
-    <string name="whitelist_mode">白名单模式</string>
-    <string name="whitelist_mode_desc">仅允许已授权应用访问 Dhizuku</string>
-    <string name="allow_ownership_changes">允许更改所有者</string>
-    <string name="allow_ownership_changes_desc">允许客户端更改所有者权限（转让或解除）。\n这存在安全风险。</string>
-    <string name="ownership_change_blocked">Dhizuku 已禁止更改所有者</string>
-    <!-- 服务 -->
-    <string name="service_channel_name">后台服务</string>
-    <string name="service_running">Dhizuku正在运行</string>
-    <string name="daemon_service_notification_title">Dhizuku 守护进程</string>
-    <string name="daemon_service_notification_text">这是一个Dhizuku的通知，用于保证随时提供服务，你可以长按隐藏此通知。</string>
-    <string name="oss_licenses">开源许可证</string>
-    <string name="source">源代码</string>
-    <string name="license">许可证</string>
-    <string name="search">搜索</string>
-    <string name="used_by">被以下依赖使用：%1$s</string>
+    <string name="home_status_owner_transferred">%1$s已转移！！！</string>
+    <string name="error_occurred">发生错误：%1$s</string>
+    <string name="error_remove_user">无法移除用户 %1$s</string>
+    <string name="error_set_device_owner">无法设置设备所有者。请确保设备上没有任何账户。</string>
+    <string name="error_set_profile_owner">无法设置资料所有者。请检查系统配置。</string>
+    <string name="error_shizuku_not_work">请激活 Shizuku 并授予权限请求</string>
+    <string name="home_dish_title">终端 (dish)</string>
+    <string name="home_dish_dsp">像 Shizuku 的 rish 一样，在任意终端（Termux、adb shell 等）中运行设备所有者命令。导出 dish 和 dish_dhizukuf.dex 文件后启动 dish。</string>
+    <string name="home_dish_btn_export">导出 dish 文件</string>
+    <string name="dish_export_failed">无法导出 dish 文件</string>
+    <string name="dish_export_done_title">已导出 dish 文件</string>
+    <string name="dish_export_done_dsp">将两个文件复制到终端可以运行脚本的文件夹，然后启动 dish：\n\nTermux（运行一次 termux-setup-storage）：\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb（在电脑上）：\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\n其他终端： sh /path/to/dish help\n\n请将两个文件放在一起。首次运行时，DhizukuF 会像其他应用一样请您批准访问。大多数命令需要 DhizukuF 为设备所有者（对资料所有者的支持有限）。</string>
+    <string name="block">屏蔽</string>
+    <string name="advanced_confirmation">高级确认窗口</string>
+    <string name="advanced_confirmation_desc">在确认窗口中添加屏蔽按钮，可立即屏蔽应用</string>
+    <string name="show_dish_label">显示 dish</string>
+    <string name="show_dish_label_desc">在确认窗口和应用管理中标记使用 dish 的终端，例如 Termux (dish)。关闭时仅显示 Termux</string>
+    <string name="enable_dish">启用 dish</string>
+    <string name="enable_dish_desc">允许终端使用设备所有者控制台 (dish)</string>
+    <string name="home_dish_need_owner">DhizukuF 尚未成为设备所有者或资料所有者，因此 dish 会拒绝命令。请先激活 DhizukuF。您仍可导出 dish 文件。</string>
+    <string name="home_dish_profile_owner_note">资料所有者模式：dish 可以运行，但需要完整设备所有者的命令（reboot、adb、timezone、私人 DNS 等）不可用。</string>
+    <string name="home_dish_help_title">如何使用 dish</string>
+    <string name="home_dish_help_text">dish 不是此应用内的终端，而是命令行工具：先导出文件，再在终端应用（推荐 Termux）中运行 dish。\n\n1. 点按“导出 dish 文件”并选择一个文件夹。\n2. 在 Termux 中运行一次 termux-setup-storage，将 dish 和 dish_dhizukuf.dex 复制到 $PREFIX/bin，然后运行 chmod +x $PREFIX/bin/dish。\n3. 输入 dish 打开控制台，或输入 dish help 查看命令。\n\n首次运行时，DhizukuF 会请您批准访问。</string>
+    <string name="enable_dangerous">启用危险命令</string>
+    <string name="enable_dangerous_desc">允许 dish 和 Dhizuku API 执行有风险的操作：重启、清除应用数据、写入设置、更改权限、直接调用 API 等。默认关闭。</string>
+    <string name="hub_title">Dhizuku 兼容中心</string>
+    <string name="hub_desc">让为原版 Dhizuku 编写的应用可以使用 DhizukuF。安装一个小型隐藏插件 (com.rosan.dhizuku)，与 DhizukuF 使用相同的密钥签名且版本相同。安装后 DhizukuF 可能会关闭，请重新打开。</string>
+    <string name="hub_install">安装</string>
+    <string name="hub_update">更新</string>
+    <string name="hub_remove">移除</string>
+    <string name="hub_state_none">未安装</string>
+    <string name="hub_state_ok">已安装且为最新</string>
+    <string name="hub_state_old">有可用更新</string>
+    <string name="hub_state_conflict">已安装另一个 Dhizuku (com.rosan.dhizuku)。请先将其移除。</string>
+    <string name="hub_failed">无法更改兼容中心：%1$s</string>
+    <string name="hub_replace">替换</string>
+    <string name="hub_replace_title">替换已安装的 Dhizuku？</string>
+    <string name="hub_replace_text">警告：%1$s (com.rosan.dhizuku) 将被移除。它的包名相同，因此阻止了兼容中心。安装兼容中心后，使用 Dhizuku 的应用将通过 DhizukuF 运行。</string>
+    <string name="hub_replace_yes">是，移除并安装</string>
+
+    <!-- filled missing keys (1.5.3); logs UI localized where available -->
+    <string name="app_name" translatable="false">DhizukuF</string>
+    <string name="app_name_original" translatable="false">Dhizuku</string>
+    <string name="auth_mode_both">On confirmation and when opening the app</string>
+    <string name="auth_mode_both_desc">Both checks</string>
+    <string name="auth_mode_confirm">Only on confirmation</string>
+    <string name="auth_mode_confirm_desc">Allowing an app to use the Dhizuku API (in the permission dialog and in App management) needs the screen lock, fingerprint or face. Refuse and Block never ask</string>
+    <string name="auth_mode_entry">Only when opening the app</string>
+    <string name="auth_mode_entry_desc">DhizukuF is locked when you open it and after 30 seconds in the background</string>
+    <string name="auth_mode_off">Off</string>
+    <string name="auth_mode_off_desc">No extra check</string>
+    <string name="auth_prompt_allow">Allow an app to use DhizukuF</string>
+    <string name="auth_prompt_entry_subtitle">Use your screen lock, fingerprint or face</string>
+    <string name="auth_prompt_entry_title">Unlock DhizukuF</string>
+    <string name="auth_prompt_security">Change a security setting</string>
+    <string name="auth_prompt_title">Confirm that it is you</string>
+    <string name="customization">Customization</string>
+    <string name="customization_apply_failed">The system did not switch the launcher entry. Try again, or restart the launcher or the device.</string>
+    <string name="customization_changed">Changed. The launcher may need a few seconds to refresh.</string>
+    <string name="customization_desc">Theme (with AMOLED), name and icon of the app, order of this screen</string>
+    <string name="customization_dynamic">Dynamic colors</string>
+    <string name="customization_dynamic_desc">Takes the colors from the wallpaper (Android 12 and newer)</string>
+    <string name="customization_entry_now">Launcher entry in use now: %1$s (%2$s)</string>
+    <string name="customization_icon_desc">The DhizukuF icon or the icon of the original Dhizuku. Both are built in and cannot be deleted.</string>
+    <string name="customization_icon_title">Icon</string>
+    <string name="customization_name_desc">The name that the launcher shows for DhizukuF. Android does not let an app type its own name, so these four are ready-made. The name and the icon are chosen independently: changing one keeps the other. The package name never changes.</string>
+    <string name="customization_name_title">App name</string>
+    <string name="customization_remember">Remember the name and icon for updates</string>
+    <string name="customization_remember_desc">Keeps your name and icon when DhizukuF is updated (beta or release). When off, an update puts them back to the default ones.</string>
+    <string name="customization_theme_title">Theme</string>
+    <string name="customization_tv_note">On a TV the launcher shows the wide banner of the chosen name and icon (shown below). The launcher may need a few seconds, or a restart of the launcher or of the device, to refresh.</string>
+    <string name="dish_disabled" translatable="false">disabled</string>
+    <string name="dish_enabled" translatable="false">enabled</string>
+    <string name="dish_err_bad_args" translatable="false">The arguments do not match any variant of %1$s</string>
+    <string name="dish_err_blocked" translatable="false">Access check failed: this app is blocked in DhizukuF > App management.</string>
+    <string name="dish_err_denied" translatable="false">Access check failed: access was refused or the request timed out.</string>
+    <string name="dish_err_disabled" translatable="false">Access check failed: dish is turned off in DhizukuF. Turn on Enable dish in the DhizukuF settings.</string>
+    <string name="dish_err_failed" translatable="false">NOT DONE: %1$s</string>
+    <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
+    <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
+    <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
+    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
+    <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
+    <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
+    <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
+    <string name="dish_err_usage" translatable="false">Usage: %1$s</string>
+    <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
+    <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
+    <string name="dish_no" translatable="false">no</string>
+    <string name="dish_ok" translatable="false">OK</string>
+    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
+    <string name="dish_yes" translatable="false">yes</string>
+    <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
+    <string name="freeze_all_confirm_title">Freeze all account apps?</string>
+    <string name="home_edit_all_hidden">All cards are hidden. Press the pencil at the top to bring them back.</string>
+    <string name="home_edit_hide">Hide</string>
+    <string name="home_edit_hint">Move the cards with the arrows and hide or show them with the eye. Press the check mark at the top when you are done.</string>
+    <string name="home_edit_move_down">Move down</string>
+    <string name="home_edit_move_up">Move up</string>
+    <string name="home_edit_reset">Reset the order and show all</string>
+    <string name="home_edit_show">Show</string>
+    <string name="home_edit_status">Status</string>
+    <string name="home_edit_title">Edit the home screen</string>
+    <string name="icon_default_desc">The new icon (default)</string>
+    <string name="icon_default_title">DhizukuF</string>
+    <string name="icon_original_desc">The icon of the original Dhizuku</string>
+    <string name="icon_original_title">Dhizuku</string>
+    <string name="launcher_name_device_owner" translatable="false">Device Owner</string>
+    <string name="launcher_name_profile_owner" translatable="false">Profile Owner</string>
+    <string name="locked_close">Close</string>
+    <string name="locked_title">DhizukuF is locked</string>
+    <string name="locked_unlock">Unlock</string>
+    <string name="log_cat_app_request">App requests</string>
+    <string name="log_cat_app_request_desc">Apps that ask for access, connect or disconnect</string>
+    <string name="log_cat_command">Commands</string>
+    <string name="log_cat_command_desc">Commands of apps and dish: start, result, refusal</string>
+    <string name="log_cat_debug">Debug information</string>
+    <string name="log_cat_debug_desc">Technical details for a bug report</string>
+    <string name="log_cat_error">Errors</string>
+    <string name="log_cat_error_desc">Exceptions and failures of DhizukuF</string>
+    <string name="log_cat_permission">Permission events</string>
+    <string name="log_cat_permission_desc">Allowed, refused and blocked apps</string>
+    <string name="log_cat_service">Service events</string>
+    <string name="log_cat_service_desc">DhizukuF service, owner status, switches</string>
+    <string name="log_entry_level_debug">Debug</string>
+    <string name="log_entry_level_error">Error</string>
+    <string name="log_entry_level_normal">Normal</string>
+    <string name="log_entry_level_warning">Warning</string>
+    <string name="log_event_app_blocked">App blocked</string>
+    <string name="log_event_app_connected">App connected</string>
+    <string name="log_event_app_disconnected">App disconnected</string>
+    <string name="log_event_app_requested">App requested Dhizuku access</string>
+    <string name="log_event_command_blocked">Command blocked</string>
+    <string name="log_event_command_completed">Command completed</string>
+    <string name="log_event_command_failed">Command failed</string>
+    <string name="log_event_command_from_app">Command from app</string>
+    <string name="log_event_connection_changed">Dhizuku service connection changed</string>
+    <string name="log_event_debug">Debug information</string>
+    <string name="log_event_error">Error</string>
+    <string name="log_event_owner_changed">Device Owner status changed</string>
+    <string name="log_event_permission_denied">Permission denied</string>
+    <string name="log_event_permission_granted">Permission granted</string>
+    <string name="log_event_service_started">DhizukuF service started</string>
+    <string name="log_event_service_stopped">DhizukuF service stopped</string>
+    <string name="log_field_app">App</string>
+    <string name="log_field_category">Category</string>
+    <string name="log_field_command">Command</string>
+    <string name="log_field_details">Details</string>
+    <string name="log_field_error">Error</string>
+    <string name="log_field_event">Event</string>
+    <string name="log_field_level">Level</string>
+    <string name="log_field_message">Message</string>
+    <string name="log_field_package">Package</string>
+    <string name="log_field_result">Result</string>
+    <string name="log_field_time">Time</string>
+    <string name="log_field_uid">UID</string>
+    <string name="log_level_debug">Debug</string>
+    <string name="log_level_debug_desc">Everything, with technical details</string>
+    <string name="log_level_errors">Errors only</string>
+    <string name="log_level_errors_desc">Only errors and exceptions</string>
+    <string name="log_level_normal">Normal</string>
+    <string name="log_level_normal_desc">Normal events, warnings and errors</string>
+    <string name="log_level_warnings">Warnings</string>
+    <string name="log_level_warnings_desc">Warnings and errors</string>
+    <string name="logs">Logs</string>
+    <string name="logs_categories_title">日志类别</string>
+    <string name="logs_clear">清除日志</string>
+    <string name="logs_clear_confirm_text">所有已保存条目将被删除，且无法撤销。</string>
+    <string name="logs_clear_confirm_title">清除全部日志？</string>
+    <string name="logs_clear_desc">删除所有已保存的条目。仅在日志非空时可用。</string>
+    <string name="logs_cleared">日志已清除</string>
+    <string name="logs_copy">复制</string>
+    <string name="logs_desc">DhizukuF 事件：应用、权限、命令与错误</string>
+    <string name="logs_empty">暂无日志条目</string>
+    <string name="logs_enable">启用日志</string>
+    <string name="logs_enable_desc">将 DhizukuF 事件保存到本机文件。默认关闭；关闭时不保存任何内容。</string>
+    <string name="logs_export">导出日志</string>
+    <string name="logs_export_desc">将日志保存为文本文件，便于附到 GitHub issue</string>
+    <string name="logs_export_done">日志已保存</string>
+    <string name="logs_export_empty">没有可导出的日志</string>
+    <string name="logs_export_failed">无法保存日志</string>
+    <string name="logs_export_saved_to">日志已保存到 %1$s</string>
+    <string name="logs_level_title">日志级别</string>
+    <string name="logs_no_results">未找到</string>
+    <string name="logs_search">搜索</string>
+    <string name="logs_settings_desc">启用日志、级别、类别、大小、导出与清除</string>
+    <string name="logs_size_mb">%1$d MB</string>
+    <string name="logs_size_title">日志最大大小</string>
+    <string name="logs_size_used">已用：%1$s / %2$d MB。达到上限后会删除最旧的条目。</string>
+    <string name="security">Security</string>
+    <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
+    <string name="security_auth_title">Require device authentication</string>
+    <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
+    <string name="security_desc">Whitelist, dangerous commands and confirming an app\'s access with the screen lock, fingerprint or face</string>
+    <string name="security_no_lock_msg">This device has no PIN, pattern or password, so there is nothing to confirm with. Set a screen lock in the Android settings first, then choose this option again.</string>
+    <string name="security_no_lock_title">No screen lock</string>
+    <string name="security_not_enforced">The option you chose is NOT enforced until a screen lock is set again.</string>
+    <string name="security_open_lock_settings">Screen lock settings</string>
+    <string name="security_open_lock_settings_failed">This device has no such screen. Open Android settings > Security and set a PIN, pattern or password.</string>
+    <string name="theme_amoled">AMOLED</string>
+    <string name="theme_amoled_desc">Dark with a pure black background: saves power on an AMOLED screen</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_system">System</string>
+    <string name="theme_system_desc">Follows the dark mode of the device</string>
 </resources>

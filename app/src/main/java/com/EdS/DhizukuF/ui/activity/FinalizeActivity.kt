@@ -1,0 +1,13 @@
+package com.EdS.DhizukuF.ui.activity
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import org.koin.core.component.KoinComponent
+
+class FinalizeActivity : ComponentActivity(), KoinComponent {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setResult(RESULT_OK)
+        finish()
+    }
+}
