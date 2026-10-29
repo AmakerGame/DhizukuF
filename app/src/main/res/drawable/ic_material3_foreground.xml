@@ -5,47 +5,21 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
     <!--
-      Material 3–style launcher glyph for DhizukuF.
-      Motif: device-owner key + connection node (permission sharing).
-      Drawn in the adaptive-icon safe zone (~66% center).
+      Material-style glyph by BinTianqi
+      https://github.com/iamr0s/Dhizuku/discussions/318
+      Drawn in adaptive-icon safe zone (center ~66%).
     -->
-
-    <!-- Soft disc (on-primary-container feel when bg is primary-container) -->
-    <path
-        android:fillColor="#4F378B"
-        android:pathData="M54,54m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0" />
-
-    <!-- Key head (circle) -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M40,48m-9,0a9,9 0,1 1,18 0a9,9 0,1 1,-18 0" />
-    <!-- Key head hole -->
-    <path
-        android:fillColor="#4F378B"
-        android:pathData="M40,48m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
-
-    <!-- Key shaft -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M48,46h22c1.1,0 2,0.9 2,2v0c0,1.1 -0.9,2 -2,2H48z" />
-
-    <!-- Key teeth -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M62,50h3v5c0,0.8 -0.7,1.5 -1.5,1.5h0c-0.8,0 -1.5,-0.7 -1.5,-1.5z" />
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M68,50h3v7c0,0.8 -0.7,1.5 -1.5,1.5h0c-0.8,0 -1.5,-0.7 -1.5,-1.5z" />
-
-    <!-- Small connection node (top-right of disc) — “share DO” -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M66,36m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
-    <path
-        android:fillColor="#4F378B"
-        android:pathData="M66,36m-1.6,0a1.6,1.6 0,1 1,3.2 0a1.6,1.6 0,1 1,-3.2 0" />
-    <!-- Link line key → node -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M58,42l5.5,-4.2 1.2,1.6 -5.5,4.2z" />
+    <group
+        android:translateX="54"
+        android:translateY="54"
+        android:scaleX="2.35"
+        android:scaleY="2.35">
+        <group
+            android:translateX="-12"
+            android:translateY="-12">
+            <path
+                android:fillColor="#E6E1E5"
+                android:pathData="m16.541015,1.0097656c-0.869103,0 -1.601562,0.7305066 -1.601562,1.5996095v2.7988281c0,0.081075 0.0073,0.1600682 0.01953,0.2382812l-5.4882798,5.4882816h-3.1953125v-1.244141c1.7540137,-0.4227749 3.0703125,-2.013025 3.0703125,-3.890625 0,-2.1972943 -1.8027056,-4 -4,-4 -2.1972943,0 -4,1.8027056 -4,4 0,1.8270768 1.246413,3.3816372 2.9296875,3.8535156v6.4023444h-2.1308594a1,1 0,0 0,-1 1,1 1,0 0,0 1,1h2.1308594v0.703125h-2.1796875a1,1 0,0 0,-1 1,1 1,0 0,0 1,1h2.1796875v0.625a1,1 0,0 0,1 1,1 1,0 0,0 1,-1v-8.449219h3.3730468l5.3437495,5.207031c-0.0099,0.07066 -0.01563,0.141882 -0.01563,0.214844v2.800781c0,0.869102 0.730507,1.59961 1.599609,1.59961h2.798829c0.869103,0 1.601562,-0.730508 1.601562,-1.59961v-2.800781c0,-0.869102 -0.732459,-1.599609 -1.601562,-1.599609h-2.798829c-0.04542,0 -0.09018,0.002 -0.134765,0.0059l-3.929683,-3.828166h4.431641v0.490234c0,0.869103 0.730506,1.59961 1.599609,1.59961h2.800782c0.869103,0 1.599609,-0.730507 1.599609,-1.59961v-2.800781c0,-0.8691035 -0.730506,-1.5996097 -1.599609,-1.5996097h-2.800782c-0.869103,0 -1.599609,0.7305062 -1.599609,1.5996097v0.310547h-4.644531l4.128906,-4.1289067c0.03739,0.00274 0.07532,0.00391 0.113281,0.00391h2.798828c0.869103,0 1.59961,-0.7324598 1.59961,-1.6015625v-2.7988318c0,-0.8691028 -0.730507,-1.5996094 -1.59961,-1.5996094zm0.398438,2h2v2h-2zm-11.5937498,0.9902344c1.1164142,0 2,0.8835858 2,2 0,1.1164141 -0.8835858,2 -2,2 -1.1164141,0 -1.9999999,-0.8835859 -2,-2 0,-1.1164142 0.8835859,-1.9999999 2,-2zm13.5976558,7.22461h2v2h-2zm-1.966797,7.732422h2v2h-2z" />
+        </group>
+    </group>
 </vector>

@@ -5,6 +5,9 @@ The newest changes are at the top.
 
 ## 1.6.0 (12)
 
+### Fixed
+- Material 3 adaptive icon: original BinTianqi glyph, dark background, correct safe-zone scale.
+
 Small hardening after 1.5.2 (you already shipped 1.5.2 without these).
 
 ### Fixed
