@@ -4,7 +4,10 @@
 [![Latest](https://img.shields.io/github/v/release/AmakerGame/DhizukuF?label=Latest)](https://github.com/AmakerGame/DhizukuF/releases/latest)
 [![License](https://img.shields.io/github/license/AmakerGame/DhizukuF?label=License)](LICENSE)
 [![Build](https://img.shields.io/github/actions/workflow/status/AmakerGame/DhizukuF/build.yml?label=Build)](https://github.com/AmakerGame/DhizukuF/actions)
-[![Uptodown](https://img.shields.io/badge/Download-Uptodown-blue)](https://dhizukuf.en.uptodown.com/android)
+
+<a href='https://dhizukuf.en.uptodown.com/android' title='Download DhizukuF' >
+                <img src='https://stc.utdstc.com/img/mediakit/download-aao-small.png' alt='Download DhizukuF'>
+                </a>
 
 **DhizukuF** is a fork of [Dhizuku](https://github.com/iamr0s/Dhizuku) that shares Android **Device Owner** permissions with other apps. On top of upstream Dhizuku, it adds **`dish`** — a Device Owner console for any terminal (Termux, `adb shell`, or any shell app), similar to how `rish` works for Shizuku.
 
