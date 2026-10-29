@@ -236,7 +236,7 @@
     <string name="icon_original_title">Dhizuku</string>
     <string name="icon_original_desc">Значок оригинального Dhizuku</string>
     <string name="icon_material3_title">Material 3</string>
-    <string name="icon_material3_desc">Иконка в стиле Material от BinTianqi (обсуждение Dhizuku #318)</string>
+    <string name="icon_material3_desc">Иконка в стиле Material от BinTianqi (обсуждение Dhizuku #318). Доступна на всех версиях Android, которые поддерживает приложение.</string>
     <string name="customization_remember">Помнить название и значок при обновлениях</string>
     <string name="customization_remember_desc">Сохраняет ваше название и значок при обновлении DhizukuF (beta или release). Когда выключено, обновление возвращает их к стандартным.</string>
     <string name="home_edit_title">Редактировать главный экран</string>

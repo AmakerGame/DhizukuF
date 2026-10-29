@@ -20,7 +20,8 @@ fun AppIconImage(choice: IconChoice, modifier: Modifier = Modifier) {
     val drawable = remember(choice) {
         val res = when (choice) {
             IconChoice.Original -> R.mipmap.ic_original
-            IconChoice.Material3 -> R.mipmap.ic_material3
+            // Flat composite: reliable preview on every API; launcher still uses adaptive on 26+.
+            IconChoice.Material3 -> R.drawable.ic_material3_legacy
             IconChoice.Default -> R.mipmap.ic_launcher
         }
         ContextCompat.getDrawable(context, res)
