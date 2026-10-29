@@ -1357,7 +1357,7 @@ class DishCommands(
                 "batch \"hide com.a\" \"camera disable\""),
             Entry("wipe", GEN, "wipe [external|euicc|reset-protection|silent|all]...",
                 "Factory-reset the device (DevicePolicyManager.wipeData). Needs Enable dangerous commands.",
-                "wipe", "wipe external euicc"),
+                "wipe external euicc"),
             Entry("lock", GEN, "lock", "Lock the screen now."),
             Entry("reboot", GEN, "reboot", "Reboot the device immediately."),
 
