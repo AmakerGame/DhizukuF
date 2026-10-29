@@ -6,5 +6,6 @@ data class SettingsViewState(
     val dishEnabled: Boolean = true,
     val dangerousEnabled: Boolean = false,
     val showDishLabel: Boolean = true,
-    val advancedConfirmation: Boolean = false
+    val advancedConfirmation: Boolean = false,
+    val daemonNotification: Boolean = true
 )

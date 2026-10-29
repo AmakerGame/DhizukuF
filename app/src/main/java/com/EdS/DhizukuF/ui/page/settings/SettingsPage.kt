@@ -113,7 +113,14 @@ fun SettingsPage(windowInsets: WindowInsets) {
                 navController = navController
             )
         }
-        composable(route = SettingsRoute.Settings.route) {
+                composable(route = SettingsRoute.OssLicenses.route) {
+            OssLicensesPage(
+                windowInsets = windowInsets,
+                navController = navController
+            )
+        }
+
+composable(route = SettingsRoute.Settings.route) {
             SettingsPage(
                 windowInsets = windowInsets,
                 navController = navController

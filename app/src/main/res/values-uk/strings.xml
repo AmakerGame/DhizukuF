@@ -287,4 +287,12 @@
     <string name="dish_yes" translatable="false">yes</string>
     <string name="launcher_name_device_owner" translatable="false">Device Owner</string>
     <string name="launcher_name_profile_owner" translatable="false">Profile Owner</string>
+
+    <string name="daemon_notification">Сповіщення служби</string>
+    <string name="daemon_notification_desc">Постійне сповіщення, поки працює служба Device Owner. Дотик відкриває DhizukuF. Якщо вимкнено, Android усе одно показує мінімальний тихий індикатор.</string>
+    <string name="daemon_service_notification_quiet">Працює</string>
+    <string name="oss_licenses">Ліцензії відкритого ПЗ</string>
+    <string name="oss_licenses_desc">Бібліотеки DhizukuF та їхні ліцензії</string>
+    <string name="home_oss_title">Ліцензії відкритого ПЗ</string>
+    <string name="home_oss_dsp">Бібліотеки застосунку та тексти ліцензій</string>
 </resources>

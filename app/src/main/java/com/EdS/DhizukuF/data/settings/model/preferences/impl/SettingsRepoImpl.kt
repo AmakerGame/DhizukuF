@@ -60,6 +60,9 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override fun flowDonateButtonHidden(): Flow<Boolean> =
         prefs.asFlow("donate_button_hidden", false)
 
+    override fun flowDaemonNotificationEnabled(): Flow<Boolean> =
+        prefs.asFlow("daemon_notification_enabled", true)
+
     override fun flowShowDishLabel(): Flow<Boolean> =
         prefs.asFlow("show_dish_label", true)
 
@@ -231,5 +234,11 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
         get() = prefs.getBoolean("donate_button_hidden", false)
         set(value) = prefs.edit(true) {
             putBoolean("donate_button_hidden", value)
+        }
+
+    override var isDaemonNotificationEnabled: Boolean
+        get() = prefs.getBoolean("daemon_notification_enabled", true)
+        set(value) = prefs.edit(true) {
+            putBoolean("daemon_notification_enabled", value)
         }
 }

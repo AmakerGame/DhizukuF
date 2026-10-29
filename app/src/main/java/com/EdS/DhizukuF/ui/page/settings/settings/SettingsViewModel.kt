@@ -16,10 +16,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import org.koin.core.component.inject
 
 class SettingsViewModel : ViewModel(), KoinComponent {
     private val settingsRepo by inject<SettingsRepo>()
+    private val appContext by inject<android.content.Context>()
 
     var state by mutableStateOf(SettingsViewState())
         private set
@@ -53,6 +55,11 @@ class SettingsViewModel : ViewModel(), KoinComponent {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.flowDhizukuEnabled().collect { dhizukuEnabled ->
                 state = state.copy(dhizukuEnabled = dhizukuEnabled)
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.flowDaemonNotificationEnabled().collect { on ->
+                state = state.copy(daemonNotification = on)
             }
         }
     }
@@ -92,6 +99,17 @@ class SettingsViewModel : ViewModel(), KoinComponent {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.isDhizukuEnabled = enabled
             LogManager.log(LogEvent.ConnectionChanged, message = "Dhizuku API access switched " + if (enabled) "on" else "off")
+        }
+    }
+
+    fun setDaemonNotificationEnabled(enabled: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.isDaemonNotificationEnabled = enabled
+            runCatching {
+                appContext.startService(
+                    android.content.Intent(appContext, com.EdS.DhizukuF.server.DaemonService::class.java)
+                )
+            }
         }
     }
 }

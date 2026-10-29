@@ -22,6 +22,7 @@ interface SettingsRepo {
     fun flowDishEnabled(): Flow<Boolean>
     fun flowDangerousEnabled(): Flow<Boolean>
     fun flowDonateButtonHidden(): Flow<Boolean>
+    fun flowDaemonNotificationEnabled(): Flow<Boolean>
     fun flowShowDishLabel(): Flow<Boolean>
     fun flowAdvancedConfirmation(): Flow<Boolean>
     fun flowAuthMode(): Flow<AuthMode>
@@ -59,6 +60,8 @@ interface SettingsRepo {
     var isDishEnabled: Boolean
     var isDangerousEnabled: Boolean
     var isDonateButtonHidden: Boolean
+    /** Persistent FOREGROUND service notification; Android still requires a minimal one when off. */
+    var isDaemonNotificationEnabled: Boolean
     var isShowDishLabel: Boolean
     var isAdvancedConfirmation: Boolean
     var authMode: AuthMode

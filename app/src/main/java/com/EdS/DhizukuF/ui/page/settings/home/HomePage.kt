@@ -193,6 +193,7 @@ fun HomePage(
         add("dish")
         if (!owner) add("shizuku")
         if (!owner) add("adb")
+        add("oss")
         if (owner) add("home_deactivate_title")
     }
     // What is on the screen is kept here and changes at once; the saved copy follows. Two quick taps then both work on
@@ -282,7 +283,7 @@ fun HomePage(
 /** The order of the cards when nothing was changed. Logs stays above Terminal (dish). */
 private val HOME_DEFAULT_ORDER = listOf(
     "dhizuku_state", "settings", "security", "customization", "app_management", "user_management",
-    "dhizuku", "logs", "dish", "shizuku", "adb", "home_deactivate_title"
+    "dhizuku", "logs", "dish", "shizuku", "adb", "oss", "home_deactivate_title"
 )
 
 private fun homeTitleRes(key: String): Int = when (key) {
@@ -297,6 +298,7 @@ private fun homeTitleRes(key: String): Int = when (key) {
     "dish" -> R.string.home_dish_title
     "shizuku" -> R.string.home_shizuku_title
     "adb" -> R.string.home_adb_title
+    "oss" -> R.string.home_oss_title
     else -> R.string.home_deactivate_title
 }
 
@@ -314,6 +316,7 @@ private fun LazyItemScope.HomeCard(key: String, navController: NavController) {
         "dish" -> DishWidget()
         "shizuku" -> ShizukuWidget(navController)
         "adb" -> AdbWidget()
+        "oss" -> OssWidget(navController)
         "home_deactivate_title" -> DeactivateWidget()
     }
 }
@@ -704,6 +707,20 @@ private fun LazyItemScope.DishWidget() {
             }
         })
     }
+}
+
+
+@Composable
+private fun LazyItemScope.OssWidget(navController: NavController) {
+    CardWidget(onClick = {
+        navController.navigate(SettingsRoute.OssLicenses.route)
+    }, icon = {
+        Icon(imageVector = Icons.TwoTone.MenuBook, contentDescription = null)
+    }, title = {
+        Text(stringResource(R.string.home_oss_title))
+    }, content = {
+        Text(stringResource(R.string.home_oss_dsp))
+    })
 }
 
 @Composable

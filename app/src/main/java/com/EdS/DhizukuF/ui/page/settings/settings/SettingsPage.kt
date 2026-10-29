@@ -124,6 +124,13 @@ fun SettingsPage(
                             checked = viewModel.state.showDishLabel,
                             onCheckedChange = viewModel::setShowDishLabel
                         )
+
+                        SwitchRow(
+                            title = stringResource(R.string.daemon_notification),
+                            description = stringResource(R.string.daemon_notification_desc),
+                            checked = viewModel.state.daemonNotification,
+                            onCheckedChange = viewModel::setDaemonNotificationEnabled
+                        )
                     }
                 }
             }

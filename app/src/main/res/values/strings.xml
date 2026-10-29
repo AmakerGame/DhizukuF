@@ -117,7 +117,7 @@
     <string name="advanced_confirmation">Advanced confirmation window</string>
     <string name="advanced_confirmation_desc">Adds a Block button to the confirmation window, so an app can be blocked right away</string>
     <string name="show_dish_label">Show dish</string>
-    <string name="show_dish_label_desc">Marks terminals that use dish, for example Termux (dish), in the confirmation window and in App management. When off, only Termux is shown</string>
+    <string name="show_dish_label_desc">PLACEHOLDERMarks terminals that use dish, for example Termux (dish), in the confirmation window and in App management. When off, only Termux is shown</string>
     <string name="enable_dish">Enable dish</string>
     <string name="enable_dish_desc">Allow terminals to use the Device Owner console (dish)</string>
     <string name="home_dish_need_owner">DhizukuF is not the Device Owner or Profile Owner yet, so dish will refuse commands. Activate DhizukuF first. You can still export the dish files.</string>
@@ -287,4 +287,12 @@
     <string name="launcher_name_device_owner" translatable="false">Device Owner</string>
     <string name="customization_changed">Changed. The launcher may need a few seconds to refresh.</string>
     <string name="customization_apply_failed">The system did not switch the launcher entry. Try again, or restart the launcher or the device.</string>
+
+    <string name="daemon_notification">Service notification</string>
+    <string name="daemon_notification_desc">Shows a persistent status notification while the Device Owner service is running. Tap opens DhizukuF. When off, Android still requires a minimal quiet indicator.</string>
+    <string name="daemon_service_notification_quiet">Running</string>
+    <string name="oss_licenses">Open-source licenses</string>
+    <string name="oss_licenses_desc">Libraries used by DhizukuF and their licenses</string>
+    <string name="home_oss_title">Open-source licenses</string>
+    <string name="home_oss_dsp">Libraries used by this app and their license texts</string>
 </resources>

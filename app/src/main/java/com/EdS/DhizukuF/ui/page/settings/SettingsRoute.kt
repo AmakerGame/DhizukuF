@@ -12,6 +12,7 @@ sealed class SettingsRoute(val route: String) {
     data object Logs : SettingsRoute("logs")
     data object Customization : SettingsRoute("customization")
     data object LogSettings : SettingsRoute("settings/logs")
+    data object OssLicenses : SettingsRoute("oss_licenses")
     data object Activate : SettingsRoute("activate/{mode}") {
         enum class Mode {
             Dhizuku,
