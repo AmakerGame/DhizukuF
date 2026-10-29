@@ -1,12 +1,88 @@
 {
   "libraries": [
-    {"uniqueId": "com.EdS.DhizukuF", "name": "DhizukuF", "website": "https://github.com/AmakerGame/DhizukuF", "scm": {"url": "https://github.com/AmakerGame/DhizukuF"}, "licenses": [{"name": "GNU GPL v3", "url": "https://www.gnu.org/licenses/gpl-3.0.html"}]},
-    {"uniqueId": "com.rosan.dhizuku", "name": "Dhizuku (upstream)", "website": "https://github.com/iamr0s/Dhizuku", "scm": {"url": "https://github.com/iamr0s/Dhizuku"}, "licenses": [{"name": "GNU GPL v3", "url": "https://www.gnu.org/licenses/gpl-3.0.html"}]},
-    {"uniqueId": "androidx.compose", "name": "Jetpack Compose", "website": "https://developer.android.com/jetpack/compose", "scm": {"url": "https://android.googlesource.com/platform/frameworks/support"}, "licenses": [{"name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0"}]},
-    {"uniqueId": "androidx.room", "name": "Room", "website": "https://developer.android.com/training/data-storage/room", "scm": {"url": ""}, "licenses": [{"name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0"}]},
-    {"uniqueId": "io.insert-koin", "name": "Koin", "website": "https://insert-koin.io/", "scm": {"url": "https://github.com/InsertKoinIO/koin"}, "licenses": [{"name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0"}]},
-    {"uniqueId": "org.lsposed.hiddenapibypass", "name": "HiddenApiBypass", "website": "https://github.com/LSPosed/AndroidHiddenApiBypass", "scm": {"url": "https://github.com/LSPosed/AndroidHiddenApiBypass"}, "licenses": [{"name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0"}]},
-    {"uniqueId": "dev.rikka.shizuku", "name": "Shizuku API", "website": "https://github.com/RikkaApps/Shizuku", "scm": {"url": "https://github.com/RikkaApps/Shizuku-API"}, "licenses": [{"name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0"}]},
-    {"uniqueId": "com.google.accompanist", "name": "Accompanist", "website": "https://google.github.io/accompanist/", "scm": {"url": "https://github.com/google/accompanist"}, "licenses": [{"name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0"}]}
+    {
+      "uniqueId": "com.EdS.DhizukuF",
+      "name": "DhizukuF",
+      "website": "https://github.com/AmakerGame/DhizukuF",
+      "scm": { "url": "https://github.com/AmakerGame/DhizukuF" },
+      "licenses": [{ "name": "GNU GPL v3", "url": "https://www.gnu.org/licenses/gpl-3.0.html" }]
+    },
+    {
+      "uniqueId": "com.rosan.dhizuku",
+      "name": "Dhizuku (upstream)",
+      "website": "https://github.com/iamr0s/Dhizuku",
+      "scm": { "url": "https://github.com/iamr0s/Dhizuku" },
+      "licenses": [{ "name": "GNU GPL v3", "url": "https://www.gnu.org/licenses/gpl-3.0.html" }]
+    },
+    {
+      "uniqueId": "com.rosan.dhizuku.api",
+      "name": "Dhizuku API",
+      "website": "https://github.com/iamr0s/Dhizuku-API",
+      "scm": { "url": "https://github.com/iamr0s/Dhizuku-API" },
+      "licenses": [{ "name": "MIT License", "url": "https://opensource.org/licenses/MIT" }]
+    },
+    {
+      "uniqueId": "dev.rikka.shizuku.api",
+      "name": "Shizuku API",
+      "website": "https://github.com/RikkaApps/Shizuku-API",
+      "scm": { "url": "https://github.com/RikkaApps/Shizuku-API" },
+      "licenses": [{ "name": "MIT License", "url": "https://opensource.org/licenses/MIT" }]
+    },
+    {
+      "uniqueId": "dev.rikka.shizuku.provider",
+      "name": "Shizuku Provider",
+      "website": "https://github.com/RikkaApps/Shizuku-API",
+      "scm": { "url": "https://github.com/RikkaApps/Shizuku-API" },
+      "licenses": [{ "name": "MIT License", "url": "https://opensource.org/licenses/MIT" }]
+    },
+    {
+      "uniqueId": "androidx.compose",
+      "name": "Jetpack Compose",
+      "website": "https://developer.android.com/jetpack/compose",
+      "scm": { "url": "https://android.googlesource.com/platform/frameworks/support" },
+      "licenses": [{ "name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0" }]
+    },
+    {
+      "uniqueId": "androidx.room",
+      "name": "Room",
+      "website": "https://developer.android.com/training/data-storage/room",
+      "scm": { "url": "https://android.googlesource.com/platform/frameworks/support" },
+      "licenses": [{ "name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0" }]
+    },
+    {
+      "uniqueId": "androidx.biometric",
+      "name": "AndroidX Biometric",
+      "website": "https://developer.android.com/jetpack/androidx/releases/biometric",
+      "scm": { "url": "https://android.googlesource.com/platform/frameworks/support" },
+      "licenses": [{ "name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0" }]
+    },
+    {
+      "uniqueId": "com.google.android.material",
+      "name": "Material Components",
+      "website": "https://github.com/material-components/material-components-android",
+      "scm": { "url": "https://github.com/material-components/material-components-android" },
+      "licenses": [{ "name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0" }]
+    },
+    {
+      "uniqueId": "io.insert-koin",
+      "name": "Koin",
+      "website": "https://insert-koin.io/",
+      "scm": { "url": "https://github.com/InsertKoinIO/koin" },
+      "licenses": [{ "name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0" }]
+    },
+    {
+      "uniqueId": "org.lsposed.hiddenapibypass",
+      "name": "HiddenApiBypass",
+      "website": "https://github.com/LSPosed/AndroidHiddenApiBypass",
+      "scm": { "url": "https://github.com/LSPosed/AndroidHiddenApiBypass" },
+      "licenses": [{ "name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0" }]
+    },
+    {
+      "uniqueId": "com.google.accompanist",
+      "name": "Accompanist",
+      "website": "https://google.github.io/accompanist/",
+      "scm": { "url": "https://github.com/google/accompanist" },
+      "licenses": [{ "name": "Apache License 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0" }]
+    }
   ]
 }

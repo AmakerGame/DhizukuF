@@ -284,7 +284,7 @@ fun HomePage(
 /** The order of the cards when nothing was changed. Logs stays above Terminal (dish). */
 private val HOME_DEFAULT_ORDER = listOf(
     "dhizuku_state", "settings", "security", "customization", "app_management", "user_management",
-    "dhizuku", "logs", "dish", "shizuku", "adb", "oss", "home_deactivate_title"
+    "dhizuku", "oss", "logs", "dish", "shizuku", "adb", "home_deactivate_title"
 )
 
 private fun homeTitleRes(key: String): Int = when (key) {
