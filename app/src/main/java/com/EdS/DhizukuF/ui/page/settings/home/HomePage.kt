@@ -88,6 +88,7 @@ import androidx.compose.material.icons.twotone.ArrowDropDown
 import androidx.compose.material.icons.twotone.AttachMoney
 import androidx.compose.material.icons.twotone.Cancel
 import androidx.compose.material.icons.twotone.Code
+import androidx.compose.material.icons.twotone.MenuBook
 import androidx.compose.material.icons.twotone.DoNotDisturbOn
 import androidx.compose.material.icons.twotone.RoomPreferences
 import androidx.compose.material.icons.twotone.Security
