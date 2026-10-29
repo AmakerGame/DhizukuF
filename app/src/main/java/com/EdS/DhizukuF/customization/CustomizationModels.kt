@@ -29,13 +29,19 @@ enum class AppName(val key: String, val label: String) {
     }
 }
 
-/** The icon: the new one, or the icon of the original Dhizuku. Both are built in. */
+/** The launcher icon. All choices are built into the APK. */
 enum class IconChoice(val key: String) {
     /** The DhizukuF icon (default). */
     Default("default"),
 
     /** The icon of the original Dhizuku. */
-    Original("original");
+    Original("original"),
+
+    /**
+     * Material-style icon by BinTianqi
+     * (https://github.com/iamr0s/Dhizuku/discussions/318).
+     */
+    Material3("material3");
 
     companion object {
         fun parse(key: String?): IconChoice = entries.firstOrNull { it.key == key } ?: Default

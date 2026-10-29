@@ -3,16 +3,22 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
-## 1.5.3 (11) — draft
+## 1.6.0 (12) — draft
 
 Small hardening after 1.5.2 (you already shipped 1.5.2 without these).
 
 ### Fixed
+- **Customization**: third launcher icon **Material 3** (by [BinTianqi](https://github.com/BinTianqi), from [Dhizuku discussion #318](https://github.com/iamr0s/Dhizuku/discussions/318)).
+- **Dangerous commands ON**: dish `wipe` + full `api`; API already unrestricted for approved clients.
+- **Dangerous commands ON**: dish allows `wipe` and full `api` (including former hard-blocked methods); Dhizuku API already opened all remote_transact. OFF still blocks the dangerous lists.
 - **AppIconCache**: correct `getDrawable ?: defaultIcon` parentheses; thread-safe LRU get/put; double-check after decode; try/catch on default and all icon loads.
 - **MyDhizukuProvider**: `context ?: error(...)` instead of `context!!`.
 - **App management**: turning Allow on clears Block (no more allowApi=true while blocked=true).
 - **Logs settings**: level, categories and size are inactive while logging is off; Export and Clear are inactive when the journal is empty; Clear works with logging off if data remains.
 - **i18n**: all locales now have the full string set (272 keys); Logs UI localized for de/fr/es/pl/it/pt/pt-BR/ja/zh-CN/zh-TW; other newly filled keys use English until native translation.
+- **RequestPermission**: Compose state updated on Main; dialog refuses unknown uid and (API 31+) uid ≠ launcher uid unless the opener is DhizukuF.
+- **DaemonService**: package receiver registered before startup cleanup.
+- **dish batch**: exit code keeps the highest failure under `--keep-going`.
 
 ### Notes
 - No protocol change. Rebuild dish dex only if `dish-client/` changed again; otherwise keep the 1.5.2 dex.

@@ -268,6 +268,8 @@
     <string name="icon_default_desc">The new icon (default)</string>
     <string name="icon_original_title">Dhizuku</string>
     <string name="icon_original_desc">The icon of the original Dhizuku</string>
+    <string name="icon_material3_title">Material 3</string>
+    <string name="icon_material3_desc">Material-style icon by BinTianqi (Dhizuku discussion #318)</string>
     <string name="customization_remember">Remember the name and icon for updates</string>
     <string name="customization_remember_desc">Keeps your name and icon when DhizukuF is updated (beta or release). When off, an update puts them back to the default ones.</string>
     <string name="home_edit_title">Edit the home screen</string>

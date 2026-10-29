@@ -99,13 +99,20 @@ class DaemonService : Service(), KoinComponent {
     }
 
     private fun registerPackageReceiver() {
+        // Register first so PACKAGE_* is not missed during the startup cleanup.
+        val filter = IntentFilter()
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED)
+        filter.addAction(Intent.ACTION_PACKAGE_FULLY_REMOVED)
+        filter.addAction(Intent.ACTION_PACKAGE_CHANGED)
+        filter.addDataScheme("package")
+        registerReceiver(packageReceiver, filter)
+
         scope.launch {
             try {
                 repo.all().filter { !verify(it) }.forEach {
                     DishRegistry.unregister(it.uid)
                     repo.delete(it)
                 }
-                // terminals whose app is gone
                 DishRegistry.all().keys
                     .filter { packageManager.getPackagesForUid(it).isNullOrEmpty() }
                     .forEach { DishRegistry.unregister(it) }
@@ -114,13 +121,6 @@ class DaemonService : Service(), KoinComponent {
                 LogManager.error("DaemonService: cleanup failed", t)
             }
         }
-
-        val filter = IntentFilter()
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED)
-        filter.addAction(Intent.ACTION_PACKAGE_FULLY_REMOVED)
-        filter.addAction(Intent.ACTION_PACKAGE_CHANGED)
-        filter.addDataScheme("package")
-        registerReceiver(packageReceiver, filter)
     }
 
     private fun verify(entity: AppEntity): Boolean {

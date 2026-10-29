@@ -11,6 +11,8 @@ import androidx.compose.runtime.remember
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Build
+import android.os.Process
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import com.EdS.DhizukuF.security.DeviceAuth
@@ -66,6 +68,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.math.cos
@@ -137,34 +141,30 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
         }
 
 
-        // Check if dhizuku is enabled and app is not blocked
+        // DB on IO; Compose state only on Main
         coroutineScope.launch {
-            val enabled = if (DishRegistry.isDish(state.uid))
+            val uid = state.uid
+            val signature = state.signature
+            val enabled = if (DishRegistry.isDish(uid))
                 settingsRepo.isDishEnabled else settingsRepo.isDhizukuEnabled
-            if (!enabled) {
-                state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
-                runOnUiThread { finish() }
-                return@launch
+            val entity = appRepo.findByUID(uid)
+
+            val next = when {
+                !enabled ->
+                    state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
+                settingsRepo.isWhitelistMode && (entity == null || !entity.allowApi) ->
+                    state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
+                entity?.blocked == true ->
+                    state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
+                entity?.allowApi == true && entity.signature == signature ->
+                    state.copy(allowApi = true, timedOut = false, shouldShowDialog = false)
+                else -> null
             }
-
-            val entity = appRepo.findByUID(state.uid)
-
-            if (settingsRepo.isWhitelistMode && (entity == null || !entity.allowApi)) {
-                state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
-                runOnUiThread { finish() }
-                return@launch
-            }
-
-            if (entity?.blocked == true) {
-                state = state.copy(allowApi = false, timedOut = true, shouldShowDialog = false)
-                runOnUiThread { finish() }
-                return@launch
-            }
-
-            if (entity?.allowApi == true && entity.signature == state.signature) {
-                state = state.copy(allowApi = true, timedOut = false, shouldShowDialog = false)
-                runOnUiThread { finish() }
-                return@launch
+            if (next != null) {
+                withContext(Dispatchers.Main) {
+                    state = next
+                    finish()
+                }
             }
         }
 
@@ -212,6 +212,11 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
     override fun onPause() {
         super.onPause()
         if (!isChangingConfigurations && !authenticating) finish()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 
     override fun finish() {
@@ -289,9 +294,28 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
             ?: return false
 
         val uid = bundle.getInt(DhizukuVariables.PARAM_CLIENT_UID, -1)
-        if (uid == -1) return false
+        if (uid < 0) return false
 
-        // The binder is optional: DhizukuF itself opens this dialog for a dish terminal
+        // Reject unknown / gone packages (no dialog for a fake uid).
+        if (packageManager.getPackagesForUid(uid).isNullOrEmpty()) {
+            Log.w("RequestPermission", "refuse dialog: no package for uid $uid")
+            return false
+        }
+
+        // API 31+: the activity must be started by that uid, or by DhizukuF itself (dish).
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val from = launchedFromUid
+            val self = applicationInfo.uid
+            if (from != uid && from != self && from != Process.SYSTEM_UID) {
+                Log.w(
+                    "RequestPermission",
+                    "refuse dialog: launchedFromUid=$from but client uid=$uid"
+                )
+                return false
+            }
+        }
+
+        // The binder is optional: DhizukuF opens this dialog for a dish terminal
         // and learns the decision through DishApproval instead of a listener.
         val binder = bundle.getBinder(DhizukuVariables.PARAM_CLIENT_REQUEST_PERMISSION_BINDER)
         val listener = binder?.let {

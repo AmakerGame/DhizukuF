@@ -13,15 +13,17 @@ import com.EdS.DhizukuF.customization.AppName
 import com.EdS.DhizukuF.customization.IconChoice
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
-/** The icon: the new one or the one of the original Dhizuku (an adaptive icon is a Drawable, so a drawable painter). */
+/** Launcher icon preview (adaptive icons are Drawables). */
 @Composable
 fun AppIconImage(choice: IconChoice, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val drawable = remember(choice) {
-        ContextCompat.getDrawable(
-            context,
-            if (choice == IconChoice.Original) R.mipmap.ic_original else R.mipmap.ic_launcher
-        )
+        val res = when (choice) {
+            IconChoice.Original -> R.mipmap.ic_original
+            IconChoice.Material3 -> R.mipmap.ic_material3
+            IconChoice.Default -> R.mipmap.ic_launcher
+        }
+        ContextCompat.getDrawable(context, res)
     }
     Image(painter = rememberDrawablePainter(drawable), contentDescription = null, modifier = modifier)
 }
@@ -34,6 +36,7 @@ fun TvBannerImage(name: AppName, icon: IconChoice, modifier: Modifier = Modifier
 
 @DrawableRes
 fun bannerRes(name: AppName, icon: IconChoice): Int {
+    // Material3 reuses the "new" TV banners; Original keeps the classic ones.
     val original = icon == IconChoice.Original
     return when (name) {
         AppName.DhizukuF -> if (original) R.drawable.banner_dhizukuf_orig else R.drawable.banner_dhizukuf_new

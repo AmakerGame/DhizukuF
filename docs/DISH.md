@@ -156,7 +156,7 @@ forms and answers `NOT DONE: '<command>' is a dangerous command and is switched 
 `dish help` marks these commands with `!`, `dish help COMMAND` has a `Dangerous:` line and
 `dish status` shows whether the switch is on. The same switch applies to the regular Dhizuku API: while
 it is off, dangerous calls of an API client are refused, and with it on the API is open (see
-[SECURITY.md](../SECURITY.md) for the list). In dish itself wipe, factory reset, removing users and similar
+[SECURITY.md](../SECURITY.md) for the list). With **Enable dangerous commands** off, dish blocks wipe, factory reset, removing users and similar
 calls stay blocked even when the switch is on (`dish api` refuses them).
 
 ## Device Owner and Profile Owner
@@ -224,7 +224,7 @@ dish api getCameraDisabled
 dish api --on audio getStreamVolume i:3
 ```
 
-Destructive calls (wipe, factory reset, removing the owner, password reset) are blocked.
+Destructive calls (wipe, factory reset, removing the owner, password reset) need **Enable dangerous commands** in Security (off by default). With the switch on, dish and the Dhizuku API allow them.
 
 ## Rebuilding the dex
 

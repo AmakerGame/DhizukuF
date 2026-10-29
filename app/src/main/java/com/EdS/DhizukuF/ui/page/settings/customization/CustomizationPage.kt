@@ -185,6 +185,15 @@ fun CustomizationPage(
                         tvBanner = isTv,
                         onClick = { viewModel.chooseIcon(context, IconChoice.Original, ::report) }
                     )
+                    IconRow(
+                        icon = IconChoice.Material3,
+                        name = appearance.name,
+                        title = stringResource(R.string.icon_material3_title),
+                        description = stringResource(R.string.icon_material3_desc),
+                        selected = appearance.icon == IconChoice.Material3,
+                        tvBanner = isTv,
+                        onClick = { viewModel.chooseIcon(context, IconChoice.Material3, ::report) }
+                    )
                     // What the system really has switched on: tells at once whether the switch worked.
                     entryInUse?.let { entry ->
                         Text(
@@ -192,8 +201,11 @@ fun CustomizationPage(
                                 R.string.customization_entry_now,
                                 entry.name.label,
                                 stringResource(
-                                    if (entry.icon == IconChoice.Original) R.string.icon_original_title
-                                    else R.string.icon_default_title
+                                    when (entry.icon) {
+                                        IconChoice.Original -> R.string.icon_original_title
+                                        IconChoice.Material3 -> R.string.icon_material3_title
+                                        IconChoice.Default -> R.string.icon_default_title
+                                    }
                                 )
                             ),
                             style = MaterialTheme.typography.labelLarge

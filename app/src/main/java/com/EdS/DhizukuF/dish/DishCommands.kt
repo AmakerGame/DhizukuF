@@ -142,7 +142,7 @@ class DishCommands(
     private fun isDangerous(cmd: String, a: List<String>): Boolean {
         val first = a.firstOrNull()
         return when (cmd) {
-            "reboot", "clear-data" -> true
+            "reboot", "clear-data", "wipe" -> true
             "api", "call" -> !isApiReadOnly(a)
             "settings" -> first == "put"
             "permission" -> first == "grant" || first == "deny" || first == "default"
@@ -167,7 +167,7 @@ class DishCommands(
         "id", "whoami" -> whoami()
         "device" -> device()
         "status" -> status()
-        "wipe" -> notDone(str(R.string.dish_err_method_denied, "wipe"))
+        "wipe" -> wipe(a)
 
         "lock" -> {
             dpm.lockNow()
@@ -872,7 +872,8 @@ class DishCommands(
             out.append(r.out)
             err.append(r.err)
             if (r.code != 0) {
-                worst = r.code
+                // Strongest code wins under --keep-going (e.g. 127 > 1).
+                if (r.code > worst) worst = r.code
                 if (!keepGoing) {
                     out.append("stopped after the first failure (use --keep-going to continue)\n")
                     break
@@ -1105,7 +1106,12 @@ class DishCommands(
         return Class.forName(className) to obj
     }
 
+    /**
+     * Hard blocks only when *Enable dangerous commands* is off.
+     * With the switch on, dish api can call the same methods as the Dhizuku API.
+     */
     private fun isDenied(name: String): Boolean {
+        if (dangerousEnabled) return false
         val l = name.lowercase(Locale.ROOT)
         return name in DENIED_METHODS || l.contains("wipe") || l.contains("factoryreset") ||
             l.contains("removeuser")
@@ -1115,6 +1121,38 @@ class DishCommands(
         var params = m.parameterTypes.toList()
         if (hideAdmin && params.firstOrNull() == ComponentName::class.java) params = params.drop(1)
         return "${m.returnType.simpleName} ${m.name}(${params.joinToString(", ") { it.simpleName }})"
+    }
+
+
+    /**
+     * Factory-reset style wipe via DevicePolicyManager. Requires *Enable dangerous commands*.
+     * Usage: wipe [flags...]
+     * Flags (optional, combined): external | euicc | reset-protection | silent | all
+     * Default flags: 0 (wipe device data only, same as Settings factory reset data partition).
+     */
+    private fun wipe(a: List<String>): Result {
+        var flags = 0
+        for (tok in a) {
+            when (tok.lowercase(Locale.ROOT)) {
+                "external", "wipe_external_storage" ->
+                    flags = flags or DevicePolicyManager.WIPE_EXTERNAL_STORAGE
+                "euicc", "wipe_euicc" ->
+                    flags = flags or DevicePolicyManager.WIPE_EUICC
+                "reset-protection", "wipe_reset_protection_data" ->
+                    flags = flags or DevicePolicyManager.WIPE_RESET_PROTECTION_DATA
+                "silent", "wipe_silently" ->
+                    flags = flags or DevicePolicyManager.WIPE_SILENTLY
+                "all" -> flags = flags or
+                    DevicePolicyManager.WIPE_EXTERNAL_STORAGE or
+                    DevicePolicyManager.WIPE_EUICC or
+                    DevicePolicyManager.WIPE_RESET_PROTECTION_DATA
+                else -> return notDone(
+                    """unknown wipe flag "$tok". Use: external | euicc | reset-protection | silent | all"""
+                )
+            }
+        }
+        dpm.wipeData(flags)
+        return done("wipe started (flags=$flags); the device should reset now")
     }
 
     /**
@@ -1167,8 +1205,8 @@ class DishCommands(
         if (isDenied(name)) return notDone(str(R.string.dish_err_method_denied, name))
         val tokens = rest.drop(1)
         val hasAdminToken = tokens.any { it == "@admin" }
-        // Outside dpm this would clear the data of DhizukuF itself.
-        if (on != "dpm" && name == "clearApplicationUserData") {
+        // Outside dpm this can clear DhizukuF itself — only with dangerous commands on.
+        if (!dangerousEnabled && on != "dpm" && name == "clearApplicationUserData") {
             return notDone(str(R.string.dish_err_method_denied, name))
         }
         val candidates = clazz.methods.filter { it.name == name }.sortedBy { it.parameterTypes.size }
@@ -1317,6 +1355,9 @@ class DishCommands(
             Entry("batch", GEN, "batch [--keep-going] \"CMD\" \"CMD\" ...",
                 "Run several commands in a row; stops at the first failure unless --keep-going.",
                 "batch \"hide com.a\" \"camera disable\""),
+            Entry("wipe", GEN, "wipe [external|euicc|reset-protection|silent|all]...",
+                "Factory-reset the device (DevicePolicyManager.wipeData). Needs Enable dangerous commands.",
+                "wipe", "wipe external euicc"),
             Entry("lock", GEN, "lock", "Lock the screen now."),
             Entry("reboot", GEN, "reboot", "Reboot the device immediately."),
 
@@ -1389,7 +1430,7 @@ class DishCommands(
             Entry("api", API, "api [--on dpm|pm|um|am|audio|power|wifi|conn|notif|tele] [--no-admin] METHOD [ARG...] | api --list [TEXT] | api --sig METHOD",
                 "Direct call of any public method by name. On dpm the admin argument is added for you. " +
                     "Args: plain text is converted to the parameter type; typed forms s: i: l: f: d: b: " +
-                    "cn:pkg/class strs:a,b ints:1,2 null @admin. Wipe and ownership changes are blocked.",
+                    "cn:pkg/class strs:a,b ints:1,2 null @admin. Wipe/ownership need Enable dangerous commands.",
                 "api setLockTaskPackages strs:com.a,com.b")
         )
 
@@ -1402,7 +1443,7 @@ class DishCommands(
 
         /** Commands with at least one dangerous form (see isDangerous). */
         private val DANGEROUS_COMMANDS = setOf(
-            "reboot", "clear-data", "api", "settings", "permission", "permission-policy",
+            "reboot", "clear-data", "wipe", "api", "settings", "permission", "permission-policy",
             "keyguard", "status-bar", "adb", "private-dns", "uninstall", "lock-task", "vpn", "time",
             "ime", "adb-wifi"
         )

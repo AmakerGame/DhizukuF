@@ -243,6 +243,8 @@
     <string name="icon_default_desc">Нова іконка (за замовчуванням)</string>
     <string name="icon_original_title">Dhizuku</string>
     <string name="icon_original_desc">Іконка оригінального Dhizuku</string>
+    <string name="icon_material3_title">Material 3</string>
+    <string name="icon_material3_desc">Іконка в стилі Material від BinTianqi (обговорення Dhizuku #318)</string>
     <string name="customization_remember">Пам\'ятати назву та іконку для оновлень</string>
     <string name="customization_remember_desc">Зберігає вашу назву та іконку під час оновлення DhizukuF (beta або release). Коли вимкнено, оновлення повертає їх до стандартних.</string>
     <string name="home_edit_title">Редагувати головний екран</string>

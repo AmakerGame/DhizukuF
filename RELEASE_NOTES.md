@@ -1,23 +1,23 @@
-## DhizukuF v1.5.3 (11) — DRAFT
+## DhizukuF v1.6.0 (12) — DRAFT
 
 > Remove the DRAFT marker when tagging.
 
-Hardening, log settings UX, and string coverage after 1.5.2.
+### Highlights
 
-### What's fixed
+- **Material 3 launcher icon** in **Customization** (with any app name).  
+  Icon by **[BinTianqi](https://github.com/BinTianqi)** from the upstream discussion  
+  [iamr0s/Dhizuku#318](https://github.com/iamr0s/Dhizuku/discussions/318).
+- **Enable dangerous commands ON** unlocks all gated **dish** actions (including `wipe` and full `api`) and the **Dhizuku API**. Off keeps the previous block lists.
+- Logs UI polish (export/clear only when non-empty; categories/level disabled when logging is off).
+- Permission dialog hardening; App management Allow clears Block; icon cache / provider safety.
 
-- **App management**: enabling an app clears **Block**.
-- **Logs UI**: level / categories / size disabled while logging is off; **Export** and **Clear** disabled when the journal is empty; Clear still works with logging off if data remains.
-- **i18n**: every locale has the full **272** string keys. Logs settings strings are localized for German, French, Spanish, Polish, Italian, Portuguese (PT/BR), Japanese, Chinese (CN/TW). Remaining filled keys use English until a native translation is added. Ukrainian and Russian already had Logs; missing keys completed.
-- **AppIconCache**, **MyDhizukuProvider**, **README** screenshots layout.
+### Credits
 
-### Good to know
-
-- No dish protocol change. Rebuild dex only if `dish-client/` changed.
-- dish console messages stay English by design.
+- Material-style icon: [BinTianqi](https://github.com/BinTianqi) — [Dhizuku discussion #318](https://github.com/iamr0s/Dhizuku/discussions/318).
 
 ### Install
 
 1. Install the APK (and Hub if needed).
 2. Keep Device Owner.
-3. Export dish files only if the client dex changed.
+3. Optional: **Customization → Icon → Material 3**.
+4. Export dish files only if the client dex changed.
