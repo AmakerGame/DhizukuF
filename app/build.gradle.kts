@@ -173,7 +173,11 @@ dependencies {
     implementation(libs.rikka.shizuku.provider)
 
     implementation(libs.iamr0s.dhizuku.api)
+
+    // Plugin API from https://github.com/AmakerGame/Plugin-API (JitPack)
+    implementation(libs.amaker.plugin.api)
 }
+
 
 tasks.withType<JavaCompile> {
     options.compilerArgs.addAll(arrayOf("-Xlint:deprecation", "-Xlint:unchecked"))

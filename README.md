@@ -73,3 +73,48 @@ Prefer Uptodown for a simple **Download** button. Use GitHub for release notes, 
 ./gradlew assembleRelease
 ./dish-client/build.sh
 ```
+
+## Plugins
+
+DhizukuF supports **plugins** distributed as `.zip` packages.
+
+- Install / enable / disable / stop / delete from **Settings → Plugins**
+- Plugins can add menu items and pages inside the app
+- Plugins can request **dangerous commands** (installation is blocked while the global switch is off)
+- Plugins can request **auto-start** (or be started manually)
+- Before installation and on the plugin card the UI clearly shows **what the plugin receives**
+
+> **Warning**  
+> Plugins run with the same privileges as DhizukuF (including Device Owner).  
+> Only install plugins from sources you trust.
+
+### For developers
+
+See the separate **Plugin API** repository (MIT), usable via JitPack from GitHub:
+
+- [Plugin API](https://github.com/AmakerGame/Plugin-API) — interfaces, `plugin.json` format, development guide
+- JitPack: `implementation("com.github.AmakerGame.Plugin-API:plugin-api:1.0.0")`
+- [Plugin development guide](https://github.com/AmakerGame/Plugin-API/blob/main/docs/PLUGIN_DEVELOPMENT.md)
+
+Related links:
+
+- [Dhizuku API (upstream)](https://github.com/iamr0s/Dhizuku-API)
+- [Original Dhizuku](https://github.com/iamr0s/Dhizuku)
+- [DhizukuF](https://github.com/AmakerGame/DhizukuF)
+
+A minimal plugin looks like:
+
+```json
+{
+  "id": "com.example.myplugin",
+  "name": "My Plugin",
+  "version": "1.0.0",
+  "versionCode": 1,
+  "entryClass": "com.example.myplugin.MyPlugin",
+  "autoStart": false,
+  "requestsDangerousCommands": false,
+  "permissions": ["settings_entry", "page"]
+}
+```
+
+Package the `plugin.json` + compiled classes as a `.zip` and install it from the Plugins screen.

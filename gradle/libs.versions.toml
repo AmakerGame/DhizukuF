@@ -69,6 +69,11 @@ lsposed-hiddenapibypass = { group = "org.lsposed.hiddenapibypass", name = "hidde
 rikka-shizuku-api = { group = "dev.rikka.shizuku", name = "api", version.ref = "rikka-shizuku" }
 rikka-shizuku-provider = { group = "dev.rikka.shizuku", name = "provider", version.ref = "rikka-shizuku" }
 
-# Dhizuku-API
-# https://github.com/iamr0s/Dhizuku-API
+# Dhizuku-API (Maven Central, published from https://github.com/iamr0s/Dhizuku-API)
+# Alternative via JitPack: com.github.iamr0s.Dhizuku-API:dhizuku-api:<tag>
 iamr0s-dhizuku-api = { group = "io.github.iamr0s", name = "Dhizuku-SERVER_API", version = "0.1.0" }
+
+# DhizukuF Plugin API (from GitHub via JitPack)
+# https://github.com/AmakerGame/Plugin-API
+# Multi-module repo → artifact is :plugin-api
+amaker-plugin-api = { group = "com.github.AmakerGame.Plugin-API", name = "plugin-api", version = "1.0.0" }
