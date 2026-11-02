@@ -75,5 +75,5 @@ iamr0s-dhizuku-api = { group = "io.github.iamr0s", name = "Dhizuku-SERVER_API", 
 
 # DhizukuF Plugin API (from GitHub via JitPack)
 # https://github.com/AmakerGame/Plugin-API
-# Multi-module repo → artifact is :plugin-api
-amaker-plugin-api = { group = "com.github.AmakerGame.Plugin-API", name = "plugin-api", version = "1.0.0" }
+# JitPack artifact: com.github.AmakerGame:Plugin-API:1.0.0
+amaker-plugin-api = { group = "com.github.AmakerGame", name = "Plugin-API", version = "1.0.0" }
