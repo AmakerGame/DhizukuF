@@ -75,6 +75,5 @@ iamr0s-dhizuku-api = { group = "io.github.iamr0s", name = "Dhizuku-SERVER_API", 
 
 # DhizukuF Plugin API (from GitHub via JitPack)
 # https://github.com/AmakerGame/Plugin-API
-# JitPack: latest main branch (rebuilds when JitPack cache refreshes)
-# Fixed release example: version = "1.0.0"
-amaker-plugin-api = { group = "com.github.AmakerGame", name = "Plugin-API", version = "main-SNAPSHOT" }
+# JitPack artifact: com.github.AmakerGame:Plugin-API:1.0.0 (use a release tag; SNAPSHOT often times out on CI)
+amaker-plugin-api = { group = "com.github.AmakerGame", name = "Plugin-API", version = "1.0.0" }

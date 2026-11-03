@@ -93,7 +93,7 @@ DhizukuF supports **plugins** distributed as `.zip` packages.
 See the separate **Plugin API** repository (MIT), usable via JitPack from GitHub:
 
 - [Plugin API](https://github.com/AmakerGame/Plugin-API) — interfaces, `plugin.json` format, development guide
-- JitPack: `implementation("com.github.AmakerGame:Plugin-API:main-SNAPSHOT")`
+- JitPack: `implementation("com.github.AmakerGame:Plugin-API:1.0.0")`
 - [Plugin development guide](https://github.com/AmakerGame/Plugin-API/blob/main/docs/PLUGIN_DEVELOPMENT.md)
 
 Related links:
