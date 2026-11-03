@@ -114,13 +114,8 @@ class PluginLoader(private val appContext: Context? = null) {
             }
         }
 
-        // Built-in / compile-time plugins (e.g. sample HelloPlugin in the app)
-        return try {
-            val clazz = Class.forName(manifest.entryClass)
-            clazz.getDeclaredConstructor().newInstance() as? DhizukuPlugin
-        } catch (_: Exception) {
-            null
-        }
+        // No classes.dex in the plugin package
+        return null
     }
 
     private fun parseManifest(json: String): PluginManifest {
