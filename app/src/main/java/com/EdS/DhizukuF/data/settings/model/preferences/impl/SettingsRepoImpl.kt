@@ -54,6 +54,9 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override fun flowDangerousEnabled(): Flow<Boolean> =
         prefs.asFlow("dangerous_enabled", false)
 
+    override fun flowPluginApiEnabled(): Flow<Boolean> =
+        prefs.asFlow("plugin_api_enabled", true)
+
     override fun flowDishEnabled(): Flow<Boolean> =
         prefs.asFlow("dish_enabled", true)
 
@@ -230,6 +233,13 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
             putBoolean("dish_enabled", value)
         }
 
+    override var isPluginApiEnabled: Boolean
+        get() = prefs.getBoolean("plugin_api_enabled", true)
+        set(value) = prefs.edit(true) {
+            putBoolean("plugin_api_enabled", value)
+        }
+
+    
     override var isDonateButtonHidden: Boolean
         get() = prefs.getBoolean("donate_button_hidden", false)
         set(value) = prefs.edit(true) {

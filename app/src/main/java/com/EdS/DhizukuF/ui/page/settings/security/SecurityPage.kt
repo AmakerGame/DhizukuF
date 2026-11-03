@@ -188,6 +188,16 @@ fun SecurityPage(
                             onCheckedChange = viewModel::setDangerousEnabled,
                             titleColor = MaterialTheme.colorScheme.error
                         )
+
+                        // Disable Plugin API: checked means feature is OFF
+                        SwitchRow(
+                            title = stringResource(R.string.disable_plugin_api),
+                            description = stringResource(R.string.disable_plugin_api_desc),
+                            checked = !state.pluginApiEnabled,
+                            onCheckedChange = { disabled ->
+                                viewModel.setPluginApiEnabled(!disabled)
+                            }
+                        )
                     }
                 }
             }

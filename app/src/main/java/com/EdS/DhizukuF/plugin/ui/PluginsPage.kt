@@ -1,52 +1,102 @@
 package com.EdS.DhizukuF.plugin.ui
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.EdS.DhizukuF.plugin.manager.PluginManager
 import com.EdS.DhizukuF.plugin.model.PluginInfo
 import com.EdS.DhizukuF.plugin.model.PluginState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.compose.koinInject
+import java.io.File
+import java.io.FileOutputStream
 
 /**
  * Plugins management screen.
  *
- * - List of installed plugins
- * - Install from .zip
+ * - Install from .zip (SAF file picker)
  * - Enable / Disable / Start / Stop / Delete
- * - Shows warning + "what it receives" at the bottom of each card
+ * - Shows warning + "what it receives"
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PluginsPage(
-    onBack: () -> Unit = {},
-    onInstallZipRequested: () -> Unit = {}   // host opens file picker
+    onBack: () -> Unit = {}
 ) {
+    val context = LocalContext.current
     val pluginManager: PluginManager = koinInject()
     val plugins by pluginManager.plugins.collectAsState()
+    val scope = rememberCoroutineScope()
 
     var selectedPlugin by remember { mutableStateOf<PluginInfo?>(null) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+    var installing by remember { mutableStateOf(false) }
+
+    fun installFromUri(uri: Uri) {
+        scope.launch {
+            installing = true
+            errorMessage = null
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    val cache = File(context.cacheDir, "plugin_install_${System.currentTimeMillis()}.zip")
+                    context.contentResolver.openInputStream(uri)?.use { input ->
+                        FileOutputStream(cache).use { output -> input.copyTo(output) }
+                    } ?: return@withContext Result.failure(Exception("Cannot open selected file"))
+                    val r = pluginManager.installFromZip(cache)
+                    cache.delete()
+                    r
+                } catch (e: Exception) {
+                    Result.failure(e)
+                }
+            }
+            installing = false
+            if (result.isFailure) {
+                errorMessage = result.exceptionOrNull()?.message ?: "Install failed"
+            }
+        }
+    }
+
+    val zipPicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri: Uri? ->
+        if (uri != null) installFromUri(uri)
+    }
+
+    fun openZipPicker() {
+        zipPicker.launch(arrayOf(
+            "application/zip",
+            "application/x-zip-compressed",
+            "application/octet-stream",
+            "*/*"
+        ))
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Plugins") },
+                title = { Text("Extensions") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
                 actions = {
-                    IconButton(onClick = onInstallZipRequested) {
+                    IconButton(onClick = { openZipPicker() }, enabled = !installing) {
                         Icon(Icons.Default.Add, contentDescription = "Install plugin")
                     }
                 }
@@ -54,8 +104,6 @@ fun PluginsPage(
         }
     ) { padding ->
         Column(Modifier.padding(padding).fillMaxSize()) {
-
-            // Global warning
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -64,18 +112,22 @@ fun PluginsPage(
             ) {
                 Column(Modifier.padding(16.dp)) {
                     Text(
-                        "⚠ Plugin warning",
+                        "Plugin warning",
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
                         "Plugins run with the same privileges as DhizukuF (including Device Owner). " +
-                        "Only install plugins from sources you trust. " +
-                        "Each plugin shows what it receives (dangerous commands, auto-start, UI access).",
+                            "Only install plugins from sources you trust. " +
+                            "Each plugin shows what it receives (dangerous commands, auto-start, UI access).",
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
+            }
+
+            if (installing) {
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp))
             }
 
             if (plugins.isEmpty()) {
@@ -83,7 +135,7 @@ fun PluginsPage(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("No plugins installed")
                         Spacer(Modifier.height(8.dp))
-                        Button(onClick = onInstallZipRequested) {
+                        Button(onClick = { openZipPicker() }, enabled = !installing) {
                             Text("Install from .zip")
                         }
                     }
@@ -121,7 +173,6 @@ fun PluginsPage(
         }
     }
 
-    // Error dialog
     errorMessage?.let { msg ->
         AlertDialog(
             onDismissRequest = { errorMessage = null },
@@ -133,7 +184,6 @@ fun PluginsPage(
         )
     }
 
-    // Details bottom sheet / dialog
     selectedPlugin?.let { plugin ->
         AlertDialog(
             onDismissRequest = { selectedPlugin = null },
@@ -191,7 +241,6 @@ private fun PluginCard(
 
             Spacer(Modifier.height(8.dp))
 
-            // What it receives (always visible at the bottom of the card)
             Surface(
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = MaterialTheme.shapes.small
@@ -206,7 +255,6 @@ private fun PluginCard(
 
             Spacer(Modifier.height(8.dp))
 
-            // Auto-start toggle
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Auto-start", modifier = Modifier.weight(1f))
                 Switch(
@@ -215,7 +263,6 @@ private fun PluginCard(
                 )
             }
 
-            // Actions
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End

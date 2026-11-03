@@ -301,4 +301,7 @@
     <string name="oss_licenses_desc">Libraries used by DhizukuF and their licenses</string>
     <string name="home_oss_title">Open-source licenses</string>
     <string name="home_oss_dsp">Libraries used by this app and their license texts</string>
+
+    <string name="disable_plugin_api">Disable Plugin API</string>
+    <string name="disable_plugin_api_desc">Turns off and hides the Plugin API (Extensions) feature</string>
 </resources>

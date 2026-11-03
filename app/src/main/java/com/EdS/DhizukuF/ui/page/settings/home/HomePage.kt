@@ -175,6 +175,8 @@ fun HomePage(
     // "Logs" is hidden by default: it appears only while logging is switched on in Settings > Logs.
     val logsFlow = remember { settingsRepo.flowLogConfig() }
     val logsEnabled by logsFlow.collectAsState(initial = settingsRepo.logConfig)
+    val pluginApiFlow = remember { settingsRepo.flowPluginApiEnabled() }
+    val pluginApiEnabled by pluginApiFlow.collectAsState(initial = settingsRepo.isPluginApiEnabled)
     // Customization: the name and icon in the title, the order of the cards and the hidden ones.
     val appearanceFlow = remember { settingsRepo.flowAppearance() }
     val appearance by appearanceFlow.collectAsState(initial = settingsRepo.appearance)
@@ -187,7 +189,7 @@ fun HomePage(
         add("dhizuku_state")
         if (owner) add("settings")
         if (owner) add("security")
-        add("plugins")
+        if (pluginApiEnabled) add("plugins")
         add("customization")
         if (owner) add("app_management")
         add("user_management")

@@ -21,6 +21,7 @@ interface SettingsRepo {
     fun flowDhizukuEnabled(): Flow<Boolean>
     fun flowDishEnabled(): Flow<Boolean>
     fun flowDangerousEnabled(): Flow<Boolean>
+    fun flowPluginApiEnabled(): Flow<Boolean>
     fun flowDonateButtonHidden(): Flow<Boolean>
     fun flowDaemonNotificationEnabled(): Flow<Boolean>
     fun flowShowDishLabel(): Flow<Boolean>
@@ -59,6 +60,8 @@ interface SettingsRepo {
     var isDhizukuEnabled: Boolean
     var isDishEnabled: Boolean
     var isDangerousEnabled: Boolean
+    /** When false, Plugin API is off and the Extensions card is hidden. Default true. */
+    var isPluginApiEnabled: Boolean
     var isDonateButtonHidden: Boolean
     /** Persistent FOREGROUND service notification; Android still requires a minimal one when off. */
     var isDaemonNotificationEnabled: Boolean

@@ -26,6 +26,9 @@ class SecurityViewModel : ViewModel(), KoinComponent {
             settingsRepo.flowDangerousEnabled().collect { state = state.copy(dangerousEnabled = it) }
         }
         viewModelScope.launch(Dispatchers.IO) {
+            settingsRepo.flowPluginApiEnabled().collect { state = state.copy(pluginApiEnabled = it) }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
             settingsRepo.flowAuthMode().collect { state = state.copy(authMode = it) }
         }
     }
@@ -36,6 +39,10 @@ class SecurityViewModel : ViewModel(), KoinComponent {
 
     fun setDangerousEnabled(enabled: Boolean) {
         viewModelScope.launch(Dispatchers.IO) { settingsRepo.isDangerousEnabled = enabled }
+    }
+
+    fun setPluginApiEnabled(enabled: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) { settingsRepo.isPluginApiEnabled = enabled }
     }
 
     fun setAuthMode(mode: AuthMode) {
