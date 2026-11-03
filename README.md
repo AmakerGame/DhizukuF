@@ -42,14 +42,14 @@ Compared to upstream Dhizuku (full list in [CHANGELOG.md](CHANGELOG.md)):
 
 ## Screenshots
 
-```html
-<!-- All sources are 720×1650; same width keeps them equal on GitHub. -->
+<!-- 720×1650 sources; fixed width keeps them aligned on GitHub -->
 <p align="center">
-<img src="screenshots/ScreenshotDhizukuF.png" width="160" alt="Home" />
-…
-<img src="screenshots/ScreenshotLogs.png" width="160" alt="Logs" />
+  <img src="screenshots/ScreenshotDhizukuF.png" width="160" alt="Home" />
+  <img src="screenshots/ScreenshotSecurity.png" width="160" alt="Security" />
+  <img src="screenshots/ScreenshotCustomization.png" width="160" alt="Customization" />
+  <img src="screenshots/ScreenshotEditDhizukuF.png" width="160" alt="Edit home" />
+  <img src="screenshots/ScreenshotLogs.png" width="160" alt="Logs" />
 </p>
-```
 
 ## Quick start
 
@@ -93,7 +93,7 @@ DhizukuF supports **plugins** distributed as `.zip` packages.
 See the separate **Plugin API** repository (MIT), usable via JitPack from GitHub:
 
 - [Plugin API](https://github.com/AmakerGame/Plugin-API) — interfaces, `plugin.json` format, development guide
-- JitPack: `implementation("com.github.AmakerGame:Plugin-API:1.0.0")`
+- JitPack: `implementation("com.github.AmakerGame:Plugin-API:main-SNAPSHOT")`
 - [Plugin development guide](https://github.com/AmakerGame/Plugin-API/blob/main/docs/PLUGIN_DEVELOPMENT.md)
 
 Related links:
@@ -101,6 +101,8 @@ Related links:
 - [Dhizuku API (upstream)](https://github.com/iamr0s/Dhizuku-API)
 - [Original Dhizuku](https://github.com/iamr0s/Dhizuku)
 - [DhizukuF](https://github.com/AmakerGame/DhizukuF)
+
+Installable `.zip` layout: put **`plugin.json` at the archive root** (not inside a subfolder).
 
 A minimal plugin looks like:
 

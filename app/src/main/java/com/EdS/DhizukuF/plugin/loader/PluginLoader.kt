@@ -20,7 +20,12 @@ class PluginLoader {
     fun readManifestFromZip(zipFile: File): PluginManifest? {
         return try {
             ZipFile(zipFile).use { zip ->
-                val entry = zip.getEntry("plugin.json") ?: return null
+                // Prefer root plugin.json; otherwise first */plugin.json in the archive
+                val entry = zip.getEntry("plugin.json")
+                    ?: zip.entries().asSequence().firstOrNull { e ->
+                        !e.isDirectory && (e.name == "plugin.json" || e.name.endsWith("/plugin.json"))
+                    }
+                    ?: return null
                 val text = zip.getInputStream(entry).bufferedReader().readText()
                 parseManifest(text)
             }
@@ -30,8 +35,9 @@ class PluginLoader {
     }
 
     fun readManifestFromDir(dir: File): PluginManifest? {
-        val file = File(dir, "plugin.json")
-        if (!file.exists()) return null
+        val file = File(dir, "plugin.json").takeIf { it.exists() }
+            ?: dir.walkTopDown().firstOrNull { it.isFile && it.name == "plugin.json" }
+            ?: return null
         return try {
             parseManifest(file.readText())
         } catch (_: Exception) {
@@ -55,8 +61,10 @@ class PluginLoader {
                     }
                 }
             }
-            // basic validation
-            if (!File(targetDir, "plugin.json").exists()) {
+            // basic validation (root or nested plugin.json)
+            val hasManifest = File(targetDir, "plugin.json").exists() ||
+                targetDir.walkTopDown().any { it.isFile && it.name == "plugin.json" }
+            if (!hasManifest) {
                 targetDir.deleteRecursively()
                 return Result.failure(Exception("plugin.json missing after extract"))
             }
