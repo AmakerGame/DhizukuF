@@ -230,9 +230,10 @@ private fun PluginCard(
                 TextButton(onClick = onDelete) { Text("Delete") }
             }
 
-            if (info.errorMessage != null) {
+            val errorMsg = info.errorMessage
+            if (errorMsg != null) {
                 Text(
-                    info.errorMessage,
+                    errorMsg,
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodySmall
                 )
