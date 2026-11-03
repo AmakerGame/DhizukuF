@@ -1,26 +1,24 @@
 package com.EdS.DhizukuF.plugin.loader
 
+import android.content.Context
 import com.EdS.DhizukuF.plugin.model.PluginInfo
 import com.EdS.DhizukuF.plugin.model.PluginManifest
 import com.EdS.DhizukuF.plugin.model.PluginState
 import com.EdS.dhizukuf.pluginapi.DhizukuPlugin
+import dalvik.system.DexClassLoader
 import org.json.JSONObject
 import java.io.File
 import java.util.zip.ZipFile
 
 /**
- * Responsible for reading plugin.json, extracting zips and loading the entry class.
- *
- * Note: Full dynamic DEX loading (DexClassLoader) is left as a clear extension point.
- * For the first version we support plugins that ship a pre-registered entry or
- * simple reflection when the class is already on the classpath (debug / built-in).
+ * Reads plugin.json, extracts zips, loads entry class via DexClassLoader (classes.dex)
+ * or Class.forName (built-in / on classpath).
  */
-class PluginLoader {
+class PluginLoader(private val appContext: Context? = null) {
 
     fun readManifestFromZip(zipFile: File): PluginManifest? {
         return try {
             ZipFile(zipFile).use { zip ->
-                // Prefer root plugin.json; otherwise first */plugin.json in the archive
                 val entry = zip.getEntry("plugin.json")
                     ?: zip.entries().asSequence().firstOrNull { e ->
                         !e.isDirectory && (e.name == "plugin.json" || e.name.endsWith("/plugin.json"))
@@ -61,7 +59,6 @@ class PluginLoader {
                     }
                 }
             }
-            // basic validation (root or nested plugin.json)
             val hasManifest = File(targetDir, "plugin.json").exists() ||
                 targetDir.walkTopDown().any { it.isFile && it.name == "plugin.json" }
             if (!hasManifest) {
@@ -81,24 +78,44 @@ class PluginLoader {
             ?.filter { it.isDirectory }
             ?.mapNotNull { dir ->
                 val manifest = readManifestFromDir(dir) ?: return@mapNotNull null
-                val prefs = dir.contextPrefs() // helper below is not available; use simple default
                 PluginInfo(
                     manifest = manifest,
                     state = PluginState.INSTALLED,
-                    autoStart = manifest.autoStart, // real value is restored by PluginManager
+                    autoStart = manifest.autoStart,
                     installPath = dir.absolutePath
                 )
             } ?: emptyList()
     }
 
     /**
-     * Load the plugin instance.
-     * Current implementation tries Class.forName (works for built-in / debug plugins).
-     * Production dynamic loading would use DexClassLoader on classes.dex inside the plugin dir.
+     * 1) classes.dex / *.dex in plugin dir → DexClassLoader
+     * 2) else Class.forName (built-in sample plugins on app classpath)
      */
     fun loadInstance(pluginDir: File, manifest: PluginManifest): DhizukuPlugin? {
+        val dexFiles = pluginDir.walkTopDown()
+            .filter { it.isFile && it.name.endsWith(".dex") }
+            .toList()
+
+        if (dexFiles.isNotEmpty()) {
+            val ctx = appContext ?: return null
+            val optimized = File(ctx.codeCacheDir, "plugin_dex_${manifest.id}").apply { mkdirs() }
+            val dexPath = dexFiles.joinToString(File.pathSeparator) { it.absolutePath }
+            return try {
+                val loader = DexClassLoader(
+                    dexPath,
+                    optimized.absolutePath,
+                    null,
+                    ctx.classLoader
+                )
+                val clazz = loader.loadClass(manifest.entryClass)
+                clazz.getDeclaredConstructor().newInstance() as? DhizukuPlugin
+            } catch (_: Exception) {
+                null
+            }
+        }
+
+        // Built-in / compile-time plugins (e.g. sample HelloPlugin in the app)
         return try {
-            // TODO: real implementation with DexClassLoader when classes.dex is present
             val clazz = Class.forName(manifest.entryClass)
             clazz.getDeclaredConstructor().newInstance() as? DhizukuPlugin
         } catch (_: Exception) {
@@ -124,7 +141,4 @@ class PluginLoader {
             } ?: emptyList()
         )
     }
-
-    // placeholder to keep scanInstalled compiling cleanly
-    private fun File.contextPrefs(): Boolean = false
 }

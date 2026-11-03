@@ -173,7 +173,7 @@ class PluginManager(
     private fun loadPlugin(info: PluginInfo): Result<Unit> {
         return try {
             val instance = loader.loadInstance(File(info.installPath), info.manifest)
-                ?: return Result.failure(Exception("Failed to load entry class"))
+                ?: return Result.failure(Exception("Failed to load entry class (${info.manifest.entryClass}). Add classes.dex or a built-in class."))
 
             val ctx = createContext(info.manifest.id)
             instance.onLoad(ctx)
