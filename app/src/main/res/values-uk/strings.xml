@@ -295,4 +295,8 @@
     <string name="oss_licenses_desc">Бібліотеки DhizukuF та їхні ліцензії</string>
     <string name="home_oss_title">Ліцензії відкритого ПЗ</string>
     <string name="home_oss_dsp">Бібліотеки застосунку та тексти ліцензій</string>
+
+    <string name="plugins">Розширення</string>
+    <string name="plugins_desc">Встановлення, увімкнення та керування плагінами (.zip)</string>
+    <string name="plugins_title">Керування розширеннями</string>
 </resources>

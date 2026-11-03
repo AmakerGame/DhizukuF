@@ -92,6 +92,7 @@ import androidx.compose.material.icons.twotone.MenuBook
 import androidx.compose.material.icons.twotone.DoNotDisturbOn
 import androidx.compose.material.icons.twotone.RoomPreferences
 import androidx.compose.material.icons.twotone.Security
+import androidx.compose.material.icons.twotone.Extension
 import androidx.compose.material.icons.twotone.SentimentVeryDissatisfied
 import androidx.compose.material.icons.twotone.SentimentVerySatisfied
 import androidx.compose.material.icons.twotone.Settings
@@ -186,6 +187,7 @@ fun HomePage(
         add("dhizuku_state")
         if (owner) add("settings")
         if (owner) add("security")
+        add("plugins")
         add("customization")
         if (owner) add("app_management")
         add("user_management")
@@ -283,7 +285,7 @@ fun HomePage(
 
 /** The order of the cards when nothing was changed. Logs stays above Terminal (dish). */
 private val HOME_DEFAULT_ORDER = listOf(
-    "dhizuku_state", "settings", "security", "customization", "app_management", "user_management",
+    "dhizuku_state", "settings", "security", "plugins", "customization", "app_management", "user_management",
     "dhizuku", "oss", "logs", "dish", "shizuku", "adb", "home_deactivate_title"
 )
 
@@ -291,6 +293,7 @@ private fun homeTitleRes(key: String): Int = when (key) {
     "dhizuku_state" -> R.string.home_edit_status
     "settings" -> R.string.settings
     "security" -> R.string.security
+    "plugins" -> R.string.plugins
     "customization" -> R.string.customization
     "app_management" -> R.string.home_app_management_title
     "user_management" -> R.string.user_manager
@@ -309,6 +312,7 @@ private fun LazyItemScope.HomeCard(key: String, navController: NavController) {
         "dhizuku_state" -> DhizukuStateWidget()
         "settings" -> SettingsWidget(navController)
         "security" -> SecurityWidget(navController)
+        "plugins" -> PluginsWidget(navController)
         "customization" -> CustomizationWidget(navController)
         "app_management" -> AppManagementWidget(navController)
         "user_management" -> UserManagementWidget(navController)
@@ -537,6 +541,20 @@ private fun LazyItemScope.SecurityWidget(navController: NavController) {
         Text(stringResource(R.string.security))
     }, text = {
         Text(stringResource(R.string.security_desc))
+    })
+}
+
+
+@Composable
+private fun LazyItemScope.PluginsWidget(navController: NavController) {
+    CardWidget(onClick = {
+        navController.navigate(SettingsRoute.Plugins.route)
+    }, icon = {
+        Icon(imageVector = Icons.TwoTone.Extension, contentDescription = null)
+    }, title = {
+        Text(stringResource(R.string.plugins))
+    }, text = {
+        Text(stringResource(R.string.plugins_desc))
     })
 }
 

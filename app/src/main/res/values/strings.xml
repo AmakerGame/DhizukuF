@@ -169,7 +169,13 @@
     <string name="locked_close">Close</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
-    <!-- Logs -->
+    
+    <!-- Plugins / Extensions -->
+    <string name="plugins">Extensions</string>
+    <string name="plugins_desc">Install, enable and manage plugins (.zip)</string>
+    <string name="plugins_title">Extension management</string>
+
+<!-- Logs -->
     <string name="logs">Logs</string>
     <string name="logs_desc">Events of DhizukuF: apps, permissions, commands and errors</string>
     <string name="logs_settings_desc">Enable logs, level, categories, size, export and clearing</string>
