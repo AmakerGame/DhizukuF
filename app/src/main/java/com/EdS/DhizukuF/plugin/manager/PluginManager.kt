@@ -27,18 +27,75 @@ class PluginManager(
     private val _plugins = MutableStateFlow<List<PluginInfo>>(emptyList())
     val plugins: StateFlow<List<PluginInfo>> = _plugins.asStateFlow()
 
+    /** Settings / Home menu entries from currently loaded (ENABLED) plugins. */
+    private val _settingsEntries = MutableStateFlow<List<PluginSettingsEntry>>(emptyList())
+    val settingsEntries: StateFlow<List<PluginSettingsEntry>> = _settingsEntries.asStateFlow()
+
     private val loadedInstances = mutableMapOf<String, DhizukuPlugin>()
+
+    private val prefs by lazy {
+        context.getSharedPreferences("dhizukuf_plugins", Context.MODE_PRIVATE)
+    }
 
     init {
         refresh()
+        // Restore plugins that were enabled last session
+        restoreEnabled()
     }
 
     fun refresh() {
+        val enabledIds = prefs.getStringSet("enabled_ids", emptySet()) ?: emptySet()
+        val autoIds = prefs.getStringSet("autostart_ids", emptySet()) ?: emptySet()
         val list = loader.scanInstalled(pluginsDir).map { info ->
-            // rebuild "what it receives" for UI
-            info.copy(whatItReceives = buildWhatItReceives(info.manifest, info.autoStart))
+            val auto = info.manifest.id in autoIds || info.manifest.autoStart
+            val state = when {
+                info.manifest.id in enabledIds -> PluginState.INSTALLED // will load in restoreEnabled
+                else -> PluginState.INSTALLED
+            }
+            info.copy(
+                autoStart = auto,
+                whatItReceives = buildWhatItReceives(info.manifest, auto)
+            )
         }
         _plugins.value = list
+        publishSettingsEntries()
+    }
+
+    private fun restoreEnabled() {
+        val enabledIds = prefs.getStringSet("enabled_ids", emptySet()) ?: emptySet()
+        enabledIds.forEach { id ->
+            val info = _plugins.value.find { it.manifest.id == id } ?: return@forEach
+            loadPlugin(info)
+        }
+        // auto-start
+        _plugins.value.filter { it.autoStart }.forEach { info ->
+            if (info.manifest.id !in loadedInstances) {
+                loadPlugin(info)
+            }
+        }
+        publishSettingsEntries()
+    }
+
+    private fun persistEnabled() {
+        prefs.edit()
+            .putStringSet("enabled_ids", loadedInstances.keys.toSet())
+            .apply()
+    }
+
+    private fun persistAutoStart() {
+        val ids = _plugins.value.filter { it.autoStart }.map { it.manifest.id }.toSet()
+        prefs.edit().putStringSet("autostart_ids", ids).apply()
+    }
+
+    private fun publishSettingsEntries() {
+        val entries = loadedInstances.values.flatMap { plugin ->
+            try {
+                plugin.provideSettingsEntries(createContext(plugin.id))
+            } catch (_: Exception) {
+                emptyList()
+            }
+        }.sortedBy { it.order }
+        _settingsEntries.value = entries
     }
 
     /**
@@ -138,13 +195,12 @@ class PluginManager(
     // ---- aggregation for the rest of the app ----
 
     fun getAllSettingsEntries(): List<PluginSettingsEntry> {
-        return loadedInstances.values.flatMap { plugin ->
-            try {
-                plugin.provideSettingsEntries(createContext(plugin.id))
-            } catch (_: Exception) {
-                emptyList()
-            }
-        }.sortedBy { it.order }
+        // Prefer live published list; recompute if empty but instances exist
+        if (_settingsEntries.value.isNotEmpty() || loadedInstances.isEmpty()) {
+            return _settingsEntries.value
+        }
+        publishSettingsEntries()
+        return _settingsEntries.value
     }
 
     fun getAllActivationMethods(): List<PluginActivationMethod> {

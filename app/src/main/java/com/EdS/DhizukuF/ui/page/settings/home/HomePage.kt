@@ -154,6 +154,10 @@ import com.EdS.DhizukuF.data.common.util.openUrlInBrowser
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import com.EdS.DhizukuF.server.DhizukuState
 import com.EdS.DhizukuF.ui.page.settings.SettingsRoute
+import com.EdS.DhizukuF.plugin.manager.PluginManager
+import com.EdS.dhizukuf.pluginapi.PluginSettingsEntry
+import androidx.compose.material.icons.twotone.Extension
+import android.widget.Toast
 import com.EdS.DhizukuF.ui.theme.exclude
 import com.EdS.DhizukuF.ui.widget.appearModifier
 
@@ -177,6 +181,9 @@ fun HomePage(
     val logsEnabled by logsFlow.collectAsState(initial = settingsRepo.logConfig)
     val pluginApiFlow = remember { settingsRepo.flowPluginApiEnabled() }
     val pluginApiEnabled by pluginApiFlow.collectAsState(initial = settingsRepo.isPluginApiEnabled)
+    val pluginManager = koinInject<PluginManager>()
+    val pluginList by pluginManager.plugins.collectAsState()
+    val pluginEntries by pluginManager.settingsEntries.collectAsState()
     // Customization: the name and icon in the title, the order of the cards and the hidden ones.
     val appearanceFlow = remember { settingsRepo.flowAppearance() }
     val appearance by appearanceFlow.collectAsState(initial = settingsRepo.appearance)
@@ -277,7 +284,13 @@ fun HomePage(
                 items(visible, key = { key -> key }) { key ->
                     HomeCard(key, navController)
                 }
-                if (visible.isEmpty()) {
+                // Cards from enabled plugins (provideSettingsEntries) — automatic Home items
+                if (!editMode && pluginApiEnabled && pluginEntries.isNotEmpty()) {
+                    items(pluginEntries, key = { "plugin_entry_${it.id}" }) { entry ->
+                        PluginSettingsEntryCard(entry = entry, navController = navController)
+                    }
+                }
+                if (visible.isEmpty() && pluginEntries.isEmpty()) {
                     item("all_hidden") { AllHiddenHint() }
                 }
             }
@@ -459,6 +472,34 @@ private fun TopBarActions(editMode: Boolean, onToggleEdit: () -> Unit) {
             Text(stringResource(R.string.home_shutdown_dsp))
         })
     }
+}
+
+
+@Composable
+private fun LazyItemScope.PluginSettingsEntryCard(
+    entry: PluginSettingsEntry,
+    navController: NavController
+) {
+    val context = LocalContext.current
+    CardWidget(
+        onClick = {
+            // Plugin pages need a host route in NavHost; until then show the entry is active
+            Toast.makeText(
+                context,
+                entry.title + (entry.subtitle?.let { ": $it" } ?: ""),
+                Toast.LENGTH_SHORT
+            ).show()
+        },
+        icon = {
+            Icon(imageVector = Icons.TwoTone.Extension, contentDescription = null)
+        },
+        title = {
+            Text(entry.title)
+        },
+        text = {
+            Text(entry.subtitle ?: "")
+        }
+    )
 }
 
 @Composable
