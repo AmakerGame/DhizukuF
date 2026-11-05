@@ -1,20 +1,23 @@
 package com.EdS.DhizukuF.plugin.loader
 
 import android.content.Context
+import android.os.Build
+import android.util.Log
 import com.EdS.DhizukuF.plugin.model.PluginInfo
 import com.EdS.DhizukuF.plugin.model.PluginManifest
 import com.EdS.DhizukuF.plugin.model.PluginState
 import com.EdS.dhizukuf.pluginapi.DhizukuPlugin
 import dalvik.system.DexClassLoader
+import dalvik.system.InMemoryDexClassLoader
 import org.json.JSONObject
 import java.io.File
+import java.nio.ByteBuffer
 import java.util.zip.ZipFile
 
 /**
- * Reads plugin.json, extracts zips, loads entry class via DexClassLoader (classes.dex)
- * or Class.forName (built-in / on classpath).
+ * Reads plugin.json, extracts zips, loads entry class from classes.dex via DexClassLoader.
  */
-class PluginLoader(private val appContext: Context? = null) {
+class PluginLoader(private val appContext: Context) {
 
     fun readManifestFromZip(zipFile: File): PluginManifest? {
         return try {
@@ -45,22 +48,21 @@ class PluginLoader(private val appContext: Context? = null) {
 
     fun extractZip(zipFile: File, targetDir: File): Result<Unit> {
         return try {
+            if (targetDir.exists()) targetDir.deleteRecursively()
             targetDir.mkdirs()
             ZipFile(zipFile).use { zip ->
                 zip.entries().asSequence().forEach { entry ->
-                    val out = File(targetDir, entry.name)
-                    if (entry.isDirectory) {
-                        out.mkdirs()
-                    } else {
-                        out.parentFile?.mkdirs()
-                        zip.getInputStream(entry).use { input ->
-                            out.outputStream().use { output -> input.copyTo(output) }
-                        }
+                    // Flatten unsafe paths; keep simple relative names
+                    val name = entry.name.substringAfterLast('/').ifEmpty { entry.name }
+                    if (entry.isDirectory) return@forEach
+                    if (name.isBlank() || name == "." || name == "..") return@forEach
+                    val out = File(targetDir, name)
+                    zip.getInputStream(entry).use { input ->
+                        out.outputStream().use { output -> input.copyTo(output) }
                     }
                 }
             }
-            val hasManifest = File(targetDir, "plugin.json").exists() ||
-                targetDir.walkTopDown().any { it.isFile && it.name == "plugin.json" }
+            val hasManifest = File(targetDir, "plugin.json").exists()
             if (!hasManifest) {
                 targetDir.deleteRecursively()
                 return Result.failure(Exception("plugin.json missing after extract"))
@@ -88,34 +90,50 @@ class PluginLoader(private val appContext: Context? = null) {
     }
 
     /**
-     * 1) classes.dex / *.dex in plugin dir → DexClassLoader
-     * 2) else Class.forName (built-in sample plugins on app classpath)
+     * Load plugin entry class from classes.dex (required).
+     * Throws with a clear message on failure (caller maps to Result).
      */
-    fun loadInstance(pluginDir: File, manifest: PluginManifest): DhizukuPlugin? {
-        val dexFiles = pluginDir.walkTopDown()
-            .filter { it.isFile && it.name.endsWith(".dex") }
-            .toList()
+    fun loadInstance(pluginDir: File, manifest: PluginManifest): DhizukuPlugin {
+        val dexFile = File(pluginDir, "classes.dex").takeIf { it.isFile }
+            ?: pluginDir.listFiles()?.firstOrNull { it.isFile && it.name.endsWith(".dex") }
+            ?: throw Exception(
+                "No classes.dex in plugin folder (${pluginDir.absolutePath}). " +
+                    "Re-install a zip that contains plugin.json + classes.dex at the root."
+            )
 
-        if (dexFiles.isNotEmpty()) {
-            val ctx = appContext ?: return null
-            val optimized = File(ctx.codeCacheDir, "plugin_dex_${manifest.id}").apply { mkdirs() }
-            val dexPath = dexFiles.joinToString(File.pathSeparator) { it.absolutePath }
-            return try {
+        val parent = appContext.classLoader
+        val clazz = try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val bytes = dexFile.readBytes()
+                val loader = InMemoryDexClassLoader(ByteBuffer.wrap(bytes), parent)
+                loader.loadClass(manifest.entryClass)
+            } else {
+                val optimized = appContext.getDir("plugin_dex_${manifest.id}", Context.MODE_PRIVATE)
                 val loader = DexClassLoader(
-                    dexPath,
+                    dexFile.absolutePath,
                     optimized.absolutePath,
                     null,
-                    ctx.classLoader
+                    parent
                 )
-                val clazz = loader.loadClass(manifest.entryClass)
-                clazz.getDeclaredConstructor().newInstance() as? DhizukuPlugin
-            } catch (_: Exception) {
-                null
+                loader.loadClass(manifest.entryClass)
             }
+        } catch (e: Exception) {
+            Log.e(TAG, "Dex load failed for ${manifest.entryClass}", e)
+            throw Exception(
+                "Cannot load ${manifest.entryClass} from ${dexFile.name}: ${e.javaClass.simpleName}: ${e.message}"
+            )
         }
 
-        // No classes.dex in the plugin package
-        return null
+        val instance = try {
+            clazz.getDeclaredConstructor().newInstance()
+        } catch (e: Exception) {
+            throw Exception(
+                "Cannot create ${manifest.entryClass}: ${e.javaClass.simpleName}: ${e.message}"
+            )
+        }
+
+        return instance as? DhizukuPlugin
+            ?: throw Exception("${manifest.entryClass} does not implement DhizukuPlugin")
     }
 
     private fun parseManifest(json: String): PluginManifest {
@@ -135,5 +153,9 @@ class PluginLoader(private val appContext: Context? = null) {
                 (0 until arr.length()).map { arr.getString(it) }
             } ?: emptyList()
         )
+    }
+
+    companion object {
+        private const val TAG = "PluginLoader"
     }
 }
