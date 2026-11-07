@@ -87,6 +87,35 @@ class PluginManager(
         prefs.edit().putStringSet("autostart_ids", ids).apply()
     }
 
+    fun refreshSettingsEntries() = publishSettingsEntries()
+
+    /**
+     * Handle a Home/Settings entry tap.
+     * @return true if the plugin handled it in code (no navigation).
+     */
+    fun handleSettingsEntryClick(entry: PluginSettingsEntry): Boolean {
+        for ((pluginId, plugin) in loadedInstances) {
+            val entries = try {
+                plugin.provideSettingsEntries(createContext(pluginId))
+            } catch (_: Exception) {
+                emptyList()
+            }
+            if (entries.none { it.id == entry.id }) continue
+            val ctx = createContext(pluginId)
+            return try {
+                if (entry.runAction || entry.route.startsWith("action:")) {
+                    plugin.onSettingsEntryClick(ctx, entry.id)
+                } else {
+                    // Still allow plugin to intercept
+                    plugin.onSettingsEntryClick(ctx, entry.id)
+                }
+            } catch (_: Exception) {
+                false
+            }
+        }
+        return false
+    }
+
     private fun publishSettingsEntries() {
         val entries = loadedInstances.values.flatMap { plugin ->
             try {
@@ -233,9 +262,12 @@ class PluginManager(
             instance.onLoad(ctx)
             loadedInstances[info.manifest.id] = instance
             updateState(info.manifest.id, PluginState.ENABLED)
+            persistEnabled()
+            publishSettingsEntries()  // Home updates immediately
             Result.success(Unit)
         } catch (e: Exception) {
             updateState(info.manifest.id, PluginState.ERROR, e.message)
+            publishSettingsEntries()
             Result.failure(e)
         }
     }

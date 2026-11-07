@@ -183,6 +183,20 @@ fun HomePage(
     val pluginManager = koinInject<PluginManager>()
     val pluginList by pluginManager.plugins.collectAsState()
     val pluginEntries by pluginManager.settingsEntries.collectAsState()
+    // Refresh entries when returning to Home (enable plugin → back should show item immediately)
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    androidx.compose.runtime.DisposableEffect(lifecycleOwner) {
+        val obs = androidx.lifecycle.LifecycleEventObserver { _, event ->
+            if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
+                pluginManager.refreshSettingsEntries()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(obs)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(obs) }
+    }
+    androidx.compose.runtime.LaunchedEffect(pluginList) {
+        pluginManager.refreshSettingsEntries()
+    }
     // Customization: the name and icon in the title, the order of the cards and the hidden ones.
     val appearanceFlow = remember { settingsRepo.flowAppearance() }
     val appearance by appearanceFlow.collectAsState(initial = settingsRepo.appearance)
@@ -286,7 +300,7 @@ fun HomePage(
                 // Cards from enabled plugins (provideSettingsEntries) — automatic Home items
                 if (!editMode && pluginApiEnabled && pluginEntries.isNotEmpty()) {
                     items(pluginEntries, key = { "plugin_entry_${it.id}" }) { entry ->
-                        PluginSettingsEntryCard(entry = entry, navController = navController)
+                        PluginSettingsEntryCard(entry = entry, navController = navController, pluginManager = pluginManager)
                     }
                 }
                 if (visible.isEmpty() && pluginEntries.isEmpty()) {
@@ -477,17 +491,21 @@ private fun TopBarActions(editMode: Boolean, onToggleEdit: () -> Unit) {
 @Composable
 private fun LazyItemScope.PluginSettingsEntryCard(
     entry: PluginSettingsEntry,
-    navController: NavController
+    navController: NavController,
+    pluginManager: PluginManager
 ) {
     CardWidget(
         onClick = {
-            navController.navigate(
-                SettingsRoute.PluginEntry.route(
-                    title = entry.title,
-                    subtitle = entry.subtitle ?: "",
-                    route = entry.route
+            val handled = pluginManager.handleSettingsEntryClick(entry)
+            if (!handled) {
+                navController.navigate(
+                    SettingsRoute.PluginEntry.route(
+                        title = entry.title,
+                        subtitle = entry.subtitle ?: "",
+                        route = entry.route
+                    )
                 )
-            )
+            }
         },
         icon = {
             Icon(imageVector = Icons.TwoTone.Extension, contentDescription = null)

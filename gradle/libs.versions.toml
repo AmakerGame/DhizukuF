@@ -73,7 +73,4 @@ rikka-shizuku-provider = { group = "dev.rikka.shizuku", name = "provider", versi
 # Alternative via JitPack: com.github.iamr0s.Dhizuku-API:dhizuku-api:<tag>
 iamr0s-dhizuku-api = { group = "io.github.iamr0s", name = "Dhizuku-SERVER_API", version = "0.1.0" }
 
-# DhizukuF Plugin API (from GitHub via JitPack)
-# https://github.com/AmakerGame/Plugin-API
-# JitPack artifact: com.github.AmakerGame:Plugin-API:1.0.0 (use a release tag; SNAPSHOT often times out on CI)
-amaker-plugin-api = { group = "com.github.AmakerGame", name = "Plugin-API", version = "1.0.0" }
+# Plugin API 1.1.0 is vendored under app/.../pluginapi (publish GitHub tag 1.1.0 for JitPack later)

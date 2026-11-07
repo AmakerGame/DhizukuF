@@ -173,9 +173,7 @@ dependencies {
     implementation(libs.rikka.shizuku.provider)
 
     implementation(libs.iamr0s.dhizuku.api)
-
-    // Plugin API from https://github.com/AmakerGame/Plugin-API (JitPack)
-    implementation(libs.amaker.plugin.api)
+    // Plugin API 1.1.0 vendored in app source (com.EdS.dhizukuf.pluginapi)
 }
 
 
