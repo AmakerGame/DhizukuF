@@ -1,17 +1,14 @@
 package com.EdS.DhizukuF.plugin.loader
 
 import android.content.Context
-import android.os.Build
 import android.util.Log
 import com.EdS.DhizukuF.plugin.model.PluginInfo
 import com.EdS.DhizukuF.plugin.model.PluginManifest
 import com.EdS.DhizukuF.plugin.model.PluginState
 import com.EdS.dhizukuf.pluginapi.DhizukuPlugin
 import dalvik.system.DexClassLoader
-import dalvik.system.InMemoryDexClassLoader
 import org.json.JSONObject
 import java.io.File
-import java.nio.ByteBuffer
 import java.util.zip.ZipFile
 
 /**
@@ -52,9 +49,8 @@ class PluginLoader(private val appContext: Context) {
             targetDir.mkdirs()
             ZipFile(zipFile).use { zip ->
                 zip.entries().asSequence().forEach { entry ->
-                    // Flatten unsafe paths; keep simple relative names
-                    val name = entry.name.substringAfterLast('/').ifEmpty { entry.name }
                     if (entry.isDirectory) return@forEach
+                    val name = entry.name.substringAfterLast('/').ifEmpty { entry.name }
                     if (name.isBlank() || name == "." || name == "..") return@forEach
                     val out = File(targetDir, name)
                     zip.getInputStream(entry).use { input ->
@@ -62,8 +58,7 @@ class PluginLoader(private val appContext: Context) {
                     }
                 }
             }
-            val hasManifest = File(targetDir, "plugin.json").exists()
-            if (!hasManifest) {
+            if (!File(targetDir, "plugin.json").exists()) {
                 targetDir.deleteRecursively()
                 return Result.failure(Exception("plugin.json missing after extract"))
             }
@@ -90,37 +85,43 @@ class PluginLoader(private val appContext: Context) {
     }
 
     /**
-     * Load plugin entry class from classes.dex (required).
-     * Throws with a clear message on failure (caller maps to Result).
+     * Load entry class from classes.dex using file-based DexClassLoader (most reliable).
      */
     fun loadInstance(pluginDir: File, manifest: PluginManifest): DhizukuPlugin {
-        val dexFile = File(pluginDir, "classes.dex").takeIf { it.isFile }
-            ?: pluginDir.listFiles()?.firstOrNull { it.isFile && it.name.endsWith(".dex") }
+        val dexFile = File(pluginDir, "classes.dex").takeIf { it.isFile && it.length() > 0 }
+            ?: pluginDir.listFiles()?.firstOrNull { it.isFile && it.name.endsWith(".dex") && it.length() > 0 }
             ?: throw Exception(
                 "No classes.dex in plugin folder (${pluginDir.absolutePath}). " +
                     "Re-install a zip that contains plugin.json + classes.dex at the root."
             )
 
+        // Optimized dir must be private app storage; clear stale oat/vdex when reinstalling
+        val optimized = appContext.getDir("plugin_opt_${manifest.id.replace('.', '_')}", Context.MODE_PRIVATE)
+        optimized.listFiles()?.forEach { it.delete() }
+
+        // Copy dex into code-friendly location (some devices won't load from filesDir subtree)
+        val localDex = File(optimized, "classes.dex")
+        dexFile.copyTo(localDex, overwrite = true)
+
         val parent = appContext.classLoader
         val clazz = try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val bytes = dexFile.readBytes()
-                val loader = InMemoryDexClassLoader(ByteBuffer.wrap(bytes), parent)
-                loader.loadClass(manifest.entryClass)
-            } else {
-                val optimized = appContext.getDir("plugin_dex_${manifest.id}", Context.MODE_PRIVATE)
-                val loader = DexClassLoader(
-                    dexFile.absolutePath,
-                    optimized.absolutePath,
-                    null,
-                    parent
-                )
-                loader.loadClass(manifest.entryClass)
-            }
+            val loader = DexClassLoader(
+                localDex.absolutePath,
+                optimized.absolutePath,
+                null,
+                parent
+            )
+            loader.loadClass(manifest.entryClass)
+        } catch (e: ClassNotFoundException) {
+            Log.e(TAG, "Class not in dex: ${manifest.entryClass}, dex=${localDex.length()} bytes", e)
+            throw Exception(
+                "ClassNotFoundException: ${manifest.entryClass} not in classes.dex " +
+                    "(${localDex.length()} bytes). Reinstall the plugin zip."
+            )
         } catch (e: Exception) {
             Log.e(TAG, "Dex load failed for ${manifest.entryClass}", e)
             throw Exception(
-                "Cannot load ${manifest.entryClass} from ${dexFile.name}: ${e.javaClass.simpleName}: ${e.message}"
+                "Cannot load ${manifest.entryClass}: ${e.javaClass.simpleName}: ${e.message}"
             )
         }
 
