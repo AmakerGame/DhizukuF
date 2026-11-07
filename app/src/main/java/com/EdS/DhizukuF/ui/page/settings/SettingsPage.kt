@@ -24,6 +24,8 @@ import com.EdS.DhizukuF.ui.page.settings.app_management.AppManagementPage
 import com.EdS.DhizukuF.ui.page.settings.home.HomePage
 import com.EdS.DhizukuF.ui.page.settings.security.SecurityPage
 import com.EdS.DhizukuF.plugin.ui.PluginsPage
+import com.EdS.DhizukuF.plugin.ui.PluginEntryPage
+import java.net.URLDecoder
 import com.EdS.DhizukuF.ui.page.settings.settings.SettingsPage
 import com.EdS.DhizukuF.ui.page.settings.user_manager.UserManagerPage
 
@@ -99,6 +101,22 @@ fun SettingsPage(windowInsets: WindowInsets) {
         }
         composable(route = SettingsRoute.Plugins.route) {
             PluginsPage(
+                onBack = navController::navigateUp
+            )
+        }
+        composable(
+            route = "plugin_entry?title={title}&subtitle={subtitle}&route={route}",
+            arguments = listOf(
+                navArgument("title") { type = NavType.StringType; defaultValue = "" },
+                navArgument("subtitle") { type = NavType.StringType; defaultValue = "" },
+                navArgument("route") { type = NavType.StringType; defaultValue = "" }
+            )
+        ) { entry ->
+            fun dec(s: String?) = URLDecoder.decode(s ?: "", Charsets.UTF_8.name())
+            PluginEntryPage(
+                title = dec(entry.arguments?.getString("title")),
+                subtitle = dec(entry.arguments?.getString("subtitle")),
+                route = dec(entry.arguments?.getString("route")),
                 onBack = navController::navigateUp
             )
         }

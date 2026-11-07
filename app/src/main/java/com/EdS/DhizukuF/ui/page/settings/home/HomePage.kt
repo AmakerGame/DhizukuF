@@ -157,7 +157,6 @@ import com.EdS.DhizukuF.ui.page.settings.SettingsRoute
 import com.EdS.DhizukuF.plugin.manager.PluginManager
 import com.EdS.dhizukuf.pluginapi.PluginSettingsEntry
 import androidx.compose.material.icons.twotone.Extension
-import android.widget.Toast
 import com.EdS.DhizukuF.ui.theme.exclude
 import com.EdS.DhizukuF.ui.widget.appearModifier
 
@@ -480,15 +479,15 @@ private fun LazyItemScope.PluginSettingsEntryCard(
     entry: PluginSettingsEntry,
     navController: NavController
 ) {
-    val context = LocalContext.current
     CardWidget(
         onClick = {
-            // Plugin pages need a host route in NavHost; until then show the entry is active
-            Toast.makeText(
-                context,
-                entry.title + (entry.subtitle?.let { ": $it" } ?: ""),
-                Toast.LENGTH_SHORT
-            ).show()
+            navController.navigate(
+                SettingsRoute.PluginEntry.route(
+                    title = entry.title,
+                    subtitle = entry.subtitle ?: "",
+                    route = entry.route
+                )
+            )
         },
         icon = {
             Icon(imageVector = Icons.TwoTone.Extension, contentDescription = null)
@@ -497,7 +496,10 @@ private fun LazyItemScope.PluginSettingsEntryCard(
             Text(entry.title)
         },
         text = {
-            Text(entry.subtitle ?: "")
+            val sub = entry.subtitle
+            if (!sub.isNullOrBlank()) {
+                Text(sub)
+            }
         }
     )
 }
