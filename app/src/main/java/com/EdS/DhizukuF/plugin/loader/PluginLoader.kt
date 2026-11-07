@@ -1,18 +1,24 @@
 package com.EdS.DhizukuF.plugin.loader
 
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import com.EdS.DhizukuF.plugin.model.PluginInfo
 import com.EdS.DhizukuF.plugin.model.PluginManifest
 import com.EdS.DhizukuF.plugin.model.PluginState
 import com.EdS.dhizukuf.pluginapi.DhizukuPlugin
 import dalvik.system.DexClassLoader
+import dalvik.system.InMemoryDexClassLoader
 import org.json.JSONObject
 import java.io.File
+import java.nio.ByteBuffer
 import java.util.zip.ZipFile
 
 /**
- * Reads plugin.json, extracts zips, loads entry class from classes.dex via DexClassLoader.
+ * Reads plugin.json, extracts zips, loads entry class from classes.dex.
+ *
+ * Android 14+: writable dex files are blocked (SecurityException).
+ * We use InMemoryDexClassLoader with a direct ByteBuffer, or a read-only file.
  */
 class PluginLoader(private val appContext: Context) {
 
@@ -84,9 +90,6 @@ class PluginLoader(private val appContext: Context) {
             } ?: emptyList()
     }
 
-    /**
-     * Load entry class from classes.dex using file-based DexClassLoader (most reliable).
-     */
     fun loadInstance(pluginDir: File, manifest: PluginManifest): DhizukuPlugin {
         val dexFile = File(pluginDir, "classes.dex").takeIf { it.isFile && it.length() > 0 }
             ?: pluginDir.listFiles()?.firstOrNull { it.isFile && it.name.endsWith(".dex") && it.length() > 0 }
@@ -95,34 +98,30 @@ class PluginLoader(private val appContext: Context) {
                     "Re-install a zip that contains plugin.json + classes.dex at the root."
             )
 
-        // Optimized dir must be private app storage; clear stale oat/vdex when reinstalling
-        val optimized = appContext.getDir("plugin_opt_${manifest.id.replace('.', '_')}", Context.MODE_PRIVATE)
-        optimized.listFiles()?.forEach { it.delete() }
-
-        // Copy dex into code-friendly location (some devices won't load from filesDir subtree)
-        val localDex = File(optimized, "classes.dex")
-        dexFile.copyTo(localDex, overwrite = true)
-
         val parent = appContext.classLoader
+        val bytes = dexFile.readBytes()
+
         val clazz = try {
-            val loader = DexClassLoader(
-                localDex.absolutePath,
-                optimized.absolutePath,
-                null,
-                parent
-            )
-            loader.loadClass(manifest.entryClass)
-        } catch (e: ClassNotFoundException) {
-            Log.e(TAG, "Class not in dex: ${manifest.entryClass}, dex=${localDex.length()} bytes", e)
-            throw Exception(
-                "ClassNotFoundException: ${manifest.entryClass} not in classes.dex " +
-                    "(${localDex.length()} bytes). Reinstall the plugin zip."
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                // Direct buffer — required for reliable InMemoryDexClassLoader; avoids writable-dex ban on API 34+
+                val buf = ByteBuffer.allocateDirect(bytes.size)
+                buf.put(bytes)
+                buf.flip()
+                val loader = InMemoryDexClassLoader(buf, parent)
+                loader.loadClass(manifest.entryClass)
+            } else {
+                loadWithReadOnlyDexFile(dexFile, manifest, parent)
+            }
         } catch (e: Exception) {
-            Log.e(TAG, "Dex load failed for ${manifest.entryClass}", e)
-            throw Exception(
-                "Cannot load ${manifest.entryClass}: ${e.javaClass.simpleName}: ${e.message}"
-            )
+            Log.w(TAG, "Primary dex load failed, trying read-only file path", e)
+            try {
+                loadWithReadOnlyDexFile(dexFile, manifest, parent)
+            } catch (e2: Exception) {
+                Log.e(TAG, "Dex load failed for ${manifest.entryClass}", e2)
+                throw Exception(
+                    "Cannot load ${manifest.entryClass}: ${e2.javaClass.simpleName}: ${e2.message}"
+                )
+            }
         }
 
         val instance = try {
@@ -135,6 +134,41 @@ class PluginLoader(private val appContext: Context) {
 
         return instance as? DhizukuPlugin
             ?: throw Exception("${manifest.entryClass} does not implement DhizukuPlugin")
+    }
+
+    /**
+     * File-based loader: copy dex, mark read-only (Android 14 W^X), then DexClassLoader.
+     */
+    private fun loadWithReadOnlyDexFile(
+        dexFile: File,
+        manifest: PluginManifest,
+        parent: ClassLoader
+    ): Class<*> {
+        val safeName = manifest.id.replace(Regex("[^a-zA-Z0-9_]"), "_")
+        val base = appContext.getDir("plugin_dex_$safeName", Context.MODE_PRIVATE)
+        val optDir = File(base, "opt").apply {
+            if (exists()) deleteRecursively()
+            mkdirs()
+        }
+        val localDex = File(base, "classes.dex")
+        // ensure we can overwrite then lock
+        if (localDex.exists()) {
+            localDex.setWritable(true)
+            localDex.delete()
+        }
+        dexFile.copyTo(localDex, overwrite = true)
+        // Critical on API 34+: writable dex is rejected
+        localDex.setReadable(true, false)
+        localDex.setWritable(false, false)
+        localDex.setReadOnly()
+
+        val loader = DexClassLoader(
+            localDex.absolutePath,
+            optDir.absolutePath,
+            null,
+            parent
+        )
+        return loader.loadClass(manifest.entryClass)
     }
 
     private fun parseManifest(json: String): PluginManifest {
