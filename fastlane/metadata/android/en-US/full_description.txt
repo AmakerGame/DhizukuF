@@ -1,7 +1,7 @@
 This app can delegate functions from the device owner.
 That is, this app acts as an intermediary to call functions from the device owner.
 
-Normally, this authority can only be delegated to one app, but Dhizuku allows you to delegate the full authority of the device owner to other apps.
+Normally, this authority can only be delegated to one app, but DhizukuF allows you to delegate the full authority of the device owner to other apps.
 
 It's easy to set up (ex: Shizuku, QR code).
 For more information, please see the <a href="https://github.com/iamr0s/Dhizuku/discussions/19">tutorial</a>.

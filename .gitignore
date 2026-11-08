@@ -1,9 +1,9 @@
 # Gradle
-.gradle/
+/.gradle/
 # Android SDK
 /local.properties
 # Kotlin
-.kotlin/
+/.kotlin/
 # Gradle Build
 /*/build/
 # AGP Lint
@@ -15,7 +15,5 @@
 /.idea/
 # VS Code
 /.vscode/
-# macOS
-.DS_Store
 # Keystore
 /keystore/

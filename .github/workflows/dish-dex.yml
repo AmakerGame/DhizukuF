@@ -1,0 +1,57 @@
+name: Rebuild dish dex
+
+# Keeps app/src/main/assets/dish_dhizukuf.dex in sync with dish-client/src: when the client source
+# changes on a branch, the dex is rebuilt with d8, checked, and committed back to that branch.
+# It never runs for tags (a tag has no branch to push to); the release workflow rebuilds the dex itself.
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'dish-client/src/**'
+      - 'dish-client/stubs/**'
+      - 'dish-client/build.sh'
+      - 'dish-client/verify_dex.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dish-dex-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dex:
+    name: Build and commit the dex
+    runs-on: ubuntu-24.04
+    if: ${{ vars.DISH_REBUILD_DEX != 'false' && github.ref_type == 'branch' }}
+    steps:
+      - name: Checkout the branch
+        uses: actions/checkout@v6
+        with:
+          # the branch itself, not a detached commit, so the result can be pushed back
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: Build the dex (d8) and verify it
+        run: sh dish-client/build.sh
+
+      - name: Commit the rebuilt dex
+        run: |
+          if git diff --quiet -- app/src/main/assets/dish_dhizukuf.dex; then
+            echo "The dex is already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/assets/dish_dhizukuf.dex
+          git commit -m "Rebuild dish_dhizukuf.dex from dish-client/src [skip ci]"
+          # someone may have pushed meanwhile
+          git pull --rebase origin "${{ github.ref_name }}"
+          git push origin "HEAD:${{ github.ref_name }}"

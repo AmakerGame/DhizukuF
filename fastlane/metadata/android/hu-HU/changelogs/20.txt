@@ -1,8 +1,0 @@
-- Összeomlás javítása Android 8.x rendszeren
-- Javítsa ki azt a hibát, amikor az akkumulátor-optimalizálási beállítások képernyő
-- Javítson ki egy indítási versenyfeltételt, amely megakadályozhatja a szolgáltatás
-- A kompatibilitást és az általános stabilitást biztosító engedélyek javítása
-- Adjon hozzá egy beállítást, amely lehetővé teszi az ügyfelek számára a
-- Nyissa meg az alkalmazást, amikor megérinti a démon értesítést, és távolítsa el a
-- Függőségek frissítése
-- Frissítse a fordításokat

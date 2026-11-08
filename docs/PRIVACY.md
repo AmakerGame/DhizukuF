@@ -81,3 +81,7 @@ You have the right to disable and remove this app at any time.
 ## 6. Contact
 
 For inquiries, please contact us via [GitHub Issues](https://github.com/iamr0s/Dhizuku/issues), and a maintainer will respond accordingly.
+
+**DhizukuF journal (Settings > Logs).** Off by default. When you switch it on, events of DhizukuF (service, permissions,
+commands, errors) are saved in a file in the private storage of the app, never sent anywhere, and shared only when you
+export the file yourself. Commands are recorded by their first words, without values. See [LOGS.md](LOGS.md).

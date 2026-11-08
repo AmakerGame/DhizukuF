@@ -1,0 +1,47 @@
+package com.EdS.DhizukuF.dish
+
+import android.content.Context
+import androidx.core.content.edit
+import com.EdS.DhizukuF.data.common.util.devicePrefs
+import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+/**
+ * Terminals that sent a dish registration request. They are shown in DhizukuF > App management
+ * under the name "dish" (with the terminal app in brackets), even before they are approved.
+ */
+object DishRegistry : KoinComponent {
+    private const val PREFIX = "uid_"
+    private val context by inject<Context>()
+    private val settingsRepo by inject<SettingsRepo>()
+
+    private val prefs by lazy {
+        context.devicePrefs("dish_registry")
+    }
+
+    fun register(uid: Int, label: String) {
+        if (prefs.getString(PREFIX + uid, null) == label) return
+        prefs.edit { putString(PREFIX + uid, label) }
+    }
+
+    /** Forgets a terminal, so it disappears from the app list. A new dish request registers it again. */
+    fun unregister(uid: Int) {
+        if (prefs.contains(PREFIX + uid)) prefs.edit { remove(PREFIX + uid) }
+    }
+
+    fun isDish(uid: Int): Boolean = prefs.contains(PREFIX + uid)
+
+    fun all(): Map<Int, String> = prefs.all
+        .filterKeys { it.startsWith(PREFIX) }
+        .mapNotNull { (key, value) ->
+            val uid = key.removePrefix(PREFIX).toIntOrNull() ?: return@mapNotNull null
+            uid to (value as? String ?: "")
+        }.toMap()
+
+    /** Name shown in the list and in the dialog: "Termux (dish)", or plain "Termux" when disabled. */
+    fun displayName(uid: Int, appLabel: String?): String {
+        val label = appLabel?.takeIf { it.isNotBlank() } ?: prefs.getString(PREFIX + uid, null) ?: "uid $uid"
+        return if (settingsRepo.isShowDishLabel) "$label (dish)" else label
+    }
+}

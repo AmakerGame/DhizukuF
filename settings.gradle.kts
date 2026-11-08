@@ -13,8 +13,9 @@ dependencyResolutionManagement {
         mavenLocal()
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
-rootProject.name = "Dhizuku"
-include("app", "hidden-api")
+rootProject.name = "DhizukuF"
+include("app", "hidden-api", "hub")

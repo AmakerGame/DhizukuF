@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-adaptive composite: dark bg + BinTianqi glyph. Used when adaptive icons are unavailable. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_material3_background" />
+    <item android:drawable="@drawable/ic_material3_foreground" />
+</layer-list>

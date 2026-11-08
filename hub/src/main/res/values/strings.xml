@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Dhizuku Compat Hub</string>
+    <string name="permission_description" translatable="false">Use Dhizuku\'s API</string>
+</resources>

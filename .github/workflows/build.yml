@@ -2,10 +2,6 @@ name: Build
 
 on:
   push:
-    branches:
-      - '**'
-    tags-ignore:
-      - 'v*'
     paths-ignore:
       - docs/**
       - fastlane/**
@@ -20,36 +16,57 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v6
+
+      - name: Check that the repository is complete
+        # A folder that .gitignore hides (or that was never committed) is missing on the runner, and Gradle
+        # then stops with a confusing message about project directories.
+        run: |
+          missing=0
+          for d in app hub hidden-api dish-client keystore; do
+            if [ ! -d "$d" ]; then
+              echo "::error::Folder '$d' is missing in the repository. If .gitignore hides it, add it with: git add -f $d"
+              missing=1
+            fi
+          done
+          if [ -d keystore ] && [ ! -f keystore/debug.properties ]; then
+            echo "::error::keystore/debug.properties is missing in the repository (git add -f keystore)"
+            missing=1
+          fi
+          exit $missing
 
       - name: Setup Java
-        uses: actions/setup-java@v6
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
-          java-version: 25
+          java-version: 21
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Build dish client (dex)
+        # Rebuilds dish_dhizukuf.dex from dish-client/src with d8. If anything fails, the committed dex
+        # is kept. Set the repository variable DISH_REBUILD_DEX to "false" to always use the committed file.
+        if: ${{ vars.DISH_REBUILD_DEX != 'false' }}
+        continue-on-error: true
+        run: sh dish-client/build.sh
+
       - name: Set environments
         run: |
-          repo="$(echo ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/})"
-          version="v$(grep versionName version.properties | awk -F\= '{print $2}')"
-          commit="$(echo ${{ github.sha }} | cut -c-7)"
           {
-            echo "repo=$repo"
-            echo "version=$version"
-            echo "commit=$commit"
-            echo "artifact=$repo-$version@$commit"
+            echo "repo=$(echo ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/})"
+            echo "version=v$(grep versionName version.properties | awk -F\= '{print $2}')"
+            echo "commit=$(echo ${{ github.sha }} | cut -c-7)"
           } >> $GITHUB_ENV
 
       - name: Build
         run: |
-          ./gradlew --warning-mode=all assembleDebug
-          cp -f app/build/outputs/apk/debug/app-debug.apk "${{ env.artifact }}.apk"
+          chmod +x ./gradlew
+          ./gradlew --no-daemon --warning-mode=all assembleRelease
+          cp -f app/build/outputs/apk/release/app-release.apk ${{ env.repo }}-${{ env.version }}@${{ env.commit }}.apk
 
       - name: Upload
         uses: actions/upload-artifact@v7
         with:
-          archive: false
-          path: ${{ env.artifact }}.apk
+          name: ${{ env.repo }}-${{ env.version }}@${{ env.commit }}
+          path: ${{ env.repo }}-${{ env.version }}@${{ env.commit }}.apk

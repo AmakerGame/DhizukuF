@@ -11,9 +11,9 @@
 # https://androidx.dev/storage/compose-compiler/repository/
 
 [versions]
-agp = "9.5.1"
+agp = "9.4.1"
 kotlin = "2.4.21"
-compose = "1.12.1"
+compose = "1.11.4"
 room = "2.8.5"
 accompanist = "0.36.0"
 rikka-shizuku = "13.1.5"
@@ -26,12 +26,13 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 
 # KSP quickstart
 # https://kotlinlang.org/docs/ksp-quickstart.html
-ksp = { id = "com.google.devtools.ksp", version = "2.3.13" }
+ksp = { id = "com.google.devtools.ksp", version = "2.3.12" }
 
 [libraries]
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.11.0" }
 androidx-core = { group = "androidx.core", name = "core-ktx", version = "1.19.1" }
 androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.11.0" }
+androidx-biometric = { group = "androidx.biometric", name = "biometric", version = "1.1.0" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version = "1.13.0" }
 
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
@@ -61,17 +62,14 @@ accompanist-systemuicontroller = { group = "com.google.accompanist", name = "acc
 
 # AndroidHiddenApiBypass
 # https://github.com/LSPosed/AndroidHiddenApiBypass
-lsposed-hiddenapibypass = { group = "org.lsposed.hiddenapibypass", name = "hiddenapibypass", version = "6.2" }
+lsposed-hiddenapibypass = { group = "org.lsposed.hiddenapibypass", name = "hiddenapibypass", version = "6.1" }
 
 # Rikka Shizuku
 # https://github.com/RikkaApps/Shizuku-API
 rikka-shizuku-api = { group = "dev.rikka.shizuku", name = "api", version.ref = "rikka-shizuku" }
 rikka-shizuku-provider = { group = "dev.rikka.shizuku", name = "provider", version.ref = "rikka-shizuku" }
 
-# Dhizuku-API
-# https://github.com/iamr0s/Dhizuku-API
-iamr0s-dhizuku-api = { group = "io.github.iamr0s", name = "Dhizuku-SERVER_API", version = "0.2.0" }
+# Dhizuku-API (Maven Central, published from https://github.com/iamr0s/Dhizuku-API)
+# Alternative via JitPack: com.github.iamr0s.Dhizuku-API:dhizuku-api:<tag>
+iamr0s-dhizuku-api = { group = "io.github.iamr0s", name = "Dhizuku-SERVER_API", version = "0.1.0" }
 
-# Core library desugaring
-# https://developer.android.com/studio/write/java8-support#library-desugaring
-desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", version = "2.1.5" }

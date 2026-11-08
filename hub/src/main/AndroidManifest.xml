@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ExportedContentProvider,PackageVisibilityPolicy,ProtectedPermissions,SystemPermissionTypo">
+
+    <!-- The permission of the original Dhizuku API; clients declare it in their manifest. -->
+    <permission
+        android:name="com.rosan.dhizuku.permission.API"
+        android:description="@string/permission_description"
+        android:label="@string/app_name"
+        android:protectionLevel="dangerous" />
+
+    <queries>
+        <package android:name="com.EdS.DhizukuF" />
+    </queries>
+
+    <!-- No launcher activity: the hub never shows an icon. -->
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <!-- Same authorities as the original Dhizuku; calls are forwarded to DhizukuF. -->
+        <provider
+            android:name=".HubProvider"
+            android:authorities="com.rosan.dhizuku.dhizuku_server.provider;com.rosan.dhizuku.server.provider"
+            android:directBootAware="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.rosan.dhizuku.server.provider" />
+            </intent-filter>
+        </provider>
+
+        <!-- The permission request of the original Dhizuku; handed over to DhizukuF's dialog. -->
+        <activity
+            android:name=".HubRequestActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="com.rosan.dhizuku.action.request.permission" />
+                <action android:name="com.rosan.dhizuku.action.REQUEST_DHIZUKU_PERMISSION" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
