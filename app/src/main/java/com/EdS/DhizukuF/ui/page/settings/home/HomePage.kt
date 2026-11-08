@@ -53,6 +53,7 @@ import com.EdS.DhizukuF.dish.DishExporter
 import kotlinx.coroutines.Dispatchers
 import com.EdS.DhizukuF.data.common.util.toast
 import android.app.admin.DevicePolicyManager
+import android.provider.Settings
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.Context
@@ -184,7 +185,7 @@ fun HomePage(
         if (activated) add("settings")
         if (activated) add("security")
         add("customization")
-        if (owner) add("app_management")
+        if (activated) add("app_management")
         add("user_management")
         if (owner) add("dhizuku")
         if (logsEnabled.enabled) add("logs")
@@ -742,21 +743,38 @@ private fun LazyItemScope.DishWidget() {
 private fun LazyItemScope.AdministratorWidget() {
     val context = LocalContext.current
     val isAdmin = DhizukuState.state.isAdministrator
+    var adbCommandDialog by remember { mutableStateOf(false) }
+    val adminCommand = "adb shell dpm set-active-admin ${DhizukuState.admin.flattenToShortString()}"
 
     fun openDeviceAdminSettings() {
-        try {
-            context.startActivity(
+        // The add-admin screen finishes at once when the right is already granted, so for an
+        // active admin we open the security settings instead (where the right can be revoked).
+        // On devices without that screen fall back to the main settings — never a flash.
+        val intents = if (isAdmin) {
+            listOf(
+                Intent(Settings.ACTION_SECURITY_SETTINGS),
+                Intent(Settings.ACTION_SETTINGS)
+            )
+        } else {
+            listOf(
                 Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
                     .putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, DhizukuState.admin)
                     .putExtra(
                         DevicePolicyManager.EXTRA_ADD_EXPLANATION,
                         context.getString(R.string.administrator_explanation)
                     )
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
-        } catch (e: ActivityNotFoundException) {
-            context.toast(R.string.administrator_open_failed)
         }
+        for (intent in intents) {
+            try {
+                context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                return
+            } catch (_: ActivityNotFoundException) {
+                // try the next one
+            }
+        }
+        // No system screen on this device: offer the adb way to grant the right.
+        adbCommandDialog = true
     }
 
     CardWidget(onClick = { openDeviceAdminSettings() }, icon = {
@@ -781,7 +799,40 @@ private fun LazyItemScope.AdministratorWidget() {
             Spacer(Modifier.size(ButtonDefaults.IconSpacing))
             Text(stringResource(R.string.administrator_open_settings))
         }
+        TvTextButton(onClick = { adbCommandDialog = true }) {
+            Icon(imageVector = Icons.TwoTone.Terminal, contentDescription = null)
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Text(stringResource(R.string.home_adb_btn_view_command))
+        }
     })
+
+    if (adbCommandDialog) {
+        val manager = LocalClipboard.current
+        val scope = rememberCoroutineScope()
+        AlertDialog(onDismissRequest = { adbCommandDialog = false }, confirmButton = {
+            TvTextButton(onClick = {
+                scope.launch {
+                    manager.setClipEntry(ClipEntry(ClipData.newPlainText("command", adminCommand)))
+                    adbCommandDialog = false
+                }
+            }) {
+                Text(stringResource(R.string.copy))
+            }
+        }, dismissButton = {
+            TvTextButton(onClick = { adbCommandDialog = false }) {
+                Text(stringResource(R.string.cancel))
+            }
+        }, title = {
+            Text(stringResource(R.string.administrator_title))
+        }, text = {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                Text(stringResource(R.string.administrator_explanation))
+                SelectionContainer {
+                    Text(adminCommand)
+                }
+            }
+        })
+    }
 }
 
 @Composable
