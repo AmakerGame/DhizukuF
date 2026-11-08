@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Megjelöli a dish-t használó terminálokat, például Termux (dish), a megerősítő ablakban és az alkalmazáskezelőben. Kikapcsolva csak a Termux látszik</string>
     <string name="enable_dish">dish engedélyezése</string>
     <string name="enable_dish_desc">A terminálok használhatják az eszköztulajdonosi konzolt (dish)</string>
-    <string name="home_dish_need_owner">A DhizukuF még nem eszköz- vagy profiltulajdonos, ezért a dish elutasítja a parancsokat. Először aktiválja a DhizukuF-et. A dish fájlokat ettől még exportálhatja.</string>
+    <string name="home_dish_need_owner">A DhizukuF még nincs aktiválva (sem eszköz-, sem profil-, sem adminisztrátorként), ezért a dish elutasítja a parancsokat. Először aktiválja a DhizukuF-ot. A dish fájlokat már most exportálhatja.</string>
     <string name="home_dish_profile_owner_note">Profiltulajdonosi mód: a dish működik, de a teljes eszköztulajdonost igénylő parancsok (reboot, adb, timezone, privát DNS és más) nem érhetők el.</string>
     <string name="home_dish_help_title">A dish használata</string>
     <string name="home_dish_help_text">A dish nem terminál ebben az alkalmazásban, hanem parancssori eszköz: exportálja a fájlokat, majd futtassa a dish-t egy terminálalkalmazásban, lehetőleg Termuxban.\n\n1. Koppintson a „dish fájlok exportálása” gombra, és válasszon mappát.\n2. Termuxban egyszer futtassa a termux-setup-storage parancsot, másolja a dish és dish_dhizukuf.dex fájlt a $PREFIX/bin mappába, majd futtassa: chmod +x $PREFIX/bin/dish.\n3. Írja be: dish a konzol megnyitásához, vagy dish help a parancsokhoz.\n\nAz első indításkor a DhizukuF jóváhagyást kér a hozzáféréshez.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Eszköz-adminisztrátori beállítások megnyitása</string>
     <string name="administrator_open_failed">Ezen az eszközön nincs eszköz-adminisztrátori képernyő. Nyisd meg az Android beállításait, és kapcsold be a DhizukuF-et a Biztonság vagy Eszköz-adminisztrátori alkalmazások alatt.</string>
     <string name="log_event_security_alert">Biztonsági figyelmeztetés</string>
+    <string name="home_dish_admin_note">Adminisztrátor mód: a dish működik, de csak az eszközadminisztrátor által engedélyezett parancsok érhetők el. Az eszköz- vagy profilbirtokost igénylő parancsok nem fognak működni.</string>
 </resources>

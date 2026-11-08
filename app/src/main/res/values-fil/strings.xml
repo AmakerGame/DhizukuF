@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Minamarkahan ang mga terminal na gumagamit ng dish, halimbawa Termux (dish), sa window ng kumpirmasyon at sa pamamahala ng app. Kapag naka-off, Termux lang ang ipapakita</string>
     <string name="enable_dish">I-enable ang dish</string>
     <string name="enable_dish_desc">Payagan ang mga terminal na gamitin ang console ng Device Owner (dish)</string>
-    <string name="home_dish_need_owner">Hindi pa Device Owner o Profile Owner ang DhizukuF, kaya tatanggihan ng dish ang mga command. I-activate muna ang DhizukuF. Maaari pa ring i-export ang mga file ng dish.</string>
+    <string name="home_dish_need_owner">Hindi pa na-activate ang DhizukuF (hindi Device Owner, Profile Owner, o Administrator), kaya tatanggihan ng dish ang mga command. I-activate muna ang DhizukuF. Maaari mo pa ring i-export ang mga dish file.</string>
     <string name="home_dish_profile_owner_note">Profile Owner mode: gumagana ang dish, pero hindi available ang mga command na nangangailangan ng buong Device Owner (reboot, adb, timezone, private DNS at iba pa).</string>
     <string name="home_dish_help_title">Paano gamitin ang dish</string>
     <string name="home_dish_help_text">Hindi terminal sa loob ng app na ito ang dish, kundi command-line tool: i-export ang mga file, saka patakbuhin ang dish sa isang terminal app, mas mainam sa Termux.\n\n1. I-tap ang «I-export ang mga file ng dish» at pumili ng folder.\n2. Sa Termux, patakbuhin nang isang beses ang termux-setup-storage, kopyahin ang dish at dish_dhizukuf.dex sa $PREFIX/bin, at patakbuhin ang chmod +x $PREFIX/bin/dish.\n3. I-type ang dish para buksan ang console, o dish help para makita ang mga command.\n\nSa unang takbo, hihingi ang DhizukuF ng pag-apruba sa access.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Buksan ang mga setting ng administrator ng device</string>
     <string name="administrator_open_failed">Walang screen ng administrator ng device ang device na ito. Buksan ang mga setting ng Android at i-enable ang DhizukuF sa ilalim ng Security o Device admin apps.</string>
     <string name="log_event_security_alert">Alerto sa seguridad</string>
+    <string name="home_dish_admin_note">Mode ng Administrator: gumagana ang dish, ngunit ang mga command na pinapayagan sa administrator ng device lang ang magagamit. Ang mga command na nangangailangan ng Device o Profile Owner ay mabibigo.</string>
 </resources>

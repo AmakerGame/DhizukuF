@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Помечает терминалы, использующие dish, например Termux (dish), в окне подтверждения и в управлении приложениями. Если выключено, показывается только Termux</string>
     <string name="enable_dish">Включить dish</string>
     <string name="enable_dish_desc">Разрешить терминалам использовать консоль владельца устройства (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF пока не является владельцем устройства или профиля, поэтому dish будет отклонять команды. Сначала активируйте DhizukuF. Файлы dish экспортировать всё равно можно.</string>
+    <string name="home_dish_need_owner">DhizukuF ещё не активирован (ни как владелец устройства, ни профиля, ни администратор), поэтому dish будет отклонять команды. Сначала активируйте DhizukuF. Файлы dish можно экспортировать уже сейчас.</string>
     <string name="home_dish_profile_owner_note">Режим владельца профиля: dish работает, но команды, которым нужен полноценный владелец устройства (reboot, adb, timezone, частный DNS и другие), недоступны.</string>
     <string name="home_dish_help_title">Как пользоваться dish</string>
     <string name="home_dish_help_text">dish — это не терминал внутри приложения, а инструмент командной строки: экспортируйте файлы, затем запустите dish в приложении-терминале, лучше всего в Termux.\n\n1. Нажмите «Экспорт файлов dish» и выберите папку.\n2. В Termux один раз выполните termux-setup-storage, скопируйте dish и dish_dhizukuf.dex в $PREFIX/bin и выполните chmod +x $PREFIX/bin/dish.\n3. Введите dish, чтобы открыть консоль, или dish help, чтобы увидеть команды.\n\nПри первом запуске DhizukuF попросит подтвердить доступ.</string>
@@ -275,4 +275,5 @@
     <string name="administrator_open_settings">Открыть настройки администратора устройства</string>
     <string name="administrator_open_failed">На этом устройстве нет экрана администратора устройства. Откройте настройки Android и включите DhizukuF в разделе «Безопасность» или «Приложения администратора устройства».</string>
     <string name="log_event_security_alert">Тревога безопасности</string>
+    <string name="home_dish_admin_note">Режим администратора: dish работает, но доступны только команды, разрешённые администратору устройства. Команды, требующие владельца устройства или профиля, не сработают.</string>
 </resources>

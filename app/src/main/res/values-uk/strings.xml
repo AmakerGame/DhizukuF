@@ -87,7 +87,7 @@
     <string name="show_dish_label_desc">Позначає термінали, які використовують dish, наприклад Termux (dish), у вікні підтвердження та в «Керуванні додатками». Якщо вимкнено, показується лише Termux</string>
     <string name="enable_dish">Увімкнути dish</string>
     <string name="enable_dish_desc">Дозволити терміналам користуватися консоллю Device Owner (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF ще не є власником пристрою чи профілю, тому dish відхилятиме команди. Спершу активуйте DhizukuF. Файли dish можна експортувати вже зараз.</string>
+    <string name="home_dish_need_owner">DhizukuF ще не активовано (ні як власник пристрою, ні профілю, ні адміністратора), тому dish відхилятиме команди. Спершу активуйте DhizukuF. Файли dish можна експортувати вже зараз.</string>
     <string name="home_dish_profile_owner_note">Режим власника профілю: dish працює, але команди, що потребують повного власника пристрою (reboot, adb, timezone, private DNS та інші), недоступні.</string>
     <string name="home_dish_help_title">Як користуватися dish</string>
     <string name="home_dish_help_text">dish — це не термінал усередині додатка, а інструмент командного рядка: експортуйте файли, а потім запустіть dish у програмі-терміналі, найкраще в Termux.\n\n1. Натисніть «Експортувати файли dish» і виберіть папку.\n2. У Termux один раз виконайте termux-setup-storage, скопіюйте dish і dish_dhizukuf.dex у $PREFIX/bin та виконайте chmod +x $PREFIX/bin/dish.\n3. Введіть dish, щоб відкрити консоль, або dish help, щоб побачити команди.\n\nПід час першого запуску DhizukuF попросить підтвердити доступ.</string>
@@ -290,4 +290,5 @@
     <string name="administrator_open_settings">Відкрити налаштування адміністратора пристрою</string>
     <string name="administrator_open_failed">На цьому пристрої немає екрана адміністратора пристрою. Відкрийте налаштування Android і ввімкніть DhizukuF у розділі «Безпека» або «Застосунки адміністратора пристрою».</string>
     <string name="log_event_security_alert">Тривога безпеки</string>
+    <string name="home_dish_admin_note">Режим адміністратора: dish працює, але доступні лише команди, дозволені адміністратору пристрою. Команди, що потребують власника пристрою чи профілю, не спрацюють.</string>
 </resources>

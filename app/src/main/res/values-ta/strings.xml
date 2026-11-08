@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">dish ஐப் பயன்படுத்தும் முனையங்களை, எ.கா. Termux (dish), உறுதிப்படுத்தல் சாளரத்திலும் பயன்பாட்டு நிர்வாகத்திலும் குறிக்கிறது. அணைத்திருந்தால் Termux மட்டும் காட்டப்படும்</string>
     <string name="enable_dish">dish ஐ இயக்கு</string>
     <string name="enable_dish_desc">முனையங்கள் சாதன உரிமையாளர் கன்சோலை (dish) பயன்படுத்த அனுமதிக்கவும்</string>
-    <string name="home_dish_need_owner">DhizukuF இன்னும் சாதன அல்லது சுயவிவர உரிமையாளர் அல்ல, எனவே dish கட்டளைகளை மறுக்கும். முதலில் DhizukuF ஐச் செயல்படுத்தவும். dish கோப்புகளை இன்னும் ஏற்றுமதி செய்யலாம்.</string>
+    <string name="home_dish_need_owner">DhizukuF இன்னும் செயல்படுத்தப்படவில்லை (சாதனம்/சுயவிவரம் உரிமையாளர் அல்லது நிர்வாகியாக இல்லை), எனவே dish கட்டளைகளை நிராகரிக்கும். முதலில் DhizukuF ஐச் செயல்படுத்தவும். dish கோப்புகளை இப்போது ஏற்றுமதி செய்யலாம்.</string>
     <string name="home_dish_profile_owner_note">சுயவிவர உரிமையாளர் முறை: dish இயங்கும், ஆனால் முழு சாதன உரிமையாளர் தேவைப்படும் கட்டளைகள் (reboot, adb, timezone, தனிப்பட்ட DNS மற்றும் பிற) கிடைக்காது.</string>
     <string name="home_dish_help_title">dish ஐ எவ்வாறு பயன்படுத்துவது</string>
     <string name="home_dish_help_text">dish என்பது இந்தப் பயன்பாட்டுக்குள் உள்ள முனையம் அல்ல, அது கட்டளை வரி கருவி: கோப்புகளை ஏற்றுமதி செய்து, முனைய பயன்பாட்டில், முன்னுரிமையாக Termux இல், dish ஐ இயக்கவும்.\n\n1. «dish கோப்புகளை ஏற்றுமதி செய்» என்பதைத் தட்டி கோப்புறையைத் தேர்ந்தெடுக்கவும்.\n2. Termux இல் termux-setup-storage ஐ ஒருமுறை இயக்கி, dish மற்றும் dish_dhizukuf.dex ஐ $PREFIX/bin இல் நகலெடுத்து chmod +x $PREFIX/bin/dish ஐ இயக்கவும்.\n3. கன்சோலைத் திறக்க dish என்றோ, கட்டளைகளைப் பார்க்க dish help என்றோ உள்ளிடவும்.\n\nமுதல் முறை இயக்கும்போது அணுகலை அங்கீகரிக்க DhizukuF கேட்கும்.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">சாதன நிர்வாகி அமைப்புகளைத் திறக்கவும்</string>
     <string name="administrator_open_failed">இந்த சாதனத்தில் சாதன நிர்வாகி திரை இல்லை. Android அமைப்புகளைத் திறந்து, பாதுகாப்பு அல்லது சாதன நிர்வாகி பயன்பாடுகள் என்பதில் DhizukuF ஐ இயக்கவும்.</string>
     <string name="log_event_security_alert">பாதுகாப்பு எச்சரிக்கை</string>
+    <string name="home_dish_admin_note">நிர்வாகி பயன்முறை: dish இயங்கும், ஆனால் சாதன நிர்வாகிக்கு அனுமதிக்கப்பட்ட கட்டளைகள் மட்டுமே கிடைக்கும். சாதனம்/சுயவிவர உரிமையாளர் தேவைப்படும் கட்டளைகள் தோல்வியடையும்.</string>
 </resources>

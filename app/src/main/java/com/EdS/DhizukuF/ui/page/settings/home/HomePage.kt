@@ -192,7 +192,7 @@ fun HomePage(
         add("dish")
         if (!owner) add("shizuku")
         if (!owner) add("adb")
-        if (!owner) add("administrator")
+        if (!owner && !dhizukuState.isAdministrator) add("administrator")
         add("oss")
         if (owner) add("home_deactivate_title")
     }
@@ -669,11 +669,14 @@ private fun LazyItemScope.DishWidget() {
     }, content = {
         Text(stringResource(R.string.home_dish_dsp))
         val ownerState = DhizukuState.state
-        if (!ownerState.isOwner) {
+        val activated = ownerState.isOwner || ownerState.isAdministrator
+        if (!activated) {
             Text(
                 stringResource(R.string.home_dish_need_owner),
                 color = MaterialTheme.colorScheme.error
             )
+        } else if (ownerState.isAdministrator) {
+            Text(stringResource(R.string.home_dish_admin_note))
         } else if (!ownerState.isDeviceOwner) {
             Text(stringResource(R.string.home_dish_profile_owner_note))
         }

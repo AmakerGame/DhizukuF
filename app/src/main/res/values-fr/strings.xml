@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Signale les terminaux qui utilisent dish, par exemple Termux (dish), dans la fenêtre de confirmation et dans la gestion des applications. Désactivé, seul Termux est affiché</string>
     <string name="enable_dish">Activer dish</string>
     <string name="enable_dish_desc">Autoriser les terminaux à utiliser la console du propriétaire de l\'appareil (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF n\'est pas encore propriétaire de l\'appareil ni du profil, dish refusera donc les commandes. Activez d\'abord DhizukuF. Vous pouvez quand même exporter les fichiers dish.</string>
+    <string name="home_dish_need_owner">DhizukuF n\'est pas encore activé (ni propriétaire de l\'appareil, ni du profil, ni administrateur), dish refusera donc les commandes. Activez d\'abord DhizukuF. Vous pouvez quand même exporter les fichiers dish.</string>
     <string name="home_dish_profile_owner_note">Mode propriétaire de profil : dish fonctionne, mais les commandes qui exigent le propriétaire complet de l\'appareil (reboot, adb, timezone, DNS privé et autres) sont indisponibles.</string>
     <string name="home_dish_help_title">Comment utiliser dish</string>
     <string name="home_dish_help_text">dish n\'est pas un terminal dans cette application, mais un outil en ligne de commande : exportez les fichiers, puis lancez dish dans une application de terminal, idéalement Termux.\n\n1. Appuyez sur « Exporter les fichiers dish » et choisissez un dossier.\n2. Dans Termux, exécutez une seule fois termux-setup-storage, copiez dish et dish_dhizukuf.dex dans $PREFIX/bin, puis exécutez chmod +x $PREFIX/bin/dish.\n3. Tapez dish pour ouvrir la console, ou dish help pour voir les commandes.\n\nAu premier lancement, DhizukuF vous demande d\'approuver l\'accès.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Ouvrir les paramètres d’administration de l’appareil</string>
     <string name="administrator_open_failed">Cet appareil n’a pas d’écran d’administrateur d’appareil. Ouvrez les paramètres Android et activez DhizukuF dans Sécurité ou Applications d’administration de l’appareil.</string>
     <string name="log_event_security_alert">Alerte de sécurité</string>
+    <string name="home_dish_admin_note">Mode administrateur : dish fonctionne, mais seules les commandes autorisées à un administrateur d\'appareil sont disponibles. Les commandes nécessitant le propriétaire de l\'appareil ou du profil échoueront.</string>
 </resources>

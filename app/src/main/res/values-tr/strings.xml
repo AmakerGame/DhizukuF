@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">dish kullanan terminalleri, örneğin Termux (dish), onay penceresinde ve uygulama yönetiminde işaretler. Kapalıyken yalnızca Termux gösterilir</string>
     <string name="enable_dish">dish\'i etkinleştir</string>
     <string name="enable_dish_desc">Terminallerin Cihaz Sahibi konsolunu (dish) kullanmasına izin ver</string>
-    <string name="home_dish_need_owner">DhizukuF henüz Cihaz Sahibi veya Profil Sahibi değil, bu yüzden dish komutları reddedecek. Önce DhizukuF\'yi etkinleştirin. dish dosyalarını yine de dışa aktarabilirsiniz.</string>
+    <string name="home_dish_need_owner">DhizukuF henüz etkinleştirilmedi (ne cihaz sahibi, ne profil sahibi ne de yönetici), bu nedenle dish komutları reddedecek. Önce DhizukuF\'ı etkinleştirin. dish dosyalarını şimdiden dışa aktarabilirsiniz.</string>
     <string name="home_dish_profile_owner_note">Profil Sahibi modu: dish çalışır, ancak tam Cihaz Sahibi gerektiren komutlar (reboot, adb, timezone, özel DNS ve diğerleri) kullanılamaz.</string>
     <string name="home_dish_help_title">dish nasıl kullanılır</string>
     <string name="home_dish_help_text">dish bu uygulamanın içinde bir terminal değildir, bir komut satırı aracıdır: dosyaları dışa aktarın, ardından dish\'i bir terminal uygulamasında, en iyisi Termux\'ta çalıştırın.\n\n1. «dish dosyalarını dışa aktar» düğmesine dokunun ve bir klasör seçin.\n2. Termux\'ta bir kez termux-setup-storage çalıştırın, dish ve dish_dhizukuf.dex dosyalarını $PREFIX/bin içine kopyalayın ve chmod +x $PREFIX/bin/dish çalıştırın.\n3. Konsolu açmak için dish, komutlar için dish help yazın.\n\nİlk çalıştırmada DhizukuF erişimi onaylamanızı ister.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Cihaz yöneticisi ayarlarını aç</string>
     <string name="administrator_open_failed">Bu cihazda cihaz yöneticisi ekranı yok. Android ayarlarını açın ve DhizukuF\'i Güvenlik veya Cihaz yöneticisi uygulamaları altında etkinleştirin.</string>
     <string name="log_event_security_alert">Güvenlik uyarısı</string>
+    <string name="home_dish_admin_note">Yönetici modu: dish çalışır ancak yalnızca bir cihaz yöneticisinin kullanabileceği komutlar mevcuttur. Cihaz veya profil sahibi gerektiren komutlar başarısız olur.</string>
 </resources>

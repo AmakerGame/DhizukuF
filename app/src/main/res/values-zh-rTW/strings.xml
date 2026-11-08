@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">在確認視窗與應用程式管理中標記使用 dish 的終端機，例如 Termux (dish)。關閉時只顯示 Termux</string>
     <string name="enable_dish">啟用 dish</string>
     <string name="enable_dish_desc">允許終端機使用裝置擁有者主控台 (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF 尚未成為裝置擁有者或設定檔擁有者，因此 dish 會拒絕指令。請先啟用 DhizukuF。您仍可匯出 dish 檔案。</string>
+    <string name="home_dish_need_owner">DhizukuF is not activated (Device Owner, Profile Owner or Administrator) yet, so dish will refuse commands. Activate DhizukuF first. You can still export the dish files.</string>
     <string name="home_dish_profile_owner_note">設定檔擁有者模式：dish 可運作，但需要完整裝置擁有者的指令（reboot、adb、timezone、私人 DNS 等）無法使用。</string>
     <string name="home_dish_help_title">如何使用 dish</string>
     <string name="home_dish_help_text">dish 不是此應用程式內的終端機，而是命令列工具：先匯出檔案，再在終端機應用程式（建議使用 Termux）中執行 dish。\n\n1. 點選「匯出 dish 檔案」並選擇資料夾。\n2. 在 Termux 中執行一次 termux-setup-storage，將 dish 與 dish_dhizukuf.dex 複製到 $PREFIX/bin，然後執行 chmod +x $PREFIX/bin/dish。\n3. 輸入 dish 開啟主控台，或輸入 dish help 查看指令。\n\n首次執行時，DhizukuF 會請您核准存取。</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">開啟裝置管理員設定</string>
     <string name="administrator_open_failed">此裝置沒有裝置管理員畫面。請開啟 Android 設定，並在「安全性」或「裝置管理員應用程式」中啟用 DhizukuF。</string>
     <string name="log_event_security_alert">安全警示</string>
+    <string name="home_dish_admin_note">Administrator mode: dish works, but only the commands a device administrator may use are available. Commands that need Device Owner or Profile Owner will fail.</string>
 </resources>

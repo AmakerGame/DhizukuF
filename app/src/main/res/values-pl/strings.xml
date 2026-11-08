@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Oznacza terminale używające dish, np. Termux (dish), w oknie potwierdzenia i w zarządzaniu aplikacjami. Po wyłączeniu wyświetlany jest tylko Termux</string>
     <string name="enable_dish">Włącz dish</string>
     <string name="enable_dish_desc">Zezwól terminalom na używanie konsoli właściciela urządzenia (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF nie jest jeszcze właścicielem urządzenia ani profilu, więc dish będzie odrzucał polecenia. Najpierw aktywuj DhizukuF. Pliki dish nadal możesz wyeksportować.</string>
+    <string name="home_dish_need_owner">DhizukuF nie jest jeszcze aktywowany (ani jako właściciel urządzenia, ani profilu, ani administrator), więc dish będzie odrzucać polecenia. Najpierw aktywuj DhizukuF. Pliki dish można już teraz wyeksportować.</string>
     <string name="home_dish_profile_owner_note">Tryb właściciela profilu: dish działa, ale polecenia wymagające pełnego właściciela urządzenia (reboot, adb, timezone, prywatny DNS i inne) są niedostępne.</string>
     <string name="home_dish_help_title">Jak używać dish</string>
     <string name="home_dish_help_text">dish nie jest terminalem w tej aplikacji, lecz narzędziem wiersza poleceń: wyeksportuj pliki, a potem uruchom dish w aplikacji terminala, najlepiej w Termux.\n\n1. Dotknij „Eksportuj pliki dish” i wybierz folder.\n2. W Termux jednorazowo uruchom termux-setup-storage, skopiuj dish i dish_dhizukuf.dex do $PREFIX/bin i uruchom chmod +x $PREFIX/bin/dish.\n3. Wpisz dish, aby otworzyć konsolę, lub dish help, aby zobaczyć polecenia.\n\nPrzy pierwszym uruchomieniu DhizukuF poprosi o zatwierdzenie dostępu.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Otwórz ustawienia administratora urządzenia</string>
     <string name="administrator_open_failed">To urządzenie nie ma ekranu administratora urządzenia. Otwórz ustawienia Androida i włącz DhizukuF w sekcji Bezpieczeństwo lub Aplikacje administratora urządzenia.</string>
     <string name="log_event_security_alert">Alert bezpieczeństwa</string>
+    <string name="home_dish_admin_note">Tryb administratora: dish działa, ale dostępne są tylko polecenia dozwolone administratorowi urządzenia. Polecenia wymagające właściciela urządzenia lub profilu nie zadziałają.</string>
 </resources>

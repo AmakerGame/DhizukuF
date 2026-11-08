@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Menandai terminal yang memakai dish, misalnya Termux (dish), di jendela konfirmasi dan manajemen aplikasi. Saat nonaktif, hanya Termux yang ditampilkan</string>
     <string name="enable_dish">Aktifkan dish</string>
     <string name="enable_dish_desc">Izinkan terminal menggunakan konsol Pemilik Perangkat (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF belum menjadi Pemilik Perangkat atau Pemilik Profil, sehingga dish akan menolak perintah. Aktifkan DhizukuF terlebih dahulu. Anda tetap dapat mengekspor file dish.</string>
+    <string name="home_dish_need_owner">DhizukuF belum diaktifkan (bukan Pemilik Perangkat, Pemilik Profil, maupun Administrator), jadi dish akan menolak perintah. Aktifkan DhizukuF dulu. Anda tetap bisa mengekspor berkas dish.</string>
     <string name="home_dish_profile_owner_note">Mode Pemilik Profil: dish berfungsi, tetapi perintah yang memerlukan Pemilik Perangkat penuh (reboot, adb, timezone, DNS pribadi, dan lainnya) tidak tersedia.</string>
     <string name="home_dish_help_title">Cara menggunakan dish</string>
     <string name="home_dish_help_text">dish bukan terminal di dalam aplikasi ini, melainkan alat baris perintah: ekspor file, lalu jalankan dish di aplikasi terminal, sebaiknya Termux.\n\n1. Ketuk «Ekspor file dish» dan pilih folder.\n2. Di Termux jalankan termux-setup-storage sekali, salin dish dan dish_dhizukuf.dex ke $PREFIX/bin, lalu jalankan chmod +x $PREFIX/bin/dish.\n3. Ketik dish untuk membuka konsol, atau dish help untuk melihat perintah.\n\nSaat pertama dijalankan, DhizukuF meminta Anda menyetujui akses.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Buka pengaturan administrator perangkat</string>
     <string name="administrator_open_failed">Perangkat ini tidak memiliki layar administrator perangkat. Buka pengaturan Android dan aktifkan DhizukuF di Keamanan atau Aplikasi admin perangkat.</string>
     <string name="log_event_security_alert">Peringatan keamanan</string>
+    <string name="home_dish_admin_note">Mode Administrator: dish berfungsi, tetapi hanya perintah yang diizinkan untuk administrator perangkat yang tersedia. Perintah yang memerlukan Pemilik Perangkat atau Profil akan gagal.</string>
 </resources>

@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Επισημαίνει τα τερματικά που χρησιμοποιούν το dish, π.χ. Termux (dish), στο παράθυρο επιβεβαίωσης και στη διαχείριση εφαρμογών. Όταν είναι απενεργοποιημένο, εμφανίζεται μόνο το Termux</string>
     <string name="enable_dish">Ενεργοποίηση dish</string>
     <string name="enable_dish_desc">Να επιτρέπεται στα τερματικά η χρήση της κονσόλας ιδιοκτήτη συσκευής (dish)</string>
-    <string name="home_dish_need_owner">Το DhizukuF δεν είναι ακόμη ιδιοκτήτης συσκευής ή προφίλ, επομένως το dish θα απορρίπτει εντολές. Ενεργοποιήστε πρώτα το DhizukuF. Μπορείτε πάντως να εξαγάγετε τα αρχεία dish.</string>
+    <string name="home_dish_need_owner">Το DhizukuF δεν έχει ενεργοποιηθεί ακόμη (ούτε ως ιδιοκτήτης συσκευής, ούτε προφίλ, ούτε διαχειριστής), οπότε το dish θα απορρίπτει εντολές. Ενεργοποιήστε πρώτα το DhizukuF. Μπορείτε ήδη να εξαγάγετε τα αρχεία dish.</string>
     <string name="home_dish_profile_owner_note">Λειτουργία ιδιοκτήτη προφίλ: το dish λειτουργεί, αλλά οι εντολές που απαιτούν πλήρη ιδιοκτήτη συσκευής (reboot, adb, timezone, ιδιωτικό DNS και άλλες) δεν είναι διαθέσιμες.</string>
     <string name="home_dish_help_title">Πώς να χρησιμοποιήσετε το dish</string>
     <string name="home_dish_help_text">Το dish δεν είναι τερματικό μέσα σε αυτή την εφαρμογή, αλλά εργαλείο γραμμής εντολών: εξαγάγετε τα αρχεία και μετά εκτελέστε το dish σε εφαρμογή τερματικού, κατά προτίμηση στο Termux.\n\n1. Πατήστε «Εξαγωγή αρχείων dish» και επιλέξτε φάκελο.\n2. Στο Termux εκτελέστε μία φορά termux-setup-storage, αντιγράψτε τα dish και dish_dhizukuf.dex στο $PREFIX/bin και εκτελέστε chmod +x $PREFIX/bin/dish.\n3. Πληκτρολογήστε dish για να ανοίξει η κονσόλα ή dish help για τις εντολές.\n\nΣτην πρώτη εκτέλεση το DhizukuF θα ζητήσει να εγκρίνετε την πρόσβαση.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Άνοιγμα ρυθμίσεων διαχειριστή συσκευής</string>
     <string name="administrator_open_failed">Αυτή η συσκευή δεν έχει οθόνη διαχειριστή συσκευής. Ανοίξτε τις ρυθμίσεις Android και ενεργοποιήστε το DhizukuF στην Ασφάλεια ή στις Εφαρμογές διαχειριστή συσκευής.</string>
     <string name="log_event_security_alert">Ειδοποίηση ασφαλείας</string>
+    <string name="home_dish_admin_note">Λειτουργία διαχειριστή: το dish λειτουργεί, αλλά διατίθενται μόνο οι εντολές που επιτρέπονται σε διαχειριστή συσκευής. Οι εντολές που απαιτούν ιδιοκτήτη συσκευής ή προφίλ θα αποτύχουν.</string>
 </resources>

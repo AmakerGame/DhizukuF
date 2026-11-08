@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Yana alamta tashoshin da ke amfani da dish, misali Termux (dish), a taga tabbatarwa da kuma sarrafa manhajoji. Idan an kashe, Termux kaɗai ake nunawa</string>
     <string name="enable_dish">Kunna dish</string>
     <string name="enable_dish_desc">Bari tashoshi su yi amfani da na\'urar umarni ta Mamallakin Na\'ura (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF bai riga ya zama Mamallakin Na\'ura ko Mamallakin Bayanin Martaba ba, don haka dish zai ƙi umarni. Fara kunna DhizukuF tukuna. Har yanzu za ka iya fitar da fayilolin dish.</string>
+    <string name="home_dish_need_owner">Ba a kunna DhizukuF ba (ba a shi na\'ura, na\'arcin bayanin martaba ko mai kula da ita ba), don haka dish zai ƙi umarni. HaKa Farko Kunna DhizukuF. Har yanzu za a iya fitar da fayilolin dish.</string>
     <string name="home_dish_profile_owner_note">Yanayin Mamallakin Bayanin Martaba: dish yana aiki, amma umarnin da ke buƙatar cikakken Mamallakin Na\'ura (reboot, adb, timezone, DNS na sirri da sauransu) ba su samuwa.</string>
     <string name="home_dish_help_title">Yadda ake amfani da dish</string>
     <string name="home_dish_help_text">dish ba tasha ba ce a cikin wannan manhaja, kayan aikin layin umarni ne: fitar da fayilolin, sannan ka gudanar da dish a manhajar tasha, zai fi kyau a Termux.\n\n1. Danna «Fitar da fayilolin dish» ka zaɓi babban fayil.\n2. A Termux gudanar da termux-setup-storage sau ɗaya, kwafa dish da dish_dhizukuf.dex zuwa $PREFIX/bin sannan ka gudanar da chmod +x $PREFIX/bin/dish.\n3. Rubuta dish don buɗe na\'urar umarni, ko dish help don ganin umarnin.\n\nA gudanarwa ta farko, DhizukuF zai nemi ka amince da shiga.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Buɗe saitunan administrator na na\'ura</string>
     <string name="administrator_open_failed">Wannan na\'ura ba ta da allon administrator na na\'ura. Buɗe saitunan Android kuma kunna DhizukuF a Ƙananan Tsaro ko Aikace-aikacen administrator na na\'ura.</string>
     <string name="log_event_security_alert">Sanarwar tsaro</string>
+    <string name="home_dish_admin_note">Yanayin mai kula da ita: dish yana aiki, amma duk umarnin da aka ba da izini ga mai kula da na\'ura ne kawai ake da shi. Umarnin da ke buƙatar na\'arcin na\'ura ko bayanin martaba zai gaza.</string>
 </resources>

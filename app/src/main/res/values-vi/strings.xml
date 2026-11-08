@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Đánh dấu các terminal dùng dish, ví dụ Termux (dish), trong cửa sổ xác nhận và trong quản lý ứng dụng. Khi tắt, chỉ hiển thị Termux</string>
     <string name="enable_dish">Bật dish</string>
     <string name="enable_dish_desc">Cho phép terminal dùng bảng điều khiển Chủ sở hữu thiết bị (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF chưa phải Chủ sở hữu thiết bị hay hồ sơ nên dish sẽ từ chối các lệnh. Hãy kích hoạt DhizukuF trước. Bạn vẫn có thể xuất các tệp dish.</string>
+    <string name="home_dish_need_owner">DhizukuF chưa được kích hoạt (chưa là chủ sở hữu thiết bị, hồ sơ hay quản trị viên), vì vậy dish sẽ từ chối lệnh. Hãy kích hoạt DhizukuF trước. Bạn vẫn có thể xuất các tệp dish.</string>
     <string name="home_dish_profile_owner_note">Chế độ Chủ sở hữu hồ sơ: dish hoạt động nhưng các lệnh cần Chủ sở hữu thiết bị đầy đủ (reboot, adb, timezone, DNS riêng tư và các lệnh khác) không khả dụng.</string>
     <string name="home_dish_help_title">Cách dùng dish</string>
     <string name="home_dish_help_text">dish không phải là terminal bên trong ứng dụng này mà là công cụ dòng lệnh: hãy xuất các tệp rồi chạy dish trong ứng dụng terminal, tốt nhất là Termux.\n\n1. Nhấn «Xuất tệp dish» và chọn một thư mục.\n2. Trong Termux, chạy termux-setup-storage một lần, sao chép dish và dish_dhizukuf.dex vào $PREFIX/bin rồi chạy chmod +x $PREFIX/bin/dish.\n3. Gõ dish để mở bảng điều khiển, hoặc dish help để xem các lệnh.\n\nLần chạy đầu tiên, DhizukuF sẽ yêu cầu bạn chấp thuận quyền truy cập.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Mở cài đặt quản trị viên thiết bị</string>
     <string name="administrator_open_failed">Thiết bị này không có màn hình quản trị viên thiết bị. Mở cài đặt Android và bật DhizukuF trong mục Bảo mật hoặc Ứng dụng quản trị viên thiết bị.</string>
     <string name="log_event_security_alert">Cảnh báo bảo mật</string>
+    <string name="home_dish_admin_note">Chế độ quản trị viên: dish hoạt động, nhưng chỉ các lệnh mà quản trị viên thiết bị được phép mới khả dụng. Các lệnh cần chủ sở hữu thiết bị hoặc hồ sơ sẽ thất bại.</string>
 </resources>

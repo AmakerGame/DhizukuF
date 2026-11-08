@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">تضع علامة على الطرفيات التي تستخدم dish، مثل Termux (dish)، في نافذة التأكيد وفي إدارة التطبيقات. عند الإيقاف يظهر Termux فقط</string>
     <string name="enable_dish">تفعيل dish</string>
     <string name="enable_dish_desc">السماح للطرفيات باستخدام وحدة تحكم مالك الجهاز (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF ليس مالكًا للجهاز أو للملف الشخصي بعد، لذلك سيرفض dish الأوامر. فعّل DhizukuF أولًا. لا يزال بإمكانك تصدير ملفات dish.</string>
+    <string name="home_dish_need_owner">لم يتم تفعيل DhizukuF بعد (لا كمالك للجهاز أو الملف الشخصي أو المسؤول)، لذا سيرفض dish الأوامر. فعّل DhizukuF أولاً. لا يزال بإمكانك تصدير ملفات dish.</string>
     <string name="home_dish_profile_owner_note">وضع مالك الملف الشخصي: يعمل dish، لكن الأوامر التي تتطلب مالك الجهاز الكامل (reboot وadb وtimezone وDNS الخاص وغيرها) غير متاحة.</string>
     <string name="home_dish_help_title">كيفية استخدام dish</string>
     <string name="home_dish_help_text">dish ليست طرفية داخل هذا التطبيق، بل أداة سطر أوامر: صدّر الملفات ثم شغّل dish في تطبيق طرفية، والأفضل Termux.\n\n1. اضغط «تصدير ملفات dish» واختر مجلدًا.\n2. في Termux شغّل termux-setup-storage مرة واحدة، وانسخ dish وdish_dhizukuf.dex إلى $PREFIX/bin ثم شغّل chmod +x $PREFIX/bin/dish.\n3. اكتب dish لفتح وحدة التحكم، أو dish help لعرض الأوامر.\n\nعند التشغيل الأول سيطلب DhizukuF الموافقة على الوصول.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">فتح إعدادات مسؤول الجهاز</string>
     <string name="administrator_open_failed">لا يحتوي هذا الجهاز على شاشة مسؤول الجهاز. افتح إعدادات Android وفعّل DhizukuF ضمن الأمان أو تطبيقات مسؤول الجهاز.</string>
     <string name="log_event_security_alert">تنبيه أمني</string>
+    <string name="home_dish_admin_note">وضع المسؤول: يعمل dish، لكن تتوفر فقط الأوامر المسموح بها لمسؤول الجهاز. الأوامر التي تتطلب مالك الجهاز أو الملف الشخصي ستفشل.</string>
 </resources>

@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Marchează terminalele care folosesc dish, de exemplu Termux (dish), în fereastra de confirmare și în gestionarea aplicațiilor. Când este dezactivat, se afișează doar Termux</string>
     <string name="enable_dish">Activează dish</string>
     <string name="enable_dish_desc">Permite terminalelor să folosească consola proprietarului dispozitivului (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF nu este încă proprietar al dispozitivului sau al profilului, deci dish va refuza comenzile. Activați mai întâi DhizukuF. Puteți totuși exporta fișierele dish.</string>
+    <string name="home_dish_need_owner">DhizukuF nu este încă activat (nici ca proprietar al dispozitivului, nici al profilului, nici administrator), așa că dish va refuza comenzile. Activați mai întâi DhizukuF. Puteți exporta fișierele dish deja.</string>
     <string name="home_dish_profile_owner_note">Mod proprietar de profil: dish funcționează, dar comenzile care necesită proprietarul complet al dispozitivului (reboot, adb, timezone, DNS privat și altele) nu sunt disponibile.</string>
     <string name="home_dish_help_title">Cum se folosește dish</string>
     <string name="home_dish_help_text">dish nu este un terminal în această aplicație, ci un instrument de linie de comandă: exportați fișierele, apoi rulați dish într-o aplicație de terminal, de preferat Termux.\n\n1. Atingeți „Exportă fișierele dish” și alegeți un dosar.\n2. În Termux rulați o singură dată termux-setup-storage, copiați dish și dish_dhizukuf.dex în $PREFIX/bin și rulați chmod +x $PREFIX/bin/dish.\n3. Tastați dish pentru a deschide consola sau dish help pentru comenzi.\n\nLa prima rulare, DhizukuF vă cere să aprobați accesul.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Deschide setările de administrator al dispozitivului</string>
     <string name="administrator_open_failed">Acest dispozitiv nu are un ecran de administrator al dispozitivului. Deschide setările Android și activează DhizukuF la Securitate sau Aplicații de administrare a dispozitivului.</string>
     <string name="log_event_security_alert">Alertă de securitate</string>
+    <string name="home_dish_admin_note">Mod administrator: dish funcționează, dar sunt disponibile doar comenzile permise unui administrator de dispozitiv. Comenzile care necesită proprietarul dispozitivului sau al profilului vor eșua.</string>
 </resources>

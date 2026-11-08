@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">מסמן מסופים שמשתמשים ב-dish, למשל Termux (dish), בחלון האישור ובניהול האפליקציות. כשהאפשרות כבויה, מוצג רק Termux</string>
     <string name="enable_dish">הפעל dish</string>
     <string name="enable_dish_desc">אפשר למסופים להשתמש בקונסולת בעל המכשיר (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF עדיין אינו בעל המכשיר או בעל הפרופיל, ולכן dish ידחה פקודות. הפעל קודם את DhizukuF. עדיין אפשר לייצא את קובצי dish.</string>
+    <string name="home_dish_need_owner">DhizukuF עדיין לא הופעל (לא כבעלים של המכשיר, הפרופיל או מנהל), לכן dish ידחה פקודות. הפעילו את DhizukuF תחילה. עדיין אפשר לייצא את קבצי dish.</string>
     <string name="home_dish_profile_owner_note">מצב בעל פרופיל: dish פועל, אך פקודות שדורשות בעל מכשיר מלא (reboot, adb, timezone, DNS פרטי ואחרות) אינן זמינות.</string>
     <string name="home_dish_help_title">איך להשתמש ב-dish</string>
     <string name="home_dish_help_text">dish אינו מסוף בתוך האפליקציה הזו אלא כלי שורת פקודה: ייצא את הקבצים והפעל את dish באפליקציית מסוף, עדיף Termux.\n\n1. הקש על «ייצוא קובצי dish» ובחר תיקייה.\n2. ב-Termux הרץ פעם אחת termux-setup-storage, העתק את dish ו-dish_dhizukuf.dex אל $PREFIX/bin והרץ chmod +x $PREFIX/bin/dish.\n3. הקלד dish כדי לפתוח את הקונסולה, או dish help כדי לראות את הפקודות.\n\nבהפעלה הראשונה DhizukuF יבקש ממך לאשר גישה.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">פתח את הגדרות מנהל ההתקן</string>
     <string name="administrator_open_failed">להתקן זה אין מסך מנהל התקן. פתח את הגדרות Android והפעל את DhizukuF תחת אבטחה או אפליקציות מנהל התקן.</string>
     <string name="log_event_security_alert">התראת אבטחה</string>
+    <string name="home_dish_admin_note">מצב מנהל: dish פועל, אך זמינות רק הפקודות המותרות למנהל מכשיר. פקודות הדורשות בעלים של המכשיר או הפרופיל ייכשלו.</string>
 </resources>

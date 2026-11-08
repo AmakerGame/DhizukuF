@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Atzīmē termināļus, kas izmanto dish, piemēram, Termux (dish), apstiprinājuma logā un lietotņu pārvaldībā. Kad izslēgts, tiek rādīts tikai Termux</string>
     <string name="enable_dish">Iespējot dish</string>
     <string name="enable_dish_desc">Atļaut termināļiem izmantot ierīces īpašnieka konsoli (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF vēl nav ierīces vai profila īpašnieks, tāpēc dish noraidīs komandas. Vispirms aktivizējiet DhizukuF. dish failus tomēr varat eksportēt.</string>
+    <string name="home_dish_need_owner">DhizukuF vēl nav aktivizēts (ne kā ierīces, ne profila īpašnieks, ne administrators), tāpēc dish noraidīs komandas. Vispirms aktivizējiet DhizukuF. dish failus varat eksportēt jau tagad.</string>
     <string name="home_dish_profile_owner_note">Profila īpašnieka režīms: dish darbojas, bet komandas, kurām nepieciešams pilns ierīces īpašnieks (reboot, adb, timezone, privātais DNS un citas), nav pieejamas.</string>
     <string name="home_dish_help_title">Kā lietot dish</string>
     <string name="home_dish_help_text">dish nav terminālis šajā lietotnē, bet komandrindas rīks: eksportējiet failus un pēc tam palaidiet dish termināļa lietotnē, vislabāk Termux.\n\n1. Pieskarieties «Eksportēt dish failus» un izvēlieties mapi.\n2. Termux vienreiz palaidiet termux-setup-storage, nokopējiet dish un dish_dhizukuf.dex uz $PREFIX/bin un palaidiet chmod +x $PREFIX/bin/dish.\n3. Ierakstiet dish, lai atvērtu konsoli, vai dish help, lai redzētu komandas.\n\nPirmajā palaišanas reizē DhizukuF lūgs apstiprināt piekļuvi.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Atvērt ierīces administratora iestatījumus</string>
     <string name="administrator_open_failed">Šai ierīcei nav ierīces administratora ekrāna. Atveriet Android iestatījumus un iespējkojiet DhizukuF sadaļā Drošība vai Ierīces administratora lietotnes.</string>
     <string name="log_event_security_alert">Drošības brīdinājums</string>
+    <string name="home_dish_admin_note">Administratora režīms: dish darbojas, bet ir pieejamas tikai komandas, kas atļautas ierīces administratoram. Komandas, kurām nepieciešams ierīces vai profila īpašnieks, neizdosies.</string>
 </resources>

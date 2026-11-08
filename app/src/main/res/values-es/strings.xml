@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Marca los terminales que usan dish, por ejemplo Termux (dish), en la ventana de confirmación y en la gestión de aplicaciones. Si está desactivado, solo se muestra Termux</string>
     <string name="enable_dish">Activar dish</string>
     <string name="enable_dish_desc">Permitir que los terminales usen la consola de propietario del dispositivo (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF aún no es propietario del dispositivo ni del perfil, por lo que dish rechazará los comandos. Activa primero DhizukuF. Aun así puedes exportar los archivos dish.</string>
+    <string name="home_dish_need_owner">DhizukuF aún no está activado (ni como propietario del dispositivo, ni del perfil, ni administrador), por lo que dish rechazará los comandos. Active DhizukuF primero. Todavía puedes exportar los archivos de dish.</string>
     <string name="home_dish_profile_owner_note">Modo propietario del perfil: dish funciona, pero los comandos que requieren el propietario completo del dispositivo (reboot, adb, timezone, DNS privado y otros) no están disponibles.</string>
     <string name="home_dish_help_title">Cómo usar dish</string>
     <string name="home_dish_help_text">dish no es un terminal dentro de esta aplicación, sino una herramienta de línea de comandos: exporta los archivos y ejecuta dish en una aplicación de terminal, mejor en Termux.\n\n1. Toca «Exportar archivos dish» y elige una carpeta.\n2. En Termux ejecuta termux-setup-storage una vez, copia dish y dish_dhizukuf.dex a $PREFIX/bin y ejecuta chmod +x $PREFIX/bin/dish.\n3. Escribe dish para abrir la consola, o dish help para ver los comandos.\n\nEn la primera ejecución, DhizukuF te pedirá aprobar el acceso.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Abrir ajustes de administrador del dispositivo</string>
     <string name="administrator_open_failed">Este dispositivo no tiene pantalla de administrador del dispositivo. Abre los ajustes de Android y activa DhizukuF en Seguridad o Aplicaciones de administración del dispositivo.</string>
     <string name="log_event_security_alert">Alerta de seguridad</string>
+    <string name="home_dish_admin_note">Modo administrador: dish funciona, pero solo están disponibles los comandos permitidos a un administrador del dispositivo. Los comandos que requieren propietario del dispositivo o del perfil fallarán.</string>
 </resources>

@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Contrassegna i terminali che usano dish, ad esempio Termux (dish), nella finestra di conferma e nella gestione delle app. Se disattivato, viene mostrato solo Termux</string>
     <string name="enable_dish">Abilita dish</string>
     <string name="enable_dish_desc">Consenti ai terminali di usare la console del proprietario del dispositivo (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF non è ancora proprietario del dispositivo né del profilo, quindi dish rifiuterà i comandi. Attiva prima DhizukuF. Puoi comunque esportare i file dish.</string>
+    <string name="home_dish_need_owner">DhizukuF non è ancora attivato (né come proprietario del dispositivo, né del profilo, né amministratore), quindi dish rifiuterà i comandi. Attiva prima DhizukuF. Puoi comunque esportare i file dish.</string>
     <string name="home_dish_profile_owner_note">Modalità proprietario del profilo: dish funziona, ma i comandi che richiedono il proprietario completo del dispositivo (reboot, adb, timezone, DNS privato e altri) non sono disponibili.</string>
     <string name="home_dish_help_title">Come usare dish</string>
     <string name="home_dish_help_text">dish non è un terminale dentro questa app, ma uno strumento da riga di comando: esporta i file e poi avvia dish in un\'app terminale, meglio se Termux.\n\n1. Tocca «Esporta i file dish» e scegli una cartella.\n2. In Termux esegui una volta termux-setup-storage, copia dish e dish_dhizukuf.dex in $PREFIX/bin ed esegui chmod +x $PREFIX/bin/dish.\n3. Digita dish per aprire la console, o dish help per vedere i comandi.\n\nAl primo avvio DhizukuF chiede di approvare l\'accesso.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Apri impostazioni amministratore dispositivo</string>
     <string name="administrator_open_failed">Questo dispositivo non ha una schermata per l’amministratore del dispositivo. Apri le impostazioni Android e attiva DhizukuF in Sicurezza o App di amministrazione del dispositivo.</string>
     <string name="log_event_security_alert">Avviso di sicurezza</string>
+    <string name="home_dish_admin_note">Modalità amministratore: dish funziona, ma sono disponibili solo i comandi consentiti a un amministratore del dispositivo. I comandi che richiedono il proprietario del dispositivo o del profilo non funzioneranno.</string>
 </resources>

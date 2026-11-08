@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Merker terminaler som bruker dish, for eksempel Termux (dish), i bekreftelsesvinduet og i appbehandlingen. Når den er av, vises bare Termux</string>
     <string name="enable_dish">Aktiver dish</string>
     <string name="enable_dish_desc">La terminaler bruke enhetseierkonsollen (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF er ikke enhets- eller profileier ennå, så dish avviser kommandoer. Aktiver DhizukuF først. Du kan likevel eksportere dish-filene.</string>
+    <string name="home_dish_need_owner">DhizukuF er ikke aktivert ennå (verken som enhets-, profil- eller administrator-eier), så dish vil avvise kommandoer. Aktiver DhizukuF først. Du kan fortsatt eksportere dish-filene.</string>
     <string name="home_dish_profile_owner_note">Profileiermodus: dish fungerer, men kommandoer som krever full enhetseier (reboot, adb, timezone, privat DNS og andre) er utilgjengelige.</string>
     <string name="home_dish_help_title">Slik bruker du dish</string>
     <string name="home_dish_help_text">dish er ikke en terminal inne i denne appen, men et kommandolinjeverktøy: eksporter filene og kjør deretter dish i en terminalapp, helst Termux.\n\n1. Trykk på «Eksporter dish-filer» og velg en mappe.\n2. Kjør termux-setup-storage én gang i Termux, kopier dish og dish_dhizukuf.dex til $PREFIX/bin og kjør chmod +x $PREFIX/bin/dish.\n3. Skriv dish for å åpne konsollen, eller dish help for å se kommandoene.\n\nVed første kjøring ber DhizukuF deg godkjenne tilgang.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Åpne enhetsadministrasjon-innstillinger</string>
     <string name="administrator_open_failed">Denne enheten har ingen skjerm for enhetsadministratorer. Åpne Android-innstillingene og aktiver DhizukuF under Sikkerhet eller Enhetsadministrasjonsapper.</string>
     <string name="log_event_security_alert">Sikkerhetsvarsel</string>
+    <string name="home_dish_admin_note">Administrator-modus: dish fungerer, men bare kommandoene en enhetsadministrator har tilgang til er tilgjengelige. Kommandoer som krever enhets- eller profil-eier vil mislykkes.</string>
 </resources>

@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Označí terminály používajúce dish, napríklad Termux (dish), v potvrdzovacom okne a v správe aplikácií. Keď je vypnuté, zobrazí sa len Termux</string>
     <string name="enable_dish">Povoliť dish</string>
     <string name="enable_dish_desc">Povoliť terminálom používať konzolu vlastníka zariadenia (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF zatiaľ nie je vlastníkom zariadenia ani profilu, preto dish príkazy odmietne. Najprv aktivujte DhizukuF. Súbory dish môžete napriek tomu exportovať.</string>
+    <string name="home_dish_need_owner">DhizukuF ešte nie je aktivovaný (ani ako vlastník zariadenia, ani profilu, ani ako správca), takže dish bude príkazy odmietať. Najprv DhizukuF aktivujte. Súbory dish môžete exportovať už teraz.</string>
     <string name="home_dish_profile_owner_note">Režim vlastníka profilu: dish funguje, ale príkazy, ktoré vyžadujú plného vlastníka zariadenia (reboot, adb, timezone, súkromné DNS a ďalšie), nie sú dostupné.</string>
     <string name="home_dish_help_title">Ako používať dish</string>
     <string name="home_dish_help_text">dish nie je terminál vo vnútri tejto aplikácie, ale nástroj príkazového riadka: exportujte súbory a potom spustite dish v aplikácii terminálu, najlepšie v Termuxe.\n\n1. Ťuknite na „Exportovať súbory dish“ a vyberte priečinok.\n2. V Termuxe raz spustite termux-setup-storage, skopírujte dish a dish_dhizukuf.dex do $PREFIX/bin a spustite chmod +x $PREFIX/bin/dish.\n3. Zadaním dish otvoríte konzolu, alebo dish help zobrazíte príkazy.\n\nPri prvom spustení vás DhizukuF požiada o schválenie prístupu.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Otvoriť nastavenia správcu zariadenia</string>
     <string name="administrator_open_failed">Toto zariadenie nemá obrazovku správcu zariadenia. Otvorte nastavenia Androidu a povoľte DhizukuF v sekcii Zabezpečenie alebo Aplikácie správcu zariadenia.</string>
     <string name="log_event_security_alert">Bezpečnostné upozornenie</string>
+    <string name="home_dish_admin_note">Režim správcu: dish funguje, ale k dispozícii sú len príkazy povolené správcovi zariadenia. Príkazy vyžadujúce vlastníka zariadenia alebo profilu zlyhajú.</string>
 </resources>

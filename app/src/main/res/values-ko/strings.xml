@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">dish를 사용하는 터미널(예: Termux (dish))을 확인 창과 앱 관리에 표시합니다. 끄면 Termux만 표시됩니다</string>
     <string name="enable_dish">dish 사용</string>
     <string name="enable_dish_desc">터미널이 기기 소유자 콘솔(dish)을 사용하도록 허용</string>
-    <string name="home_dish_need_owner">DhizukuF가 아직 기기 소유자 또는 프로필 소유자가 아니므로 dish가 명령을 거부합니다. 먼저 DhizukuF를 활성화하세요. dish 파일은 계속 내보낼 수 있습니다.</string>
+    <string name="home_dish_need_owner">DhizukuF가 아직 활성화되지 않았습니다(기기 소유자, 프로필 소유자 또는 관리자가 아님). 따라서 dish가 명령을 거부합니다. 먼저 DhizukuF를 활성화하세요. dish 파일은 지금 바로 내보낼 수 있습니다.</string>
     <string name="home_dish_profile_owner_note">프로필 소유자 모드: dish는 동작하지만, 전체 기기 소유자가 필요한 명령(reboot, adb, timezone, 비공개 DNS 등)은 사용할 수 없습니다.</string>
     <string name="home_dish_help_title">dish 사용 방법</string>
     <string name="home_dish_help_text">dish는 이 앱 안의 터미널이 아니라 명령줄 도구입니다. 파일을 내보낸 다음 터미널 앱(Termux 권장)에서 dish를 실행하세요.\n\n1. 「dish 파일 내보내기」를 누르고 폴더를 선택합니다.\n2. Termux에서 termux-setup-storage를 한 번 실행하고, dish와 dish_dhizukuf.dex를 $PREFIX/bin에 복사한 뒤 chmod +x $PREFIX/bin/dish를 실행합니다.\n3. dish를 입력하면 콘솔이 열리고, dish help로 명령을 볼 수 있습니다.\n\n처음 실행하면 DhizukuF가 접근 승인을 요청합니다.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">기기 관리자 설정 열기</string>
     <string name="administrator_open_failed">이 기기에는 기기 관리자 화면이 없습니다. Android 설정을 열고 보안 또는 기기 관리자 앱에서 DhizukuF를 활성화하세요.</string>
     <string name="log_event_security_alert">보안 경고</string>
+    <string name="home_dish_admin_note">관리자 모드: dish는 작동하지만 기기 관리자가 사용할 수 있는 명령만 사용할 수 있습니다. 기기 또는 프로필 소유자가 필요한 명령은 실패합니다.</string>
 </resources>

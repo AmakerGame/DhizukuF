@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Маркира терминалите, които използват dish, например Termux (dish), в прозореца за потвърждение и в управлението на приложения. Когато е изключено, се показва само Termux</string>
     <string name="enable_dish">Включване на dish</string>
     <string name="enable_dish_desc">Позволява на терминалите да използват конзолата на собственика на устройството (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF още не е собственик на устройството или профила, затова dish ще отхвърля командите. Първо активирайте DhizukuF. Файловете dish все пак можете да експортирате.</string>
+    <string name="home_dish_need_owner">DhizukuF все още не е активиран (нито като собственик на устройството, нито на профила, нито администратор), затова dish ще отхвърля команди. Първо активирайте DhizukuF. Файловете на dish можете да експортирате още сега.</string>
     <string name="home_dish_profile_owner_note">Режим на собственик на профил: dish работи, но командите, които изискват пълен собственик на устройството (reboot, adb, timezone, частен DNS и други), не са налични.</string>
     <string name="home_dish_help_title">Как да използвате dish</string>
     <string name="home_dish_help_text">dish не е терминал в това приложение, а инструмент за команден ред: експортирайте файловете и след това стартирайте dish в приложение-терминал, най-добре в Termux.\n\n1. Докоснете „Експорт на файловете dish“ и изберете папка.\n2. В Termux изпълнете веднъж termux-setup-storage, копирайте dish и dish_dhizukuf.dex в $PREFIX/bin и изпълнете chmod +x $PREFIX/bin/dish.\n3. Въведете dish, за да отворите конзолата, или dish help за списъка с команди.\n\nПри първото стартиране DhizukuF ще поиска одобрение за достъп.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Отвори настройките на администратора на устройството</string>
     <string name="administrator_open_failed">Това устройство няма екран за администратор на устройството. Отворете настройките на Android и включете DhizukuF в раздела Сигурност или Приложения администратор на устройството.</string>
     <string name="log_event_security_alert">Сигнал за сигурност</string>
+    <string name="home_dish_admin_note">Режим администратор: dish работи, но са налични само командите, разрешени за администратор на устройството. Командите, изискващи собственик на устройството или профила, няма да работят.</string>
 </resources>

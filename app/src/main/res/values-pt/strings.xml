@@ -79,7 +79,7 @@
     <string name="show_dish_label_desc">Assinala os terminais que usam o dish, por exemplo Termux (dish), na janela de confirmação e na gestão de aplicações. Desativado, só o Termux é mostrado</string>
     <string name="enable_dish">Ativar dish</string>
     <string name="enable_dish_desc">Permitir que os terminais usem a consola de proprietário do dispositivo (dish)</string>
-    <string name="home_dish_need_owner">O DhizukuF ainda não é proprietário do dispositivo nem do perfil, por isso o dish recusará comandos. Ative primeiro o DhizukuF. Pode, ainda assim, exportar os ficheiros dish.</string>
+    <string name="home_dish_need_owner">O DhizukuF ainda não está ativado (nem como proprietário do dispositivo, nem do perfil, nem administrador), por isso o dish recusará comandos. Ative o DhizukuF primeiro. Ainda pode exportar os ficheiros do dish.</string>
     <string name="home_dish_profile_owner_note">Modo de proprietário do perfil: o dish funciona, mas os comandos que exigem o proprietário completo do dispositivo (reboot, adb, timezone, DNS privado e outros) não estão disponíveis.</string>
     <string name="home_dish_help_title">Como usar o dish</string>
     <string name="home_dish_help_text">O dish não é um terminal dentro desta aplicação, mas uma ferramenta de linha de comandos: exporte os ficheiros e execute o dish numa aplicação de terminal, de preferência o Termux.\n\n1. Toque em «Exportar ficheiros dish» e escolha uma pasta.\n2. No Termux, execute termux-setup-storage uma vez, copie dish e dish_dhizukuf.dex para $PREFIX/bin e execute chmod +x $PREFIX/bin/dish.\n3. Escreva dish para abrir a consola, ou dish help para ver os comandos.\n\nNa primeira execução, o DhizukuF pede-lhe que aprove o acesso.</string>
@@ -270,4 +270,5 @@
     <string name="administrator_open_settings">Abrir definições de administrador do dispositivo</string>
     <string name="administrator_open_failed">Este dispositivo não tem ecrã de administrador do dispositivo. Abra as definições do Android e ative o DhizukuF em Segurança ou Aplicações de administração do dispositivo.</string>
     <string name="log_event_security_alert">Alerta de segurança</string>
+    <string name="home_dish_admin_note">Modo administrador: o dish funciona, mas apenas os comandos permitidos a um administrador do dispositivo estão disponíveis. Comandos que exigem proprietário do dispositivo ou do perfil falharão.</string>
 </resources>

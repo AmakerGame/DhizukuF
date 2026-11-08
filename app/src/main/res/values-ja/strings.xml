@@ -81,7 +81,7 @@
     <string name="show_dish_label_desc">dish を使用するターミナル (例: Termux (dish)) を確認ウィンドウとアプリ管理に表示します。オフの場合は Termux のみ表示されます</string>
     <string name="enable_dish">dish を有効にする</string>
     <string name="enable_dish_desc">ターミナルによるデバイス所有者コンソール (dish) の使用を許可します</string>
-    <string name="home_dish_need_owner">DhizukuF はまだデバイス所有者でもプロファイル所有者でもないため、dish はコマンドを拒否します。先に DhizukuF を有効にしてください。dish ファイルのエクスポートは可能です。</string>
+    <string name="home_dish_need_owner">DhizukuF is not activated (Device Owner, Profile Owner or Administrator) yet, so dish will refuse commands. Activate DhizukuF first. You can still export the dish files.</string>
     <string name="home_dish_profile_owner_note">プロファイル所有者モード: dish は動作しますが、完全なデバイス所有者が必要なコマンド (reboot、adb、timezone、プライベート DNS など) は使用できません。</string>
     <string name="home_dish_help_title">dish の使い方</string>
     <string name="home_dish_help_text">dish はこのアプリ内のターミナルではなく、コマンドラインツールです。ファイルをエクスポートし、ターミナルアプリ (Termux がおすすめ) で dish を実行してください。\n\n1. 「dish ファイルをエクスポート」をタップしてフォルダを選びます。\n2. Termux で termux-setup-storage を一度実行し、dish と dish_dhizukuf.dex を $PREFIX/bin にコピーして、chmod +x $PREFIX/bin/dish を実行します。\n3. dish と入力するとコンソールが開きます。コマンド一覧は dish help です。\n\n初回実行時、DhizukuF がアクセスの承認を求めます。</string>
@@ -272,4 +272,5 @@
     <string name="administrator_open_settings">デバイス管理者設定を開く</string>
     <string name="administrator_open_failed">このデバイスにはデバイス管理者画面がありません。Android の設定を開き、「セキュリティ」または「デバイス管理者アプリ」で DhizukuF を有効にしてください。</string>
     <string name="log_event_security_alert">セキュリティ警告</string>
+    <string name="home_dish_admin_note">Administrator mode: dish works, but only the commands a device administrator may use are available. Commands that need Device Owner or Profile Owner will fail.</string>
 </resources>

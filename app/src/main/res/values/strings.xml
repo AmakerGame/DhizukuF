@@ -108,7 +108,7 @@
     <string name="show_dish_label_desc">PLACEHOLDERMarks terminals that use dish, for example Termux (dish), in the confirmation window and in App management. When off, only Termux is shown</string>
     <string name="enable_dish">Enable dish</string>
     <string name="enable_dish_desc">Allow terminals to use the Device Owner console (dish)</string>
-    <string name="home_dish_need_owner">DhizukuF is not the Device Owner or Profile Owner yet, so dish will refuse commands. Activate DhizukuF first. You can still export the dish files.</string>
+    <string name="home_dish_need_owner">DhizukuF is not activated (Device Owner, Profile Owner or Administrator) yet, so dish will refuse commands. Activate DhizukuF first. You can still export the dish files.</string>
     <string name="home_dish_profile_owner_note">Profile Owner mode: dish works, but commands that need the full Device Owner (reboot, adb, timezone, private DNS and others) are unavailable.</string>
     <string name="home_dish_help_title">How to use dish</string>
     <string name="home_dish_help_text">dish is not a terminal inside this app. It is a command-line tool: export the files, then run dish in a terminal app, best of all in Termux.\n\n1. Tap Export dish files and pick a folder.\n2. In Termux run termux-setup-storage once, copy dish and dish_dhizukuf.dex to $PREFIX/bin and run chmod +x $PREFIX/bin/dish.\n3. Type dish to open the console, or dish help for the commands.\n\nOn the first run DhizukuF asks you to approve access.</string>
@@ -292,4 +292,5 @@
     <string name="administrator_open_settings">Open device admin settings</string>
     <string name="administrator_open_failed">This device has no device administrator screen. Open Android settings and enable DhizukuF under Security or Device admin apps.</string>
     <string name="log_event_security_alert">Security alert</string>
+    <string name="home_dish_admin_note">Administrator mode: dish works, but only the commands a device administrator may use are available. Commands that need Device Owner or Profile Owner will fail.</string>
 </resources>
