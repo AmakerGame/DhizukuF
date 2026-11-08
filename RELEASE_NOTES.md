@@ -1,4 +1,4 @@
-## DhizukuF v1.7.0 (13) — DRAFT
+## DhizukuF v1.7.0 (13)
 
 ### Highlights
 
@@ -16,7 +16,7 @@
 
 1. Install the APK (and Hub if needed).
 2. Keep Device Owner — or try the new **Administrator** card for the limited mode.
-3. dish client files do not need a rebuild (protocol unchanged).
+3. Export the updated dish files — the bundled `dish_dhizukuf.dex` changed (Administrator-aware help/status).
 
 ## DhizukuF v1.6.0 (12)
 
