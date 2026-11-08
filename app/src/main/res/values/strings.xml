@@ -40,15 +40,9 @@
     <string name="profile_owner_warning_title">Warning</string>
     <string name="profile_owner_warning_dsp">This is a change that should only be made by users who understand its implications. The developers of DhizukuF cannot guarantee anything about unexpected behavior caused by this mode change.</string>
     <string name="finish">Finish</string>
-    <string name="donate">Donate</string>
-    <string name="donate_hide_action">Hide</string>
-    <string name="donate_hide_confirm_title">Hide Donate Button</string>
-    <string name="donate_hide_confirm_dsp">This cannot be undone from within the app. Are you sure you want to permanently hide the donate button?</string>
     <string name="request_permission_text">Allow <b>%1$s</b> to access DhizukuF?</string>
     <string name="agree">Grant</string>
     <string name="refuse">Deny</string>
-    <string name="service_channel_name">Background service</string>
-    <string name="service_running">DhizukuF is running</string>
     <string name="settings">Settings</string>
     <string name="settings_desc">Configure DhizukuF behavior</string>
     <string name="user_manager">User Manager</string>
@@ -59,7 +53,6 @@
     <string name="remove">Remove</string>
     <string name="account_manager">Account Manager</string>
     <string name="account_empty">No account exists</string>
-    <string name="copied_format_hail">copied, import it in Hail!</string>
     <string name="action_freeze">Freeze</string>
     <string name="action_unfreeze">Unfreeze</string>
     <string name="action_open_sync_settings">Open Sync Settings</string>
@@ -71,8 +64,6 @@
     <string name="whitelist_mode">Whitelist Mode</string>
     <string name="whitelist_mode_desc">Only allow pre-approved apps to use DhizukuF</string>
     <string name="block_app">Block App</string>
-    <string name="auto_deny_in">Auto-deny in</string>
-    <string name="block_app_desc">Completely deny access to DhizukuF</string>
     <string name="app_blocked_notice">This app is blocked and cannot access DhizukuF</string>
     <string name="allow_dhizuku_access">Allow DhizukuF Access</string>
     <string name="unblock_app">Unblock App</string>
@@ -92,7 +83,6 @@
     <string name="dish_export_failed">Could not export the dish files</string>
     <string name="dish_export_done_title">dish files exported</string>
     <string name="dish_export_done_dsp">Copy both files to a folder where your terminal can run scripts, then start dish:\n\nTermux (run termux-setup-storage once):\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (from a computer):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nAny other terminal: sh /path/to/dish help\n\nKeep both files together. On the first run DhizukuF asks you to approve access, like for any other app. Most commands need DhizukuF to be the Device Owner (Profile Owner support is limited).</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
     <string name="dish_err_disabled" translatable="false">Access check failed: dish is turned off in DhizukuF. Turn on Enable dish in the DhizukuF settings.</string>
     <string name="dish_err_blocked" translatable="false">Access check failed: this app is blocked in DhizukuF > App management.</string>
@@ -107,12 +97,10 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_bad_args" translatable="false">The arguments do not match any variant of %1$s</string>
-    <string name="dish_ok" translatable="false">OK</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="dish_no" translatable="false">no</string>
     <string name="dish_enabled" translatable="false">enabled</string>
     <string name="dish_disabled" translatable="false">disabled</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="block">Block</string>
     <string name="advanced_confirmation">Advanced confirmation window</string>
     <string name="advanced_confirmation_desc">Adds a Block button to the confirmation window, so an app can be blocked right away</string>
@@ -293,7 +281,6 @@
     <string name="daemon_notification_desc">Shows a persistent status notification while the Device Owner service is running. Tap opens DhizukuF. When off, Android still requires a minimal quiet indicator.</string>
     <string name="daemon_service_notification_quiet">Running</string>
     <string name="oss_licenses">Open-source licenses</string>
-    <string name="oss_licenses_desc">Libraries used by DhizukuF and their licenses</string>
     <string name="home_oss_title">Open-source licenses</string>
     <string name="home_oss_dsp">Libraries used by this app and their license texts</string>
 </resources>

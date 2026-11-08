@@ -80,6 +80,14 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
     companion object {
         const val UID_ERR = -1
         const val AUTO_DENY_SECONDS = 15
+
+        // The decision must be saved even when the activity is already destroyed: finish() starts the write and
+        // onDestroy() runs right after it, so a scope that dies with the activity would drop the answer
+        // (the client got "granted" but nothing was stored, and its next call was refused).
+        private val persistScope = CoroutineScope(
+            SupervisorJob() + Dispatchers.IO +
+                CoroutineExceptionHandler { _, t -> Log.w("RequestPermission", "saving the decision failed", t) }
+        )
     }
 
     data class ViewState(
@@ -171,7 +179,7 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
         setContent {
             DhizukuTheme {
                 if (state.shouldShowDialog) {
-                    LaunchedEffect(Unit) {
+                    LaunchedEffect(state.uid) {
                         var left = AUTO_DENY_SECONDS
                         while (left > 0) {
                             delay(1000)
@@ -239,7 +247,7 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
                 uid = uid, message = "Decision in the permission dialog"
             )
         }
-        coroutineScope.launch {
+        persistScope.launch {
             val packageInfo = packageManager.getPackageInfoForUid(uid) ?: return@launch
             val signature = packageInfo.signature ?: return@launch
 
@@ -322,7 +330,7 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
             kotlin.runCatching { IDhizukuRequestPermissionListener.Stub.asInterface(it) }.getOrNull()
         }
 
-        state = state.copy(
+        state = ViewState(
             uid = uid,
             signature = packageManager.getPackageInfoForUid(uid)?.signature ?: "",
             listener = listener

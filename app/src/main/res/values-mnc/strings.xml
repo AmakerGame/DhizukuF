@@ -29,15 +29,9 @@
     <string name="profile_owner_warning_title">targabun</string>
     <string name="profile_owner_warning_dsp">ere halgan be, terei oyonggo be saha niyalma teile yabubuci acambi. DhizukuF i weiledesi ere arbun halgan ci tucike akdacun waka jalin umai yargiyalara yokire be muterakū.</string>
     <string name="finish">mukiyen</string>
-    <string name="donate">buhun</string>
-    <string name="donate_hide_action">dabtūri</string>
-    <string name="donate_hide_confirm_title">Buhun i toki be dabtūri</string>
-    <string name="donate_hide_confirm_dsp">ere weilen be app i dorgi de nakūmbume muterakū. si unenggi buhun i toki be enteheme dabtūrao?</string>
     <string name="request_permission_text"><b>%1$s</b> be DhizukuF de dosire oktombio?</string>
     <string name="agree">buhu</string>
     <string name="refuse">ume</string>
-    <string name="service_channel_name">amargi i jifisun</string>
-    <string name="service_running">Dhizuku dabmbime</string>
     <string name="settings">dasangga</string>
     <string name="settings_desc">DhizukuF i arbun be dasan</string>
     <string name="enable_dhizuku">DhizukuF be okto</string>
@@ -45,8 +39,6 @@
     <string name="whitelist_mode">tob lista i arbun</string>
     <string name="whitelist_mode_desc">Toktohu fiyelen teile DhizukuF be baitalara oktombu</string>
     <string name="block_app">fiyelen be fafu</string>
-    <string name="auto_deny_in">beyen i fafu</string>
-    <string name="block_app_desc">DhizukuF de dosire be umesi fafu</string>
     <string name="app_blocked_notice">Ere fiyelen be fafuha, DhizukuF de dosire muterakū</string>
     <string name="allow_dhizuku_access">DhizukuF de dosire oktombu</string>
     <string name="unblock_app">fiyelen be fafu nakū</string>
@@ -81,7 +73,6 @@
     <string name="auth_prompt_security">Change a security setting</string>
     <string name="auth_prompt_title">Confirm that it is you</string>
     <string name="block">Block</string>
-    <string name="copied_format_hail">copied, import it in Hail!</string>
     <string name="customization">Customization</string>
     <string name="customization_apply_failed">The system did not switch the launcher entry. Try again, or restart the launcher or the device.</string>
     <string name="customization_changed">Changed. The launcher may need a few seconds to refresh.</string>
@@ -110,7 +101,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -121,8 +111,6 @@
     <string name="dish_export_failed">Could not export the dish files</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="enable_dangerous">Enable dangerous commands</string>
     <string name="enable_dangerous_desc">Allow risky actions for dish and the Dhizuku API: reboot, clearing app data, writing settings, changing permissions, direct API calls and similar. Off by default.</string>

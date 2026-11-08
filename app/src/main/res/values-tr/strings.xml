@@ -2,12 +2,9 @@
 <resources>
     <string name="home_deactivate_title">Devre dışı bırak</string>
     <string name="home_deactivate_dsp">Devre dışı bırakmak istediğinize emin misiniz?</string>
-    <string name="donate">Bağış Yap</string>
     <string name="request_permission_text"><b>%1$s</b>\'ın DhizukuF\'ya erişmesine izin verilsin mi?</string>
     <string name="agree">İzin ver</string>
     <string name="refuse">Reddet</string>
-    <string name="service_channel_name">Arkaplan hizmeti</string>
-    <string name="service_running">Dhizuku çalışıyor</string>
     <string name="finish">Bitti</string>
     <string name="confirm">Onayla</string>
     <string name="cancel">İptal</string>
@@ -35,8 +32,6 @@
     <string name="whitelist_mode">Beyaz Liste Modu</string>
     <string name="whitelist_mode_desc">Sadece önceden onaylanmış uygulamaların DhizukuF\'yu kullanmasına izin ver</string>
     <string name="block_app">Uygulamayı engelle</string>
-    <string name="auto_deny_in">­Otomatik reddet</string>
-    <string name="block_app_desc">Tamamen DhizukuF isteğini reddet</string>
     <string name="app_blocked_notice">Bu uygulama engellendi ve DhizukuF\'ya erişemez</string>
     <string name="allow_dhizuku_access">DhizukuF\'ya erişimine izin ver</string>
     <string name="unblock_app">Uygulamanın engelini kaldır</string>
@@ -50,9 +45,6 @@
     <string name="confirm_profile_owner">Profil Sahibi</string>
     <string name="profile_owner_warning_title">Uyarı</string>
     <string name="profile_owner_warning_dsp">Bu yalnızca sonuçlarını anlayan kullanıcılar tarafından yapılması gereken bir değişikliktir. DhizukuF geliştiricileri bu mod değişikliğinin neden olduğu beklenmedik davranışlar hakkında hiçbir garanti veremez.</string>
-    <string name="donate_hide_action">Gizle</string>
-    <string name="donate_hide_confirm_title">Bağış Yap Düğmesini Gizle</string>
-    <string name="donate_hide_confirm_dsp">Bu işlem uygulama içinden geri alınamaz. Bağış yap düğmesini kalıcı olarak gizlemek istediğinizden emin misiniz?</string>
     <string name="home_status_owner_transferred">%1$s aktarıldı!!!</string>
     <string name="home_user_management_dsp">Kullanıcıları ve hesaplarını yönetin.</string>
     <string name="user_manager">Kullanıcı Yöneticisi</string>
@@ -63,7 +55,6 @@
     <string name="remove">Kaldır</string>
     <string name="account_manager">Hesap Yöneticisi</string>
     <string name="account_empty">Hesap yok</string>
-    <string name="copied_format_hail">kopyalandı, Hail\'e aktarın!</string>
     <string name="action_freeze">Dondur</string>
     <string name="action_unfreeze">Çöz</string>
     <string name="action_open_sync_settings">Eşitleme Ayarlarını Aç</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

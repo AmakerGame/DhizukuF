@@ -3,8 +3,6 @@
     <string name="agreement_title">使用許諾</string>
     <string name="agreement_text">このアプリを利用するには、&lt;a href=\"https://iamr0s.github.io/Dhizuku/TERMS.html\"&gt;利用規約&lt;/a&gt;と&lt;a href=\"https://iamr0s.github.io/Dhizuku/PRIVACY.html\"&gt;個人情報保護方針&lt;/a&gt;に同意する必要があります。一度同意すると、この画面は以後表示されません。</string>
     <string name="agree_text">同意</string>
-    <string name="service_running">Dhizuku は動作中です</string>
-    <string name="service_channel_name">バックグラウンド サービス</string>
     <string name="home_deactivate_dsp">本当に無効化してもよろしいですか？</string>
     <string name="agree">許可</string>
     <string name="finish">完了</string>
@@ -16,10 +14,6 @@
     <string name="confirm_profile_owner">プロファイルオーナー</string>
     <string name="profile_owner_warning_title">警告</string>
     <string name="profile_owner_warning_dsp">これは意図を理解したユーザーのみがおこなえる変更です。DhizukuFの開発者はこのモード変更により生じた想定外の動作について一切の保証をいたしかねます。</string>
-    <string name="donate">寄付</string>
-    <string name="donate_hide_action">非表示にする</string>
-    <string name="donate_hide_confirm_title">寄付ボタンを非表示</string>
-    <string name="donate_hide_confirm_dsp">アプリ内からは元に戻せません。寄付ボタンを完全に非表示にしますか？</string>
     <string name="request_permission_text"><b>%1$s</b> による DhizukuF へのアクセスを許可しますか？</string>
     <string name="home_deactivate_title">無効化</string>
     <string name="home_status_owner_denied">有効化を待機中</string>
@@ -49,7 +43,6 @@
     
     <string name="account_manager">アカウント管理</string>
     <string name="account_empty">アカウントは存在しません</string>
-    <string name="copied_format_hail">コピーしました\nHailでインポートしてください。</string>
     <string name="action_freeze">無効化</string>
     <string name="action_unfreeze">再有効化</string>
     <string name="action_open_sync_settings">同期の設定を開く</string>
@@ -62,8 +55,6 @@
     <string name="whitelist_mode">除外モード</string>
     <string name="whitelist_mode_desc">あらかじめ許可したアプリのみ DhizukuF を使用できるようにします</string>
     <string name="block_app">アプリをブロック</string>
-    <string name="auto_deny_in">自動で却下：</string>
-    <string name="block_app_desc">DhizukuF へのアクセスを拒否しました</string>
     <string name="app_blocked_notice">このアプリはブロック済みのため DhizukuF にアクセスできません</string>
     <string name="allow_dhizuku_access">DhizukuF へのアクセスを許可</string>
     <string name="unblock_app">アプリのブロックを解除</string>
@@ -152,7 +143,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -160,8 +150,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

@@ -25,5 +25,3 @@ inline fun <reified T> SharedPreferences.asFlow(
 
     awaitClose { unregisterOnSharedPreferenceChangeListener(listener) }
 }
-
-fun SharedPreferences.stringFlow(key: String, defaultValue: String?) = asFlow(key, defaultValue)

@@ -35,11 +35,16 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
 
     // Any change of a setting drops the cached log configuration, so the next event reads it again.
     private val logListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
+        cacheGeneration++
         cachedLogConfig = null
     }
 
     @Volatile
     private var cachedLogConfig: LogConfig? = null
+
+    // A change that lands while a new config is being read must not be overwritten by the stale one.
+    @Volatile
+    private var cacheGeneration = 0
 
     private val prefs: SharedPreferences by lazy {
         context.devicePrefs("dhizuku_settings").also { it.registerOnSharedPreferenceChangeListener(logListener) }
@@ -56,9 +61,6 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
 
     override fun flowDishEnabled(): Flow<Boolean> =
         prefs.asFlow("dish_enabled", true)
-
-    override fun flowDonateButtonHidden(): Flow<Boolean> =
-        prefs.asFlow("donate_button_hidden", false)
 
     override fun flowDaemonNotificationEnabled(): Flow<Boolean> =
         prefs.asFlow("daemon_notification_enabled", true)
@@ -82,12 +84,18 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     }
 
     override val logConfig: LogConfig
-        get() = cachedLogConfig ?: buildLogConfig(
-            prefs.getBoolean("log_enabled", false),
-            prefs.getString("log_level", null),
-            prefs.getString("log_categories", ALL_CATEGORIES),
-            prefs.getInt("log_max_mb", LogConfig.DEFAULT_MAX_SIZE_MB)
-        ).also { cachedLogConfig = it }
+        get() {
+            cachedLogConfig?.let { return it }
+            val generation = cacheGeneration
+            val config = buildLogConfig(
+                prefs.getBoolean("log_enabled", false),
+                prefs.getString("log_level", null),
+                prefs.getString("log_categories", ALL_CATEGORIES),
+                prefs.getInt("log_max_mb", LogConfig.DEFAULT_MAX_SIZE_MB)
+            )
+            if (generation == cacheGeneration) cachedLogConfig = config
+            return config
+        }
 
     private fun buildLogConfig(enabled: Boolean, level: String?, categories: String?, maxMb: Int) = LogConfig(
         enabled = enabled,
@@ -228,13 +236,6 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
         get() = prefs.getBoolean("dish_enabled", true)
         set(value) = prefs.edit(true) {
             putBoolean("dish_enabled", value)
-        }
-
-    
-    override var isDonateButtonHidden: Boolean
-        get() = prefs.getBoolean("donate_button_hidden", false)
-        set(value) = prefs.edit(true) {
-            putBoolean("donate_button_hidden", value)
         }
 
     override var isDaemonNotificationEnabled: Boolean

@@ -24,15 +24,9 @@
     <string name="profile_owner_warning_title">Figyelmeztetés</string>
     <string name="profile_owner_warning_dsp">Ez egy változtatás csak olyan felhasználóknak ajánlott, akik megértik a következményeket. A DhizukuF fejlesztői nem garantálnak semmit a váratlan viselkedéséről a mód váltásától.</string>
     <string name="finish">Befejez</string>
-    <string name="donate">Adományoz</string>
-    <string name="donate_hide_action">Elrejt</string>
-    <string name="donate_hide_confirm_title">Az adományozás gomb elrejtése</string>
-    <string name="donate_hide_confirm_dsp">Ezt nem lehet visszacsinálni az alkalmazásból. Biztos, hogy véglegesen elrejti az adományozás gombot?</string>
     <string name="request_permission_text">Engedi a(z) <b>%1$s</b> számára, hogy hozzáférjen a DhizukuFhoz?</string>
     <string name="agree">Enged</string>
     <string name="refuse">Tilt</string>
-    <string name="service_channel_name">Háttérbeli szolgáltatás</string>
-    <string name="service_running">A Dhizuku fut</string>
     <string name="settings">Beállítások</string>
     <string name="settings_desc">A DhizukuF viselkedésének beállítása</string>
     <string name="enable_dhizuku">A DhizukuF engedélyezése</string>
@@ -40,8 +34,6 @@
     <string name="whitelist_mode">Fehérlista mód</string>
     <string name="whitelist_mode_desc">Csak az előre-ellenőrzött appoknak megengedni a DhizukuF használatát</string>
     <string name="block_app">Az alkalmazás blokkolása</string>
-    <string name="auto_deny_in">Autómata megtiltás be</string>
-    <string name="block_app_desc">Teljesen megtiltani a hozzáférést a DhizukuFhoz</string>
     <string name="app_blocked_notice">Ez az alkalmazás blokkolva van és nem használhatja a DhizukuFt</string>
     <string name="allow_dhizuku_access">A DhizukuF hozzáférést megengedni</string>
     <string name="unblock_app">Az app blokkolásának kikapcsolása</string>
@@ -63,7 +55,6 @@
     <string name="remove">Eltávolítás</string>
     <string name="account_manager">Fiókkezelő</string>
     <string name="account_empty">Nincs fiók</string>
-    <string name="copied_format_hail">átmásolva, importálja a Hailben!</string>
     <string name="action_freeze">Befagyasztás</string>
     <string name="action_unfreeze">Feloldás</string>
     <string name="action_open_sync_settings">Szinkronizálási beállítások megnyitása</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

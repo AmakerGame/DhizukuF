@@ -50,12 +50,6 @@ object AppIconCache : KoinComponent {
 
     private fun cacheGet(key: String): Bitmap? = synchronized(lruCache) { lruCache[key] }
 
-    private fun cachePut(key: String, bitmap: Bitmap): Bitmap =
-        synchronized(lruCache) {
-            lruCache.put(key, bitmap)
-            bitmap
-        }
-
     private fun loadBitmap(key: String, load: () -> Bitmap?): Bitmap? {
         cacheGet(key)?.let { return it }
         return try {

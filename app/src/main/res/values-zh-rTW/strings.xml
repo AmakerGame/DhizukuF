@@ -15,12 +15,9 @@
     <string name="finish">完成</string>
     <string name="agree">同意</string>
     <string name="refuse">拒絕</string>
-    <string name="service_channel_name">後台服務</string>
-    <string name="service_running">Dhizuku 正在運行</string>
     <string name="permission_description">使用 Dhizuku 的API</string>
     <string name="home_shutdown_dsp">除非 DhizukuF 主動關閉，否則系統無法將其關閉。</string>
     <string name="home_status_owner_granted">您目前為 %1$s！</string>
-    <string name="donate">捐贈</string>
     <string name="request_permission_text">是否允許 <b>%1$s</b> 存取 DhizukuF?</string>
     <string name="home_shizuku_dsp">透過 Shizuku，您無需透過電腦即可執行 ADB 指令。請 &lt;a href=\"%1$s\"&gt;參閱說明&lt;/a&gt;。</string>
     <string name="home_app_management_dsp">已請求或宣告使用 Dhizuku 的應用程式將會在此顯示。</string>
@@ -36,8 +33,6 @@
     <string name="whitelist_mode">白名單模式</string>
     <string name="whitelist_mode_desc">僅允許白名單中的應用程式使用 DhizukuF</string>
     <string name="block_app">屏蔽應用</string>
-    <string name="auto_deny_in">自動拒絕:</string>
-    <string name="block_app_desc">完全拒絕存取 DhizukuF</string>
     <string name="app_blocked_notice">此應用程式已被封鎖，無法存取 DhizukuF</string>
     <string name="allow_dhizuku_access">允許存取 DhizukuF</string>
     <string name="unblock_app">解除封鎖應用</string>
@@ -50,9 +45,6 @@
     <string name="confirm_profile_owner">設定檔擁有者</string>
     <string name="profile_owner_warning_title">警告</string>
     <string name="profile_owner_warning_dsp">此項變更僅供了解其影響的使用者進行。DhizukuF 的開發者無法對因切換此模式所導致的非預期行為提供保證。</string>
-    <string name="donate_hide_action">隱藏</string>
-    <string name="donate_hide_confirm_title">隱藏捐贈按鈕</string>
-    <string name="donate_hide_confirm_dsp">此操作無法在應用程式內復原。您確定要永久隱藏捐贈按鈕嗎？</string>
     <string name="home_status_owner_transferred">%1$s已轉移！！！</string>
     <string name="home_user_management_dsp">管理使用者及其帳戶。</string>
     <string name="user_manager">使用者管理員</string>
@@ -63,7 +55,6 @@
     <string name="remove">移除</string>
     <string name="account_manager">帳戶管理員</string>
     <string name="account_empty">沒有帳戶</string>
-    <string name="copied_format_hail">已複製，請在 Hail 中匯入！</string>
     <string name="action_freeze">凍結</string>
     <string name="action_unfreeze">解凍</string>
     <string name="action_open_sync_settings">開啟同步設定</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

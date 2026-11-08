@@ -21,12 +21,9 @@
     <string name="home_deactivate_dsp">Bạn có chắc chắn muốn hủy kích hoạt?</string>
     <string name="confirm">OK</string>
     <string name="finish">Đã xong</string>
-    <string name="donate">Ủng hộ</string>
     <string name="request_permission_text">Cho phép <b>%1$s</b> truy cập DhizukuF?</string>
     <string name="agree">Cho phép mọi lúc</string>
     <string name="refuse">Từ chối</string>
-    <string name="service_channel_name">Dịch vụ nền</string>
-    <string name="service_running">Dhizuku đang chạy</string>
     <string name="home_dhizuku_title">Kích hoạt bởi DhizukuF</string>
     <string name="home_shizuku_dsp">Với Shizuku, bạn có thể chạy các tập lệnh ADB mà không cần một chiếc máy tính. Hãy &lt;a href=%1$s&gt;đọc trợ giúp&lt;/a&gt;.</string>
     <string name="settings">Cài đặt</string>
@@ -36,8 +33,6 @@
     <string name="whitelist_mode">Chế độ danh sách trắng</string>
     <string name="whitelist_mode_desc">Chỉ cho phép các ứng dụng đã được phê duyệt trước sử dụng DhizukuF</string>
     <string name="block_app">Chặn ứng dụng</string>
-    <string name="block_app_desc">Từ chối hoàn toàn quyền truy cập vào DhizukuF</string>
-    <string name="auto_deny_in">Tự động từ chối sau</string>
     <string name="auto_deny_in_seconds">Tự động từ chối sau %d giây</string>
     <string name="app_blocked_notice">Ứng dụng này đã bị chặn và không thể truy cập DhizukuF</string>
     <string name="allow_dhizuku_access">Cho phép truy cập DhizukuF</string>
@@ -50,9 +45,6 @@
     <string name="confirm_profile_owner">Chủ sở hữu hồ sơ</string>
     <string name="profile_owner_warning_title">Cảnh báo</string>
     <string name="profile_owner_warning_dsp">Đây là thay đổi chỉ nên được thực hiện bởi những người dùng hiểu rõ tác động của nó. Các nhà phát triển DhizukuF không thể đảm bảo bất cứ điều gì về các hành vi không mong muốn do thay đổi chế độ này gây ra.</string>
-    <string name="donate_hide_action">Ẩn</string>
-    <string name="donate_hide_confirm_title">Ẩn nút ủng hộ</string>
-    <string name="donate_hide_confirm_dsp">Hành động này không thể hoàn tác trong ứng dụng. Bạn có chắc chắn muốn ẩn vĩnh viễn nút ủng hộ không?</string>
     <string name="home_status_owner_transferred">%1$s đã được chuyển giao!!!</string>
     <string name="home_user_management_dsp">Quản lý người dùng và tài khoản của họ.</string>
     <string name="user_manager">Quản lý người dùng</string>
@@ -63,7 +55,6 @@
     <string name="remove">Xóa</string>
     <string name="account_manager">Quản lý tài khoản</string>
     <string name="account_empty">Không có tài khoản</string>
-    <string name="copied_format_hail">đã sao chép, hãy nhập vào Hail!</string>
     <string name="action_freeze">Đóng băng</string>
     <string name="action_unfreeze">Bỏ đóng băng</string>
     <string name="action_open_sync_settings">Mở cài đặt đồng bộ hóa</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

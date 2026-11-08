@@ -8,9 +8,6 @@
     <string name="request_permission_text">Разрешить <b>%1$s</b> доступ к DhizukuF?</string>
     <string name="agree">Разрешить</string>
     <string name="refuse">Отклонить</string>
-    <string name="donate">Пожертвования</string>
-    <string name="service_running">Dhizuku запущен</string>
-    <string name="service_channel_name">Фоновая служба</string>
     <string name="home_app_management_title">Управление приложениями</string>
     <string name="home_app_management_dsp">Здесь будут отображаться приложения, которые запросили или объявили Dhizuku.</string>
     <string name="home_shizuku_title">Активация через Shizuku</string>
@@ -36,8 +33,6 @@
     <string name="whitelist_mode">Режим белого списка</string>
     <string name="whitelist_mode_desc">Разрешить использование DhizukuF только предварительно одобренным приложениям</string>
     <string name="block_app">Блокировать приложение</string>
-    <string name="auto_deny_in">Автоотклонение через</string>
-    <string name="block_app_desc">Полностью запретить доступ к DhizukuF</string>
     <string name="app_blocked_notice">Это приложение заблокировано и не может получить доступ к DhizukuF</string>
     <string name="allow_dhizuku_access">Разрешить доступ DhizukuF</string>
     <string name="unblock_app">Разблокировать приложение</string>
@@ -50,9 +45,6 @@
     <string name="confirm_profile_owner">Владельцем Профиля</string>
     <string name="profile_owner_warning_title">Предупреждение</string>
     <string name="profile_owner_warning_dsp">Это изменение должны выполнять только пользователи, понимающие его последствия. Разработчики DhizukuF не могут гарантировать что-либо в отношении непредвиденного поведения, вызванного этим изменением режима.</string>
-    <string name="donate_hide_action">Скрыть</string>
-    <string name="donate_hide_confirm_title">Скрыть кнопку \"Пожертвовать\"</string>
-    <string name="donate_hide_confirm_dsp">Это действие нельзя отменить из приложения. Вы уверены, что хотите навсегда скрыть кнопку пожертвования?</string>
     <string name="home_status_owner_transferred">%1$s был переведён!!!</string>
     <string name="home_user_management_dsp">Управление пользователями и их аккаунтами.</string>
     <string name="user_manager">Управление пользователями</string>
@@ -63,7 +55,6 @@
     <string name="remove">Удалить</string>
     <string name="account_manager">Управление аккаунтами</string>
     <string name="account_empty">Аккаунтов нет</string>
-    <string name="copied_format_hail">скопировано, импортируйте в Hail!</string>
     <string name="action_freeze">Заморозить</string>
     <string name="action_unfreeze">Разморозить</string>
     <string name="action_open_sync_settings">Открыть настройки синхронизации</string>
@@ -266,7 +257,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -274,8 +264,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="launcher_name_device_owner" translatable="false">Device Owner</string>
     <string name="launcher_name_profile_owner" translatable="false">Profile Owner</string>

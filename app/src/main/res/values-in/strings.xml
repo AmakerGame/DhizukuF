@@ -4,13 +4,10 @@
     <string name="confirm">Oke</string>
     <string name="home_deactivate_title">Nonaktifkan</string>
     <string name="home_deactivate_dsp">Apakah Anda yakin ingin menonaktifkan?</string>
-    <string name="donate">Donasi</string>
     <string name="agree">Izinkan</string>
     <string name="refuse">Tolak</string>
     <string name="finish">Selesai</string>
-    <string name="service_channel_name">Layanan latar belakang</string>
     <string name="request_permission_text">Izinkan <b>%1$s</b> mengakses DhizukuF?</string>
-    <string name="service_running">Dhizuku sedang berjalan</string>
     <string name="home_dhizuku_dsp">Jika Anda memiliki implementasi Dhizuku lain yang terinstal, Anda dapat beralih di antara keduanya sesuka hati. Silakan &lt;a href=\"%1$s\"&gt;baca bantuan&lt;/a&gt;.</string>
     <string name="home_status_owner_denied">Menunggu Aktivasi</string>
     <string name="home_shizuku_dsp">Dengan Shizuku, Anda dapat menjalankan perintah ADB tanpa memerlukan komputer. Silakan &lt;a href=\"%1$s\"&gt;baca bantuan&lt;/a&gt;.</string>
@@ -36,8 +33,6 @@
     <string name="whitelist_mode">Mode Daftar Putih</string>
     <string name="whitelist_mode_desc">Hanya izinkan aplikasi yang telah disetujui sebelumnya untuk menggunakan DhizukuF</string>
     <string name="block_app">Blokir Aplikasi</string>
-    <string name="auto_deny_in">Penolakan otomatis</string>
-    <string name="block_app_desc">Tolak akses sepenuhnya ke DhizukuF</string>
     <string name="app_blocked_notice">Aplikasi ini diblokir dan tidak dapat mengakses DhizukuF</string>
     <string name="allow_dhizuku_access">Izinkan Akses DhizukuF</string>
     <string name="unblock_app">Buka Blokir Aplikasi</string>
@@ -50,9 +45,6 @@
     <string name="confirm_profile_owner">Pemilik Profil</string>
     <string name="profile_owner_warning_title">Peringatan</string>
     <string name="profile_owner_warning_dsp">Ini adalah perubahan yang hanya boleh dilakukan oleh pengguna yang memahami implikasinya. Pengembang DhizukuF tidak dapat menjamin apa pun terkait perilaku tak terduga yang disebabkan oleh perubahan mode ini.</string>
-    <string name="donate_hide_action">Sembunyikan</string>
-    <string name="donate_hide_confirm_title">Sembunyikan Tombol Donasi</string>
-    <string name="donate_hide_confirm_dsp">Tindakan ini tidak dapat dibatalkan dari dalam aplikasi. Apakah Anda yakin ingin menyembunyikan tombol donasi secara permanen?</string>
     <string name="home_status_owner_transferred">%1$s telah dipindahkan!!!</string>
     <string name="home_user_management_dsp">Kelola pengguna dan akun mereka.</string>
     <string name="user_manager">Manajer Pengguna</string>
@@ -63,7 +55,6 @@
     <string name="remove">Hapus</string>
     <string name="account_manager">Manajer Akun</string>
     <string name="account_empty">Tidak ada akun</string>
-    <string name="copied_format_hail">disalin, impor di Hail!</string>
     <string name="action_freeze">Bekukan</string>
     <string name="action_unfreeze">Cairkan</string>
     <string name="action_open_sync_settings">Buka Pengaturan Sinkronisasi</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

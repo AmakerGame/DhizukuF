@@ -4,11 +4,8 @@
     <string name="confirm">OK</string>
     <string name="finish">Acabado</string>
     <string name="home_deactivate_dsp">¿Estás seguro de que quieres desactivarlo?</string>
-    <string name="donate">Donar</string>
     <string name="agree">Permitir</string>
     <string name="refuse">Denegar</string>
-    <string name="service_channel_name">Servicio en segundo plano</string>
-    <string name="service_running">Dhizuku está en marcha</string>
     <string name="request_permission_text">¿Permitir a <b>%1$s</b> el acceso a DhizukuF?</string>
     <string name="home_deactivate_title">Desactivar</string>
     <string name="retry">Reintentar</string>
@@ -32,7 +29,6 @@
     <string name="enable_dhizuku">Activar DhizukuF</string>
     <string name="whitelist_mode">Modo de Lista Blanca</string>
     <string name="block_app">Bloquear Aplicación</string>
-    <string name="block_app_desc">Denegar completamente el acceso a DhizukuF</string>
     <string name="app_blocked_notice">Esta aplicación está bloqueada y no puede acceder a DhizukuF</string>
     <string name="allow_dhizuku_access">Permitir el acceso a DhizukuF</string>
     <string name="unblock_app">Desbloquear Aplicación</string>
@@ -41,7 +37,6 @@
     <string name="settings_desc">Configurar comportamiento de DhizukuF</string>
     <string name="enable_dhizuku_desc">Permitir a aplicaciones el uso de servicios de DhizukuF</string>
     <string name="whitelist_mode_desc">Solo permitir el uso de DhizukuF a aplicaciones preaprobadas</string>
-    <string name="auto_deny_in">Auto denegar en</string>
     <string name="agreement_text">Esta es nuestra política de usuarios. Léala y acéptela. &lt;a href=\"https://iamr0s.github.io/Dhizuku/TERMS.html\"&gt;Condiciones de Uso&lt;/a&gt;, &lt;a href=\"https://iamr0s.github.io/Dhizuku/PRIVACY.html\"&gt;Política de privacidad&lt;/a&gt;. Este mensaje no volverá a aparecer una vez la hayas aceptado.</string>
     <string name="daemon_service_notification_title">Daemon de Dhizuku</string>
     <string name="daemon_service_notification_text">Esta es una notificación de DhizukuF para garantizar la disponibilidad del servicio en todo momento. Puedes mantener pulsado para ocultar esta notificación.</string>
@@ -50,9 +45,6 @@
     <string name="confirm_profile_owner">Propietario del perfil</string>
     <string name="profile_owner_warning_title">Advertencia</string>
     <string name="profile_owner_warning_dsp">Este es un cambio que solo deben realizar usuarios que comprendan sus implicaciones. Los desarrolladores de DhizukuF no pueden garantizar nada sobre comportamientos inesperados causados por este cambio de modo.</string>
-    <string name="donate_hide_action">Ocultar</string>
-    <string name="donate_hide_confirm_title">Ocultar botón de donación</string>
-    <string name="donate_hide_confirm_dsp">Esto no se puede deshacer desde la aplicación. ¿Seguro que quieres ocultar permanentemente el botón de donación?</string>
     <string name="home_status_owner_transferred">¡¡¡%1$s ha sido transferido!!!</string>
     <string name="home_user_management_dsp">Administra usuarios y sus cuentas.</string>
     <string name="user_manager">Administrador de usuarios</string>
@@ -63,7 +55,6 @@
     <string name="remove">Quitar</string>
     <string name="account_manager">Administrador de cuentas</string>
     <string name="account_empty">No hay ninguna cuenta</string>
-    <string name="copied_format_hail">copiado, ¡impórtalo en Hail!</string>
     <string name="action_freeze">Congelar</string>
     <string name="action_unfreeze">Descongelar</string>
     <string name="action_open_sync_settings">Abrir ajustes de sincronización</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

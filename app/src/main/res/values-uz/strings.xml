@@ -30,15 +30,9 @@
     <string name="profile_owner_warning_title">Ogohlantirish</string>
     <string name="profile_owner_warning_dsp">Bu oʻzgarishni faqat uning oqibatlarini tushunadigan foydalanuvchilar qilishi kerak. DhizukuF ishlab chiquvchilari bu rejim oʻzgarishi sabab boʻlgan kutilmagan holatlar uchun hech narsaga kafolat bera olmaydi.</string>
     <string name="finish">Yakunlash</string>
-    <string name="donate">Xayriya</string>
-    <string name="donate_hide_action">Yashirish</string>
-    <string name="donate_hide_confirm_title">Xayriya tugmasini yashirish</string>
-    <string name="donate_hide_confirm_dsp">Buni ilova ichidan qaytarib boʻlmaydi. Xayriya tugmasini butunlay yashirishni xohlaysizmi?</string>
     <string name="request_permission_text"><b>%1$s</b> ilovasiga DhizukuF’dan foydalanishga ruxsat berasizmi?</string>
     <string name="agree">Ruxsat berish</string>
     <string name="refuse">Rad etish</string>
-    <string name="service_channel_name">Fon xizmati</string>
-    <string name="service_running">DhizukuF ishlayapti</string>
     <string name="settings">Sozlamalar</string>
     <string name="settings_desc">DhizukuF xatti-harakatini sozlash</string>
     <string name="user_manager">Foydalanuvchilar menejeri</string>
@@ -49,7 +43,6 @@
     <string name="remove">Olib tashlash</string>
     <string name="account_manager">Hisoblar menejeri</string>
     <string name="account_empty">Hech qanday hisob yoʻq</string>
-    <string name="copied_format_hail">nusxalandi, Hail’da import qiling!</string>
     <string name="action_freeze">Muzlatish</string>
     <string name="action_unfreeze">Muzdan chiqarish</string>
     <string name="action_open_sync_settings">Sinxronlash sozlamalarini ochish</string>
@@ -61,8 +54,6 @@
     <string name="whitelist_mode">Oq roʻyxat rejimi</string>
     <string name="whitelist_mode_desc">Faqat oldindan tasdiqlangan ilovalarga DhizukuF’dan foydalanishga ruxsat berish</string>
     <string name="block_app">Ilovani bloklash</string>
-    <string name="auto_deny_in">Avtomatik rad etish:</string>
-    <string name="block_app_desc">DhizukuF’ga kirishni butunlay rad etish</string>
     <string name="app_blocked_notice">Bu ilova bloklangan va DhizukuF’ga kira olmaydi</string>
     <string name="allow_dhizuku_access">DhizukuF’ga kirishga ruxsat berish</string>
     <string name="unblock_app">Ilovani blokdan chiqarish</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

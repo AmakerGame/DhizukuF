@@ -23,12 +23,9 @@
     <string name="home_deactivate_dsp">Είστε σίγουροι ότι θέλετε να το απενεργοποιήσετε?</string>
     <string name="confirm">OK</string>
     <string name="finish">Τέλος</string>
-    <string name="donate">Δωρεά</string>
     <string name="request_permission_text">Να επιτραπεί στο <b>%1$s</b> η πρόσβαση στο DhizukuF?</string>
     <string name="agree">Χορήγηση</string>
     <string name="refuse">Άρνηση</string>
-    <string name="service_channel_name">Υπηρεσία παρασκηνίου</string>
-    <string name="service_running">Το Dhizuku εκτελείται</string>
     <string name="settings">Ρυθμίσεις</string>
     <string name="settings_desc">Διαμόρφωση συμπεριφοράς DhizukuF</string>
     <string name="enable_dhizuku">Ενεργοποίηση DhizukuF</string>
@@ -36,8 +33,6 @@
     <string name="whitelist_mode">Λειτουργία Λίστας επιτρεπόμενων</string>
     <string name="whitelist_mode_desc">Επιτρέψτε μόνο σε προεγκεκριμένες εφαρμογές να χρησιμοποιούν το DhizukuF</string>
     <string name="block_app">Αποκλεισμός Εφαρμογής</string>
-    <string name="auto_deny_in">Αυτόματη άρνηση σε</string>
-    <string name="block_app_desc">Πλήρης απαγόρευση πρόσβασης στο DhizukuF</string>
     <string name="app_blocked_notice">Αυτή η εφαρμογή είναι αποκλεισμένη και δεν έχει πρόσβαση στο DhizukuF</string>
     <string name="allow_dhizuku_access">Επιτρέψτε την πρόσβαση στο DhizukuF</string>
     <string name="auto_deny_in_seconds">Αυτόματη άρνηση σε %d δευτερόλεπτα</string>
@@ -50,9 +45,6 @@
     <string name="confirm_profile_owner">Κάτοχος Προφίλ</string>
     <string name="profile_owner_warning_title">Προειδοποίηση</string>
     <string name="profile_owner_warning_dsp">Αυτή είναι μια αλλαγή που θα πρέπει να γίνεται μόνο από χρήστες που κατανοούν τις επιπτώσεις της. Οι προγραμματιστές του DhizukuF δεν μπορούν να εγγυηθούν τίποτα σχετικά με απρόβλεπτη συμπεριφορά που προκαλείται από αυτή την αλλαγή λειτουργίας.</string>
-    <string name="donate_hide_action">Απόκρυψη</string>
-    <string name="donate_hide_confirm_title">Απόκρυψη Κουμπιού Δωρεάς</string>
-    <string name="donate_hide_confirm_dsp">Αυτό δεν μπορεί να αναιρεθεί μέσα από την εφαρμογή. Είστε βέβαιοι ότι θέλετε να αποκρύψετε μόνιμα το κουμπί δωρεάς;</string>
     <string name="home_status_owner_transferred">Το %1$s μεταφέρθηκε!!!</string>
     <string name="home_user_management_dsp">Διαχείριση χρηστών και των λογαριασμών τους.</string>
     <string name="user_manager">Διαχείριση χρηστών</string>
@@ -63,7 +55,6 @@
     <string name="remove">Αφαίρεση</string>
     <string name="account_manager">Διαχείριση λογαριασμών</string>
     <string name="account_empty">Δεν υπάρχει λογαριασμός</string>
-    <string name="copied_format_hail">αντιγράφηκε, εισαγάγετέ το στο Hail!</string>
     <string name="action_freeze">Πάγωμα</string>
     <string name="action_unfreeze">Ξεπάγωμα</string>
     <string name="action_open_sync_settings">Άνοιγμα ρυθμίσεων συγχρονισμού</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

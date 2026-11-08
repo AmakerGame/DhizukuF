@@ -14,9 +14,6 @@ import androidx.compose.material3.AlertDialog
 
 import com.EdS.DhizukuF.ui.widget.TvIconButton
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +34,6 @@ import androidx.compose.material.icons.twotone.LockOpen
 import androidx.compose.material.icons.twotone.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -56,12 +52,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.EdS.DhizukuF.R
-import com.EdS.DhizukuF.data.common.util.copy
 import com.EdS.DhizukuF.data.common.util.toast
 import com.EdS.DhizukuF.ui.page.settings.account_manager.components.AppCard
 import com.EdS.DhizukuF.ui.widget.EmptyState
 import com.EdS.DhizukuF.ui.theme.exclude
-import org.json.JSONArray
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 

@@ -114,12 +114,15 @@ data object DhizukuState {
         }
 
         permissions.forEach {
-            dpm.setPermissionGrantState(
-                admin,
-                admin.packageName,
-                it,
-                DevicePolicyManager.PERMISSION_GRANT_STATE_GRANTED
-            )
+            // One permission the system refuses must not stop the grant of the others.
+            runCatching {
+                dpm.setPermissionGrantState(
+                    admin,
+                    admin.packageName,
+                    it,
+                    DevicePolicyManager.PERMISSION_GRANT_STATE_GRANTED
+                )
+            }
         }
     }
 

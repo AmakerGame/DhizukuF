@@ -30,12 +30,9 @@
     <string name="finish">完成</string>
     <string name="home_deactivate_title">取消激活</string>
     <string name="home_deactivate_dsp">确认要取消激活吗？</string>
-    <string name="donate">捐赠</string>
     <string name="request_permission_text">是否允许<b>%1$s</b>访问DhizukuF?</string>
     <string name="agree">同意</string>
     <string name="refuse">拒绝</string>
-    <string name="service_channel_name">后台服务</string>
-    <string name="service_running">Dhizuku正在运行</string>
     <string name="permission_description">使用 Dhizuku 的 API</string>
     <string name="settings">设置</string>
     <string name="settings_desc">配置 DhizukuF 行为</string>
@@ -47,7 +44,6 @@
     <string name="remove">移除</string>
     <string name="account_manager">账号管理</string>
     <string name="account_empty">没有账户存在</string>
-    <string name="copied_format_hail">复制成功，请在【雹】中导入！</string>
     <string name="action_freeze">冷冻</string>
     <string name="action_unfreeze">解冻</string>
     <string name="action_open_sync_settings">打开同步设置</string>
@@ -59,8 +55,6 @@
     <string name="whitelist_mode">白名单模式</string>
     <string name="whitelist_mode_desc">仅允许已授权应用访问 DhizukuF</string>
     <string name="block_app">屏蔽应用</string>
-    <string name="auto_deny_in">自动拒绝：</string>
-    <string name="block_app_desc">拒绝访问 DhizukuF</string>
     <string name="app_blocked_notice">此应用已被屏蔽，无法访问 DhizukuF</string>
     <string name="allow_dhizuku_access">允许访问 DhizukuF</string>
     <string name="unblock_app">取消屏蔽应用</string>
@@ -73,9 +67,6 @@
     <string name="confirm_profile_owner">资料所有者</string>
     <string name="profile_owner_warning_title">警告</string>
     <string name="profile_owner_warning_dsp">此更改只应由了解其影响的用户进行。DhizukuF 的开发者无法对此模式更改导致的任何意外行为做出任何保证。</string>
-    <string name="donate_hide_action">隐藏</string>
-    <string name="donate_hide_confirm_title">隐藏捐赠按钮</string>
-    <string name="donate_hide_confirm_dsp">此操作无法在应用内撤销。确定要永久隐藏捐赠按钮吗？</string>
     <string name="home_status_owner_transferred">%1$s已转移！！！</string>
     <string name="error_occurred">发生错误：%1$s</string>
     <string name="error_remove_user">无法移除用户 %1$s</string>
@@ -157,7 +148,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -165,8 +155,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

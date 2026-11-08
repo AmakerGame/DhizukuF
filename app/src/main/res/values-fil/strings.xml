@@ -4,7 +4,6 @@
     <string name="home_status_owner_denied">Naghihintay para sa pag-activate</string>
     <string name="home_adb_dsp">Sa pamamagitan ng ADB (Android Debug Bridge) na koneksyon, makaka-execute ka ng ilang mga naka-pribilehiyo na command. Mangyaring &lt;a href=%1$s&gt;basahin ang tulong&lt;/a&gt;.</string>
     <string name="home_deactivate_title">I-deactivate</string>
-    <string name="service_channel_name">Serbisyo ng background</string>
     <string name="home_app_management_title">Pamamahala ng Application</string>
     <string name="home_shutdown_dsp">Hindi masa-shutdown ng sistema ang DhizukuF maliban kung gawin ito ng DhizukuF nang kusang loob.</string>
     <string name="agreement_title">Patakaran</string>
@@ -19,7 +18,6 @@
     <string name="request_permission_text">Payagan ang <b>%1$s</b> na i-access ang DhizukuF?</string>
     <string name="agree">Ibigay</string>
     <string name="refuse">Tanggihan</string>
-    <string name="service_running">Tumatakbo ang Dhizuku</string>
     <string name="home_adb_btn_view_command">Tignan ang command</string>
     <string name="cancel">Kanselahin</string>
     <string name="home_dhizuku_dsp">Kung mayroon kang iba pang mga implementasyon na naka-install, maaari kang magpalipat-lipat sa pagitan ng mga ito sa kalooban. Mangyaring &lt;a href=%1$s&gt;basahin ang tulong&lt;/a&gt;.</string>
@@ -28,7 +26,6 @@
     <string name="home_shutdown_title">I-shutdown</string>
     <string name="home_shizuku_dsp">Gamit ang Shizuku, may kakayahan kang tumakbo ng mga ADB command nang walang pangangailangan ng computer. Mangyaring &lt;a href=%1$s&gt;basahin ang tulong&lt;/a&gt;.</string>
     <string name="confirm">Sige</string>
-    <string name="donate">Mag-abuloy</string>
     <string name="settings">Mga Setting</string>
     <string name="settings_desc">I-configure ang pag-uugali ng DhizukuF</string>
     <string name="enable_dhizuku">I-enable ang DhizukuF</string>
@@ -36,8 +33,6 @@
     <string name="whitelist_mode">Whitelist Mode</string>
     <string name="whitelist_mode_desc">Payagan lamang ang mga inaprubahang app na gamitin ang DhizukuF</string>
     <string name="block_app">I-block ang App</string>
-    <string name="auto_deny_in">Awtomatikong tanggihan sa</string>
-    <string name="block_app_desc">Ganap na tanggihan ang access sa DhizukuF</string>
     <string name="app_blocked_notice">Naka-block ang app na ito at hindi maa-access ang DhizukuF</string>
     <string name="allow_dhizuku_access">Payagan ang Access sa DhizukuF</string>
     <string name="unblock_app">I-unblock ang App</string>
@@ -50,9 +45,6 @@
     <string name="confirm_profile_owner">May-ari ng Profile</string>
     <string name="profile_owner_warning_title">Babala</string>
     <string name="profile_owner_warning_dsp">Ito ay isang pagbabago na dapat lamang gawin ng mga user na nakakaunawa sa mga implikasyon nito. Hindi magagarantiya ng mga developer ng DhizukuF ang anumang bagay tungkol sa hindi inaasahang gawi na dulot ng pagbabagong ito sa mode.</string>
-    <string name="donate_hide_action">Itago</string>
-    <string name="donate_hide_confirm_title">Itago ang Donate na Button</string>
-    <string name="donate_hide_confirm_dsp">Hindi na ito maaaring bawiin sa loob ng app. Sigurado ka bang gusto mong permanenteng itago ang donate na button?</string>
     <string name="home_status_owner_transferred">Na-transfer na ang %1$s!!!</string>
     <string name="home_user_management_dsp">Pamahalaan ang mga user at ang kanilang mga account.</string>
     <string name="user_manager">Tagapamahala ng User</string>
@@ -63,7 +55,6 @@
     <string name="remove">Alisin</string>
     <string name="account_manager">Tagapamahala ng Account</string>
     <string name="account_empty">Walang account</string>
-    <string name="copied_format_hail">nakopya na, i-import ito sa Hail!</string>
     <string name="action_freeze">I-freeze</string>
     <string name="action_unfreeze">I-unfreeze</string>
     <string name="action_open_sync_settings">Buksan ang Mga Setting ng Sync</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>

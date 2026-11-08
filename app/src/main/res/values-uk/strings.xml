@@ -38,15 +38,9 @@
     <string name="profile_owner_warning_title">Попередження</string>
     <string name="profile_owner_warning_dsp">Цю зміну повинні робити лише користувачі, які розуміють її наслідки. Розробники DhizukuF не можуть гарантувати нічого щодо несподіваної поведінки, спричиненої зміною цього режиму.</string>
     <string name="finish">Готово</string>
-    <string name="donate">Підтримати</string>
-    <string name="donate_hide_action">Приховати</string>
-    <string name="donate_hide_confirm_title">Приховати кнопку «Підтримати»</string>
-    <string name="donate_hide_confirm_dsp">Цю дію неможливо скасувати в додатку. Ви впевнені, що хочете назавжди приховати кнопку підтримки?</string>
     <string name="request_permission_text">Дозволити <b>%1$s</b> доступ до DhizukuF?</string>
     <string name="agree">Дозволити</string>
     <string name="refuse">Заборонити</string>
-    <string name="service_channel_name">Фонова служба</string>
-    <string name="service_running">DhizukuF працює</string>
     <string name="settings">Налаштування</string>
     <string name="settings_desc">Налаштування поведінки DhizukuF</string>
     <string name="user_manager">Керування користувачами</string>
@@ -57,7 +51,6 @@
     <string name="remove">Видалити</string>
     <string name="account_manager">Керування обліковими записами</string>
     <string name="account_empty">Облікових записів немає</string>
-    <string name="copied_format_hail">скопійовано, імпортуйте це в Hail!</string>
     <string name="action_freeze">Заморозити</string>
     <string name="action_unfreeze">Розморозити</string>
     <string name="action_open_sync_settings">Відкрити налаштування синхронізації</string>
@@ -69,8 +62,6 @@
     <string name="whitelist_mode">Режим білого списку</string>
     <string name="whitelist_mode_desc">Дозволити використовувати DhizukuF лише попередньо схваленим додаткам</string>
     <string name="block_app">Заблокувати додаток</string>
-    <string name="auto_deny_in">Автоматична відмова через</string>
-    <string name="block_app_desc">Повністю заборонити доступ до DhizukuF</string>
     <string name="app_blocked_notice">Цей додаток заблоковано, він не має доступу до DhizukuF</string>
     <string name="allow_dhizuku_access">Дозволити доступ до DhizukuF</string>
     <string name="unblock_app">Розблокувати додаток</string>
@@ -274,7 +265,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -282,8 +272,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="launcher_name_device_owner" translatable="false">Device Owner</string>
     <string name="launcher_name_profile_owner" translatable="false">Profile Owner</string>
@@ -292,7 +280,6 @@
     <string name="daemon_notification_desc">Постійне сповіщення, поки працює служба Device Owner. Дотик відкриває DhizukuF. Якщо вимкнено, Android усе одно показує мінімальний тихий індикатор.</string>
     <string name="daemon_service_notification_quiet">Працює</string>
     <string name="oss_licenses">Ліцензії відкритого ПЗ</string>
-    <string name="oss_licenses_desc">Бібліотеки DhizukuF та їхні ліцензії</string>
     <string name="home_oss_title">Ліцензії відкритого ПЗ</string>
     <string name="home_oss_dsp">Бібліотеки застосунку та тексти ліцензій</string>
 </resources>

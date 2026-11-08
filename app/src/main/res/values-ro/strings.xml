@@ -30,15 +30,9 @@
     <string name="profile_owner_warning_title">Avertisment</string>
     <string name="profile_owner_warning_dsp">Această modificare trebuie făcută doar de utilizatorii care îi înțeleg consecințele. Dezvoltatorii DhizukuF nu pot garanta nimic cu privire la comportamentul neașteptat cauzat de această schimbare de mod.</string>
     <string name="finish">Finalizare</string>
-    <string name="donate">Donează</string>
-    <string name="donate_hide_action">Ascunde</string>
-    <string name="donate_hide_confirm_title">Ascunde butonul de donație</string>
-    <string name="donate_hide_confirm_dsp">Acest lucru nu poate fi anulat din aplicație. Sigur doriți să ascundeți definitiv butonul de donație?</string>
     <string name="request_permission_text">Permiteți ca <b>%1$s</b> să acceseze DhizukuF?</string>
     <string name="agree">Permite</string>
     <string name="refuse">Refuză</string>
-    <string name="service_channel_name">Serviciu de fundal</string>
-    <string name="service_running">DhizukuF rulează</string>
     <string name="settings">Setări</string>
     <string name="settings_desc">Configurați comportamentul DhizukuF</string>
     <string name="user_manager">Manager de utilizatori</string>
@@ -49,7 +43,6 @@
     <string name="remove">Elimină</string>
     <string name="account_manager">Manager de conturi</string>
     <string name="account_empty">Nu există niciun cont</string>
-    <string name="copied_format_hail">copiat, importați în Hail!</string>
     <string name="action_freeze">Îngheață</string>
     <string name="action_unfreeze">Dezgheață</string>
     <string name="action_open_sync_settings">Deschide setările de sincronizare</string>
@@ -61,8 +54,6 @@
     <string name="whitelist_mode">Mod listă albă</string>
     <string name="whitelist_mode_desc">Permite doar aplicațiilor aprobate în prealabil să folosească DhizukuF</string>
     <string name="block_app">Blochează aplicația</string>
-    <string name="auto_deny_in">Refuz automat în</string>
-    <string name="block_app_desc">Refuză complet accesul la DhizukuF</string>
     <string name="app_blocked_notice">Această aplicație este blocată și nu poate accesa DhizukuF</string>
     <string name="allow_dhizuku_access">Permite accesul la DhizukuF</string>
     <string name="unblock_app">Deblochează aplicația</string>
@@ -150,7 +141,6 @@
     <string name="dish_err_method_denied" translatable="false">The method %1$s is blocked in dish</string>
     <string name="dish_err_no_method" translatable="false">No such method: %1$s</string>
     <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
-    <string name="dish_err_protocol" translatable="false">dish: incompatible client version, export the dish files again</string>
     <string name="dish_err_unknown_caller" translatable="false">Access check failed: the calling app could not be identified.</string>
     <string name="dish_err_unknown_command" translatable="false">Unknown command: %1$s. Type help.</string>
     <string name="dish_err_unsupported" translatable="false">Not supported on this Android version</string>
@@ -158,8 +148,6 @@
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
     <string name="dish_need_permission" translatable="false">Access required: approve %1$s in the DhizukuF window, or enable it in DhizukuF > App management. Waiting for your answer...</string>
     <string name="dish_no" translatable="false">no</string>
-    <string name="dish_ok" translatable="false">OK</string>
-    <string name="dish_status" translatable="false">DhizukuF: %1$s\nDevice owner: %2$s\nProfile owner: %3$s\nAndroid API: %4$d\n</string>
     <string name="dish_yes" translatable="false">yes</string>
     <string name="freeze_all_confirm_text">Every app that signs accounts in is switched off for this user, Google Play Services among them. Apps that need an account stop working until you press Unfreeze All.</string>
     <string name="freeze_all_confirm_title">Freeze all account apps?</string>
