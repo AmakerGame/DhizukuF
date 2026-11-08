@@ -264,7 +264,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">Rendszergazda</string>
     <string name="administrator_desc">Szabványos eszköz-adminisztrátor: kis rendszerszintű jogkészlet, amelyet az Android beállításaiban lévő kapcsoló ad meg. Nincs eszköztulajdonos, profilbirtokos vagy root.</string>
-    <string name="administrator_warning">FIGYELEM: ez a legszűkebb mód. Nem tud más alkalmazásokat kezelni, nem módosíthatja a rendszerbeállításokat, és nem tudja megvédeni magát a törléstől. Csak a kínált néhány funkcióhoz használd: képernyőzár, jelszófigyelés és hasonlók.</string>
+    <string name="administrator_warning">FIGYELEM: Ez a legkorlátozottabb mód. Nem tud más alkalmazásokat kezelni vagy a legtöbb rendszerbeállítást módosítani, az adminisztrátori jog pedig az Android beállításaiban mindig eltávolítható. Csak a kevés kínált funkcióhoz használd: képernyőzár, eszközműveletek és jelszófigyelés.</string>
     <string name="home_status_administrator">Rendszergazda vagy</string>
     <string name="administrator_explanation">A DhizukuF-nek eszköz-adminisztrátori jogokra van szüksége a korlátozott adminisztrátori funkcióihoz (képernyőzár, jelszófigyelés). Ez nem eszköztulajdonos, és nem ad root-hozzáférést.</string>
     <string name="administrator_open_settings">Eszköz-adminisztrátori beállítások megnyitása</string>

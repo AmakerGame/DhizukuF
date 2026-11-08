@@ -166,6 +166,7 @@ fun HomePage(
 ) {
     val dhizukuState = DhizukuState.state
     val owner = dhizukuState.isOwner
+    val activated = owner || dhizukuState.isAdministrator
     val settingsRepo = koinInject<SettingsRepo>()
     // "Logs" is hidden by default: it appears only while logging is switched on in Settings > Logs.
     val logsFlow = remember { settingsRepo.flowLogConfig() }
@@ -180,8 +181,8 @@ fun HomePage(
     // The cards that exist on this screen right now (some depend on the state of DhizukuF).
     val available = buildSet {
         add("dhizuku_state")
-        if (owner) add("settings")
-        if (owner) add("security")
+        if (activated) add("settings")
+        if (activated) add("security")
         add("customization")
         if (owner) add("app_management")
         add("user_management")

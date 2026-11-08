@@ -264,7 +264,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">Administrator</string>
     <string name="administrator_desc">Administrator perangkat standar: sekumpulan kecil hak sistem yang diberikan oleh tombol di pengaturan Android. Tanpa Pemilik Perangkat, Pemilik Profil, atau root.</string>
-    <string name="administrator_warning">PERHATIAN: ini adalah mode paling terbatas. Tidak dapat mengelola aplikasi lain, mengubah pengaturan sistem, atau melindungi diri dari penghapusan. Gunakan hanya untuk beberapa hal yang ditawarkannya: kunci layar, pemantauan kata sandi, dan sejenisnya.</string>
+    <string name="administrator_warning">PERHATIAN: Ini adalah mode paling terbatas. Tidak dapat mengelola aplikasi lain atau mengubah sebagian besar pengaturan sistem, dan hak admin selalu dapat dihapus di pengaturan Android. Gunakan hanya untuk sedikit fitur yang ditawarkan: kunci layar, tindakan perangkat, dan pemantauan kata sandi.</string>
     <string name="home_status_administrator">Anda adalah Administrator</string>
     <string name="administrator_explanation">DhizukuF memerlukan hak administrator perangkat untuk menawarkan fitur administrator terbatasnya (kunci layar, pemantauan kata sandi). Ini bukan Pemilik Perangkat dan tidak memberikan akses root.</string>
     <string name="administrator_open_settings">Buka pengaturan administrator perangkat</string>

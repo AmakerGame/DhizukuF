@@ -78,6 +78,7 @@ class DishCommands(
     private fun modeName() = when {
         isDeviceOwner() -> "Device Owner"
         isProfileOwner() -> "Profile Owner"
+        runCatching { dpm.isAdminActive(DhizukuState.admin) }.getOrDefault(false) -> "Administrator"
         else -> "not an owner"
     }
 
@@ -92,7 +93,7 @@ class DishCommands(
             t !is SecurityException -> ""
             isProfileOwner() && !isDeviceOwner() ->
                 " (DhizukuF is Profile Owner; this call probably needs Device Owner)"
-            else -> " (the system did not allow this for Device Owner)"
+            else -> " (the system did not allow this call)"
         }
         return notDone("${t.javaClass.simpleName}: ${t.message ?: ""}$hint")
     }
@@ -350,11 +351,13 @@ class DishCommands(
                 sb.append(group).append(":\n  ")
                     .append(items.joinToString(" ") {
                         it.name + (if (it.name in DEVICE_OWNER_ONLY) "*" else "") +
+                            (if (it.name in ADMIN_COMMANDS) "~" else "") +
                             (if (it.name in DANGEROUS_COMMANDS) "!" else "")
                     })
                     .append("\n")
             }
-            sb.append("\n* needs Device Owner (not available in Profile Owner mode)\n")
+            sb.append("\n* needs Device Owner (not available in Profile Owner or Administrator mode)\n")
+            sb.append("~ also works for Administrator (device-admin rights; the system decides per call)\n")
             sb.append("! some or all forms are dangerous: they need Enable dangerous commands (off by default)\n")
             return Result(out = sb.toString())
         }
@@ -370,7 +373,8 @@ class DishCommands(
         sb.append("Usage: ").append(e.usage).append("\n")
         if (e.example != null) sb.append("Example: ").append(e.example).append("\n")
         val note = OWNER_NOTES[e.name]
-            ?: if (e.name in DEVICE_OWNER_ONLY) "Device Owner only (status/get still work in Profile Owner mode)"
+            ?: if (e.name in DEVICE_OWNER_ONLY) "Device Owner only"
+            else if (e.name in ADMIN_COMMANDS) "Device Owner, Profile Owner or Administrator"
             else "Device Owner and Profile Owner (in Profile Owner mode it affects the managed profile only)"
         sb.append("Needs: ").append(note).append("\n")
         if (e.name in DANGEROUS_COMMANDS) {
@@ -390,11 +394,13 @@ class DishCommands(
 
     private fun status(): Result {
         val adminName = runCatching { admin.flattenToShortString() }.getOrDefault("?")
+        val adminActive = runCatching { dpm.isAdminActive(DhizukuState.admin) }.getOrDefault(false)
         return Result(
             out = "DhizukuF: ${context.packageName} ${appVersion()}\n" +
                 "Mode: ${modeName()}\n" +
                 "Device owner: ${yesNo(isDeviceOwner())}\n" +
                 "Profile owner: ${yesNo(isProfileOwner())}\n" +
+                "Administrator: ${yesNo(adminActive)}\n" +
                 (if (isDeviceOwner()) "" else "Limited: commands marked * in help need Device Owner\n") +
                 "Admin component: $adminName\n" +
                 "Dangerous commands: ${if (dangerousEnabled) "on" else "off"}\n" +
@@ -1441,6 +1447,22 @@ class DishCommands(
             "bugreport", "lock-task", "location", "time", "adb-wifi"
         )
 
+        /**
+         * Commands a plain device Administrator may also run: they use only calls the system
+         * grants to an active admin (lockNow, wipeData, setUninstallBlocked, camera, password
+         * policies, permission grants, ...). Everything else still needs an owner, and `api`
+         * depends on the called method.
+         */
+        private val ADMIN_COMMANDS = setOf(
+            "help", "status", "version", "id", "device", "ping", "log", "batch",
+            "wipe", "lock",
+            "list", "app-info", "is-hidden", "is-suspended", "is-uninstall-blocked",
+            "block-uninstall", "allow-uninstall", "app-restrictions", "enable-system-app",
+            "install-existing", "clear-data", "permission", "permission-policy", "restriction",
+            "camera", "screen-capture", "org-name", "lock-timeout", "ime",
+            "settings", "api"
+        )
+
         /** Commands with at least one dangerous form (see isDangerous). */
         private val DANGEROUS_COMMANDS = setOf(
             "reboot", "clear-data", "wipe", "api", "settings", "permission", "permission-policy",
@@ -1449,16 +1471,16 @@ class DishCommands(
         )
 
         private val OWNER_NOTES = mapOf(
-            "settings" to "Device Owner for: settings put global. Other forms work in both modes",
-            "api" to "depends on the method; many DevicePolicyManager methods need Device Owner",
+            "settings" to "Device Owner for: settings put global. put secure also works for Administrator",
+            "api" to "depends on the method; DevicePolicyManager calls a device admin may use also work for Administrator",
             "help" to "nothing special",
             "log" to "nothing special",
             "batch" to "each command inside keeps its own requirements",
-            "ping" to "Device Owner or Profile Owner",
+            "ping" to "Device Owner, Profile Owner or Administrator",
             "version" to "nothing special",
             "id" to "nothing special",
             "device" to "nothing special",
-            "status" to "Device Owner or Profile Owner"
+            "status" to "Device Owner, Profile Owner or Administrator"
         )
 
         /** command name -> usage, used for errors and hints. */

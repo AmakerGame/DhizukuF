@@ -264,7 +264,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">Administrátor</string>
     <string name="administrator_desc">Štandardný správca zariadenia: malá sada systémových oprávnení udelených prepínačom v nastaveniach Androidu. Žiadny vlastník zariadenia, vlastník profilu ani root.</string>
-    <string name="administrator_warning">POZOR: toto je najobmedzenejší režim. Nemôže spravovať iné aplikácie, meniť systémové nastavenia ani sa chrániť pred odinštalovaním. Používajte ho len na niekoľko ponúkaných funkcií: zámok obrazovky, monitorovanie hesla atď.</string>
+    <string name="administrator_warning">UPOZORNENIE: Toto je najobmedzenejší režim. Nemôže spravovať iné aplikácie ani meniť väčšinu systémových nastavení a právo správcu sa v nastaveniach Androidu dá vždy odstrániť. Používajte ho len na niekoľko ponúkaných funkcií: zamknutie obrazovky, akcie so zariadením a sledovanie hesla.</string>
     <string name="home_status_administrator">Ste Administrátor</string>
     <string name="administrator_explanation">DhizukuF potrebuje oprávnenia správcu zariadenia pre svoje obmedzené funkcie správcu (zámok obrazovky, monitorovanie hesla). Nejde o vlastníka zariadenia a neposkytuje root prístup.</string>
     <string name="administrator_open_settings">Otvoriť nastavenia správcu zariadenia</string>

@@ -231,13 +231,14 @@ object DishEngine : KoinComponent {
     }
 
     private fun gate(context: Context): String? = when {
-        !DhizukuState.state.isOwner -> str(context, R.string.dish_err_not_owner)
+        !(DhizukuState.state.isOwner || DhizukuState.state.isAdministrator) ->
+            str(context, R.string.dish_err_not_owner)
         !settingsRepo.isDishEnabled -> str(context, R.string.dish_err_disabled)
         else -> null
     }
 
     private fun authorize(context: Context, uid: Int): Verdict {
-        if (!DhizukuState.state.isOwner) {
+        if (!(DhizukuState.state.isOwner || DhizukuState.state.isAdministrator)) {
             return Verdict.Denied(str(context, R.string.dish_err_not_owner))
         }
         if (!settingsRepo.isDishEnabled) {

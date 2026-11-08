@@ -264,7 +264,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">Administrator</string>
     <string name="administrator_desc">Standart qurilma administratori: Android sozlamalaridagi kalit bilan beriladigan kichik tizim huquqlari to’plami. Qurilma egasi, profil egasi yoki root yo’q.</string>
-    <string name="administrator_warning">EHTIYOT: bu eng cheklangan rejim. U boshqa ilovalarni boshqara olmaydi, tizim sozlamalarini o’zgartira olmaydi va o’zini o’chirishdan himoya qila olmaydi. Uni faqat taklif qiladigan bir necha funksiya uchun ishlating: ekran qulfi, parol monitoringi va boshqalar.</string>
+    <string name="administrator_warning">DIQQAT: Bu eng cheklangan rejim. U boshqa ilovalarni boshqara olmaydi yoki tizim sozlamalarining aksariyatini o\'zgartira olmaydi va admin huquqini Android sozlamalarida har doim olib tashlash mumkin. Uni faqat taklif etilgan oz funksiyalar uchun ishlating: ekran qulfi, qurilma amallari va parol monitoringi.</string>
     <string name="home_status_administrator">Siz Administratorsiz</string>
     <string name="administrator_explanation">DhizukuF cheklangan administrator funksiyalari (ekran qulfi, parol monitoringi) uchun qurilma administratori huquqlariga muhtoj. Bu Qurilma Egasi emas va root kirish bermaydi.</string>
     <string name="administrator_open_settings">Qurilma administratori sozlamalarini ochish</string>

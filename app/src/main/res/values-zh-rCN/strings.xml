@@ -271,7 +271,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">管理员</string>
     <string name="administrator_desc">标准设备管理员：通过 Android 设置中的开关授予的一小组系统权限。不是设备所有者、配置文件所有者，也没有 root。</string>
-    <string name="administrator_warning">注意：这是限制最多的模式。它无法管理其他应用、无法更改系统设置，也无法防止自身被卸载。仅用于其提供的少数功能：屏幕锁定、密码监控等。</string>
+    <string name="administrator_warning">注意：这是最受限的模式。它无法管理其他应用或更改大多数系统设置，管理员权限始终可以在 Android 设置中移除。仅将其用于提供的少数功能：屏幕锁定、设备操作和密码监控。</string>
     <string name="home_status_administrator">您是管理员</string>
     <string name="administrator_explanation">DhizukuF 需要设备管理员权限才能提供其有限的管理员功能（屏幕锁定、密码监控）。它不是设备所有者，也不提供 root 访问。</string>
     <string name="administrator_open_settings">打开设备管理员设置</string>

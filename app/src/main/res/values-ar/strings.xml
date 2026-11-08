@@ -264,7 +264,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">المسؤول</string>
     <string name="administrator_desc">مسؤول الجهاز القياسي: مجموعة صغيرة من صلاحيات النظام تُمنح عبر مفتاح التبديل في إعدادات Android. بدون مالك للجهاز أو مالك للملف الشخصي أو root.</string>
-    <string name="administrator_warning">تحذير: هذا هو الوضع الأكثر تقييدًا. لا يمكنه إدارة التطبيقات الأخرى أو تغيير إعدادات النظام أو حماية نفسه من الإزالة. استخدمه فقط للميزات القليلة التي يقدمها: قفل الشاشة ومراقبة كلمة المرور وما شابه.</string>
+    <string name="administrator_warning">تحذير: هذا هو الوضع الأكثر تقييدًا. لا يمكنه إدارة التطبيقات الأخرى أو تغيير معظم إعدادات النظام، ويمكن دائمًا إزالة حق المسؤول من إعدادات Android. استخدمه فقط للميزات القليلة التي يوفرها: قفل الشاشة وإجراءات الجهاز ومراقبة كلمة المرور.</string>
     <string name="home_status_administrator">أنت مسؤول</string>
     <string name="administrator_explanation">يحتاج DhizukuF إلى صلاحيات مسؤول الجهاز لتقديم ميزات المسؤول المحدودة (قفل الشاشة، مراقبة كلمة المرور). هذا ليس مالك الجهاز ولا يمنح وصول root.</string>
     <string name="administrator_open_settings">فتح إعدادات مسؤول الجهاز</string>

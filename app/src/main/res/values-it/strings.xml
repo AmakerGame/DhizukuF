@@ -264,7 +264,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">Amministratore</string>
     <string name="administrator_desc">Amministratore del dispositivo standard: un piccolo set di diritti di sistema concessi dall’interruttore nelle impostazioni Android. Nessun proprietario del dispositivo, nessun proprietario del profilo, nessun root.</string>
-    <string name="administrator_warning">ATTENZIONE: questa è la modalità più limitata. Non può gestire altre app, modificare le impostazioni di sistema né proteggersi dalla disinstallazione. Usala solo per le poche funzioni offerte: blocco schermo, monitoraggio password e simili.</string>
+    <string name="administrator_warning">ATTENZIONE: questa è la modalità più limitata. Non può gestire altre app né modificare la maggior parte delle impostazioni di sistema, e il diritto di amministratore può sempre essere rimosso nelle impostazioni Android. Usala solo per le poche funzioni offerte: blocco schermo, azioni del dispositivo e monitoraggio password.</string>
     <string name="home_status_administrator">Sei Amministratore</string>
     <string name="administrator_explanation">DhizukuF ha bisogno dei diritti di amministratore del dispositivo per offrire le sue funzioni di amministratore limitate (blocco schermo, monitoraggio password). Non è il proprietario del dispositivo e non dà accesso root.</string>
     <string name="administrator_open_settings">Apri impostazioni amministratore dispositivo</string>

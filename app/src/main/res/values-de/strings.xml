@@ -264,7 +264,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">Administrator</string>
     <string name="administrator_desc">Standard-Geräteadministrator: ein kleiner Satz Systemrechte, der über den Schalter in den Android-Einstellungen vergeben wird. Kein Geräteinhaber, kein Profilinhaber, kein Root.</string>
-    <string name="administrator_warning">ACHTUNG: Dies ist der eingeschränkteste Modus. Er kann keine anderen Apps verwalten, keine Systemeinstellungen ändern und sich nicht vor dem Entfernen schützen. Verwende ihn nur für die wenigen angebotenen Funktionen: Bildschirmsperre, Passwort-Überwachung und Ähnliches.</string>
+    <string name="administrator_warning">ACHTUNG: Dies ist der eingeschränktste Modus. Er kann andere Apps nicht verwalten und die meisten Systemeinstellungen nicht ändern, und das Admin-Recht kann in den Android-Einstellungen jederzeit entfernt werden. Nur für die wenigen angebotenen Funktionen verwenden: Bildschirmsperre, Geräteaktionen und Passwort-Überwachung.</string>
     <string name="home_status_administrator">Du bist Administrator</string>
     <string name="administrator_explanation">DhizukuF benötigt Geräteadministrator-Rechte für seine eingeschränkten Administrator-Funktionen (Bildschirmsperre, Passwort-Überwachung). Dies ist kein Geräteinhaber und gewährt keinen Root-Zugriff.</string>
     <string name="administrator_open_settings">Geräteadmin-Einstellungen öffnen</string>

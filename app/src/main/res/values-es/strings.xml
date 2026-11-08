@@ -264,7 +264,7 @@
     <string name="theme_system_desc">Follows the dark mode of the device</string>
     <string name="administrator_title">Administrador</string>
     <string name="administrator_desc">Administrador de dispositivo estándar: un pequeño conjunto de permisos del sistema concedidos por el interruptor de los ajustes de Android. Sin propietario del dispositivo, sin propietario del perfil, sin root.</string>
-    <string name="administrator_warning">PRECAUCIÓN: este es el modo más limitado. No puede gestionar otras aplicaciones, no puede cambiar los ajustes del sistema ni protegerse de la desinstalación. Úsalo solo para las pocas funciones que ofrece: bloqueo de pantalla, monitorización de contraseña y similares.</string>
+    <string name="administrator_warning">PRECAUCIÓN: este es el modo más limitado. No puede gestionar otras apps ni cambiar la mayoría de los ajustes del sistema, y el derecho de administrador siempre puede retirarse en los ajustes de Android. Úsalo solo para las pocas funciones que ofrece: bloqueo de pantalla, acciones del dispositivo y monitorización de contraseña.</string>
     <string name="home_status_administrator">Eres Administrador</string>
     <string name="administrator_explanation">DhizukuF necesita permisos de administrador de dispositivo para ofrecer sus funciones de administrador limitadas (bloqueo de pantalla, monitorización de contraseña). No es el propietario del dispositivo y no da acceso root.</string>
     <string name="administrator_open_settings">Abrir ajustes de administrador del dispositivo</string>

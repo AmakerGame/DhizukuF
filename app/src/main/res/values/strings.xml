@@ -83,7 +83,7 @@
     <string name="dish_export_failed">Could not export the dish files</string>
     <string name="dish_export_done_title">dish files exported</string>
     <string name="dish_export_done_dsp">Copy both files to a folder where your terminal can run scripts, then start dish:\n\nTermux (run termux-setup-storage once):\ncp /sdcard/PATH_TO_FOLDER/dish* $PREFIX/bin/\nchmod +x $PREFIX/bin/dish\ndish help\n\nadb (from a computer):\nadb push dish dish_dhizukuf.dex /data/local/tmp/\nadb shell sh /data/local/tmp/dish help\n\nAny other terminal: sh /path/to/dish help\n\nKeep both files together. On the first run DhizukuF asks you to approve access, like for any other app. Most commands need DhizukuF to be the Device Owner (Profile Owner support is limited).</string>
-    <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not the Device Owner or Profile Owner. Activate DhizukuF first.</string>
+    <string name="dish_err_not_owner" translatable="false">Access check failed: DhizukuF is not activated (Device Owner, Profile Owner or Administrator). Activate DhizukuF first.</string>
     <string name="dish_err_disabled" translatable="false">Access check failed: dish is turned off in DhizukuF. Turn on Enable dish in the DhizukuF settings.</string>
     <string name="dish_err_blocked" translatable="false">Access check failed: this app is blocked in DhizukuF > App management.</string>
     <string name="dish_err_whitelist" translatable="false">Access check failed: whitelist mode is on. Enable this app in DhizukuF > App management, then run dish again.</string>
@@ -286,7 +286,7 @@
 
     <string name="administrator_title">Administrator</string>
     <string name="administrator_desc">Standard device administrator: a small set of system rights granted by the Android settings toggle. No Device Owner, no Profile Owner, no root.</string>
-    <string name="administrator_warning">CAUTION: this is the most limited mode. It cannot manage other apps, cannot change system settings and cannot protect itself from removal. Use it only for the few things it offers: the screen lock, password monitoring and similar.</string>
+    <string name="administrator_warning">CAUTION: this is the most limited mode. It cannot manage other apps or change most system settings, and the admin right can always be removed in Android settings. Use it only for the few things it offers: screen lock, device actions and password monitoring.</string>
     <string name="home_status_administrator">You are Administrator</string>
     <string name="administrator_explanation">DhizukuF needs device administrator rights to offer its limited administrator features (screen lock, password monitoring). This is not Device Owner and does not give root access.</string>
     <string name="administrator_open_settings">Open device admin settings</string>

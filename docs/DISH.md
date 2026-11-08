@@ -12,8 +12,9 @@ the same way `rish` works for Shizuku.
 3. Run `dish` (interactive, prompt `dish$ `), `dish help`, or `dish -c "status"`.
    Also: `dish --help` / `dish --version` (no connection), `dish -c ""` (empty, exit 0),
    `dish -c "status ; device"` (several commands, stop on first failure).
-   Before the prompt appears dish checks access. If dish is off, DhizukuF is not the Device Owner
-   or access is refused, it prints the reason and does not start. (`DISH_SKIP_CHECK=1` skips the check.)
+   Before the prompt appears dish checks access. If dish is off, DhizukuF is not activated
+   (Device Owner, Profile Owner or Administrator) or access is refused, it prints the reason and
+   does not start. (`DISH_SKIP_CHECK=1` skips the check.)
 4. The first run sends a registration request: the terminal appears in **DhizukuF > App management**
    (switch off) and the usual approval dialog opens, e.g. "Allow Termux (dish) to use Dhizuku?".
    dish waits up to 60 seconds; you can also flip the switch in the list. Later the entry can be
@@ -57,7 +58,7 @@ The dish client is version **1.1** (protocol 1). Source is split into:
 
 ```sh
 dish                      # interactive (after access check)
-dish help                 # one Device Owner command
+dish help                 # command list with mode markers (* = Device Owner, ~ = also Administrator)
 dish -c "status"          # command line
 dish -c ""                # empty line, exit 0
 dish -c "status ; device" # several commands; stop on first failure
@@ -159,18 +160,28 @@ it is off, dangerous calls of an API client are refused, and with it on the API 
 [SECURITY.md](../SECURITY.md) for the list). With **Enable dangerous commands** off, dish blocks wipe, factory reset, removing users and similar
 calls stay blocked even when the switch is on (`dish api` refuses them).
 
-## Device Owner and Profile Owner
+## Device Owner, Profile Owner and Administrator
 
-dish works when DhizukuF is the **Device Owner** or the **Profile Owner**, but Profile Owner is a
-limited mode. Commands that change device-wide state need the Device Owner: `reboot`, `adb`,
-`stay-awake`, `timezone`, `private-dns`, `keyguard`, `status-bar`, `owner-info`, `auto-time`,
-`auto-timezone` and `settings put global`. In Profile Owner mode they answer
+dish works when DhizukuF is the **Device Owner**, the **Profile Owner** or a plain device
+**Administrator** (the standard Android device-admin toggle, see [ADMINISTRATOR.md](ADMINISTRATOR.md)).
+Profile Owner is a limited mode and Administrator is the most limited one.
+
+Commands that change device-wide state need the Device Owner: `reboot`, `adb`, `stay-awake`,
+`timezone`, `private-dns`, `keyguard`, `status-bar`, `owner-info`, `auto-time`, `auto-timezone` and
+`settings put global`. In Profile Owner mode they answer
 `NOT DONE: <command> needs Device Owner, but DhizukuF is Profile Owner.` (reading with `status` or
 `get` still works). App and profile commands (`hide`, `suspend`, `permission`, `restriction`,
-`camera`, ...) work in both modes, but in Profile Owner mode they affect the managed profile only.
+`camera`, ...) work in both owner modes, but in Profile Owner mode they affect the managed profile
+only.
 
-`dish status` shows the current mode. In `dish help` commands marked `*` need the Device Owner, and
-`dish help COMMAND` has a `Needs:` line.
+In **Administrator** mode dish runs the commands a device admin is actually allowed to use —
+`lock`, `wipe`, `block-uninstall`, `camera`, `screen-capture`, `permission`, `app-restrictions`,
+`settings put secure`, `api` for admin-permitted methods, and the read-only info commands. The
+Device-Owner-only commands still answer "needs Device Owner", and calls the system does not grant
+to a plain admin fail with the system's own refusal.
+
+`dish status` shows the current mode. In `dish help` commands marked `*` need the Device Owner,
+commands marked `~` also work for Administrator, and `dish help COMMAND` has a `Needs:` line.
 
 ## Answers
 

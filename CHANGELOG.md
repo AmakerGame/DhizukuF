@@ -3,13 +3,17 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
-## Unreleased
+## 1.7.0 (13)
 
 ### Added
 - **Administrator mode**: the standard Android device administrator right, activated from the new
   home card (system toggle, no root/ADB). The status card now distinguishes three states —
-  Device Owner, Profile Owner and Administrator (the most limited). Administrator gets screen-lock
-  and password-monitoring callbacks logged as "Security alert"; see [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md).
+  Device Owner, Profile Owner and Administrator (the most limited). dish and the Dhizuku API now
+  work in Administrator mode and expose exactly the calls a device admin is allowed to make;
+  owner-only commands still answer "needs Device Owner". `dish help` marks admin-capable commands
+  with `~`, `dish status` shows the Administrator state, and `dish_dhizukuf.dex` was rebuilt.
+  Password-monitor callbacks are logged as "Security alert"; see
+  [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md).
 - Dhizuku-API updated to **2.7.0** (Dhizuku-SERVER_API 0.2.0): lock-task mode events are forwarded
   to API clients.
 - Strings for Administrator mode in all locales.
@@ -22,6 +26,10 @@ The newest changes are at the top.
 
 ### Fixed
 - **Security page**: fixed a syntax error that broke the build of the Security screen.
+- **Home screen**: the *Settings* and *Security* cards were hidden in Administrator mode — they
+  are now shown for Device Owner, Profile Owner and Administrator alike.
+- **Activate / App management pages**: fixed missing `ui.theme.plus` import that broke compilation
+  of `PaddingValues` padding.
 
 ## 1.6.0 (12)
 

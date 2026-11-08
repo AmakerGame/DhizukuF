@@ -41,7 +41,7 @@ data object DhizukuState {
     var state by mutableStateOf(State())
         private set
 
-    var admin = ComponentName(BuildConfig.APPLICATION_ID, DhizukuDAReceiver::class.java.name)
+    var admin: ComponentName = ComponentName(BuildConfig.APPLICATION_ID, DhizukuDAReceiver::class.java.name)
 
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val syncMutex = Mutex()
