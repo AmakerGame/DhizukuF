@@ -23,6 +23,7 @@ fun LogEvent.titleRes(): Int = when (this) {
     LogEvent.CommandFailed -> R.string.log_event_command_failed
     LogEvent.CommandBlocked -> R.string.log_event_command_blocked
     LogEvent.ErrorOccurred -> R.string.log_event_error
+    LogEvent.SecurityAlert -> R.string.log_event_security_alert
     LogEvent.DebugInfo -> R.string.log_event_debug
 }
 

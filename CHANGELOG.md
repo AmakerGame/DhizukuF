@@ -3,6 +3,26 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## Unreleased
+
+### Added
+- **Administrator mode**: the standard Android device administrator right, activated from the new
+  home card (system toggle, no root/ADB). The status card now distinguishes three states —
+  Device Owner, Profile Owner and Administrator (the most limited). Administrator gets screen-lock
+  and password-monitoring callbacks logged as "Security alert"; see [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md).
+- Dhizuku-API updated to **2.7.0** (Dhizuku-SERVER_API 0.2.0): lock-task mode events are forwarded
+  to API clients.
+- Strings for Administrator mode in all locales.
+
+### Changed
+- Dangerous-call blocking now also covers `removeActiveAdmin`, `setDeviceOwner`, `setProfileOwner`,
+  `setActiveAdmin`, `clearDeviceOwner`, `forceRemoveActiveAdmin` in both the Dhizuku API path
+  (`DangerousCalls`) and `dish api` (`DENIED_METHODS`). They stay blocked until *Enable dangerous
+  commands* is switched on.
+
+### Fixed
+- **Security page**: fixed a syntax error that broke the build of the Security screen.
+
 ## 1.6.0 (12)
 
 ### Fixed

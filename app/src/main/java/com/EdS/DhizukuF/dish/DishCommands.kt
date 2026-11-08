@@ -1466,8 +1466,10 @@ class DishCommands(
 
         /** Destructive or ownership-changing calls are never exposed through `dish api`. */
         private val DENIED_METHODS = setOf(
-            "wipeData", "wipeDevice", "clearDeviceOwnerApp", "clearProfileOwner",
-            "removeActiveAdmin", "transferOwnership", "resetPassword",
+            "wipeData", "wipeDevice", "clearDeviceOwner", "clearDeviceOwnerApp", "clearProfileOwner",
+            "removeActiveAdmin", "forceRemoveActiveAdmin",
+            "setDeviceOwner", "setProfileOwner", "setActiveAdmin",
+            "transferOwnership", "resetPassword",
             "resetPasswordWithToken", "setResetPasswordToken"
         )
     }

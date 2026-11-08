@@ -27,8 +27,15 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 data object DhizukuState {
-    data class State(val isDeviceOwner: Boolean = false, val isProfileOwner: Boolean = false) {
+    data class State(
+        val isDeviceOwner: Boolean = false,
+        val isProfileOwner: Boolean = false,
+        val isAdminActive: Boolean = false
+    ) {
         val isOwner = isDeviceOwner || isProfileOwner
+
+        /** Plain device administrator: an active admin that is not the Device / Profile Owner. */
+        val isAdministrator = isAdminActive && !isOwner
     }
 
     var state by mutableStateOf(State())
@@ -46,6 +53,7 @@ data object DhizukuState {
     private fun describe(s: State) = when {
         s.isDeviceOwner -> "Device Owner"
         s.isProfileOwner -> "Profile Owner"
+        s.isAdministrator -> "Administrator"
         else -> "not an owner"
     }
 
@@ -65,7 +73,8 @@ data object DhizukuState {
         // Cheap: update the UI state right away.
         val newState = State(
             isDeviceOwner = dpm.isDeviceOwnerApp(admin.packageName),
-            isProfileOwner = dpm.isProfileOwnerApp(admin.packageName)
+            isProfileOwner = dpm.isProfileOwnerApp(admin.packageName),
+            isAdminActive = runCatching { dpm.isAdminActive(admin) }.getOrDefault(false)
         )
         state = newState
         logOwnerStatus(newState)

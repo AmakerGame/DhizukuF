@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">管理員</string>
+    <string name="administrator_desc">標準裝置管理員：透過 Android 設定中的開關授予的一小組系統權限。不是裝置擁有者、設定檔擁有者，也沒有 root。</string>
+    <string name="administrator_warning">注意：這是限制最多的模式。它無法管理其他應用程式、無法變更系統設定，也無法防止自身被解除安裝。僅用於其提供的少數功能：螢幕鎖定、密碼監控等。</string>
+    <string name="home_status_administrator">您是管理員</string>
+    <string name="administrator_explanation">DhizukuF 需要裝置管理員權限才能提供其有限的管理員功能（螢幕鎖定、密碼監控）。它不是裝置擁有者，也不提供 root 存取。</string>
+    <string name="administrator_open_settings">開啟裝置管理員設定</string>
+    <string name="administrator_open_failed">此裝置沒有裝置管理員畫面。請開啟 Android 設定，並在「安全性」或「裝置管理員應用程式」中啟用 DhizukuF。</string>
+    <string name="log_event_security_alert">安全警示</string>
 </resources>

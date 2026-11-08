@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Administrator</string>
+    <string name="administrator_desc">Standardowy administrator urządzenia: niewielki zestaw uprawnień systemowych przyznawanych przełącznikiem w ustawieniach Androida. Bez właściciela urządzenia, właściciela profilu i roota.</string>
+    <string name="administrator_warning">OSTRZEŻENIE: to najbardziej ograniczony tryb. Nie może zarządzać innymi aplikacjami, zmieniać ustawień systemowych ani chronić się przed odinstalowaniem. Używaj go tylko do kilku oferowanych funkcji: blokady ekranu, monitorowania hasła itp.</string>
+    <string name="home_status_administrator">Jesteś Administratorem</string>
+    <string name="administrator_explanation">DhizukuF potrzebuje uprawnień administratora urządzenia, aby oferować ograniczone funkcje administratora (blokada ekranu, monitorowanie hasła). To nie jest właściciel urządzenia i nie daje dostępu root.</string>
+    <string name="administrator_open_settings">Otwórz ustawienia administratora urządzenia</string>
+    <string name="administrator_open_failed">To urządzenie nie ma ekranu administratora urządzenia. Otwórz ustawienia Androida i włącz DhizukuF w sekcji Bezpieczeństwo lub Aplikacje administratora urządzenia.</string>
+    <string name="log_event_security_alert">Alert bezpieczeństwa</string>
 </resources>

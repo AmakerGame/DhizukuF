@@ -44,7 +44,9 @@ object DangerousCalls {
         "setLockTaskPackages", "setLockTaskFeatures",
         "setAlwaysOnVpnPackage", "setTime", "setTimeZone", "setPermittedInputMethods",
         "clearDeviceOwner", "clearDeviceOwnerApp", "clearProfileOwner", "transferOwnership",
-        "forceRemoveActiveAdmin", "resetPassword", "resetPasswordWithToken",
+        "forceRemoveActiveAdmin", "removeActiveAdmin",
+        "setDeviceOwner", "setProfileOwner", "setActiveAdmin",
+        "resetPassword", "resetPasswordWithToken",
         "setMaximumFailedPasswordsForWipe"
     ).map { it.lowercase(Locale.ROOT) }.toSet()
 

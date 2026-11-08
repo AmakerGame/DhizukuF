@@ -42,6 +42,7 @@ enum class LogEvent(
     CommandFailed("Command failed", LogCategory.Command, LogLevel.Warning),
     CommandBlocked("Command blocked", LogCategory.Command, LogLevel.Warning),
     ErrorOccurred("Error", LogCategory.Error, LogLevel.Error),
+    SecurityAlert("Security alert", LogCategory.Service, LogLevel.Warning),
     DebugInfo("Debug information", LogCategory.Debug, LogLevel.Debug)
 }
 

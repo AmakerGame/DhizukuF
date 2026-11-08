@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Yönetici</string>
+    <string name="administrator_desc">Standart cihaz yöneticisi: Android ayarlarındaki anahtarla verilen küçük bir sistem yetkisi kümesi. Cihaz Sahibi, Profil Sahibi veya root yok.</string>
+    <string name="administrator_warning">DİKKAT: Bu en kısıtlı moddur. Diğer uygulamaları yönetemez, sistem ayarlarını değiştiremez ve kaldırılmaya karşı kendini koruyamaz. Yalnızca sunduğu birkaç özellik için kullanın: ekran kilidi, parola izleme ve benzeri.</string>
+    <string name="home_status_administrator">Yöneticisiniz</string>
+    <string name="administrator_explanation">DhizukuF, sınırlı yönetici özelliklerini (ekran kilidi, parola izleme) sunmak için cihaz yöneticisi yetkilerine ihtiyaç duyar. Bu Cihaz Sahibi değildir ve root erişimi vermez.</string>
+    <string name="administrator_open_settings">Cihaz yöneticisi ayarlarını aç</string>
+    <string name="administrator_open_failed">Bu cihazda cihaz yöneticisi ekranı yok. Android ayarlarını açın ve DhizukuF\'i Güvenlik veya Cihaz yöneticisi uygulamaları altında etkinleştirin.</string>
+    <string name="log_event_security_alert">Güvenlik uyarısı</string>
 </resources>

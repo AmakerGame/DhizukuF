@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Administrators</string>
+    <string name="administrator_desc">Standarta ierīces administrators: neliela sistēmas tiesību kopa, ko piešķir Android iestatījumu slēdzis. Bez ierīces īpašnieka, profila īpašnieka vai root.</string>
+    <string name="administrator_warning">UZMANĪBU: šis ir ierobežotākais režīms. Tas nevar pārvaldīt citas lietotnes, mainīt sistēmas iestatījumus vai pasargāt sevi no noņemšanas. Izmantojiet to tikai dažām piedāvātajām funkcijām: ekrāna bloķēšana, paroles uzraudzība u.c.</string>
+    <string name="home_status_administrator">Jūs esat Administrators</string>
+    <string name="administrator_explanation">DhizukuF nepieciešamas ierīces administratora tiesības ierobežoto administratora funkciju nodrošināšanai (ekrāna bloķēšana, paroles uzraudzība). Tā nav ierīces īpašniece un nedod root piekļuvi.</string>
+    <string name="administrator_open_settings">Atvērt ierīces administratora iestatījumus</string>
+    <string name="administrator_open_failed">Šai ierīcei nav ierīces administratora ekrāna. Atveriet Android iestatījumus un iespējkojiet DhizukuF sadaļā Drošība vai Ierīces administratora lietotnes.</string>
+    <string name="log_event_security_alert">Drošības brīdinājums</string>
 </resources>

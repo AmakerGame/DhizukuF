@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Administrator</string>
+    <string name="administrator_desc">Alkali na na\'ura na al\'ada: ƴan kaɗan na haƙƙin tsarin da aka bayar da maɓallin a saitunan Android. Babu Mai Zaman Kula da Na\'ura, Mai Zaman Kula da Bayanan, ko root.</string>
+    <string name="administrator_warning">LURA: Wannan shine mafi iyakance yanayi. Ba zai iya sarrafa sauran aikace-aikace, canza saitunan tsarin, ko kare kansa daga cirewa ba. Amfani da shi ne kawai don abubuwan da yake ba da su: kullewar allo, sa ido kan kalmar sirri da sauransu.</string>
+    <string name="home_status_administrator">Kai ne Administrator</string>
+    <string name="administrator_explanation">DhizukuF na buƙatar haƙƙin administrator na na\'ura don samar da functionalities na administrator da aka iyakance (kullewar allo, sa ido kan kalmar sirri). Ba shi ne Mai Zaman Kula da Na\'ura ba kuma baya ba da root access.</string>
+    <string name="administrator_open_settings">Buɗe saitunan administrator na na\'ura</string>
+    <string name="administrator_open_failed">Wannan na\'ura ba ta da allon administrator na na\'ura. Buɗe saitunan Android kuma kunna DhizukuF a Ƙananan Tsaro ko Aikace-aikacen administrator na na\'ura.</string>
+    <string name="log_event_security_alert">Sanarwar tsaro</string>
 </resources>

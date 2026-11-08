@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Administrator</string>
+    <string name="administrator_desc">Standard na administrator ng device: maliit na hanay ng mga karapatan sa system na ibinibigay ng switch sa mga setting ng Android. Walang Device Owner, Profile Owner, o root.</string>
+    <string name="administrator_warning">MAG-ingat: ito ang pinakamahigpit na mode. Hindi nito kayang pamahalaan ang ibang app, baguhin ang mga system setting, o protektahan ang sarili mula sa pagtanggal. Gamitin lamang para sa iilang bagay na inaalok nito: screen lock, pagmo-monitor ng password, atbp.</string>
+    <string name="home_status_administrator">Ikaw ay Administrator</string>
+    <string name="administrator_explanation">Kailangan ng DhizukuF ang mga karapatan ng administrator ng device para sa mga limitadong feature ng administrator (screen lock, pagmo-monitor ng password). Hindi ito Device Owner at hindi nagbibigay ng root access.</string>
+    <string name="administrator_open_settings">Buksan ang mga setting ng administrator ng device</string>
+    <string name="administrator_open_failed">Walang screen ng administrator ng device ang device na ito. Buksan ang mga setting ng Android at i-enable ang DhizukuF sa ilalim ng Security o Device admin apps.</string>
+    <string name="log_event_security_alert">Alerto sa seguridad</string>
 </resources>

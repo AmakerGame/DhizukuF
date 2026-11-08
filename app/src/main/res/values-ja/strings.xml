@@ -264,4 +264,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">管理者</string>
+    <string name="administrator_desc">標準のデバイス管理者：Android の設定のスイッチで付与される少数のシステム権限。デバイスオーナー、プロファイルオーナー、root はありません。</string>
+    <string name="administrator_warning">注意：これは最も制限されたモードです。他のアプリを管理したり、システム設定を変更したり、削除から身を守ったりすることはできません。画面ロック、パスワード監視など、提供される少数の機能にのみ使用してください。</string>
+    <string name="home_status_administrator">あなたは管理者です</string>
+    <string name="administrator_explanation">DhizukuF は制限された管理者機能（画面ロック、パスワード監視）を提供するためにデバイス管理者権限を必要とします。これはデバイスオーナーではなく、root アクセスも付与しません。</string>
+    <string name="administrator_open_settings">デバイス管理者設定を開く</string>
+    <string name="administrator_open_failed">このデバイスにはデバイス管理者画面がありません。Android の設定を開き、「セキュリティ」または「デバイス管理者アプリ」で DhizukuF を有効にしてください。</string>
+    <string name="log_event_security_alert">セキュリティ警告</string>
 </resources>

@@ -35,6 +35,7 @@
 ## Features
 
 - **dish** — Device Owner commands from any shell ([docs/DISH.md](docs/DISH.md))
+- **Administrator mode** — standard device-admin rights, no root/ADB ([docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md))
 - **App control** — hide, suspend, permissions, restrictions, and more
 - **Security** — whitelist, dangerous-commands switch, optional biometrics
 - **Customization** — theme, app name/icon, home card order
@@ -62,6 +63,7 @@ More detail: [docs/DISH.md](docs/DISH.md).
 
 | Topic | Doc |
 | --- | --- |
+| Administrator mode (limited) | [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md) |
 | dish terminal | [docs/DISH.md](docs/DISH.md) |
 | Building from source | [docs/BUILDING.md](docs/BUILDING.md) |
 | Customization | [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md) |

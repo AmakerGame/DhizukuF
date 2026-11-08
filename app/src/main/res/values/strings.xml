@@ -283,4 +283,13 @@
     <string name="oss_licenses">Open-source licenses</string>
     <string name="home_oss_title">Open-source licenses</string>
     <string name="home_oss_dsp">Libraries used by this app and their license texts</string>
+
+    <string name="administrator_title">Administrator</string>
+    <string name="administrator_desc">Standard device administrator: a small set of system rights granted by the Android settings toggle. No Device Owner, no Profile Owner, no root.</string>
+    <string name="administrator_warning">CAUTION: this is the most limited mode. It cannot manage other apps, cannot change system settings and cannot protect itself from removal. Use it only for the few things it offers: the screen lock, password monitoring and similar.</string>
+    <string name="home_status_administrator">You are Administrator</string>
+    <string name="administrator_explanation">DhizukuF needs device administrator rights to offer its limited administrator features (screen lock, password monitoring). This is not Device Owner and does not give root access.</string>
+    <string name="administrator_open_settings">Open device admin settings</string>
+    <string name="administrator_open_failed">This device has no device administrator screen. Open Android settings and enable DhizukuF under Security or Device admin apps.</string>
+    <string name="log_event_security_alert">Security alert</string>
 </resources>

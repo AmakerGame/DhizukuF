@@ -267,4 +267,12 @@
     <string name="dish_yes" translatable="false">yes</string>
     <string name="launcher_name_device_owner" translatable="false">Device Owner</string>
     <string name="launcher_name_profile_owner" translatable="false">Profile Owner</string>
+    <string name="administrator_title">Администратор</string>
+    <string name="administrator_desc">Стандартный администратор устройства: небольшой набор системных прав, выдаваемых переключателем в настройках Android. Без владельца устройства, владельца профиля и root.</string>
+    <string name="administrator_warning">ВНИМАНИЕ: это самый ограниченный режим. Он не может управлять другими приложениями, менять системные настройки и защищать себя от удаления. Используйте его только ради немногих возможностей: блокировка экрана, мониторинг пароля и т.п.</string>
+    <string name="home_status_administrator">Вы — Администратор</string>
+    <string name="administrator_explanation">DhizukuF нужны права администратора устройства для ограниченных функций администратора (блокировка экрана, мониторинг пароля). Это не владелец устройства и не даёт root-доступа.</string>
+    <string name="administrator_open_settings">Открыть настройки администратора устройства</string>
+    <string name="administrator_open_failed">На этом устройстве нет экрана администратора устройства. Откройте настройки Android и включите DhizukuF в разделе «Безопасность» или «Приложения администратора устройства».</string>
+    <string name="log_event_security_alert">Тревога безопасности</string>
 </resources>

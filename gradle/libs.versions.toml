@@ -71,5 +71,5 @@ rikka-shizuku-provider = { group = "dev.rikka.shizuku", name = "provider", versi
 
 # Dhizuku-API (Maven Central, published from https://github.com/iamr0s/Dhizuku-API)
 # Alternative via JitPack: com.github.iamr0s.Dhizuku-API:dhizuku-api:<tag>
-iamr0s-dhizuku-api = { group = "io.github.iamr0s", name = "Dhizuku-SERVER_API", version = "0.1.0" }
+iamr0s-dhizuku-api = { group = "io.github.iamr0s", name = "Dhizuku-SERVER_API", version = "0.2.0" }
 

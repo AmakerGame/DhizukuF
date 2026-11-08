@@ -56,6 +56,7 @@ import android.app.admin.DevicePolicyManager
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.Context
+import android.content.Intent
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateContentSize
@@ -81,6 +82,7 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.twotone.AdminPanelSettings
 import androidx.compose.material.icons.twotone.Adb
 import androidx.compose.material.icons.twotone.ArrowDropDown
 import androidx.compose.material.icons.twotone.Cancel
@@ -188,6 +190,7 @@ fun HomePage(
         add("dish")
         if (!owner) add("shizuku")
         if (!owner) add("adb")
+        if (!owner) add("administrator")
         add("oss")
         if (owner) add("home_deactivate_title")
     }
@@ -278,7 +281,7 @@ fun HomePage(
 /** The order of the cards when nothing was changed. Logs stays above Terminal (dish). */
 private val HOME_DEFAULT_ORDER = listOf(
     "dhizuku_state", "settings", "security", "customization", "app_management", "user_management",
-    "dhizuku", "oss", "logs", "dish", "shizuku", "adb", "home_deactivate_title"
+    "dhizuku", "oss", "logs", "dish", "shizuku", "adb", "administrator", "home_deactivate_title"
 )
 
 private fun homeTitleRes(key: String): Int = when (key) {
@@ -293,6 +296,7 @@ private fun homeTitleRes(key: String): Int = when (key) {
     "dish" -> R.string.home_dish_title
     "shizuku" -> R.string.home_shizuku_title
     "adb" -> R.string.home_adb_title
+    "administrator" -> R.string.administrator_title
     "oss" -> R.string.home_oss_title
     else -> R.string.home_deactivate_title
 }
@@ -311,6 +315,7 @@ private fun LazyItemScope.HomeCard(key: String, navController: NavController) {
         "dish" -> DishWidget()
         "shizuku" -> ShizukuWidget(navController)
         "adb" -> AdbWidget()
+        "administrator" -> AdministratorWidget()
         "oss" -> OssWidget(navController)
         "home_deactivate_title" -> DeactivateWidget()
     }
@@ -453,18 +458,30 @@ private fun TopBarActions(editMode: Boolean, onToggleEdit: () -> Unit) {
 
 @Composable
 private fun LazyItemScope.DhizukuStateWidget() {
-    val isOwner = DhizukuState.state.isOwner
+    val state = DhizukuState.state
+    // Three states: Device / Profile Owner (full), Administrator (limited), nothing.
+    val mode = when {
+        state.isOwner -> 0
+        state.isAdministrator -> 1
+        else -> 2
+    }
 
     @Suppress("AnimateAsStateLabel")
     val iconContainerColor by animateColorAsState(
-        if (isOwner) MaterialTheme.colorScheme.primaryContainer
-        else MaterialTheme.colorScheme.errorContainer
+        when (mode) {
+            0 -> MaterialTheme.colorScheme.primaryContainer
+            1 -> MaterialTheme.colorScheme.tertiaryContainer
+            else -> MaterialTheme.colorScheme.errorContainer
+        }
     )
 
     @Suppress("AnimateAsStateLabel")
     val iconColor by animateColorAsState(
-        if (isOwner) MaterialTheme.colorScheme.onPrimaryContainer
-        else MaterialTheme.colorScheme.onErrorContainer
+        when (mode) {
+            0 -> MaterialTheme.colorScheme.onPrimaryContainer
+            1 -> MaterialTheme.colorScheme.onTertiaryContainer
+            else -> MaterialTheme.colorScheme.onErrorContainer
+        }
     )
     val context = LocalContext.current
     CardWidget(colors = CardDefaults.cardColors(
@@ -472,8 +489,11 @@ private fun LazyItemScope.DhizukuStateWidget() {
     ), icon = {
         Icon(
             imageVector = Icons.TwoTone.run {
-                if (isOwner) SentimentVerySatisfied
-                else SentimentVeryDissatisfied
+                when (mode) {
+                    0 -> SentimentVerySatisfied
+                    1 -> AdminPanelSettings
+                    else -> SentimentVeryDissatisfied
+                }
             },
             contentDescription = null
         )
@@ -482,16 +502,19 @@ private fun LazyItemScope.DhizukuStateWidget() {
         contentColor = iconColor
     ), title = {
         @Suppress("AnimatedContentLabel")
-        AnimatedContent(targetState = isOwner) {
+        AnimatedContent(targetState = mode) {
             Text(
-                if (it) stringResource(
-                    R.string.home_status_owner_granted,
-                    stringResource(
-                        if (DhizukuState.state.isProfileOwner) R.string.confirm_profile_owner
-                        else R.string.confirm_device_owner
+                when (it) {
+                    0 -> stringResource(
+                        R.string.home_status_owner_granted,
+                        stringResource(
+                            if (state.isProfileOwner) R.string.confirm_profile_owner
+                            else R.string.confirm_device_owner
+                        )
                     )
-                )
-                else stringResource(R.string.home_status_owner_denied)
+                    1 -> stringResource(R.string.home_status_administrator)
+                    else -> stringResource(R.string.home_status_owner_denied)
+                }
             )
         }
     }, onClick = { DhizukuState.sync(context )})
@@ -708,6 +731,57 @@ private fun LazyItemScope.DishWidget() {
     }
 }
 
+
+/**
+ * Administrator mode: the standard device administrator right from the Android settings toggle.
+ * The most limited of the three modes (Device Owner / Profile Owner / Administrator): it gives a
+ * few system powers (screen lock, password monitoring) but no control over other apps.
+ */
+@Composable
+private fun LazyItemScope.AdministratorWidget() {
+    val context = LocalContext.current
+    val isAdmin = DhizukuState.state.isAdministrator
+
+    fun openDeviceAdminSettings() {
+        try {
+            context.startActivity(
+                Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
+                    .putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, DhizukuState.admin)
+                    .putExtra(
+                        DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                        context.getString(R.string.administrator_explanation)
+                    )
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+        } catch (e: ActivityNotFoundException) {
+            context.toast(R.string.administrator_open_failed)
+        }
+    }
+
+    CardWidget(onClick = { openDeviceAdminSettings() }, icon = {
+        Icon(imageVector = Icons.TwoTone.AdminPanelSettings, contentDescription = null)
+    }, title = {
+        Text(stringResource(R.string.administrator_title))
+    }, text = {
+        Text(stringResource(R.string.administrator_desc))
+    }, content = {
+        Text(
+            stringResource(R.string.administrator_warning),
+            color = MaterialTheme.colorScheme.error
+        )
+        if (isAdmin) {
+            Text(
+                stringResource(R.string.home_status_administrator),
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+        TvTextButton(onClick = { openDeviceAdminSettings() }) {
+            Icon(imageVector = Icons.TwoTone.Settings, contentDescription = null)
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Text(stringResource(R.string.administrator_open_settings))
+        }
+    })
+}
 
 @Composable
 private fun LazyItemScope.OssWidget(navController: NavController) {

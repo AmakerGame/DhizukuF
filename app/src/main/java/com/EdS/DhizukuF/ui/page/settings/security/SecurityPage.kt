@@ -188,8 +188,6 @@ fun SecurityPage(
                             onCheckedChange = viewModel::setDangerousEnabled,
                             titleColor = MaterialTheme.colorScheme.error
                         )
-                            }
-                        )
                     }
                 }
             }

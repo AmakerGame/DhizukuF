@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Διαχειριστής</string>
+    <string name="administrator_desc">Τυπικός διαχειριστής συσκευής: ένα μικρό σύνολο δικαιωμάτων συστήματος που παραχωρείται από τον διακόπτη στις ρυθμίσεις Android. Χωρίς ιδιοκτήτη συσκευής, ιδιοκτήτη προφίλ ή root.</string>
+    <string name="administrator_warning">ΠΡΟΣΟΧΗ: αυτή είναι η πιο περιορισμένη λειτουργία. Δεν μπορεί να διαχειριστεί άλλες εφαρμογές, να αλλάξει ρυθμίσεις συστήματος ή να προστατευτεί από την απεγκατάσταση. Χρησιμοποιήστε την μόνο για τις λίγες λειτουργίες που προσφέρει: κλείδωμα οθόνης, παρακολούθηση κωδικού και παρόμοια.</string>
+    <string name="home_status_administrator">Είστε Διαχειριστής</string>
+    <string name="administrator_explanation">Το DhizukuF χρειάζεται δικαιώματα διαχειριστή συσκευής για τις περιορισμένες λειτουργίες διαχειριστή του (κλείδωμα οθόνης, παρακολούθηση κωδικού). Δεν είναι ιδιοκτήτης συσκευής και δεν δίνει πρόσβαση root.</string>
+    <string name="administrator_open_settings">Άνοιγμα ρυθμίσεων διαχειριστή συσκευής</string>
+    <string name="administrator_open_failed">Αυτή η συσκευή δεν έχει οθόνη διαχειριστή συσκευής. Ανοίξτε τις ρυθμίσεις Android και ενεργοποιήστε το DhizukuF στην Ασφάλεια ή στις Εφαρμογές διαχειριστή συσκευής.</string>
+    <string name="log_event_security_alert">Ειδοποίηση ασφαλείας</string>
 </resources>

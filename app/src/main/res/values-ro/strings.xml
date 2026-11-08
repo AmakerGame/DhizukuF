@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Administrator</string>
+    <string name="administrator_desc">Administrator de dispozitiv standard: un set mic de drepturi de sistem acordate de comutatorul din setările Android. Fără proprietar de dispozitiv, proprietar de profil sau root.</string>
+    <string name="administrator_warning">ATENȚIE: acesta este cel mai limitat mod. Nu poate gestiona alte aplicații, nu poate schimba setările de sistem și nu se poate proteja de eliminare. Folosește-l doar pentru puținele funcții oferite: blocarea ecranului, monitorizarea parolei și similare.</string>
+    <string name="home_status_administrator">Ești Administrator</string>
+    <string name="administrator_explanation">DhizukuF are nevoie de drepturi de administrator de dispozitiv pentru funcțiile sale de administrator limitate (blocarea ecranului, monitorizarea parolei). Nu este proprietarul dispozitivului și nu oferă acces root.</string>
+    <string name="administrator_open_settings">Deschide setările de administrator al dispozitivului</string>
+    <string name="administrator_open_failed">Acest dispozitiv nu are un ecran de administrator al dispozitivului. Deschide setările Android și activează DhizukuF la Securitate sau Aplicații de administrare a dispozitivului.</string>
+    <string name="log_event_security_alert">Alertă de securitate</string>
 </resources>

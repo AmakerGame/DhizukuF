@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">מנהל</string>
+    <string name="administrator_desc">מנהל התקן סטנדרטי: קבוצה קטנה של הרשאות מערכת הניתנות על ידי המתג בהגדרות Android. בלי בעלות על ההתקן, בעלות על פרופיל או root.</string>
+    <string name="administrator_warning">זהירות: זהו המצב המוגבל ביותר. הוא אינו יכול לנהל אפליקציות אחרות, לשנות הגדרות מערכת או להגן על עצמו מהסרה. השתמש בו רק עבור הדברים המועטים שהוא מציע: נעילת מסך, ניטור סיסמה וכדומה.</string>
+    <string name="home_status_administrator">אתה מנהל</string>
+    <string name="administrator_explanation">DhizukuF זקוק להרשאות מנהל התקן כדי להציע את תכונות המנהל המוגבלות שלו (נעילת מסך, ניטור סיסמה). זו אינה בעלות על ההתקן ואינה מעניקה גישת root.</string>
+    <string name="administrator_open_settings">פתח את הגדרות מנהל ההתקן</string>
+    <string name="administrator_open_failed">להתקן זה אין מסך מנהל התקן. פתח את הגדרות Android והפעל את DhizukuF תחת אבטחה או אפליקציות מנהל התקן.</string>
+    <string name="log_event_security_alert">התראת אבטחה</string>
 </resources>

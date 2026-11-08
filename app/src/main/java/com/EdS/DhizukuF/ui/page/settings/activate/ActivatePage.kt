@@ -81,6 +81,7 @@ import com.EdS.DhizukuF.server.DhizukuState
 import com.EdS.DhizukuF.ui.page.settings.SettingsRoute
 import com.EdS.DhizukuF.ui.theme.AppIconCache
 import com.EdS.DhizukuF.ui.theme.exclude
+import com.EdS.DhizukuF.ui.theme.plus
 
 import org.koin.androidx.compose.koinViewModel
 

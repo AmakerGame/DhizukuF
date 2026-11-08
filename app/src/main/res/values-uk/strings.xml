@@ -282,4 +282,12 @@
     <string name="oss_licenses">Ліцензії відкритого ПЗ</string>
     <string name="home_oss_title">Ліцензії відкритого ПЗ</string>
     <string name="home_oss_dsp">Бібліотеки застосунку та тексти ліцензій</string>
+    <string name="administrator_title">Адміністратор</string>
+    <string name="administrator_desc">Стандартний адміністратор пристрою: невеликий набір системних прав, які надає перемикач у налаштуваннях Android. Без власника пристрою, власника профілю та root.</string>
+    <string name="administrator_warning">УВАГА: це найобмеженіший режим. Він не може керувати іншими застосунками, змінювати системні налаштування та захищати себе від видалення. Використовуйте його лише заради кількох можливостей: блокування екрана, моніторинг пароля тощо.</string>
+    <string name="home_status_administrator">Ви — Адміністратор</string>
+    <string name="administrator_explanation">DhizukuF потрібні права адміністратора пристрою для обмежених функцій адміністратора (блокування екрана, моніторинг пароля). Це не власник пристрою і не дає root-доступу.</string>
+    <string name="administrator_open_settings">Відкрити налаштування адміністратора пристрою</string>
+    <string name="administrator_open_failed">На цьому пристрої немає екрана адміністратора пристрою. Відкрийте налаштування Android і ввімкніть DhizukuF у розділі «Безпека» або «Застосунки адміністратора пристрою».</string>
+    <string name="log_event_security_alert">Тривога безпеки</string>
 </resources>

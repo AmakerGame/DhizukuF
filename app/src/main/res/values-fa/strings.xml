@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">مدیر</string>
+    <string name="administrator_desc">مدیر دستگاه استاندارد: مجموعه کوچکی از مجوزهای سیستمی که با کلید در تنظیمات اندروید اعطا می‌شود. بدون مالک دستگاه، مالک نمایه یا root.</string>
+    <string name="administrator_warning">احتیاط: این محدودترین حالت است. نمی‌تواند برنامه‌های دیگر را مدیریت کند، تنظیمات سیستم را تغییر دهد یا از حذف خود محافظت کند. فقط برای چند قابلیت ارائه‌شده از آن استفاده کنید: قفل صفحه، نظارت بر رمز عبور و موارد مشابه.</string>
+    <string name="home_status_administrator">شما مدیر هستید</string>
+    <string name="administrator_explanation">DhizukuF برای ارائه قابلیت‌های محدود مدیر (قفل صفحه، نظارت بر رمز عبور) به مجوزهای مدیر دستگاه نیاز دارد. این مالک دستگاه نیست و دسترسی root نمی‌دهد.</string>
+    <string name="administrator_open_settings">باز کردن تنظیمات مدیر دستگاه</string>
+    <string name="administrator_open_failed">این دستگاه صفحه مدیر دستگاه ندارد. تنظیمات اندروید را باز کنید و DhizukuF را در بخش امنیت یا برنامه‌های مدیر دستگاه فعال کنید.</string>
+    <string name="log_event_security_alert">هشدار امنیتی</string>
 </resources>

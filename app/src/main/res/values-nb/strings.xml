@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Administrator</string>
+    <string name="administrator_desc">Standard enhetsadministrator: et lite sett med systemrettigheter gitt av bryteren i Android-innstillingene. Ingen enhetseier, profileier eller root.</string>
+    <string name="administrator_warning">OBS! Dette er den mest begrensede modusen. Den kan ikke administrere andre apper, endre systeminnstillinger eller beskytte seg mot fjerning. Bruk den bare for de få tingene den tilbyr: skjermlås, passordovervåking og lignende.</string>
+    <string name="home_status_administrator">Du er Administrator</string>
+    <string name="administrator_explanation">DhizukuF trenger enhetsadministratorrettigheter for å tilby sine begrensede administratorfunksjoner (skjermlås, passordovervåking). Dette er ikke enhetseieren og gir ikke root-tilgang.</string>
+    <string name="administrator_open_settings">Åpne enhetsadministrasjon-innstillinger</string>
+    <string name="administrator_open_failed">Denne enheten har ingen skjerm for enhetsadministratorer. Åpne Android-innstillingene og aktiver DhizukuF under Sikkerhet eller Enhetsadministrasjonsapper.</string>
+    <string name="log_event_security_alert">Sikkerhetsvarsel</string>
 </resources>

@@ -69,6 +69,7 @@ import androidx.navigation.NavController
 import com.EdS.DhizukuF.R
 import com.EdS.DhizukuF.ui.theme.AppIconCache
 import com.EdS.DhizukuF.ui.theme.exclude
+import com.EdS.DhizukuF.ui.theme.plus
 
 import org.koin.androidx.compose.koinViewModel
 

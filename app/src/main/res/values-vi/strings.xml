@@ -262,4 +262,12 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_system_desc">Follows the dark mode of the device</string>
+    <string name="administrator_title">Quản trị viên</string>
+    <string name="administrator_desc">Quản trị viên thiết bị tiêu chuẩn: một tập hợp nhỏ quyền hệ thống được cấp bởi công tắc trong cài đặt Android. Không có Chủ sở hữu thiết bị, Chủ sở hữu hồ sơ hay root.</string>
+    <string name="administrator_warning">THẬN TRỌNG: đây là chế độ hạn chế nhất. Nó không thể quản lý ứng dụng khác, không thể thay đổi cài đặt hệ thống và không thể tự bảo vệ khỏi việc gỡ. Chỉ dùng cho vài tính năng được cung cấp: khóa màn hình, giám sát mật khẩu và tương tự.</string>
+    <string name="home_status_administrator">Bạn là Quản trị viên</string>
+    <string name="administrator_explanation">DhizukuF cần quyền quản trị viên thiết bị để cung cấp các tính năng quản trị viên hạn chế (khóa màn hình, giám sát mật khẩu). Đây không phải Chủ sở hữu thiết bị và không cấp quyền root.</string>
+    <string name="administrator_open_settings">Mở cài đặt quản trị viên thiết bị</string>
+    <string name="administrator_open_failed">Thiết bị này không có màn hình quản trị viên thiết bị. Mở cài đặt Android và bật DhizukuF trong mục Bảo mật hoặc Ứng dụng quản trị viên thiết bị.</string>
+    <string name="log_event_security_alert">Cảnh báo bảo mật</string>
 </resources>
