@@ -48,9 +48,24 @@ class DhizukuDAReceiver : DeviceAdminReceiver(), KoinComponent {
             dpm.isAdminActive(DhizukuState.admin) -> KIND_ADMIN
             else -> null
         }
-        // An activation started from the Activate page only earns a toast when the
-        // final state matches what was requested; otherwise the dialog shows the error.
-        if (expected != null && actualKind != expected) return
+        if (expected != null) {
+            // An activation started from the Activate page only earns a toast when the
+            // final state matches what was requested; otherwise the dialog shows the error.
+            if (actualKind != expected) return
+        } else {
+            // Manual toggle through the system UI: the highest role wins the label, so an
+            // already-owner app would be announced as "Device Owner" even though the user
+            // only flipped the Administrator switch. Sync first (the process may be cold),
+            // then stay quiet when the app already held this right — nothing changed.
+            DhizukuState.sync(context)
+            val known = DhizukuState.state
+            val alreadyHad = when (actualKind) {
+                KIND_DEVICE, KIND_PROFILE -> known.isOwner
+                KIND_ADMIN -> known.isAdministrator
+                else -> false
+            }
+            if (alreadyHad) return
+        }
         when (actualKind) {
             KIND_DEVICE, KIND_PROFILE -> Toast.makeText(
                 context,
