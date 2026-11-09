@@ -16,6 +16,12 @@ android {
     }
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
 dependencies {
     compileOnly(libs.androidx.annotation)
 }
