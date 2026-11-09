@@ -71,7 +71,8 @@ class ActivateViewModel : ViewModel(), KoinComponent {
 
     enum class OwnerType {
         Device,
-        Profile
+        Profile,
+        Administrator
     }
 
     var ownerType: OwnerType? = null
@@ -164,6 +165,29 @@ class ActivateViewModel : ViewModel(), KoinComponent {
         }
     }
 
+    /** Grants the picked app the plain device-admin right (the `dpm set-active-admin` equivalent). */
+    fun activateAsAdministrator(
+        mode: SettingsRoute.Activate.Mode,
+        comp: ComponentName
+    ) {
+        ownerType = OwnerType.Administrator
+        state = state.copy(status = ActivateViewState.Status.Running)
+        activateJob?.cancel()
+        activateJob = viewModelScope.launch(Dispatchers.IO) {
+            val exceptionOrNull = kotlin.runCatching {
+                when (mode) {
+                    SettingsRoute.Activate.Mode.Dhizuku -> activateAsAdministratorByDhizuku(comp)
+                    SettingsRoute.Activate.Mode.Shizuku -> activateAsAdministratorByShizuku(comp)
+                }
+            }.exceptionOrNull().let {
+                if (it is InvocationTargetException) it.targetException
+                else it
+            }
+            if (exceptionOrNull is CancellationException || !isActive) return@launch
+            state = state.copy(status = ActivateViewState.Status.End(error = exceptionOrNull))
+        }
+    }
+
     @SuppressLint("NewApi")
     private suspend fun activateByDhizuku(comp: ComponentName) =
         requireDhizukuPermissionGranted {
@@ -193,6 +217,37 @@ class ActivateViewModel : ViewModel(), KoinComponent {
             }
             DhizukuState.sync(context)
         }
+
+    @SuppressLint("NewApi")
+    private suspend fun activateAsAdministratorByDhizuku(comp: ComponentName) =
+        requireDhizukuPermissionGranted {
+            requireBinderWrapperDevicePolicyManager(wrapper = {
+                Dhizuku.binderWrapper(it)
+            }) {
+                it.setActiveAdmin(comp, true, Os.getuid() / 100000)
+            }
+            checkAdminGranted(comp)
+        }
+
+    @SuppressLint("PrivateApi")
+    private suspend fun activateAsAdministratorByShizuku(who: ComponentName) =
+        requireShizukuPermissionGranted {
+            // wait for the account cache be refreshed
+            delay(1500.milliseconds)
+            requireBinderWrapperDevicePolicyManager(wrapper = {
+                ShizukuBinderWrapper(it)
+            }) {
+                it.setActiveAdmin(who, true, Os.getuid() / 100000)
+            }
+            checkAdminGranted(who)
+        }
+
+    private fun checkAdminGranted(comp: ComponentName) {
+        if (!devicePolicyManager.isAdminActive(comp)) {
+            throw IllegalStateException(context.getString(R.string.error_set_administrator))
+        }
+        DhizukuState.sync(context)
+    }
 
     @SuppressLint("PrivateApi")
     private suspend fun activateAsProfileOwnerByShizuku(who: ComponentName) =

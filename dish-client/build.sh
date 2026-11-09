@@ -38,7 +38,7 @@ if [ -n "$D8BIN" ]; then
     jar=$(ls "$root"/platforms/android-*/android.jar 2>/dev/null | sort -V | tail -n 1)
     if [ -n "$jar" ]; then LIB="--lib $jar"; break; fi
   done
-  "$D8BIN" --release --min-api 26 $LIB --output build/dex $(find build/classes -name '*.class')
+  "$D8BIN" --release --min-api 21 $LIB --output build/dex $(find build/classes -name '*.class')
   NEW=build/dex/classes.dex
 else
   DX=${DX:-$(command -v dx || echo /usr/lib/android-sdk/build-tools/debian/dx)}

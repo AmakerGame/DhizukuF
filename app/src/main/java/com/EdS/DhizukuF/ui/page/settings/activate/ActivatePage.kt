@@ -229,6 +229,9 @@ fun ActivatePage(
                 ActivateViewModel.OwnerType.Profile ->
                     viewModel.activateAsProfileOwner(mode = mode, comp = c)
 
+                ActivateViewModel.OwnerType.Administrator ->
+                    viewModel.activateAsAdministrator(mode = mode, comp = c)
+
                 else ->
                     viewModel.activateAsDeviceOwner(mode = mode, comp = c)
             }
@@ -259,6 +262,7 @@ fun ActivatePage(
                         stringResource(
                             when (viewModel.ownerType) {
                                 ActivateViewModel.OwnerType.Profile -> R.string.confirm_profile_owner
+                                ActivateViewModel.OwnerType.Administrator -> R.string.administrator_title
                                 else -> R.string.confirm_device_owner
                             }
                         )
@@ -301,6 +305,7 @@ private fun ConfirmBar(
                         stringResource(
                             when (ownerType) {
                                 ActivateViewModel.OwnerType.Profile -> R.string.confirm_profile_owner
+                                ActivateViewModel.OwnerType.Administrator -> R.string.administrator_title
                                 else -> R.string.confirm_device_owner
                             }
                         )
@@ -323,6 +328,13 @@ private fun ConfirmBar(
                         onClick = {
                             menuExpanded = false
                             profileOwnerWarningShow = true
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.administrator_title)) },
+                        onClick = {
+                            ownerType = ActivateViewModel.OwnerType.Administrator
+                            menuExpanded = false
                         }
                     )
                 }
@@ -366,6 +378,9 @@ private fun ConfirmBar(
                         when (ownerType) {
                             ActivateViewModel.OwnerType.Profile ->
                                 viewModel.activateAsProfileOwner(mode = mode, comp = it)
+
+                            ActivateViewModel.OwnerType.Administrator ->
+                                viewModel.activateAsAdministrator(mode = mode, comp = it)
 
                             else ->
                                 viewModel.activateAsDeviceOwner(mode = mode, comp = it)

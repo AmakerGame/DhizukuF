@@ -73,6 +73,7 @@
     <string name="error_remove_user">Failed to remove user %1$s</string>
     <string name="error_set_device_owner">Failed to set Device Owner. Please make sure there are no accounts on the device.</string>
     <string name="error_set_profile_owner">Failed to set Profile Owner. Please check your system configuration.</string>
+    <string name="error_set_administrator">Failed to set Administrator. Please check your system configuration.</string>
     <string name="error_shizuku_not_work">Please activate Shizuku and grant the permission request</string>
 
     <string name="daemon_service_notification_title">DhizukuF Daemon</string>
