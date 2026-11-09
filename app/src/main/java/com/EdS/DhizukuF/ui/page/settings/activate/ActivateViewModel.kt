@@ -11,7 +11,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.IBinder
 import android.os.IInterface
 import android.system.Os
@@ -319,49 +318,50 @@ class ActivateViewModel : ViewModel(), KoinComponent {
         }
     }
 
+    /**
+     * The private owner setters changed signature across Android versions and OEM builds,
+     * so the SDK level is not a reliable predictor — probe the known shapes instead and use
+     * the first one that exists. The result is verified against the real system state
+     * afterwards, so a void/odd return value does not matter.
+     */
+    private fun DevicePolicyManager.invokeOwnerSetter(
+        name: String,
+        who: ComponentName,
+        ownerName: String?,
+        userId: Int
+    ) {
+        val clazz = this::class.java
+        val candidates = listOf(
+            arrayOf(ComponentName::class.java, String::class.java, Int::class.java) to
+                arrayOf<Any?>(who, ownerName, userId),
+            arrayOf(ComponentName::class.java, Int::class.java) to
+                arrayOf<Any?>(who, userId),
+            arrayOf(ComponentName::class.java, String::class.java) to
+                arrayOf<Any?>(who, ownerName),
+            arrayOf(ComponentName::class.java) to arrayOf<Any?>(who)
+        )
+        for ((sig, args) in candidates) {
+            val method = runCatching {
+                clazz.getDeclaredMethod(name, *sig)
+            }.getOrNull() ?: continue
+            method.isAccessible = true
+            method.invoke(this, *args)
+            return
+        }
+        throw NoSuchMethodException("$name (no known signature on this Android build)")
+    }
+
     private fun DevicePolicyManager.setDeviceOwner(
         who: ComponentName,
         ownerName: String?,
         userId: Int
-    ): Boolean {
-        val clazz = this::class.java
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            clazz.getDeclaredMethod("setDeviceOwner", ComponentName::class.java, Int::class.java)
-                .also { it.isAccessible = true }.invoke(this, who, userId) as? Boolean ?: false
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            clazz.getDeclaredMethod(
-                "setDeviceOwner",
-                ComponentName::class.java,
-                String::class.java,
-                Int::class.java
-            ).also { it.isAccessible = true }.invoke(this, who, ownerName, userId) as? Boolean ?: false
-        } else {
-            clazz.getDeclaredMethod("setDeviceOwner", ComponentName::class.java, String::class.java)
-                .also { it.isAccessible = true }.invoke(this, who, ownerName) as? Boolean ?: false
-        }
-    }
+    ) = invokeOwnerSetter("setDeviceOwner", who, ownerName, userId)
 
     private fun DevicePolicyManager.setProfileOwner(
         who: ComponentName,
         ownerName: String?,
         userId: Int
-    ): Boolean {
-        val clazz = this::class.java
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            clazz.getDeclaredMethod("setProfileOwner", ComponentName::class.java, Int::class.java)
-                .also { it.isAccessible = true }.invoke(this, who, userId) as? Boolean ?: false
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            clazz.getDeclaredMethod(
-                "setProfileOwner",
-                ComponentName::class.java,
-                String::class.java,
-                Int::class.java
-            ).also { it.isAccessible = true }.invoke(this, who, ownerName, userId) as? Boolean ?: false
-        } else {
-            clazz.getDeclaredMethod("setProfileOwner", ComponentName::class.java, String::class.java)
-                .also { it.isAccessible = true }.invoke(this, who, ownerName) as? Boolean ?: false
-        }
-    }
+    ) = invokeOwnerSetter("setProfileOwner", who, ownerName, userId)
 
     @SuppressLint("PrivateApi")
     private fun requireBinderWrapperDevicePolicyManager(
