@@ -22,9 +22,18 @@ class DhizukuDAReceiver : DeviceAdminReceiver(), KoinComponent {
     }
 
     override fun onEnabled(context: Context, intent: Intent) {
-        val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
         super.onEnabled(context, intent)
-        dpm ?: return
+        // This broadcast fires as soon as setActiveAdmin lands — before a following
+        // setDeviceOwner/setProfileOwner call finishes. Re-check after a short delay
+        // so the toast names the real final state instead of a stale one.
+        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+            showActivationToast(context)
+        }, 800)
+    }
+
+    private fun showActivationToast(context: Context) {
+        val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
+            ?: return
         val ownerTypeRes = when {
             dpm.isDeviceOwnerApp(BuildConfig.APPLICATION_ID) -> R.string.confirm_device_owner
             dpm.isProfileOwnerApp(BuildConfig.APPLICATION_ID) -> R.string.confirm_profile_owner
