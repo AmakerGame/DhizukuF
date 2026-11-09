@@ -26,6 +26,7 @@ import com.rosan.dhizuku.api.Dhizuku
 import com.EdS.DhizukuF.data.common.util.has
 import com.EdS.DhizukuF.data.common.util.requireDhizukuPermissionGranted
 import com.EdS.DhizukuF.data.common.util.requireShizukuPermissionGranted
+import com.EdS.DhizukuF.server.DhizukuDAReceiver
 import com.EdS.DhizukuF.server.DhizukuState
 import com.EdS.DhizukuF.ui.page.settings.SettingsRoute
 
@@ -127,6 +128,7 @@ class ActivateViewModel : ViewModel(), KoinComponent {
         comp: ComponentName
     ) {
         ownerType = OwnerType.Device
+        expectActivationToast(comp, OwnerType.Device)
         state = state.copy(status = ActivateViewState.Status.Running)
         activateJob?.cancel()
         activateJob = viewModelScope.launch(Dispatchers.IO) {
@@ -149,6 +151,7 @@ class ActivateViewModel : ViewModel(), KoinComponent {
         comp: ComponentName
     ) {
         ownerType = OwnerType.Profile
+        expectActivationToast(comp, OwnerType.Profile)
         state = state.copy(status = ActivateViewState.Status.Running)
         activateJob?.cancel()
         activateJob = viewModelScope.launch(Dispatchers.IO) {
@@ -172,6 +175,7 @@ class ActivateViewModel : ViewModel(), KoinComponent {
         comp: ComponentName
     ) {
         ownerType = OwnerType.Administrator
+        expectActivationToast(comp, OwnerType.Administrator)
         state = state.copy(status = ActivateViewState.Status.Running)
         activateJob?.cancel()
         activateJob = viewModelScope.launch(Dispatchers.IO) {
@@ -240,6 +244,22 @@ class ActivateViewModel : ViewModel(), KoinComponent {
             }
             verifyActivated(who, OwnerType.Administrator)
         }
+
+    /**
+     * Tells DhizukuDAReceiver which right the Activate page is about to grant to THIS app,
+     * so its delayed toast only confirms a matching final state. Targets other than this
+     * app never trigger our receiver, so nothing is registered for them.
+     */
+    private fun expectActivationToast(comp: ComponentName, type: OwnerType) {
+        if (comp.packageName != context.packageName) return
+        DhizukuDAReceiver.expectActivation(
+            when (type) {
+                OwnerType.Device -> DhizukuDAReceiver.KIND_DEVICE
+                OwnerType.Profile -> DhizukuDAReceiver.KIND_PROFILE
+                OwnerType.Administrator -> DhizukuDAReceiver.KIND_ADMIN
+            }
+        )
+    }
 
     /** Reads the real system state and fails if the requested right was not actually granted. */
     private fun verifyActivated(comp: ComponentName, type: OwnerType) {

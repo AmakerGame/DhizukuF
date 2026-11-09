@@ -5,6 +5,7 @@ import android.app.admin.DeviceAdminReceiver
 import android.app.admin.DevicePolicyManager
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
 import android.util.Log
 import android.widget.Toast
 import com.EdS.DhizukuF.BuildConfig
@@ -24,34 +25,73 @@ class DhizukuDAReceiver : DeviceAdminReceiver(), KoinComponent {
     override fun onEnabled(context: Context, intent: Intent) {
         super.onEnabled(context, intent)
         // This broadcast fires as soon as setActiveAdmin lands — before a following
-        // setDeviceOwner/setProfileOwner call finishes. Re-check after a short delay
-        // so the toast names the real final state instead of a stale one.
+        // setDeviceOwner/setProfileOwner call finishes, and even when that later step
+        // fails. Re-check after a short delay and only confirm the state the user
+        // actually asked for; a mismatch means the Activate page already reported
+        // the error, so no toast is shown at all.
         android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
             showActivationToast(context)
-        }, 800)
+        }, 1200)
     }
 
     private fun showActivationToast(context: Context) {
         val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
             ?: return
-        val ownerTypeRes = when {
-            dpm.isDeviceOwnerApp(BuildConfig.APPLICATION_ID) -> R.string.confirm_device_owner
-            dpm.isProfileOwnerApp(BuildConfig.APPLICATION_ID) -> R.string.confirm_profile_owner
+        val expected = pendingKind?.takeIf {
+            SystemClock.elapsedRealtime() - pendingAt < PENDING_TTL_MS
+        }
+        pendingKind = null
+        pendingAt = 0
+        val actualKind = when {
+            dpm.isDeviceOwnerApp(BuildConfig.APPLICATION_ID) -> KIND_DEVICE
+            dpm.isProfileOwnerApp(BuildConfig.APPLICATION_ID) -> KIND_PROFILE
+            dpm.isAdminActive(DhizukuState.admin) -> KIND_ADMIN
             else -> null
         }
-        if (ownerTypeRes != null) {
-            Toast.makeText(
+        // An activation started from the Activate page only earns a toast when the
+        // final state matches what was requested; otherwise the dialog shows the error.
+        if (expected != null && actualKind != expected) return
+        when (actualKind) {
+            KIND_DEVICE, KIND_PROFILE -> Toast.makeText(
                 context,
-                context.getString(R.string.home_status_owner_granted, context.getString(ownerTypeRes)),
+                context.getString(
+                    R.string.home_status_owner_granted,
+                    context.getString(
+                        if (actualKind == KIND_DEVICE) R.string.confirm_device_owner
+                        else R.string.confirm_profile_owner
+                    )
+                ),
                 Toast.LENGTH_LONG
             ).show()
-        } else if (dpm.isAdminActive(DhizukuState.admin)) {
-            // Plain device administrator (no Device / Profile Owner): the most limited mode.
-            Toast.makeText(
+            KIND_ADMIN -> Toast.makeText(
                 context,
                 context.getString(R.string.home_status_administrator),
                 Toast.LENGTH_LONG
             ).show()
+        }
+    }
+
+    companion object {
+        private const val TAG = "DhizukuDAReceiver"
+        internal const val KIND_DEVICE = "device"
+        internal const val KIND_PROFILE = "profile"
+        internal const val KIND_ADMIN = "admin"
+        private const val PENDING_TTL_MS = 15_000L
+
+        @Volatile
+        private var pendingKind: String? = null
+
+        @Volatile
+        private var pendingAt: Long = 0
+
+        /**
+         * Called by the Activate page right before it grants a right to THIS app, so the
+         * delayed toast confirms the intended result instead of a transient intermediate
+         * state (or nothing at all when the grant failed).
+         */
+        fun expectActivation(kind: String) {
+            pendingKind = kind
+            pendingAt = SystemClock.elapsedRealtime()
         }
     }
 
@@ -86,9 +126,5 @@ class DhizukuDAReceiver : DeviceAdminReceiver(), KoinComponent {
     private fun securityNote(what: String) {
         Log.i(TAG, what)
         LogManager.log(LogEvent.SecurityAlert, message = what)
-    }
-
-    private companion object {
-        const val TAG = "DhizukuDAReceiver"
     }
 }
