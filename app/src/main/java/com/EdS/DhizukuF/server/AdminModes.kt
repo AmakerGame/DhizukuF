@@ -29,9 +29,9 @@ object AdminModes {
 
     /**
      * Profile Owner / Device Owner provisioning. The DPM owner APIs exist only
-     * from API 21 (Android 5.0); the app's minimum is higher anyway because the
-     * UI needs Compose (API 21), so in practice this is always true — it is
-     * kept explicit so the rule survives a future minSdk change.
+     * from API 21 (Android 5.0); the app's minimum is API 24 because Compose
+     * and androidx.navigation need it, so in practice this is always true —
+     * it is kept explicit so the rule survives a future minSdk change.
      */
     val ownerProvisioning: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP

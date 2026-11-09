@@ -128,7 +128,7 @@ fun SettingsPage(windowInsets: WindowInsets) {
         }
         composable(route = SettingsRoute.Activate.route) {
             val mode = it.arguments?.getString("mode")?.let { name ->
-                SettingsRoute.Activate.Mode.valueOf(name)
+                runCatching { SettingsRoute.Activate.Mode.valueOf(name) }.getOrNull()
             } ?: SettingsRoute.Activate.Mode.Dhizuku
 
             ActivatePage(

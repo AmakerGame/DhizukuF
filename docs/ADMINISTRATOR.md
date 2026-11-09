@@ -12,12 +12,14 @@ DhizukuF knows three administration states, shown on the home screen status card
 
 | Android | Device Administrator | Profile Owner | Device Owner | Notes |
 | --- | --- | --- | --- | --- |
-| 4.4 / API 19–20 | ✅ since API 8 | ❌ | ❌ | Owner APIs do not exist; only Administrator could ever apply — but the app's UI needs Compose (API 21), so these versions are not supported anyway |
-| 5.0–8.1 / API 21–27 | ✅ | ✅ | ✅ | All three modes available |
+| 4.4 / API 19–20 | ✅ since API 8 | ❌ | ❌ | Owner APIs do not exist; only Administrator could ever apply — and the app's UI libraries (Compose, androidx.navigation) need API 24, so these versions are not supported anyway |
+| 5.0–7.0 / API 21–23 | ✅ | ✅ | ✅ | Modes exist, but Compose and androidx.navigation require API 24 — below that the app cannot install |
+| 7.1–8.1 / API 24–27 | ✅ | ✅ | ✅ | All three modes available |
 | 9–13 / API 28–33 | ⚠️ legacy | ✅ | ✅ | Google deprecated most admin policies; the mechanism still works |
 | 14+ / API 34+ | ⚠️ legacy | ✅ | ✅* | Headless System User Mode: some devices require affiliated mode for Device Owner |
 
-The app minimum is **API 21 (Android 5.0)** — set by Jetpack Compose, not by
+The app minimum is **API 24 (Android 7.0)** — required by the Compose and
+androidx.navigation libraries in the current dependency versions, not chosen by
 DhizukuF. On every supported version all three modes exist; the UI still gates
 the owner cards (`Dhizuku`, `Shizuku`, `ADB`) behind `AdminModes.ownerProvisioning`
 so nothing that cannot work is ever shown. Whether owner provisioning actually

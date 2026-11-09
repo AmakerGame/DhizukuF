@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         applicationId = "com.rosan.dhizuku"
-        minSdk = 21
+        minSdk = 24
         targetSdk = compileSdk
         versionCode = versionProps.getProperty("versionCode").toInt()
         versionName = versionProps.getProperty("versionName")

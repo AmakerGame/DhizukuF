@@ -12,11 +12,11 @@ The newest changes are at the top.
   before reporting success. With a two-argument fallback for older Android builds.
 - **Android version gating for the three administration modes**: a new `AdminModes`
   capability object decides which modes the OS can actually provide. Owner-granting cards
-  (Dhizuku / Shizuku / ADB) are shown only when owner provisioning exists (API 21+); the
+  (Dhizuku / Shizuku / ADB) are shown only when owner provisioning exists; the
   Administrator card stays available on every version. See the compatibility table in
   [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md).
-- **Minimum SDK lowered to API 21 (Android 5.0)** — the Compose floor. API 19–20 cannot run
-  the Compose UI and is not supported.
+- **Minimum SDK lowered to API 24 (Android 7.0)** — the floor set by Jetpack Compose and
+  androidx.navigation. API 19–23 cannot run this UI and is not supported.
 
 ### Fixed
 - **dish card on the home screen**: the red "needs owner" warning no longer shows in
@@ -27,7 +27,7 @@ The newest changes are at the top.
 - **Administrator card** is hidden once the right is active (the status widget shows it).
 - **`DhizukuState`**: owner-state reads are guarded so a missing platform method cannot
   crash the sync.
-- **`DaemonService`**: `stopForeground` crash on API 21–23 fixed (the `int` overload does
+- **`DaemonService`**: `stopForeground` crash fixed for API < 24 (the `int` overload does
   not exist before API 24).
 - **dish**: `dish_dhizukuf.dex` rebuilt for the corrected admin command markers;
   `build.sh` dex min-api lowered to 21.

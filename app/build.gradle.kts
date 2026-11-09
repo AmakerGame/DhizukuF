@@ -42,7 +42,7 @@ android {
     buildToolsVersion = "37.0.0"
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 24
         targetSdk = compileSdk
         ndkVersion = "29.0.14206865"
 

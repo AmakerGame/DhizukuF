@@ -4,12 +4,12 @@
 
 - **Correct three-mode administration support**: Device Administrator, Profile Owner and
   Device Owner are now gated by what Android really offers — a new `AdminModes` check shows
-  the owner-granting cards (Dhizuku / Shizuku / ADB) only where owner provisioning exists
-  (API 21+), keeps the Administrator card everywhere, and documents the per-version limits
+  the owner-granting cards (Dhizuku / Shizuku / ADB) only where owner provisioning exists,
+  keeps the Administrator card everywhere, and documents the per-version limits
   (Android 9+ deprecated admin policies, Android 14+ headless-system-user requirements).
   See [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md).
-- **Minimum SDK is now API 21 (Android 5.0)** — required by Jetpack Compose; Android 4.4
-  cannot run this UI and is not supported.
+- **Minimum SDK is now API 24 (Android 7.0)** — required by the Compose and
+  androidx.navigation libraries; Android 4.4–6.0 cannot run this UI and is not supported.
 - **Administrator can also be granted through Shizuku/Dhizuku**: the Activate page offers
   *Administrator* as a third owner type — the selected app receives the plain device-admin
   right (`setActiveAdmin`, verified before success is reported).
@@ -19,7 +19,7 @@
 - The dish card no longer shows the red "needs owner" warning in Administrator mode.
 - `dish help` `~` markers now list only commands a device admin can actually use.
 - The Administrator card hides itself once the right is active.
-- Crash on Android 5.x–6.x when the daemon service stopped (`stopForeground` overload).
+- Crash when the daemon service stopped on old Android (`stopForeground` overload).
 - `setActiveAdmin` falls back to the older two-argument signature on old Android builds.
 
 ## DhizukuF v1.7.0 (13)
