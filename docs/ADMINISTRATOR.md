@@ -77,3 +77,11 @@ interfaces reach the functions an active device admin is allowed to perform.
 
 To go further, use the **Dhizuku** or **Shizuku** activation methods to become
 Device Owner instead.
+
+## Granting Administrator to another app
+
+The Activate page (Dhizuku / Shizuku) can also grant the plain device-admin right to a
+selected app: pick **Administrator** in the owner-type menu and confirm. DhizukuF calls
+the private `setActiveAdmin` through the shell binder — the same effect as
+`adb shell dpm set-active-admin` — and verifies `isAdminActive` before reporting success.
+This is still the limited mode: the app gets only what a device admin may do.

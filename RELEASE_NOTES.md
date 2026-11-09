@@ -10,12 +10,17 @@
   See [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md).
 - **Minimum SDK is now API 21 (Android 5.0)** — required by Jetpack Compose; Android 4.4
   cannot run this UI and is not supported.
+- **Administrator can also be granted through Shizuku/Dhizuku**: the Activate page offers
+  *Administrator* as a third owner type — the selected app receives the plain device-admin
+  right (`setActiveAdmin`, verified before success is reported).
 
 ### Fixed
 
 - The dish card no longer shows the red "needs owner" warning in Administrator mode.
 - `dish help` `~` markers now list only commands a device admin can actually use.
 - The Administrator card hides itself once the right is active.
+- Crash on Android 5.x–6.x when the daemon service stopped (`stopForeground` overload).
+- `setActiveAdmin` falls back to the older two-argument signature on old Android builds.
 
 ## DhizukuF v1.7.0 (13)
 

@@ -6,6 +6,10 @@ The newest changes are at the top.
 ## 1.8.0 (14)
 
 ### Added
+- **Administrator activation through Shizuku/Dhizuku**: the Activate page owner-type menu now
+  offers *Administrator* — the picked app gets the plain device-admin right via the private
+  `setActiveAdmin` call (the `dpm set-active-admin` equivalent), verified with `isAdminActive`
+  before reporting success. With a two-argument fallback for older Android builds.
 - **Android version gating for the three administration modes**: a new `AdminModes`
   capability object decides which modes the OS can actually provide. Owner-granting cards
   (Dhizuku / Shizuku / ADB) are shown only when owner provisioning exists (API 21+); the
@@ -23,6 +27,10 @@ The newest changes are at the top.
 - **Administrator card** is hidden once the right is active (the status widget shows it).
 - **`DhizukuState`**: owner-state reads are guarded so a missing platform method cannot
   crash the sync.
+- **`DaemonService`**: `stopForeground` crash on API 21–23 fixed (the `int` overload does
+  not exist before API 24).
+- **dish**: `dish_dhizukuf.dex` rebuilt for the corrected admin command markers;
+  `build.sh` dex min-api lowered to 21.
 
 ## 1.7.0 (13)
 
