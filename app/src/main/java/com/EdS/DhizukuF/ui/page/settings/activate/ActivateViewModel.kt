@@ -272,15 +272,26 @@ class ActivateViewModel : ViewModel(), KoinComponent {
         policyReceiver: ComponentName,
         refreshing: Boolean,
         userHandle: Int
-    ) = this::class.java
-        .getDeclaredMethod(
-            "setActiveAdmin",
-            ComponentName::class.java,
-            Boolean::class.java,
-            Int::class.java
-        )
-        .also { it.isAccessible = true }
-        .invoke(this, policyReceiver, refreshing, userHandle)
+    ) {
+        val clazz = this::class.java
+        try {
+            clazz.getDeclaredMethod(
+                "setActiveAdmin",
+                ComponentName::class.java,
+                Boolean::class.java,
+                Int::class.java
+            ).also { it.isAccessible = true }
+                .invoke(this, policyReceiver, refreshing, userHandle)
+        } catch (e: NoSuchMethodException) {
+            // Older builds expose only the two-argument form.
+            clazz.getDeclaredMethod(
+                "setActiveAdmin",
+                ComponentName::class.java,
+                Boolean::class.java
+            ).also { it.isAccessible = true }
+                .invoke(this, policyReceiver, refreshing)
+        }
+    }
 
     private fun DevicePolicyManager.setDeviceOwner(
         who: ComponentName,
