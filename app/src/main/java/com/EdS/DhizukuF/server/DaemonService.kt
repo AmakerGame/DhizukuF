@@ -8,6 +8,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
+import android.os.Build
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -141,7 +142,13 @@ class DaemonService : Service(), KoinComponent {
 
     private fun foreground(enabled: Boolean) {
         if (!enabled) {
-            stopForeground(STOP_FOREGROUND_REMOVE)
+            // stopForeground(int) exists only since API 24; on 21-23 use the boolean overload.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                stopForeground(STOP_FOREGROUND_REMOVE)
+            } else {
+                @Suppress("DEPRECATION")
+                stopForeground(true)
+            }
             return
         }
         val show = settingsRepo.isDaemonNotificationEnabled
