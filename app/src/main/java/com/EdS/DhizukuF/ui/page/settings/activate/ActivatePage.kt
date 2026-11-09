@@ -77,6 +77,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 import com.EdS.DhizukuF.R
+import com.EdS.DhizukuF.server.AdminModes
 import com.EdS.DhizukuF.server.DhizukuState
 import com.EdS.DhizukuF.ui.page.settings.SettingsRoute
 import com.EdS.DhizukuF.ui.theme.AppIconCache
@@ -281,7 +282,7 @@ private fun ConfirmBar(
     viewModel: ActivateViewModel,
     compState: State<ComponentName?>
 ) {
-    if (mode == SettingsRoute.Activate.Mode.Shizuku) {
+    if (mode == SettingsRoute.Activate.Mode.Shizuku && AdminModes.ownerProvisioning) {
         var ownerType by remember { mutableStateOf(ActivateViewModel.OwnerType.Device) }
         var menuExpanded by remember { mutableStateOf(false) }
         var profileOwnerWarningShow by remember { mutableStateOf(false) }

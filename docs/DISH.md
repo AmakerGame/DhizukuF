@@ -175,10 +175,11 @@ Commands that change device-wide state need the Device Owner: `reboot`, `adb`, `
 only.
 
 In **Administrator** mode dish runs the commands a device admin is actually allowed to use —
-`lock`, `wipe`, `block-uninstall`, `camera`, `screen-capture`, `permission`, `app-restrictions`,
-`settings put secure`, `api` for admin-permitted methods, and the read-only info commands. The
-Device-Owner-only commands still answer "needs Device Owner", and calls the system does not grant
-to a plain admin fail with the system's own refusal.
+`lock`, `wipe`, `camera`, the read-only info commands, and `api` for admin-permitted methods.
+Whether a call succeeds is decided by the system and by the policies declared in the admin
+XML (force-lock, wipe-data, disable-camera, ...), so even a listed command can be refused on
+a given device. The Device-Owner-only commands still answer "needs Device Owner", and calls
+the system does not grant to a plain admin fail with the system's own refusal.
 
 `dish status` shows the current mode. In `dish help` commands marked `*` need the Device Owner,
 commands marked `~` also work for Administrator, and `dish help COMMAND` has a `Needs:` line.

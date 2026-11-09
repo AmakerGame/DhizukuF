@@ -148,6 +148,7 @@ import androidx.navigation.NavController
 import com.EdS.DhizukuF.R
 import com.EdS.DhizukuF.data.common.util.checkShizukuWorked
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
+import com.EdS.DhizukuF.server.AdminModes
 import com.EdS.DhizukuF.server.DhizukuState
 import com.EdS.DhizukuF.ui.page.settings.SettingsRoute
 import com.EdS.DhizukuF.ui.theme.exclude
@@ -190,8 +191,8 @@ fun HomePage(
         if (owner) add("dhizuku")
         if (logsEnabled.enabled) add("logs")
         add("dish")
-        if (!owner) add("shizuku")
-        if (!owner) add("adb")
+        if (!owner && AdminModes.ownerCards) add("shizuku")
+        if (!owner && AdminModes.ownerCards) add("adb")
         if (!owner && !dhizukuState.isAdministrator) add("administrator")
         add("oss")
         if (owner) add("home_deactivate_title")

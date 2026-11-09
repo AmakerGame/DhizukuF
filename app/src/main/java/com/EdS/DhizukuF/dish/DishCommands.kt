@@ -1449,17 +1449,17 @@ class DishCommands(
 
         /**
          * Commands a plain device Administrator may also run: they use only calls the system
-         * grants to an active admin (lockNow, wipeData, setUninstallBlocked, camera, password
-         * policies, permission grants, ...). Everything else still needs an owner, and `api`
-         * depends on the called method.
+         * grants to an active admin and that the admin XML declares (force-lock, wipe-data,
+         * disable-camera, ...). App-management calls (hide, suspend, install-existing,
+         * clear-data, permission policies, restrictions, IME, uninstall-blocking — its policy
+         * is not declared) need an owner and stay unmarked; `api` depends on the called
+         * method, `settings` on the subcommand
+         * (put global is already refused for non-owners inside the command).
          */
         private val ADMIN_COMMANDS = setOf(
             "help", "status", "version", "id", "device", "ping", "log", "batch",
-            "wipe", "lock",
-            "list", "app-info", "is-hidden", "is-suspended", "is-uninstall-blocked",
-            "block-uninstall", "allow-uninstall", "app-restrictions", "enable-system-app",
-            "install-existing", "clear-data", "permission", "permission-policy", "restriction",
-            "camera", "screen-capture", "org-name", "lock-timeout", "ime",
+            "list", "app-info",
+            "wipe", "lock", "camera",
             "settings", "api"
         )
 
@@ -1471,7 +1471,7 @@ class DishCommands(
         )
 
         private val OWNER_NOTES = mapOf(
-            "settings" to "Device Owner for: settings put global. put secure also works for Administrator",
+            "settings" to "Device Owner for: settings put global. Other forms depend on the mode",
             "api" to "depends on the method; DevicePolicyManager calls a device admin may use also work for Administrator",
             "help" to "nothing special",
             "log" to "nothing special",

@@ -72,8 +72,8 @@ data object DhizukuState {
         val dpm = app.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         // Cheap: update the UI state right away.
         val newState = State(
-            isDeviceOwner = dpm.isDeviceOwnerApp(admin.packageName),
-            isProfileOwner = dpm.isProfileOwnerApp(admin.packageName),
+            isDeviceOwner = runCatching { dpm.isDeviceOwnerApp(admin.packageName) }.getOrDefault(false),
+            isProfileOwner = runCatching { dpm.isProfileOwnerApp(admin.packageName) }.getOrDefault(false),
             isAdminActive = runCatching { dpm.isAdminActive(admin) }.getOrDefault(false)
         )
         state = newState

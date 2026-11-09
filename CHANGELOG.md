@@ -3,6 +3,27 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## 1.8.0 (14)
+
+### Added
+- **Android version gating for the three administration modes**: a new `AdminModes`
+  capability object decides which modes the OS can actually provide. Owner-granting cards
+  (Dhizuku / Shizuku / ADB) are shown only when owner provisioning exists (API 21+); the
+  Administrator card stays available on every version. See the compatibility table in
+  [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md).
+- **Minimum SDK lowered to API 21 (Android 5.0)** — the Compose floor. API 19–20 cannot run
+  the Compose UI and is not supported.
+
+### Fixed
+- **dish card on the home screen**: the red "needs owner" warning no longer shows in
+  Administrator mode; a neutral note explains the limited command set instead (all locales).
+- **dish `~` markers corrected**: only commands a device admin can really use are marked
+  (lock, wipe, camera, info commands, `settings`, `api`); app-management commands that need
+  an owner are no longer advertised for Administrator.
+- **Administrator card** is hidden once the right is active (the status widget shows it).
+- **`DhizukuState`**: owner-state reads are guarded so a missing platform method cannot
+  crash the sync.
+
 ## 1.7.0 (13)
 
 ### Added

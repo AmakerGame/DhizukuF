@@ -8,6 +8,23 @@ DhizukuF knows three administration states, shown on the home screen status card
 | **Profile Owner** | `dpm set-profile-owner` or the Activate page | Managed profile only; device-wide commands stay off |
 | **Administrator** | The standard Android **device administrator** toggle (no root, no ADB) | The smallest set: whatever a device admin may do, exposed through dish and the Dhizuku API |
 
+## Android version support
+
+| Android | Device Administrator | Profile Owner | Device Owner | Notes |
+| --- | --- | --- | --- | --- |
+| 4.4 / API 19–20 | ✅ since API 8 | ❌ | ❌ | Owner APIs do not exist; only Administrator could ever apply — but the app's UI needs Compose (API 21), so these versions are not supported anyway |
+| 5.0–8.1 / API 21–27 | ✅ | ✅ | ✅ | All three modes available |
+| 9–13 / API 28–33 | ⚠️ legacy | ✅ | ✅ | Google deprecated most admin policies; the mechanism still works |
+| 14+ / API 34+ | ⚠️ legacy | ✅ | ✅* | Headless System User Mode: some devices require affiliated mode for Device Owner |
+
+The app minimum is **API 21 (Android 5.0)** — set by Jetpack Compose, not by
+DhizukuF. On every supported version all three modes exist; the UI still gates
+the owner cards (`Dhizuku`, `Shizuku`, `ADB`) behind `AdminModes.ownerProvisioning`
+so nothing that cannot work is ever shown. Whether owner provisioning actually
+succeeds depends on the device state (existing accounts, an already provisioned
+device, Android 14+ requirements) — the system enforces that at activation time
+and the Activate page reports the real result.
+
 ## What Administrator mode is
 
 Administrator is the regular device-admin right every Android app can ask for:
