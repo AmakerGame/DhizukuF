@@ -25,6 +25,7 @@ object CompatHub {
     const val HUB_PACKAGE = "com.rosan.dhizuku"
     private const val ASSET = "dhizuku_compat_hub.apk"
     private const val TAG = "CompatHub"
+    private const val TOKEN_EXTRA = "token"
 
     enum class Status {
         /** Not installed. */
@@ -133,11 +134,16 @@ object CompatHub {
     private fun awaitResult(context: Context, start: (IntentSender) -> Unit): Outcome {
         val app = context.applicationContext
         val action = "${app.packageName}.HUB_RESULT"
+        // On API < 33 a registered receiver cannot be marked not-exported, so another app could send
+        // a broadcast with the same action and fake the install result. The token travels inside the
+        // PendingIntent and is unguessable, so only the real installer answer is accepted.
+        val token = java.util.UUID.randomUUID().toString()
         val latch = CountDownLatch(1)
         var status = Int.MIN_VALUE
         var message = ""
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(c: Context, i: Intent) {
+                if (i.getStringExtra(TOKEN_EXTRA) != token) return
                 val st = i.getIntExtra(PackageInstaller.EXTRA_STATUS, Int.MIN_VALUE)
                 if (st == PackageInstaller.STATUS_PENDING_USER_ACTION) {
                     // Not the Device Owner: Android wants the user to confirm. The final result follows.
@@ -166,7 +172,9 @@ object CompatHub {
             val flags = PendingIntent.FLAG_UPDATE_CURRENT or
                 (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0)
             val pending = PendingIntent.getBroadcast(
-                app, 0, Intent(action).setPackage(app.packageName), flags
+                app, 0,
+                Intent(action).setPackage(app.packageName).putExtra(TOKEN_EXTRA, token),
+                flags
             )
             start(pending.intentSender)
             if (!latch.await(120, TimeUnit.SECONDS)) {

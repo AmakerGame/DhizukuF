@@ -3,6 +3,20 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## 1.9.0 (15)
+
+### Security
+- **Enable dangerous commands now asks for the screen lock** when *Require device authentication* is
+  set to *Only on confirmation* or *On confirmation and when opening the app* — the same confirmation
+  as the permission dialog's Allow/Refuse/Block. Switching the option off still needs nothing.
+
+### Fixed
+- **Docs**: the minimum Android version is corrected to **7.0 (API 24)** in `README.md`,
+  `docs/DISH.md` and `docs/HUB.md` — it always was 24 (`minSdk`), the floor set by Jetpack Compose and
+  androidx.navigation.
+- **AuthGate**: `confirm()` now shares the fail-closed path of `confirmAlways()` — when the system
+  prompt cannot be shown the action is denied instead of passing silently.
+
 ## 1.8.0 (14)
 
 ### Added

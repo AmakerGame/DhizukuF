@@ -98,12 +98,12 @@ dish --version            # client version, no connection
 
 ## Compatibility
 
-DhizukuF needs Android 8.0 (API 26) or newer. A command that the running Android version does not have answers
+DhizukuF needs Android 7.0 (API 24) or newer. A command that the running Android version does not have answers
 `NOT DONE: Not supported on this Android version` instead of failing.
 
 | Android | What it adds for dish |
 |-|-|
-| 8.0+ | everything not listed below |
+| 7.0+ | everything not listed below |
 | 9+ | `timezone`, `install-existing`, `clear-data` |
 | 10+ | `private-dns` |
 | 11+ | `auto-time`, `auto-timezone` |
@@ -118,7 +118,7 @@ Notes for the `dish` launcher:
 - It works with `/system/bin/app_process`, and falls back to the 64-bit or 32-bit variant on images that only
   ship one.
 - The client reaches DhizukuF with a broadcast sent through the hidden `IActivityManager` API. The call is matched by
-  name and parameter types, which covers Android 8 to current releases; if a future release changes it, dish prints
+  name and parameter types, which covers Android 7 to current releases; if a future release changes it, dish prints
   `cannot send the request to DhizukuF` with the reason, and an app update will be needed.
 - In **Profile Owner** mode the approval window can be refused by Android when it is opened from the background
   (Device Owners are exempt). dish then says so and keeps the request in *App management*: switch the terminal
@@ -145,14 +145,18 @@ forms and answers `NOT DONE: '<command>' is a dangerous command and is switched 
 
 | Command | Dangerous form |
 |-|-|
-| `reboot`, `clear-data` | always |
+| `reboot`, `clear-data`, `wipe`, `uninstall` | always |
 | `api` / `call` | every call except `--list` and `--sig` |
 | `settings` | `put` |
 | `permission` | `grant`, `deny`, `default` |
 | `permission-policy` | `grant`, `deny` |
 | `keyguard`, `status-bar` | `disable` |
-| `adb` | `enable` |
+| `adb`, `adb-wifi` | `enable` |
 | `private-dns` | setting a value (`status` is allowed) |
+| `lock-task` | `set`, `clear` |
+| `vpn` | `on` |
+| `time` | `set` |
+| `ime` | `allow`, `reset` |
 
 `dish help` marks these commands with `!`, `dish help COMMAND` has a `Dangerous:` line and
 `dish status` shows whether the switch is on. The same switch applies to the regular Dhizuku API: while

@@ -54,7 +54,7 @@ request and the approvals in *App management* work as before. The hub only trust
 - Features that run client code inside the Dhizuku process (user services) are not forwarded.
 - The Dhizuku API switches in DhizukuF (*Settings > Enable DhizukuF*, *Security > whitelist mode / dangerous commands*) apply to hub
   clients exactly as to direct ones.
-- The hub needs Android 8.0 or newer, like DhizukuF.
+- The hub needs Android 7.0 (API 24) or newer, like DhizukuF.
 
 ## Build
 

@@ -32,6 +32,9 @@ object DishRegistry : KoinComponent {
 
     fun isDish(uid: Int): Boolean = prefs.contains(PREFIX + uid)
 
+    /** The label stored by the last registration, or null for an unknown terminal. */
+    fun labelOf(uid: Int): String? = prefs.getString(PREFIX + uid, null)
+
     fun all(): Map<Int, String> = prefs.all
         .filterKeys { it.startsWith(PREFIX) }
         .mapNotNull { (key, value) ->

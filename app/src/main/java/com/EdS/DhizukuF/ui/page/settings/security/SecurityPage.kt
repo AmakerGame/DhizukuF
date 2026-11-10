@@ -185,7 +185,15 @@ fun SecurityPage(
                             title = stringResource(R.string.enable_dangerous),
                             description = stringResource(R.string.enable_dangerous_desc),
                             checked = state.dangerousEnabled,
-                            onCheckedChange = viewModel::setDangerousEnabled,
+                            onCheckedChange = { enabled ->
+                                if (enabled) {
+                                    gate.confirm(promptTitle, promptSecurity) {
+                                        viewModel.setDangerousEnabled(true)
+                                    }
+                                } else {
+                                    viewModel.setDangerousEnabled(false)
+                                }
+                            },
                             titleColor = MaterialTheme.colorScheme.error
                         )
                     }

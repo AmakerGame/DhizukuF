@@ -23,11 +23,13 @@ class AuthGate(private val context: Context) {
             onGranted()
             return
         }
-        val activity = context.findFragmentActivity() ?: return
-        DeviceAuth.authenticate(activity, title, subtitle) { ok -> if (ok) onGranted() }
+        confirmAlways(title, subtitle, onGranted)
     }
 
-    /** Always asks (when the device can), whatever the mode is: used to change the Security settings themselves. */
+    /**
+     * Always asks (when the device can), whatever the mode is: used to change the Security settings themselves.
+     * If a prompt cannot be shown, the action is denied rather than silently allowed.
+     */
     fun confirmAlways(title: String, subtitle: String? = null, onGranted: () -> Unit) {
         if (!DeviceAuth.canAuthenticate(context)) {
             onGranted()

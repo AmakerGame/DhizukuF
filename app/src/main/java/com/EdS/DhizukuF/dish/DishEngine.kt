@@ -87,7 +87,10 @@ object DishEngine : KoinComponent {
         gate(context)?.let { return Reply(KIND_DENIED, message = it) }
 
         // Registration request: the terminal shows up in the app list as "dish (<app>)".
-        DishRegistry.register(uid, label(context, uid))
+        // A registered terminal keeps its stored label, so repeat commands skip the
+        // PackageManager lookups entirely (the label is cosmetic only).
+        val knownLabel = DishRegistry.labelOf(uid) ?: label(context, uid)
+        DishRegistry.register(uid, knownLabel)
 
         return when (val verdict = authorize(context, uid)) {
             Verdict.Allowed -> {
@@ -126,7 +129,7 @@ object DishEngine : KoinComponent {
                     lastDialog[uid] = now
                     launchDialog(context, uid)
                 }
-                val name = DishRegistry.displayName(uid, label(context, uid))
+                val name = DishRegistry.displayName(uid, knownLabel)
                 Reply(KIND_NEED_APPROVAL, message = str(context, R.string.dish_need_permission, name))
             }
         }

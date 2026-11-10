@@ -894,11 +894,15 @@ class DishCommands(
         val pkg = a[0]
         selfGuard("uninstall", pkg)?.let { return it }
         val action = "${context.packageName}.DISH_UNINSTALL"
+        // Same spoofing guard as CompatHub: on API < 33 the receiver cannot be marked not-exported,
+        // so only a broadcast carrying this unguessable token counts as the real answer.
+        val token = java.util.UUID.randomUUID().toString()
         val latch = CountDownLatch(1)
         var status = Int.MIN_VALUE
         var message = ""
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(c: Context, i: Intent) {
+                if (i.getStringExtra("token") != token) return
                 status = i.getIntExtra(PackageInstaller.EXTRA_STATUS, Int.MIN_VALUE)
                 message = i.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE) ?: ""
                 latch.countDown()
@@ -914,7 +918,9 @@ class DishCommands(
             val flags = PendingIntent.FLAG_UPDATE_CURRENT or
                 (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0)
             val pending = PendingIntent.getBroadcast(
-                context, 0, Intent(action).setPackage(context.packageName), flags
+                context, 0,
+                Intent(action).setPackage(context.packageName).putExtra("token", token),
+                flags
             )
             context.packageManager.packageInstaller.uninstall(pkg, pending.intentSender)
             if (!latch.await(20, TimeUnit.SECONDS)) return notDone("uninstalling $pkg timed out")

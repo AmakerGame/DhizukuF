@@ -36,7 +36,8 @@ device. This page explains how dish is protected and how to report a problem.
 - **Screen-lock confirmation (Security > Require device authentication).** Off by default. *Only on confirmation*:
   Allow, Refuse and Block in the permission dialog ("Allow an app to use DhizukuF?") and the same decisions in App
   management ask for the screen lock (PIN, pattern, password), fingerprint or face first; doing nothing (the timer, Back)
-  still refuses, without a prompt. *Only when opening the app*: DhizukuF stays locked behind the prompt when it is opened
+  still refuses, without a prompt. Switching *Enable dangerous commands* **on** asks for the lock too (switching it off
+  does not). *Only when opening the app*: DhizukuF stays locked behind the prompt when it is opened
   and after 30 seconds in the background. *Both*: both checks. The system answers only yes or no; DhizukuF stores nothing
   about the lock. Choosing a mode needs a screen lock on the device (many TV boxes have none: DhizukuF then shows a
   message and keeps the option off); changing the mode itself asks for the lock too. If the screen lock is removed later,

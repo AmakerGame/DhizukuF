@@ -15,7 +15,7 @@
 | --- | --- |
 | Package | `com.EdS.DhizukuF` |
 | Version | See [`version.properties`](version.properties) |
-| Android | 8.0+ |
+| Android | 7.0+ |
 | License | [GNU GPL v3](LICENSE) |
 
 > [!NOTE]
