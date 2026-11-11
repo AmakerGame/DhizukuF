@@ -161,8 +161,9 @@ forms and answers `NOT DONE: '<command>' is a dangerous command and is switched 
 `dish help` marks these commands with `!`, `dish help COMMAND` has a `Dangerous:` line and
 `dish status` shows whether the switch is on. The same switch applies to the regular Dhizuku API: while
 it is off, dangerous calls of an API client are refused, and with it on the API is open (see
-[SECURITY.md](../SECURITY.md) for the list). With **Enable dangerous commands** off, dish blocks wipe, factory reset, removing users and similar
-calls stay blocked even when the switch is on (`dish api` refuses them).
+[SECURITY.md](../SECURITY.md) for the list). While the switch is off, `dish api` also refuses
+wipe, factory reset, removing users and similar calls; with it on, `dish api` can call them too —
+approved terminals are trusted apps (see [SECURITY.md](../SECURITY.md)).
 
 ## Device Owner, Profile Owner and Administrator
 
@@ -170,9 +171,9 @@ dish works when DhizukuF is the **Device Owner**, the **Profile Owner** or a pla
 **Administrator** (the standard Android device-admin toggle, see [ADMINISTRATOR.md](ADMINISTRATOR.md)).
 Profile Owner is a limited mode and Administrator is the most limited one.
 
-Commands that change device-wide state need the Device Owner: `reboot`, `adb`, `stay-awake`,
-`timezone`, `private-dns`, `keyguard`, `status-bar`, `owner-info`, `auto-time`, `auto-timezone` and
-`settings put global`. In Profile Owner mode they answer
+Commands that change device-wide state need the Device Owner: `reboot`, `adb`, `adb-wifi`,
+`stay-awake`, `timezone`, `private-dns`, `keyguard`, `status-bar`, `owner-info`, `auto-time`,
+`auto-timezone`, `bugreport`, `lock-task`, `location`, `time` and `settings put global`. In Profile Owner mode they answer
 `NOT DONE: <command> needs Device Owner, but DhizukuF is Profile Owner.` (reading with `status` or
 `get` still works). App and profile commands (`hide`, `suspend`, `permission`, `restriction`,
 `camera`, ...) work in both owner modes, but in Profile Owner mode they affect the managed profile

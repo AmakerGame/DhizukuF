@@ -409,8 +409,12 @@ class DishCommands(
     }
 
     private fun whoami(): Result {
-        val pkgs = context.packageManager.getPackagesForUid(uid)?.joinToString(", ") ?: "?"
-        val name = DishRegistry.displayName(uid, pkgs)
+        val pm = context.packageManager
+        val pkgs = pm.getPackagesForUid(uid)?.joinToString(", ") ?: "?"
+        val label = pm.getPackagesForUid(uid)?.firstOrNull()?.let { pkg ->
+            runCatching { pm.getApplicationInfo(pkg, 0).loadLabel(pm).toString() }.getOrNull()
+        }
+        val name = DishRegistry.displayName(uid, label)
         return Result(out = "uid: $uid\napp: $name\npackages: $pkgs\n")
     }
 

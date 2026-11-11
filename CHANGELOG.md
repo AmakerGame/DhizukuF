@@ -16,6 +16,17 @@ The newest changes are at the top.
   androidx.navigation.
 - **AuthGate**: `confirm()` now shares the fail-closed path of `confirmAlways()` — when the system
   prompt cannot be shown the action is denied instead of passing silently.
+- **dish `id`/`whoami`**: the `app:` line showed raw package names; it now resolves the real app
+  label (with the stored dish-registry label as fallback).
+- **dish install/uninstall result spoofing**: `CompatHub` and `dish uninstall` now require an
+  unguessable token in the installer-result broadcast — on API < 33 the receiver cannot be marked
+  not-exported, so another app could previously fake the result.
+- **Docs**: `docs/DISH.md` dangerous-command table now lists every gated form (`wipe`, `uninstall`,
+  `lock-task`, `vpn`, `time`, `ime`, `adb-wifi`), the Device-Owner-only command list matches
+  `DEVICE_OWNER_ONLY`, and `SECURITY.md`/`DISH.md` no longer claim `dish api` keeps refusing
+  catastrophic calls while dangerous commands are on (it does not — approved terminals are trusted).
+- **dish performance**: repeat commands reuse the terminal label stored in the dish registry instead
+  of doing PackageManager lookups on every call.
 
 ## 1.8.0 (14)
 

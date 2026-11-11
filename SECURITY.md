@@ -16,8 +16,8 @@ device. This page explains how dish is protected and how to report a problem.
   handshakes; unapproved callers cannot tie up Binder threads (at most 4 waiting requests, one per
   app) or flood the approval dialog (one dialog per 10 seconds per app); command lines are size-limited;
   internal error details are not sent to callers.
-- **Dangerous calls are blocked.** `wipe*`, factory reset, removing users, removing the owner,
-  ownership transfer and password reset are not available through `dish api`, and dish refuses to
+- **Dangerous calls are blocked while the switch is off.** `wipe*`, factory reset, removing users, removing the
+  owner, ownership transfer and password reset are not available through `dish api`, and dish refuses to
   hide, suspend or clear the data of DhizukuF itself.
 - **Dangerous commands are off by default.** *Security > Enable dangerous commands* gates reboot,
   clearing app data, writing settings, changing permissions, disabling the keyguard or status bar,
@@ -29,10 +29,10 @@ device. This page explains how dish is protected and how to report a problem.
   password reset, reboot, clearing app data, writing settings, permissions, keyguard, status bar, lock task, VPN,
   time, input methods, private DNS, uninstalling) is refused with a `SecurityException`. `remote_process`,
   `bind_user_service` and `set_delegated_scopes` run client code as the owner or give owner powers away and cannot be
-  filtered by method, so they are refused as a whole. With the switch **on** the API is open: everything passes
-  (wipe and factory reset too; `dish api` keeps refusing them). A method that cannot be recognised (the system hides
-  its transaction names) is let through and a warning is written to the log. Approved Dhizuku API clients are still
-  trusted apps: approve only those you trust.
+  filtered by method, so they are refused as a whole. With the switch **on** the API is open: everything passes,
+  including wipe and factory reset — for `dish api` too (approved terminals are trusted apps). A method that cannot
+  be recognised (the system hides its transaction names) is let through and a warning is written to the log. Approved
+  Dhizuku API clients are still trusted apps: approve only those you trust.
 - **Screen-lock confirmation (Security > Require device authentication).** Off by default. *Only on confirmation*:
   Allow, Refuse and Block in the permission dialog ("Allow an app to use DhizukuF?") and the same decisions in App
   management ask for the screen lock (PIN, pattern, password), fingerprint or face first; doing nothing (the timer, Back)
