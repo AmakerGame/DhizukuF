@@ -1,3 +1,27 @@
+## DhizukuF v1.9.0 (15)
+
+### Security
+
+- **Enable dangerous commands now asks for the screen lock** when *Require device
+  authentication* is set to *Only on confirmation* or *Both* — the same confirmation as the
+  permission dialog's Allow/Refuse/Block. Switching the option off still needs nothing.
+- **dish `id`/`whoami`** shows the real app label instead of raw package names.
+- **Installer-result spoofing fixed**: the hub install and `dish uninstall` now require an
+  unguessable token in the result broadcast — on Android < 13 the receiver cannot be marked
+  not-exported, so another app could previously fake the result.
+
+### Fixed
+
+- **dish performance**: repeat commands reuse the terminal label stored in the dish registry —
+  no PackageManager lookups on every call.
+- **Docs**: minimum Android corrected to 7.0 (API 24); the dangerous-command table lists every
+  gated form; `SECURITY.md` matches the actual `dish api` behavior.
+
+### Install
+
+1. Install the APK (and Hub if needed).
+2. Keep Device Owner — or try the **Administrator** card for the limited mode.
+
 ## DhizukuF v1.8.0 (14)
 
 ### Highlights
