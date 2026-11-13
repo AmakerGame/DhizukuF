@@ -277,7 +277,7 @@
     <string name="launcher_name_profile_owner" translatable="false">Profile Owner</string>
 
     <string name="daemon_notification">Сповіщення служби</string>
-    <string name="daemon_notification_desc">Постійне сповіщення, поки працює служба Device Owner. Дотик відкриває DhizukuF. Якщо вимкнено, Android усе одно показує мінімальний тихий індикатор.</string>
+    <string name="daemon_notification_desc">Запускає фонову службу, яка тримає DhizukuF готовим, і показує її постійне сповіщення статусу. Дотик відкриває DhizukuF. Якщо вимкнено, службу взагалі не запускають — без сповіщення; Dhizuku API і dish все одно стартують на вимогу.</string>
     <string name="daemon_service_notification_quiet">Працює</string>
     <string name="oss_licenses">Ліцензії відкритого ПЗ</string>
     <string name="home_oss_title">Ліцензії відкритого ПЗ</string>

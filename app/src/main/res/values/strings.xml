@@ -279,7 +279,7 @@
     <string name="customization_apply_failed">The system did not switch the launcher entry. Try again, or restart the launcher or the device.</string>
 
     <string name="daemon_notification">Service notification</string>
-    <string name="daemon_notification_desc">Shows a persistent status notification while the Device Owner service is running. Tap opens DhizukuF. When off, Android still requires a minimal quiet indicator.</string>
+    <string name="daemon_notification_desc">Runs the background service that keeps DhizukuF ready and shows its persistent status notification. Tap opens DhizukuF. When off, the service is not started at all — no notification; the Dhizuku API and dish still start on demand.</string>
     <string name="daemon_service_notification_quiet">Running</string>
     <string name="oss_licenses">Open-source licenses</string>
     <string name="home_oss_title">Open-source licenses</string>

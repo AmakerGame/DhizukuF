@@ -14,6 +14,10 @@
 
 - **dish performance**: repeat commands reuse the terminal label stored in the dish registry —
   no PackageManager lookups on every call.
+- **Shizuku activation on Android 12+**: `user_setup_complete` is bypassed during owner
+  provisioning (ported from upstream) — works on already-setup devices; a stuck flag self-heals.
+- **Service notification off really means off**: the daemon service is not started at all —
+  no persistent notification; the API and dish still start on demand.
 - **Docs**: minimum Android corrected to 7.0 (API 24); the dangerous-command table lists every
   gated form; `SECURITY.md` matches the actual `dish api` behavior.
 

@@ -163,7 +163,14 @@ data object DhizukuState {
     private fun autoDaemonService(context: Context, isOwner: Boolean) {
         val intent = Intent(context, DaemonService::class.java)
         try {
-            if (isOwner) ContextCompat.startForegroundService(context, intent)
+            // A foreground service must show a notification and Android offers no way to hide
+            // it, so "Service notification" off means the daemon is not started at all: the
+            // process still starts on demand (provider / dish broadcast) when a client calls.
+            val notificationsOff = runCatching {
+                org.koin.mp.KoinPlatform.getKoin().get<com.EdS.DhizukuF.data.settings.repo.SettingsRepo>()
+                    .isDaemonNotificationEnabled.not()
+            }.getOrDefault(false)
+            if (isOwner && !notificationsOff) ContextCompat.startForegroundService(context, intent)
             else context.stopService(intent)
         } catch (t: Throwable) {
             // e.g. ForegroundServiceStartNotAllowedException when started from background

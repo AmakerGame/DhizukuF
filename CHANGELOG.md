@@ -27,6 +27,12 @@ The newest changes are at the top.
   catastrophic calls while dangerous commands are on (it does not — approved terminals are trusted).
 - **dish performance**: repeat commands reuse the terminal label stored in the dish registry instead
   of doing PackageManager lookups on every call.
+- **Shizuku activation on Android 12+**: the `user_setup_complete` flag is now bypassed during
+  Device/Profile Owner provisioning (ported from upstream) — owner activation via Shizuku works on
+  already-setup devices; a stuck flag is restored on the next app start.
+- **Service notification off really means off**: with *Service notification* disabled the daemon
+  service is no longer started at all — no persistent notification; the API and dish still start
+  on demand.
 
 ## 1.8.0 (14)
 

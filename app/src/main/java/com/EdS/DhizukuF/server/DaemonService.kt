@@ -83,6 +83,12 @@ class DaemonService : Service(), KoinComponent {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // "Service notification" off means no foreground service at all — stop before
+        // startForeground() would post the (unavoidable) notification.
+        if (!settingsRepo.isDaemonNotificationEnabled) {
+            stopSelf()
+            return START_NOT_STICKY
+        }
         foreground(true)
         if (!DhizukuState.state.isOwner) {
             foreground(false)

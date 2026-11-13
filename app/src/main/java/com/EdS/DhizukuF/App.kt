@@ -10,6 +10,7 @@ import android.content.Context
 import com.google.android.material.color.DynamicColors
 
 import com.EdS.DhizukuF.di.init.appModules
+import com.EdS.DhizukuF.data.common.util.restoreStuckUserSetupComplete
 import com.EdS.DhizukuF.server.DhizukuState
 
 import org.koin.android.ext.koin.androidContext
@@ -51,6 +52,9 @@ class App : Application(), KoinComponent {
                 AppearanceManager.restore(this, org.koin.mp.KoinPlatform.getKoin().get())
             }
         }.start()
+        // If an owner activation was interrupted between the user_setup_complete bypass and
+        // its restore, put the flag back (no-op unless Shizuku is running and it is stuck).
+        Thread { runCatching { restoreStuckUserSetupComplete() } }.start()
         DhizukuState.sync(this)
         Sui.init(packageName)
         DynamicColors.applyToActivitiesIfAvailable(this)
