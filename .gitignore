@@ -17,3 +17,5 @@
 /.vscode/
 # Keystore
 /keystore/
+
+__pycache__/
