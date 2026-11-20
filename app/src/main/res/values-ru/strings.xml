@@ -45,6 +45,10 @@
     <string name="confirm_profile_owner">Владельцем Профиля</string>
     <string name="profile_owner_warning_title">Предупреждение</string>
     <string name="profile_owner_warning_dsp">Это изменение должны выполнять только пользователи, понимающие его последствия. Разработчики DhizukuF не могут гарантировать что-либо в отношении непредвиденного поведения, вызванного этим изменением режима.</string>
+    <string name="owner_data_warning_title">Данные могут быть удалены</string>
+    <string name="owner_data_warning_dsp">Активация через Shizuku пропускает проверку Android на наличие других пользователей и профилей, которую выполняет ADB. На устройстве с Device Owner не может быть Частного пространства: Android удаляет его вместе со ВСЕМИ данными внутри, и это нельзя отменить. Рабочие профили и другие пользователи тоже могут пострадать. Сначала сделайте резервную копию или перенесите данные, либо используйте ADB, который отказывается продолжать при наличии других пользователей.</string>
+    <string name="owner_data_warning_profiles">Найдено профилей на этом устройстве (Частное пространство тоже считается): %1$d.</string>
+    <string name="owner_data_warning_continue">Понимаю, продолжить</string>
     <string name="home_status_owner_transferred">%1$s был переведён!!!</string>
     <string name="home_user_management_dsp">Управление пользователями и их аккаунтами.</string>
     <string name="user_manager">Управление пользователями</string>

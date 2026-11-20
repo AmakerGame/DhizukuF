@@ -7,6 +7,7 @@ import com.EdS.DhizukuF.BuildConfig
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import org.koin.mp.KoinPlatform
 import java.io.File
 import java.io.OutputStream
@@ -182,7 +183,7 @@ object LogManager {
         if (lines.isEmpty()) return
         val size = store.append(lines)
         if (size > cfg.maxBytes) store.trimTo(cfg.maxBytes)
-        changed.value = changed.value + 1
+        changed.update { it + 1 }
     }
 
     /** Finds the app name for a package or a uid. Runs on the writer thread, and only when logging is on. */
@@ -218,13 +219,13 @@ object LogManager {
     fun clear() {
         queue.clear()
         store()?.clear()
-        changed.value = changed.value + 1
+        changed.update { it + 1 }
     }
 
     /** After the user lowered the maximum size: shrink the journal now, not at the next event. */
     fun enforceLimit() {
         store()?.trimTo(config().maxBytes)
-        changed.value = changed.value + 1
+        changed.update { it + 1 }
     }
 
     /** Writes the readable text file (see [LogCodec.readable]). Returns the number of entries. */

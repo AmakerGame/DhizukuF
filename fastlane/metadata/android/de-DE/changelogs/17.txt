@@ -1,3 +1,0 @@
-- Repariere Shizuku's Karten widget
-- Füge Whitelistmodus hinzu
-- Funktion zum Wechsel des Dhizuku Status hinzufügen

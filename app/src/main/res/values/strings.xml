@@ -39,6 +39,10 @@
     <string name="confirm_profile_owner">Profile Owner</string>
     <string name="profile_owner_warning_title">Warning</string>
     <string name="profile_owner_warning_dsp">This is a change that should only be made by users who understand its implications. The developers of DhizukuF cannot guarantee anything about unexpected behavior caused by this mode change.</string>
+    <string name="owner_data_warning_title">Data can be deleted</string>
+    <string name="owner_data_warning_dsp">Activation through Shizuku skips Android\'s check for other users and profiles that ADB does. A device with a Device Owner cannot have a Private Space: Android deletes it together with ALL data inside, and this cannot be undone. Work profiles and other users can also be affected. Back up or move your data first, or use ADB, which refuses to continue when other users exist.</string>
+    <string name="owner_data_warning_profiles">Profiles found on this device (a Private Space counts too): %1$d.</string>
+    <string name="owner_data_warning_continue">I understand, continue</string>
     <string name="finish">Finish</string>
     <string name="request_permission_text">Allow <b>%1$s</b> to access DhizukuF?</string>
     <string name="agree">Grant</string>

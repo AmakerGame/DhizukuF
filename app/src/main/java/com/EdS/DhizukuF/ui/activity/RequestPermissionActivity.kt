@@ -143,6 +143,11 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Tapjacking guard for the activity window itself (the dialog adds its own, see showDialog).
+        window.decorView.filterTouchesWhenObscured = true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            runCatching { window.setHideOverlayWindows(true) }
+        }
         if (!registerAppEntity(intent)) {
             finish()
             return
@@ -439,6 +444,18 @@ class RequestPermissionActivity : FragmentActivity(), KoinComponent {
                 textAlign = TextAlign.Center
             )
         }, text = {
+            // Tapjacking: the dialog is its own window, so it needs its own guard. Touches that pass
+            // through another app's overlay are dropped, and Android 12+ hides those overlays outright.
+            val dialogView = androidx.compose.ui.platform.LocalView.current
+            androidx.compose.runtime.SideEffect {
+                dialogView.rootView.filterTouchesWhenObscured = true
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    runCatching {
+                        (dialogView.parent as? androidx.compose.ui.window.DialogWindowProvider)
+                            ?.window?.setHideOverlayWindows(true)
+                    }
+                }
+            }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()

@@ -27,6 +27,68 @@ succeeds depends on the device state (existing accounts, an already provisioned
 device, Android 14+ requirements) — the system enforces that at activation time
 and the Activate page reports the real result.
 
+## Device Owner via QR code (provisioning)
+
+A factory-reset device can become managed by DhizukuF straight from the setup
+wizard — no computer and no ADB. The QR code below is the standard Android
+**QR provisioning** payload for the **v2.0.0** release.
+
+<p align="center">
+  <img src="images/provisioning-qr.png" width="320" alt="DhizukuF v2.0.0 provisioning QR code" />
+</p>
+
+1. Factory-reset the device (provisioning only works on the very first setup screen).
+2. On the **Welcome** screen tap the same spot **6 times** until the QR scanner opens
+   (on some devices: tap the screen 6 times, then connect to Wi-Fi when asked).
+3. Connect to Wi-Fi if asked, then scan the QR code.
+4. Android downloads the APK, checks its signature, installs DhizukuF and makes it
+   **Device Owner**. Finish the setup wizard as usual.
+
+What the code contains:
+
+| Field | Value |
+| --- | --- |
+| Admin component | `com.EdS.DhizukuF/.server.DhizukuDAReceiver` |
+| APK | `https://github.com/AmakerGame/DhizukuF/releases/download/v2.0.0/DhizukuF-v2.0.0.apk` |
+| Signature checksum | `pA2oClnRcMqpUM8VwYxFTUejmyaYnYtkDs10W6cb9dw` (SHA-256 of the signing certificate, URL-safe Base64) |
+| Leave system apps enabled | yes |
+| Skip encryption | yes |
+
+<details>
+<summary>Raw JSON (to regenerate the QR code)</summary>
+
+```json
+{
+  "android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME": "com.EdS.DhizukuF/.server.DhizukuDAReceiver",
+  "android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION": "https://github.com/AmakerGame/DhizukuF/releases/download/v2.0.0/DhizukuF-v2.0.0.apk",
+  "android.app.extra.PROVISIONING_DEVICE_ADMIN_SIGNATURE_CHECKSUM": "pA2oClnRcMqpUM8VwYxFTUejmyaYnYtkDs10W6cb9dw",
+  "android.app.extra.PROVISIONING_LEAVE_ALL_SYSTEM_APPS_ENABLED": true,
+  "android.app.extra.PROVISIONING_SKIP_ENCRYPTION": true
+}
+```
+
+</details>
+
+> [!IMPORTANT]
+> The QR code is tied to **v2.0.0**: the download link and the checksum belong to that
+> release. For another version, or if the signing key changes, generate a new code
+> with the new link and checksum. The code works only on a device that has not been
+> set up yet; on a device that is already in use, use `dpm set-device-owner` or the
+> Activate page instead.
+
+## Before you activate Device Owner
+
+> [!WARNING]
+> **Activation through Shizuku can delete data.** ADB refuses to set a Device Owner while other
+> users exist ("already several users on the device"). The Shizuku path skips that check so it also
+> works on a device that is already set up. Android does not allow a **Private Space** on a device
+> with a Device Owner and **deletes it together with all data inside** — this cannot be undone. Work
+> profiles and other users can be affected too.
+>
+> Back up or move that data first. DhizukuF warns you and shows the number of profiles it found before
+> it continues. If you are unsure, use ADB (it stops when other users exist) or the QR code on a
+> freshly reset device. Background: [Dhizuku #359](https://github.com/iamr0s/Dhizuku/issues/359).
+
 ## What Administrator mode is
 
 Administrator is the regular device-admin right every Android app can ask for:

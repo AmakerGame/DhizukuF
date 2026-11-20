@@ -72,6 +72,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -290,6 +291,13 @@ private fun ConfirmBar(
         var ownerType by remember { mutableStateOf(ActivateViewModel.OwnerType.Device) }
         var menuExpanded by remember { mutableStateOf(false) }
         var profileOwnerWarningShow by remember { mutableStateOf(false) }
+        // Device Owner through Shizuku skips Android's "no other users" check (see the dialog below).
+        var dataLossWarningShow by remember { mutableStateOf(false) }
+        val appContext = LocalContext.current
+        val extraProfiles = if (dataLossWarningShow) {
+            val um = appContext.getSystemService(android.content.Context.USER_SERVICE) as? android.os.UserManager
+            runCatching { (um?.userProfiles?.size ?: 1) - 1 }.getOrDefault(0)
+        } else 0
 
         Row(
             modifier = Modifier
@@ -371,6 +379,46 @@ private fun ConfirmBar(
                 )
             }
 
+            if (dataLossWarningShow) {
+                AlertDialog(
+                    onDismissRequest = { dataLossWarningShow = false },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.TwoTone.Warning,
+                            contentDescription = null
+                        )
+                    },
+                    title = {
+                        Text(stringResource(R.string.owner_data_warning_title))
+                    },
+                    text = {
+                        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                            Text(stringResource(R.string.owner_data_warning_dsp))
+                            if (extraProfiles > 0) {
+                                Text(
+                                    stringResource(R.string.owner_data_warning_profiles, extraProfiles),
+                                    modifier = Modifier.padding(top = 12.dp),
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    },
+                    confirmButton = {
+                        TvTextButton(onClick = {
+                            dataLossWarningShow = false
+                            compState.value?.let { viewModel.activateAsDeviceOwner(mode = mode, comp = it) }
+                        }) {
+                            Text(stringResource(R.string.owner_data_warning_continue))
+                        }
+                    },
+                    dismissButton = {
+                        TvTextButton(onClick = { dataLossWarningShow = false }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    }
+                )
+            }
+
             ActivateFab(
                 textRes = R.string.confirm,
                 onClick = {
@@ -382,9 +430,10 @@ private fun ConfirmBar(
                             ActivateViewModel.OwnerType.Administrator ->
                                 viewModel.activateAsAdministrator(mode = mode, comp = it)
 
-                            else ->
-                                viewModel.activateAsDeviceOwner(mode = mode, comp = it)
+                            else -> dataLossWarningShow = true
                         }
+                        // `when` above is a statement (its branches assign); keep it out of the lambda result.
+                        Unit
                     }
                 }
             )

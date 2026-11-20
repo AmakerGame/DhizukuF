@@ -1,6 +1,0 @@
-- Podpora Android 16
-- Podpora EdgeToEdge
-- Aktualizovace přispěvkového odkazu
-- Opraven widget karty Shizuku
-- Přídány jazyky: perština, filipínština, vietnamština
-- Aktualizace překladů

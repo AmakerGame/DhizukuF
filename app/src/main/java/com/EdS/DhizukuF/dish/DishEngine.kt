@@ -167,7 +167,13 @@ object DishEngine : KoinComponent {
                 is Verdict.Denied -> return Reply(KIND_DENIED, message = verdict.message)
                 Verdict.NeedPermission -> Unit
             }
-            Thread.sleep(300)
+            try {
+                Thread.sleep(300)
+            } catch (_: InterruptedException) {
+                Thread.currentThread().interrupt()
+                dropPending(uid)
+                return Reply(KIND_DENIED, message = "Waiting for the approval was interrupted")
+            }
         }
         dropPending(uid)
         return Reply(KIND_DENIED, message = str(context, R.string.dish_err_denied))

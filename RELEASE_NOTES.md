@@ -1,3 +1,35 @@
+## DhizukuF v2.0.0 (16)
+
+### Security
+
+- **Warning before Device Owner activation through Shizuku**: this path skips the "no other users"
+  check of ADB, and Android deletes a Private Space (with all its data) when a Device Owner is set.
+  DhizukuF now warns, shows how many profiles it found, and asks you to confirm.
+- **Tapjacking protection**: the permission dialog ignores touches that pass through another app's
+  overlay (and hides overlays on Android 12+), so an overlay cannot trick you into pressing *Allow*.
+
+### Fixed
+
+- **Logs** reload reliably when new entries are written.
+
+- **Correct role in the status message** in 15 languages — "Device Owner", "Profile Owner" or
+  "Administrator" is shown instead of a fixed "Owner".
+- **Parallel uninstalls / hub installs** no longer time out: each installer result now has its own
+  `PendingIntent`.
+- **dish**: `uninstall` always reports the real result; an interrupted approval wait answers "denied".
+- **Changelogs and release page**: stale upstream changelogs removed, the release page shows only
+  the notes of this version.
+
+### New
+
+- **Device Owner via QR code**: scan the code from [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md) on the
+  setup screen of a factory-reset device (tap 6 times on the Welcome screen).
+
+### Install
+
+1. Install the APK (and Hub if needed) — or provision a new device with the QR code.
+2. Keep Device Owner — or try the **Administrator** card for the limited mode.
+
 ## DhizukuF v1.9.0 (15)
 
 ### Security

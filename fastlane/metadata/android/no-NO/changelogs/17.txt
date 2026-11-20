@@ -1,3 +1,0 @@
-- Fikset Shizukus kort-widget
-- La til Whitelist-modus
-- La til ny funksjon; av/på-kontroll for Dhizuku

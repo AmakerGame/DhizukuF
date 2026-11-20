@@ -1,2 +1,0 @@
-- Funktion zur Unterstützung der Nutzung durch den Profilinhaber hinzufügen
-- Dhizuku-API verbessert

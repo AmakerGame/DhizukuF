@@ -1,6 +1,0 @@
-- Support Android 16
-- Support EdgeToEdge
-- Aktualisiere Spendenlink
-- Repariere Shizuku's Karten widget
-- Füge Sprache hinzu: Persich, Filipinisch, Vietnamesich
-- Übersetzungen aktualisieren

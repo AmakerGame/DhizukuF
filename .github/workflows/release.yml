@@ -67,6 +67,10 @@ jobs:
           mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/DhizukuF-${{ github.ref_name }}.apk
           cp hub/build/outputs/apk/release/hub-release.apk hub/build/outputs/apk/release/DhizukuF-Hub-${{ github.ref_name }}.apk
 
+      - name: Extract the release notes of this version
+        # RELEASE_NOTES.md keeps the history; the release page gets only the newest section.
+        run: awk '/^## DhizukuF /{n++} n==1' RELEASE_NOTES.md > release_body.md
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -75,6 +79,6 @@ jobs:
             hub/build/outputs/apk/release/DhizukuF-Hub-${{ github.ref_name }}.apk
           generate_release_notes: false
           prerelease: ${{ contains(github.ref_name, '-') }}
-          body_path: RELEASE_NOTES.md
+          body_path: release_body.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

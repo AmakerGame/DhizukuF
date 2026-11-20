@@ -37,6 +37,10 @@
     <string name="confirm_profile_owner">власник профілю</string>
     <string name="profile_owner_warning_title">Попередження</string>
     <string name="profile_owner_warning_dsp">Цю зміну повинні робити лише користувачі, які розуміють її наслідки. Розробники DhizukuF не можуть гарантувати нічого щодо несподіваної поведінки, спричиненої зміною цього режиму.</string>
+    <string name="owner_data_warning_title">Дані можуть бути видалені</string>
+    <string name="owner_data_warning_dsp">Активація через Shizuku пропускає перевірку Android на наявність інших користувачів і профілів, яку виконує ADB. На пристрої з Device Owner не може бути Приватного простору: Android видаляє його разом з УСІМА даними всередині, і це неможливо скасувати. Робочі профілі та інші користувачі теж можуть постраждати. Спершу зробіть резервну копію або перенесіть дані, чи скористайтеся ADB, який відмовляється продовжувати, якщо є інші користувачі.</string>
+    <string name="owner_data_warning_profiles">Знайдено профілів на цьому пристрої (Приватний простір теж рахується): %1$d.</string>
+    <string name="owner_data_warning_continue">Розумію, продовжити</string>
     <string name="finish">Готово</string>
     <string name="request_permission_text">Дозволити <b>%1$s</b> доступ до DhizukuF?</string>
     <string name="agree">Дозволити</string>

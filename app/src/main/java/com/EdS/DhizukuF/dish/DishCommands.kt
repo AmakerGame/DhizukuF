@@ -921,15 +921,21 @@ class DishCommands(
         try {
             val flags = PendingIntent.FLAG_UPDATE_CURRENT or
                 (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0)
+            // Unique request code per call (extras do not make PendingIntents different), so two parallel
+            // uninstalls do not overwrite each other's token.
             val pending = PendingIntent.getBroadcast(
-                context, 0,
+                context, token.hashCode(),
                 Intent(action).setPackage(context.packageName).putExtra("token", token),
                 flags
             )
             context.packageManager.packageInstaller.uninstall(pkg, pending.intentSender)
             if (!latch.await(20, TimeUnit.SECONDS)) return notDone("uninstalling $pkg timed out")
         } finally {
-            context.unregisterReceiver(receiver)
+            try {
+                context.unregisterReceiver(receiver)
+            } catch (_: IllegalArgumentException) {
+                // already gone
+            }
         }
         return when (status) {
             PackageInstaller.STATUS_SUCCESS -> done("$pkg is uninstalled")

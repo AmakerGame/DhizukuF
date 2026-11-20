@@ -1,2 +1,0 @@
--Profil sahibinin kullanımını destekleyecek bir özellik ekleyin.
--Dhizuku-API'yı iyileştirin

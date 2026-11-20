@@ -64,6 +64,7 @@ More detail: [docs/DISH.md](docs/DISH.md).
 | Topic | Doc |
 | --- | --- |
 | Administrator mode (limited) | [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md) |
+| Device Owner via QR code | [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md#device-owner-via-qr-code-provisioning) |
 | dish terminal | [docs/DISH.md](docs/DISH.md) |
 | Building from source | [docs/BUILDING.md](docs/BUILDING.md) |
 | Customization | [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md) |

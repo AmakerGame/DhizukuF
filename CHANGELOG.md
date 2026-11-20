@@ -3,6 +3,44 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## 2.0.0 (16)
+
+### Security
+- **Warning before Device Owner activation through Shizuku**
+  ([Dhizuku #359](https://github.com/iamr0s/Dhizuku/issues/359)): the Shizuku path skips Android's
+  "no other users" check that ADB enforces, and a device with a Device Owner cannot keep a Private
+  Space — Android deletes it with all its data. The Activate page now shows a warning (with the number
+  of profiles found on the device) and asks for confirmation before it continues. Translated in
+  English, Ukrainian and Russian.
+- **Tapjacking protection for the permission dialog**: nothing guarded the Allow / Refuse / Block dialog
+  against another app's overlay, so a window on top could trick the user into granting Device Owner
+  power. The dialog and its activity now drop touches that pass through an overlay
+  (`filterTouchesWhenObscured`) and, on Android 12+, hide overlay windows (`HIDE_OVERLAY_WINDOWS`).
+
+### Fixed
+- **Logs screen**: the "journal changed" counter was updated with a non-atomic read-modify-write from
+  several threads, so a change could be missed and the list not reload. It is now updated atomically.
+- **Role in the status message**: in 15 translations (he, fr, it, cs, id, vi, fa, fil, nb, lv, zh-CN,
+  nb-NO, ar, pl, pt) `home_status_owner_granted` had no `%1$s`, so the toast and the status card
+  always said "Owner", even for Profile Owner. The role name is now inserted like in the other languages.
+- **Parallel uninstalls / hub installs**: the installer-result `PendingIntent` used request code 0.
+  `Intent.filterEquals` ignores extras, so two operations at the same time shared one `PendingIntent` and
+  the second token replaced the first — the first one then ended with a timeout. Every call now has its
+  own request code (`CompatHub`, `dish uninstall`).
+- **dish uninstall**: a failing `unregisterReceiver` can no longer hide the real result.
+- **dish approval wait**: an interrupted wait now answers "denied" (and drops the pending entry) instead
+  of throwing out of the Binder call.
+- **F-Droid / fastlane changelogs**: `16.txt`, `17.txt` and `19.txt` in all locales were left over from the
+  upstream Dhizuku and would have been shown for DhizukuF versionCodes 16, 17 and 19. They are removed;
+  `16.txt` is now the real 2.0.0 changelog.
+- **Release workflow**: the GitHub release body is now only the section of the released version, not the
+  whole `RELEASE_NOTES.md` history.
+
+### Docs
+- **Device Owner via QR code**: new section in `docs/ADMINISTRATOR.md` with the provisioning QR code
+  for 2.0.0 (the signature checksum matches the signing certificate in `keystore/debug.jks`). The code of
+  1.9.0 is kept as `docs/images/provisioning-qr-v1.9.0.png`.
+
 ## 1.9.0 (15)
 
 ### Security

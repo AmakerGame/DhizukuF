@@ -171,8 +171,10 @@ object CompatHub {
         try {
             val flags = PendingIntent.FLAG_UPDATE_CURRENT or
                 (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0)
+            // The request code differs per call: Intent.filterEquals ignores extras, so with a fixed code
+            // two parallel operations would share one PendingIntent and the second token would replace the first.
             val pending = PendingIntent.getBroadcast(
-                app, 0,
+                app, token.hashCode(),
                 Intent(action).setPackage(app.packageName).putExtra(TOKEN_EXTRA, token),
                 flags
             )
