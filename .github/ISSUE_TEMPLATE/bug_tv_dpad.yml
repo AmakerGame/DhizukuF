@@ -12,7 +12,7 @@ body:
     attributes:
       label: Before you send
       options:
-        - label: I use the [latest release](https://github.com/AmakerGame/DhizukuF/releases/latest) and the problem is still there.
+        - label: I use the [latest release, v2.1.0](https://github.com/AmakerGame/DhizukuF/releases/tag/v2.1.0), or newer, and the problem is still there.
           required: true
         - label: I searched the [existing issues](https://github.com/AmakerGame/DhizukuF/issues?q=is%3Aissue) and found nothing like it.
           required: true
@@ -20,7 +20,7 @@ body:
     id: version
     attributes:
       label: DhizukuF version
-      placeholder: "1.5.0 (8)"
+      placeholder: "2.1.0 (17)"
     validations:
       required: true
   - type: dropdown
@@ -35,7 +35,7 @@ body:
         - Account manager
         - User manager
         - Settings
-        - Security (whitelist, dangerous commands, screen-lock confirmation)
+        - Security (whitelist, dangerous commands, screen-lock confirmation, secret code, hide app)
         - Permission dialog ("Allow X to use Dhizuku?")
         - A dialog (status, warning, confirm, shutdown)
         - Drop-down menu (owner type, ...)

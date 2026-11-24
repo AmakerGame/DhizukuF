@@ -3,6 +3,38 @@
 All changes of DhizukuF compared to upstream [Dhizuku](https://github.com/iamr0s/Dhizuku).
 The newest changes are at the top.
 
+## 2.1.0 (17)
+
+### New
+- **Open with a secret code** (Security): the dial code `*#*#3449858#*#*` of the original Dhizuku opens
+  DhizukuF again. It is **off by default** and the code does nothing until the switch is on.
+- **Hide the app** (Security): switches every launcher entry off (`AppearanceManager.hide`), the activity stays
+  enabled so the secret code and the service notification still open it. The switch is inactive until
+  *Open with a secret code* is on; a confirmation dialog explains how to open the app, and the screen-lock
+  prompt applies as for other Security changes. Turning the secret code off while the app is hidden shows the
+  app first. Devices without `FEATURE_TELEPHONY` cannot turn hiding on (no way to dial the code). Customization (name / icon) is saved while hidden and applied when the app is shown again; on
+  start `AppearanceManager.restore` keeps the entries off instead of bringing one back.
+
+### Fixed
+- **`DaemonReceiver`**: it had no action filter, and `DhizukuDAReceiver` forwards every device-admin broadcast
+  to it, so each lock-task / password-failed event started a full `DhizukuState.sync`. Only boot,
+  device-admin and owner-changed broadcasts sync now. The receiver is exported again for the dial code.
+- **Build**: `app/build.gradle.kts` used `org.jetbrains.kotlin.konan` (Kotlin/Native internals) to read
+  `version.properties`; it uses `java.util.Properties` again.
+- **Service notification text**: the "long press to hide" sentence is removed in all 33 languages (upstream
+  removed it in 2.13.0 together with opening the app on tap).
+- **Translations**: 11 untranslated keys (service notification, licenses card, Material 3 icon description,
+  data-loss warning, `error_set_administrator`) and the *Security* title are translated in all languages;
+  all new texts are translated in every language except Manchu (`mnc`).
+- **Issue forms**: stale version hint `1.5.0 (8)` replaced by `2.1.0 (17)`; the "latest release" checkboxes
+  name v2.1.0.
+
+### Updated
+- AGP 9.4.1 -> 9.5.2, Compose 1.11.4 -> 1.12.1, KSP 2.3.12 -> 2.3.14, AndroidHiddenApiBypass 6.1 -> 6.2,
+  Gradle 9.8.1 -> 9.9.2 (the set used by upstream Dhizuku 2.13.0).
+- QR provisioning code and documentation now for v2.1.0 (`docs/images/provisioning-qr-v2.0.0.png` keeps the
+  previous code).
+
 ## 2.0.0 (16)
 
 ### Security

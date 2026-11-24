@@ -13,7 +13,7 @@ body:
     attributes:
       label: Before you send
       options:
-        - label: I use the latest release **and** the `dish` / `dish_dhizukuf.dex` files exported from that same version.
+        - label: I use the [latest release, v2.1.0](https://github.com/AmakerGame/DhizukuF/releases/tag/v2.1.0), or newer, **and** the `dish` / `dish_dhizukuf.dex` files exported from that same version.
           required: true
         - label: I read [docs/DISH.md](https://github.com/AmakerGame/DhizukuF/blob/main/docs/DISH.md) (Compatibility, Dangerous commands, Device Owner and Profile Owner).
           required: true

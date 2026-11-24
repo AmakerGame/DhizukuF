@@ -39,7 +39,7 @@
     <string name="auto_deny_in_seconds">Awtomatikong tatanggihan sa %d segundo</string>
     <string name="denying_access">Tinatanggihan ang pag-access…</string>
     <string name="daemon_service_notification_title">Dhizuku Daemon</string>
-    <string name="daemon_service_notification_text">Ito ay isang notification ng DhizukuF para siguraduhin ang availability sa anumang oras. Maaari mong matagal na i-tap para itago ang notification na ito.</string>
+    <string name="daemon_service_notification_text">Ito ay isang abiso ng DhizukuF upang matiyak ang pagkakaroon ng serbisyo anumang oras.</string>
     <string name="copy">Kopyahin</string>
     <string name="confirm_device_owner">May-ari ng Device</string>
     <string name="confirm_profile_owner">May-ari ng Profile</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Tamaño máximo del registro</string>
     <string name="logs_size_used">Usado: %1$s de %2$d MB. Al llegar al límite se eliminan las entradas más antiguas.</string>
-    <string name="security">Security</string>
+    <string name="security">Seguridad</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Walang screen ng administrator ng device ang device na ito. Buksan ang mga setting ng Android at i-enable ang DhizukuF sa ilalim ng Security o Device admin apps.</string>
     <string name="log_event_security_alert">Alerto sa seguridad</string>
     <string name="home_dish_admin_note">Mode ng Administrator: gumagana ang dish, ngunit ang mga command na pinapayagan sa administrator ng device lang ang magagamit. Ang mga command na nangangailangan ng Device o Profile Owner ay mabibigo.</string>
+    <string name="daemon_notification">Abiso ng serbisyo</string>
+    <string name="daemon_notification_desc">Pinapatakbo ang background service na nagpapanatiling handa sa DhizukuF at nagpapakita ng permanenteng abiso ng status. Ang pag-tap ay magbubukas sa DhizukuF. Kapag naka-off, hindi talaga sisimulan ang serbisyo — walang abiso; magsisimula pa rin kapag kailangan ang Dhizuku API at dish.</string>
+    <string name="daemon_service_notification_quiet">Tumatakbo</string>
+    <string name="home_oss_title">Mga open-source license</string>
+    <string name="home_oss_dsp">Mga library na ginagamit ng app na ito at ang mga teksto ng kanilang license</string>
+    <string name="icon_material3_desc">Icon na estilong Material ni BinTianqi (talakayan ng Dhizuku #318). Available sa lahat ng bersyon ng Android na sinusuportahan ng app.</string>
+    <string name="owner_data_warning_title">Maaaring mabura ang data</string>
+    <string name="owner_data_warning_dsp">Nilalaktawan ng pag-activate sa pamamagitan ng Shizuku ang pagsusuri ng Android sa ibang user at profile na ginagawa ng ADB. Ang device na may Device Owner ay hindi puwedeng magkaroon ng Private Space: binubura ito ng Android kasama ang LAHAT ng data sa loob, at hindi na ito mababawi. Maaari ring maapektuhan ang mga work profile at iba pang user. Mag-back up o ilipat muna ang iyong data, o gamitin ang ADB na tumatangging magpatuloy kapag may ibang user.</string>
+    <string name="owner_data_warning_profiles">Mga profile na nakita sa device na ito (kasama ang Private Space): %1$d.</string>
+    <string name="owner_data_warning_continue">Naiintindihan ko, magpatuloy</string>
+    <string name="error_set_administrator">Nabigong itakda ang Administrator. Pakisuri ang configuration ng system.</string>
+    <string name="secret_code_open">Buksan gamit ang lihim na code</string>
+    <string name="secret_code_open_desc">I-dial ang *#*#3449858#*#* sa phone app para buksan ang DhizukuF. Walang mangyayari habang naka-off ito.</string>
+    <string name="hide_app">Itago ang app</string>
+    <string name="hide_app_desc">Aalisin ang icon ng DhizukuF sa launcher. Magbubukas na lang ang app kapag na-dial ang *#*#3449858#*#*. Hindi magagamit hangga\'t hindi naka-on ang “Buksan gamit ang lihim na code”.</string>
+    <string name="hide_app_confirm_text">Mawawala ang icon ng DhizukuF sa launcher. Para buksan ang app, i-dial ang *#*#3449858#*#* sa phone app (hindi posible sa device na walang ganito) o i-tap ang abiso ng serbisyo kung naka-on. I-off ang switch na ito para maibalik ang icon.</string>
+    <string name="hide_app_action">Itago</string>
+    <string name="hide_app_failed">Hindi naitago ng system ang icon, kaya nananatiling nakikita ang app.</string>
+    <string name="oss_licenses">Mga open-source license</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

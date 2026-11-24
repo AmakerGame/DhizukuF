@@ -335,7 +335,16 @@
             android:name=".server.DaemonReceiver"
             android:directBootAware="true"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
+            <!-- Secret dial code *#*#3449858#*#* opens the app (same as upstream Dhizuku). The receiver
+                 ignores every action except the ones handled in DaemonReceiver. -->
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+                <data
+                    android:scheme="android_secret_code"
+                    android:host="3449858" />
+            </intent-filter>
+
             <intent-filter>
                 <!-- booted receiver-->
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />

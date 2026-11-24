@@ -39,7 +39,7 @@
     <string name="unblock_app">ביטול חסימת יישום</string>
     <string name="denying_access">דוחה גישה…</string>
     <string name="daemon_service_notification_title">שירות הרקע של Dhizuku</string>
-    <string name="daemon_service_notification_text">זוהי התראה של DhizukuF שמטרתה להבטיח את זמינות השירות בכל עת. ניתן ללחוץ לחיצה ארוכה כדי להסתיר התראה זו.</string>
+    <string name="daemon_service_notification_text">זוהי הודעת DhizukuF כדי להבטיח זמינות שירות בכל עת.</string>
     <string name="copy">העתקה</string>
     <string name="confirm_device_owner">בעלים של המכשיר</string>
     <string name="confirm_profile_owner">בעלים של הפרופיל</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Dimensione massima del registro</string>
     <string name="logs_size_used">Usati: %1$s di %2$d MB. Raggiunto il limite, le voci più vecchie vengono eliminate.</string>
-    <string name="security">Security</string>
+    <string name="security">אבטחה</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">להתקן זה אין מסך מנהל התקן. פתח את הגדרות Android והפעל את DhizukuF תחת אבטחה או אפליקציות מנהל התקן.</string>
     <string name="log_event_security_alert">התראת אבטחה</string>
     <string name="home_dish_admin_note">מצב מנהל: dish פועל, אך זמינות רק הפקודות המותרות למנהל מכשיר. פקודות הדורשות בעלים של המכשיר או הפרופיל ייכשלו.</string>
+    <string name="daemon_notification">התראת שירות</string>
+    <string name="daemon_notification_desc">מפעיל את שירות הרקע ששומר על DhizukuF מוכן ומציג את התראת הסטטוס הקבועה. הקשה פותחת את DhizukuF. כשהאפשרות כבויה, השירות לא מופעל כלל – ללא התראה; ה-API של Dhizuku ו-dish עדיין מופעלים לפי דרישה.</string>
+    <string name="daemon_service_notification_quiet">פועל</string>
+    <string name="home_oss_title">רישיונות קוד פתוח</string>
+    <string name="home_oss_dsp">ספריות שהאפליקציה משתמשת בהן ונוסחי הרישיונות שלהן</string>
+    <string name="icon_material3_desc">סמל בסגנון Material מאת BinTianqi (דיון Dhizuku מס׳ 318). זמין בכל גרסאות Android שהאפליקציה תומכת בהן.</string>
+    <string name="owner_data_warning_title">נתונים עלולים להימחק</string>
+    <string name="owner_data_warning_dsp">הפעלה דרך Shizuku מדלגת על בדיקת Android של משתמשים ופרופילים אחרים ש-ADB מבצע. מכשיר עם Device Owner לא יכול להכיל Private Space: Android מוחק אותו יחד עם כל הנתונים שבו, ואי אפשר לבטל זאת. גם פרופילי עבודה ומשתמשים אחרים עלולים להיפגע. גבו או העבירו את הנתונים קודם, או השתמשו ב-ADB שמסרב להמשיך כשיש משתמשים נוספים.</string>
+    <string name="owner_data_warning_profiles">פרופילים שנמצאו במכשיר (Private Space נספר גם הוא): %1$d.</string>
+    <string name="owner_data_warning_continue">הבנתי, המשך</string>
+    <string name="error_set_administrator">הגדרת המנהל נכשלה. בדקו את תצורת המערכת.</string>
+    <string name="secret_code_open">פתיחה בקוד סודי</string>
+    <string name="secret_code_open_desc">חייגו *#*#3449858#*#* באפליקציית הטלפון כדי לפתוח את DhizukuF. לא קורה דבר כל עוד האפשרות כבויה.</string>
+    <string name="hide_app">הסתרת האפליקציה</string>
+    <string name="hide_app_desc">מסיר את סמל DhizukuF ממסך הבית. האפליקציה תיפתח רק בחיוג *#*#3449858#*#*. לא זמין עד שהאפשרות ”פתיחה בקוד סודי“ מופעלת.</string>
+    <string name="hide_app_confirm_text">סמל DhizukuF ייעלם ממסך הבית. כדי לפתוח את האפליקציה חייגו *#*#3449858#*#* באפליקציית הטלפון (לא אפשרי במכשיר בלעדיה) או הקישו על התראת השירות אם היא פועלת. כבו מתג זה כדי להחזיר את הסמל.</string>
+    <string name="hide_app_action">הסתר</string>
+    <string name="hide_app_failed">המערכת לא הסתירה את הסמל, לכן האפליקציה נשארת גלויה.</string>
+    <string name="oss_licenses">רישיונות קוד פתוח</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

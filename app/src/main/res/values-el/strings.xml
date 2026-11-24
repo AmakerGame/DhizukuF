@@ -39,7 +39,7 @@
     <string name="denying_access">Άρνηση πρόσβασης…</string>
     <string name="unblock_app">Άρση αποκλεισμού Εφαρμογής</string>
     <string name="daemon_service_notification_title">Dhizuku Daemon</string>
-    <string name="daemon_service_notification_text">Αυτή είναι μια ειδοποίηση DhizukuF για να διασφαλιστεί η διαθεσιμότητα της υπηρεσίας ανά πάσα στιγμή. Μπορείτε να πατήσετε παρατεταμένα για να αποκρύψετε αυτήν την ειδοποίηση.</string>
+    <string name="daemon_service_notification_text">Αυτή είναι μια ειδοποίηση DhizukuF για τη διασφάλιση της διαθεσιμότητας της υπηρεσίας ανά πάσα στιγμή.</string>
     <string name="copy">Αντιγραφή</string>
     <string name="confirm_device_owner">Κάτοχος Συσκευής</string>
     <string name="confirm_profile_owner">Κάτοχος Προφίλ</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Maximale Protokollgröße</string>
     <string name="logs_size_used">Belegt: %1$s von %2$d MB. Bei Erreichen des Limits werden die ältesten Einträge gelöscht.</string>
-    <string name="security">Security</string>
+    <string name="security">Ασφάλεια</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Αυτή η συσκευή δεν έχει οθόνη διαχειριστή συσκευής. Ανοίξτε τις ρυθμίσεις Android και ενεργοποιήστε το DhizukuF στην Ασφάλεια ή στις Εφαρμογές διαχειριστή συσκευής.</string>
     <string name="log_event_security_alert">Ειδοποίηση ασφαλείας</string>
     <string name="home_dish_admin_note">Λειτουργία διαχειριστή: το dish λειτουργεί, αλλά διατίθενται μόνο οι εντολές που επιτρέπονται σε διαχειριστή συσκευής. Οι εντολές που απαιτούν ιδιοκτήτη συσκευής ή προφίλ θα αποτύχουν.</string>
+    <string name="daemon_notification">Ειδοποίηση υπηρεσίας</string>
+    <string name="daemon_notification_desc">Εκτελεί την υπηρεσία παρασκηνίου που διατηρεί το DhizukuF έτοιμο και εμφανίζει τη μόνιμη ειδοποίηση κατάστασης. Με πάτημα ανοίγει το DhizukuF. Όταν είναι ανενεργό, η υπηρεσία δεν ξεκινά καθόλου – χωρίς ειδοποίηση· το Dhizuku API και το dish ξεκινούν ακόμη κατά απαίτηση.</string>
+    <string name="daemon_service_notification_quiet">Εκτελείται</string>
+    <string name="home_oss_title">Άδειες ανοιχτού κώδικα</string>
+    <string name="home_oss_dsp">Βιβλιοθήκες που χρησιμοποιεί η εφαρμογή και τα κείμενα των αδειών τους</string>
+    <string name="icon_material3_desc">Εικονίδιο τύπου Material από τον BinTianqi (συζήτηση Dhizuku #318). Διαθέσιμο σε όλες τις εκδόσεις Android που υποστηρίζει η εφαρμογή.</string>
+    <string name="owner_data_warning_title">Τα δεδομένα μπορεί να διαγραφούν</string>
+    <string name="owner_data_warning_dsp">Η ενεργοποίηση μέσω Shizuku παρακάμπτει τον έλεγχο του Android για άλλους χρήστες και προφίλ που κάνει το ADB. Μια συσκευή με Device Owner δεν μπορεί να έχει Private Space: το Android το διαγράφει μαζί με ΟΛΑ τα δεδομένα του και αυτό δεν αναιρείται. Μπορεί να επηρεαστούν και προφίλ εργασίας και άλλοι χρήστες. Δημιουργήστε πρώτα αντίγραφο ασφαλείας ή μεταφέρετε τα δεδομένα σας, ή χρησιμοποιήστε ADB, που αρνείται να συνεχίσει όταν υπάρχουν άλλοι χρήστες.</string>
+    <string name="owner_data_warning_profiles">Προφίλ που βρέθηκαν σε αυτή τη συσκευή (μετράει και το Private Space): %1$d.</string>
+    <string name="owner_data_warning_continue">Κατάλαβα, συνέχεια</string>
+    <string name="error_set_administrator">Αποτυχία ορισμού διαχειριστή. Ελέγξτε τις ρυθμίσεις του συστήματος.</string>
+    <string name="secret_code_open">Άνοιγμα με μυστικό κωδικό</string>
+    <string name="secret_code_open_desc">Καλέστε *#*#3449858#*#* στην εφαρμογή τηλεφώνου για να ανοίξει το DhizukuF. Δεν συμβαίνει τίποτα όσο η επιλογή είναι ανενεργή.</string>
+    <string name="hide_app">Απόκρυψη εφαρμογής</string>
+    <string name="hide_app_desc">Αφαιρεί το εικονίδιο του DhizukuF από το launcher. Η εφαρμογή ανοίγει μόνο όταν καλέσετε *#*#3449858#*#*. Μη διαθέσιμο μέχρι να ενεργοποιηθεί το «Άνοιγμα με μυστικό κωδικό».</string>
+    <string name="hide_app_confirm_text">Το εικονίδιο του DhizukuF θα εξαφανιστεί από το launcher. Για να ανοίξετε την εφαρμογή, καλέστε *#*#3449858#*#* στην εφαρμογή τηλεφώνου (δεν γίνεται σε συσκευή χωρίς αυτήν) ή πατήστε την ειδοποίηση υπηρεσίας, αν είναι ενεργή. Απενεργοποιήστε αυτόν τον διακόπτη για να επιστρέψει το εικονίδιο.</string>
+    <string name="hide_app_action">Απόκρυψη</string>
+    <string name="hide_app_failed">Το σύστημα δεν απέκρυψε το εικονίδιο, οπότε η εφαρμογή παραμένει ορατή.</string>
+    <string name="oss_licenses">Άδειες ανοιχτού κώδικα</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

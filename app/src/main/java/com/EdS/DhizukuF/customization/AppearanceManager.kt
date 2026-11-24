@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.util.Log
 import com.EdS.DhizukuF.BuildConfig
 import com.EdS.DhizukuF.data.settings.repo.SettingsRepo
+import org.koin.mp.KoinPlatform
 
 /**
  * The name and the icon of DhizukuF in the launcher (Settings > Customization). The package name never changes.
@@ -44,8 +45,24 @@ object AppearanceManager {
         }
     }
 
-    /** Switches to [entry]. Returns true only when the system really switched (the state is read back). */
-    fun apply(context: Context, entry: LauncherEntry): Boolean = try {
+    /** True while the launcher icon is hidden on purpose (Security > "Hide the app"). */
+    private fun hiddenByUser(): Boolean = try {
+        KoinPlatform.getKoin().get<SettingsRepo>().isAppHidden
+    } catch (_: Throwable) {
+        false
+    }
+
+    /**
+     * Switches to [entry]. Returns true only when the system really switched (the state is read back).
+     * While the app is hidden on purpose nothing is switched on (that would bring the icon back): the choice is
+     * saved by the caller and put in place when the app is shown again.
+     */
+    fun apply(context: Context, entry: LauncherEntry): Boolean {
+        if (hiddenByUser()) return true
+        return applyNow(context, entry)
+    }
+
+    private fun applyNow(context: Context, entry: LauncherEntry): Boolean = try {
         if (!switchOnce(context, entry)) {
             // OEM / race: try once more so leftover aliases are disabled
             Log.w(TAG, "launcher switch not confirmed, retrying")
@@ -58,6 +75,29 @@ object AppearanceManager {
         Log.w(TAG, "cannot switch the launcher entry", t)
         false
     }
+
+    /**
+     * Removes DhizukuF from the launcher: every launcher entry is switched off. The activity itself stays
+     * enabled, so the secret code (and the notification of the service) still open it.
+     * Returns true when no launcher entry is on any more.
+     */
+    fun hide(context: Context): Boolean = try {
+        val pm = context.packageManager
+        for (entry in LauncherAliases.all) {
+            pm.setComponentEnabledSetting(
+                component(context, entry), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+        }
+        val none = LauncherAliases.all.none { isEnabled(context, it) }
+        if (!none) Log.w(TAG, "some launcher entries are still on after hide")
+        none
+    } catch (t: Throwable) {
+        Log.w(TAG, "cannot hide the launcher entry", t)
+        false
+    }
+
+    /** Brings the saved name and icon back into the launcher (after the app was hidden). */
+    fun show(context: Context, repo: SettingsRepo): Boolean = applyNow(context, repo.appearance.entry)
 
     private fun switchOnce(context: Context, entry: LauncherEntry): Boolean {
         val pm = context.packageManager
@@ -80,6 +120,16 @@ object AppearanceManager {
      */
     fun restore(context: Context, repo: SettingsRepo) {
         try {
+            if (repo.isAppHidden) {
+                if (repo.isSecretCodeEnabled) {
+                    // Hidden on purpose: keep every launcher entry off (an update may have switched one on again).
+                    hide(context)
+                    if (repo.appearanceVersion != BuildConfig.VERSION_CODE) repo.appearanceVersion = BuildConfig.VERSION_CODE
+                    return
+                }
+                // Hidden but the secret code is off: nobody could open the app again. Show it.
+                repo.isAppHidden = false
+            }
             val plan = RestoreLogic.plan(
                 config = repo.appearance,
                 storedVersion = repo.appearanceVersion,

@@ -65,7 +65,7 @@
     <string name="error_set_profile_owner">Profil egasini belgilab boʻlmadi. Tizim sozlamalarini tekshiring.</string>
     <string name="error_shizuku_not_work">Shizuku’ni faollashtiring va soʻralgan ruxsatni bering</string>
     <string name="daemon_service_notification_title">DhizukuF daemoni</string>
-    <string name="daemon_service_notification_text">Bu xizmat har doim ishlashini taʼminlash uchun DhizukuF bildirishnomasi. Bildirishnomani yashirish uchun uzoq bosing.</string>
+    <string name="daemon_service_notification_text">Bu istalgan vaqtda xizmat mavjudligini ta\'minlash uchun DhizukuF bildirishnomasidir.</string>
     <string name="home_dish_title">Terminal (dish)</string>
     <string name="home_dish_dsp">Qurilma egasi buyruqlarini istalgan terminaldan (Termux, adb shell va boshqalar) Shizuku uchun rish kabi bajaring. dish va dish_dhizukuf.dex fayllarini eksport qiling va dish’ni ishga tushiring.</string>
     <string name="home_dish_btn_export">dish fayllarini eksport qilish</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Tamanho máximo do registro</string>
     <string name="logs_size_used">Usado: %1$s de %2$d MB. Ao atingir o limite, as entradas mais antigas são excluídas.</string>
-    <string name="security">Security</string>
+    <string name="security">Xavfsizlik</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Bu qurilmada qurilma administratori ekrani yo’q. Android sozlamalarini oching va DhizukuF\'ni Xavfsizlik yoki Qurilma administratori ilovalari bo’limida yoqing.</string>
     <string name="log_event_security_alert">Xavfsizlik ogohlantirishi</string>
     <string name="home_dish_admin_note">Administrator rejimi: dish ishlaydi, lekin faqat qurilma administratoriga ruxsat etilgan buyruqlar mavjud. Qurilma yoki profil egasini talab qiladigan buyruqlar muvaffaqiyatsiz bo\'ladi.</string>
+    <string name="daemon_notification">Xizmat bildirishnomasi</string>
+    <string name="daemon_notification_desc">DhizukuF\'ni tayyor holda saqlaydigan fon xizmatini ishga tushiradi va doimiy holat bildirishnomasini ko\'rsatadi. Bosilsa, DhizukuF ochiladi. O\'chirilsa, xizmat umuman ishga tushmaydi — bildirishnoma ham bo\'lmaydi; Dhizuku API va dish esa kerak bo\'lganda baribir ishga tushadi.</string>
+    <string name="daemon_service_notification_quiet">Ishlamoqda</string>
+    <string name="home_oss_title">Ochiq manbali litsenziyalar</string>
+    <string name="home_oss_dsp">Ushbu ilova ishlatadigan kutubxonalar va ularning litsenziya matnlari</string>
+    <string name="icon_material3_desc">BinTianqi\'ning Material uslubidagi ikonkasi (Dhizuku muhokamasi #318). Ilova qo\'llab-quvvatlaydigan barcha Android versiyalarida mavjud.</string>
+    <string name="owner_data_warning_title">Ma\'lumotlar o\'chirilishi mumkin</string>
+    <string name="owner_data_warning_dsp">Shizuku orqali faollashtirish ADB bajaradigan boshqa foydalanuvchilar va profillarni tekshirishni o\'tkazib yuboradi. Device Owner bor qurilmada Private Space bo\'lishi mumkin emas: Android uni ichidagi BARCHA ma\'lumotlar bilan birga o\'chiradi va buni bekor qilib bo\'lmaydi. Ish profillari va boshqa foydalanuvchilar ham zarar ko\'rishi mumkin. Avval ma\'lumotlaringizni zaxiralang yoki ko\'chiring, yoki boshqa foydalanuvchilar bo\'lsa davom etishdan bosh tortadigan ADB\'dan foydalaning.</string>
+    <string name="owner_data_warning_profiles">Ushbu qurilmada topilgan profillar (Private Space ham hisobga olinadi): %1$d.</string>
+    <string name="owner_data_warning_continue">Tushundim, davom etish</string>
+    <string name="error_set_administrator">Administratorni o\'rnatib bo\'lmadi. Tizim sozlamalarini tekshiring.</string>
+    <string name="secret_code_open">Maxfiy kod bilan ochish</string>
+    <string name="secret_code_open_desc">DhizukuF\'ni ochish uchun telefon ilovasida *#*#3449858#*#* raqamini tering. Bu o\'chiq bo\'lsa, hech narsa sodir bo\'lmaydi.</string>
+    <string name="hide_app">Ilovani yashirish</string>
+    <string name="hide_app_desc">DhizukuF ikonkasini launcherdan olib tashlaydi. Shundan keyin ilova faqat *#*#3449858#*#* terilganda ochiladi. “Maxfiy kod bilan ochish” yoqilmaguncha mavjud emas.</string>
+    <string name="hide_app_confirm_text">DhizukuF ikonkasi launcherdan yo\'qoladi. Ilovani ochish uchun telefon ilovasida *#*#3449858#*#* raqamini tering (telefon ilovasi bo\'lmagan qurilmada imkonsiz) yoki yoqilgan bo\'lsa, xizmat bildirishnomasini bosing. Ikonkani qaytarish uchun bu almashtirgichni o\'chiring.</string>
+    <string name="hide_app_action">Yashirish</string>
+    <string name="hide_app_failed">Tizim ikonkani yashirmadi, shuning uchun ilova ko\'rinib turibdi.</string>
+    <string name="oss_licenses">Ochiq manbali litsenziyalar</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

@@ -39,7 +39,7 @@
     <string name="unblock_app">رفع مسدودیت برنامه</string>
     <string name="denying_access">در حال رد دسترسی…</string>
     <string name="daemon_service_notification_title">سرویس دیمون Dhizuku</string>
-    <string name="daemon_service_notification_text">این یک اعلان از DhizukuF است تا اطمینان حاصل شود که این سرویس همیشه در دسترس است. می‌توانید با لمس طولانی این اعلان را پنهان کنید.</string>
+    <string name="daemon_service_notification_text">این یک اعلان DhizukuF برای اطمینان از در دسترس بودن سرویس در هر زمان است.</string>
     <string name="copy">کپی</string>
     <string name="confirm_device_owner">مالک دستگاه</string>
     <string name="confirm_profile_owner">مالک نمایه</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Tamaño máximo del registro</string>
     <string name="logs_size_used">Usado: %1$s de %2$d MB. Al llegar al límite se eliminan las entradas más antiguas.</string>
-    <string name="security">Security</string>
+    <string name="security">امنیت</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">این دستگاه صفحه مدیر دستگاه ندارد. تنظیمات اندروید را باز کنید و DhizukuF را در بخش امنیت یا برنامه‌های مدیر دستگاه فعال کنید.</string>
     <string name="log_event_security_alert">هشدار امنیتی</string>
     <string name="home_dish_admin_note">حالت مدیر: dish کار می‌کند، اما فقط دستوراتی که برای مدیر دستگاه مجاز است در دسترس‌اند. دستوراتی که به مالک دستگاه یا پروفایل نیاز دارند ناموفق خواهند بود.</string>
+    <string name="daemon_notification">اعلان سرویس</string>
+    <string name="daemon_notification_desc">سرویس پس‌زمینه‌ای را اجرا می‌کند که DhizukuF را آماده نگه می‌دارد و اعلان دائمی وضعیت را نشان می‌دهد. با ضربه زدن، DhizukuF باز می‌شود. وقتی خاموش باشد سرویس اصلاً شروع نمی‌شود و اعلانی نیست؛ Dhizuku API و dish همچنان در صورت نیاز راه‌اندازی می‌شوند.</string>
+    <string name="daemon_service_notification_quiet">در حال اجرا</string>
+    <string name="home_oss_title">مجوزهای متن‌باز</string>
+    <string name="home_oss_dsp">کتابخانه‌های استفاده‌شده در این برنامه و متن مجوزهای آن‌ها</string>
+    <string name="icon_material3_desc">آیکون به سبک Material از BinTianqi (بحث شمارهٔ ۳۱۸ در Dhizuku). در همهٔ نسخه‌های Android که برنامه پشتیبانی می‌کند در دسترس است.</string>
+    <string name="owner_data_warning_title">ممکن است داده‌ها حذف شوند</string>
+    <string name="owner_data_warning_dsp">فعال‌سازی از طریق Shizuku بررسی کاربران و نمایه‌های دیگر را که ADB انجام می‌دهد رد می‌کند. دستگاهی که Device Owner دارد نمی‌تواند Private Space داشته باشد: Android آن را همراه با همهٔ داده‌های داخلش حذف می‌کند و بازگشتی ندارد. نمایه‌های کاری و کاربران دیگر هم ممکن است تأثیر ببینند. ابتدا از داده‌هایتان نسخهٔ پشتیبان بگیرید یا آن‌ها را منتقل کنید، یا از ADB استفاده کنید که با وجود کاربران دیگر ادامه نمی‌دهد.</string>
+    <string name="owner_data_warning_profiles">نمایه‌های یافت‌شده در این دستگاه (Private Space هم حساب می‌شود): %1$d.</string>
+    <string name="owner_data_warning_continue">متوجه شدم، ادامه</string>
+    <string name="error_set_administrator">تنظیم مدیر ناموفق بود. پیکربندی سیستم را بررسی کنید.</string>
+    <string name="secret_code_open">باز کردن با کد مخفی</string>
+    <string name="secret_code_open_desc">در برنامهٔ تلفن *#*#3449858#*#* را بگیرید تا DhizukuF باز شود. تا وقتی این گزینه خاموش است هیچ اتفاقی نمی‌افتد.</string>
+    <string name="hide_app">پنهان کردن برنامه</string>
+    <string name="hide_app_desc">آیکون DhizukuF را از لانچر برمی‌دارد. سپس برنامه فقط با گرفتن *#*#3449858#*#* باز می‌شود. تا زمانی که «باز کردن با کد مخفی» روشن نشود در دسترس نیست.</string>
+    <string name="hide_app_confirm_text">آیکون DhizukuF از لانچر ناپدید می‌شود. برای باز کردن برنامه *#*#3449858#*#* را در برنامهٔ تلفن بگیرید (در دستگاه بدون آن ممکن نیست) یا اگر اعلان سرویس روشن است روی آن بزنید. برای بازگرداندن آیکون این کلید را خاموش کنید.</string>
+    <string name="hide_app_action">پنهان کردن</string>
+    <string name="hide_app_failed">سیستم آیکون را پنهان نکرد، پس برنامه همچنان نمایان است.</string>
+    <string name="oss_licenses">مجوزهای متن‌باز</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

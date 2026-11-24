@@ -5,5 +5,7 @@ import com.EdS.DhizukuF.data.settings.repo.AuthMode
 data class SecurityViewState(
     val whitelistMode: Boolean = false,
     val dangerousEnabled: Boolean = false,
-    val authMode: AuthMode = AuthMode.Off
+    val authMode: AuthMode = AuthMode.Off,
+    val secretCodeEnabled: Boolean = false,
+    val appHidden: Boolean = false
 )

@@ -81,7 +81,7 @@
     <string name="error_shizuku_not_work">Please activate Shizuku and grant the permission request</string>
 
     <string name="daemon_service_notification_title">DhizukuF Daemon</string>
-    <string name="daemon_service_notification_text">This is a DhizukuF notification to ensure service availability at any time. You can long press to hide this notification.</string>
+    <string name="daemon_service_notification_text">This is a DhizukuF notification to ensure service availability at any time.</string>
     <string name="home_dish_title">Terminal (dish)</string>
     <string name="home_dish_dsp">Run Device Owner commands from any terminal (Termux, adb shell and others), like rish for Shizuku. Export the dish and dish_dhizukuf.dex files and start dish.</string>
     <string name="home_dish_btn_export">Export dish files</string>
@@ -298,4 +298,11 @@
     <string name="administrator_open_failed">This device has no device administrator screen. Open Android settings and enable DhizukuF under Security or Device admin apps.</string>
     <string name="log_event_security_alert">Security alert</string>
     <string name="home_dish_admin_note">Administrator mode: dish works, but only the commands a device administrator may use are available. Commands that need Device Owner or Profile Owner will fail.</string>
+    <string name="secret_code_open">Open with a secret code</string>
+    <string name="secret_code_open_desc">Dial *#*#3449858#*#* in the phone app to open DhizukuF. Nothing happens while this is off.</string>
+    <string name="hide_app">Hide the app</string>
+    <string name="hide_app_desc">Removes the DhizukuF icon from the launcher. The app then opens only when you dial *#*#3449858#*#*. Not available until “Open with a secret code” is on.</string>
+    <string name="hide_app_confirm_text">The DhizukuF icon will disappear from the launcher. To open the app, dial *#*#3449858#*#* in the phone app (not possible on a device without one) or tap the service notification if it is on. Turn this switch off to bring the icon back.</string>
+    <string name="hide_app_action">Hide</string>
+    <string name="hide_app_failed">The system did not hide the icon, so the app stays visible.</string>
 </resources>

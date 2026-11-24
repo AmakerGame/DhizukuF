@@ -39,7 +39,7 @@
     <string name="unblock_app">பயன்பாட்டின் தடையை நீக்கு</string>
     <string name="denying_access">அணுகல் மறுக்கப்படுகிறது…</string>
     <string name="daemon_service_notification_title">Dhizuku டீமன்</string>
-    <string name="daemon_service_notification_text">இது சேவை எப்போதும் கிடைக்கும் என்பதை உறுதிசெய்ய DhizukuF அனுப்பும் அறிவிப்பு. இந்த அறிவிப்பை மறைக்க அழுத்திப் பிடிக்கலாம்.</string>
+    <string name="daemon_service_notification_text">இது சேவை எப்போதும் கிடைக்கும் என்பதை உறுதிசெய்ய DhizukuF அனுப்பும் அறிவிப்பு.</string>
     <string name="copy">நகலெடு</string>
     <string name="confirm_device_owner">சாதன உரிமையாளர்</string>
     <string name="confirm_profile_owner">சுயவிவர உரிமையாளர்</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Tamanho máximo do registro</string>
     <string name="logs_size_used">Usado: %1$s de %2$d MB. Ao atingir o limite, as entradas mais antigas são excluídas.</string>
-    <string name="security">Security</string>
+    <string name="security">பாதுகாப்பு</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">இந்த சாதனத்தில் சாதன நிர்வாகி திரை இல்லை. Android அமைப்புகளைத் திறந்து, பாதுகாப்பு அல்லது சாதன நிர்வாகி பயன்பாடுகள் என்பதில் DhizukuF ஐ இயக்கவும்.</string>
     <string name="log_event_security_alert">பாதுகாப்பு எச்சரிக்கை</string>
     <string name="home_dish_admin_note">நிர்வாகி பயன்முறை: dish இயங்கும், ஆனால் சாதன நிர்வாகிக்கு அனுமதிக்கப்பட்ட கட்டளைகள் மட்டுமே கிடைக்கும். சாதனம்/சுயவிவர உரிமையாளர் தேவைப்படும் கட்டளைகள் தோல்வியடையும்.</string>
+    <string name="daemon_notification">சேவை அறிவிப்பு</string>
+    <string name="daemon_notification_desc">DhizukuF-ஐ தயார்நிலையில் வைத்திருக்கும் பின்னணிச் சேவையை இயக்கி, நிலையான நிலை அறிவிப்பைக் காட்டுகிறது. தட்டினால் DhizukuF திறக்கும். அணைத்தால் சேவை தொடங்கவே தொடங்காது — அறிவிப்பும் இருக்காது; Dhizuku API மற்றும் dish தேவைப்படும்போது தொடர்ந்து தொடங்கும்.</string>
+    <string name="daemon_service_notification_quiet">இயங்குகிறது</string>
+    <string name="home_oss_title">திறந்த மூல உரிமங்கள்</string>
+    <string name="home_oss_dsp">இந்தப் பயன்பாடு பயன்படுத்தும் நூலகங்களும் அவற்றின் உரிம உரைகளும்</string>
+    <string name="icon_material3_desc">BinTianqi உருவாக்கிய Material பாணி ஐகான் (Dhizuku விவாதம் #318). பயன்பாடு ஆதரிக்கும் அனைத்து Android பதிப்புகளிலும் கிடைக்கும்.</string>
+    <string name="owner_data_warning_title">தரவு நீக்கப்படலாம்</string>
+    <string name="owner_data_warning_dsp">Shizuku வழியாகச் செயல்படுத்துவது, ADB செய்யும் பிற பயனர்கள் மற்றும் சுயவிவரங்களுக்கான சோதனையைத் தவிர்க்கிறது. Device Owner உள்ள சாதனத்தில் Private Space இருக்க முடியாது: Android அதை உள்ளிருக்கும் அனைத்துத் தரவுடன் நீக்கிவிடும்; இதைத் திரும்பப் பெற முடியாது. பணிச் சுயவிவரங்களும் பிற பயனர்களும் பாதிக்கப்படலாம். முதலில் உங்கள் தரவைக் காப்புப் பிரதி எடுக்கவும் அல்லது நகர்த்தவும், அல்லது பிற பயனர்கள் இருந்தால் தொடர மறுக்கும் ADB-ஐப் பயன்படுத்தவும்.</string>
+    <string name="owner_data_warning_profiles">இந்தச் சாதனத்தில் கண்டறியப்பட்ட சுயவிவரங்கள் (Private Space-உம் கணக்கில்): %1$d.</string>
+    <string name="owner_data_warning_continue">புரிந்தது, தொடரவும்</string>
+    <string name="error_set_administrator">நிர்வாகியை அமைக்க முடியவில்லை. கணினி உள்ளமைவைச் சரிபார்க்கவும்.</string>
+    <string name="secret_code_open">ரகசியக் குறியீட்டால் திற</string>
+    <string name="secret_code_open_desc">DhizukuF-ஐத் திறக்க தொலைபேசி பயன்பாட்டில் *#*#3449858#*#* ஐ டயல் செய்யவும். இது அணைந்திருக்கும்போது எதுவும் நடக்காது.</string>
+    <string name="hide_app">பயன்பாட்டை மறை</string>
+    <string name="hide_app_desc">லாஞ்சரிலிருந்து DhizukuF ஐகானை அகற்றும். பிறகு *#*#3449858#*#* டயல் செய்யும்போது மட்டுமே பயன்பாடு திறக்கும். “ரகசியக் குறியீட்டால் திற” இயக்கப்படும் வரை கிடைக்காது.</string>
+    <string name="hide_app_confirm_text">லாஞ்சரிலிருந்து DhizukuF ஐகான் மறைந்துவிடும். பயன்பாட்டைத் திறக்க தொலைபேசி பயன்பாட்டில் *#*#3449858#*#* ஐ டயல் செய்யவும் (தொலைபேசி பயன்பாடு இல்லாத சாதனத்தில் இயலாது) அல்லது சேவை அறிவிப்பு இயக்கத்தில் இருந்தால் அதைத் தட்டவும். ஐகானைத் திரும்பப் பெற இந்த சுவிட்சை அணைக்கவும்.</string>
+    <string name="hide_app_action">மறை</string>
+    <string name="hide_app_failed">கணினி ஐகானை மறைக்கவில்லை, எனவே பயன்பாடு தெரிந்தபடியே இருக்கும்.</string>
+    <string name="oss_licenses">திறந்த மூல உரிமங்கள்</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

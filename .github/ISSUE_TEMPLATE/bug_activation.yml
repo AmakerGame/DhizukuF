@@ -14,7 +14,7 @@ body:
     attributes:
       label: Before you send
       options:
-        - label: I use the [latest release](https://github.com/AmakerGame/DhizukuF/releases/latest).
+        - label: I use the [latest release, v2.1.0](https://github.com/AmakerGame/DhizukuF/releases/tag/v2.1.0), or newer.
           required: true
         - label: I removed all accounts from the device (or the problem is not about accounts).
           required: true

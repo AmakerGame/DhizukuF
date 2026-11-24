@@ -45,7 +45,7 @@
     <string name="auto_deny_in_seconds">Автоматичен отказ след %d секунди</string>
     <string name="denying_access">Отказване на достъп…</string>
     <string name="daemon_service_notification_title">Демон на Dhizuku</string>
-    <string name="daemon_service_notification_text">Това е известие от DhizukuF, гарантиращо наличността на услугата по всяко време. Можете да задържите натиснато, за да скриете това известие.</string>
+    <string name="daemon_service_notification_text">Това е известие от DhizukuF, за да се гарантира наличност на услугата по всяко време.</string>
     <string name="home_user_management_dsp">Управление на потребители и техните акаунти.</string>
     <string name="user_manager">Управление на потребители</string>
     <string name="user_name_default">Без име</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Maximum log size</string>
     <string name="logs_size_used">Used: %1$s of %2$d MB. When the limit is reached, the oldest entries are deleted.</string>
-    <string name="security">Security</string>
+    <string name="security">Сигурност</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Това устройство няма екран за администратор на устройството. Отворете настройките на Android и включете DhizukuF в раздела Сигурност или Приложения администратор на устройството.</string>
     <string name="log_event_security_alert">Сигнал за сигурност</string>
     <string name="home_dish_admin_note">Режим администратор: dish работи, но са налични само командите, разрешени за администратор на устройството. Командите, изискващи собственик на устройството или профила, няма да работят.</string>
+    <string name="daemon_notification">Известие за услугата</string>
+    <string name="daemon_notification_desc">Стартира фоновата услуга, която държи DhizukuF готов, и показва постоянното известие за състоянието. Докосването отваря DhizukuF. Когато е изключено, услугата изобщо не се стартира — няма известие; API на Dhizuku и dish пак се стартират при нужда.</string>
+    <string name="daemon_service_notification_quiet">Работи</string>
+    <string name="home_oss_title">Лицензи с отворен код</string>
+    <string name="home_oss_dsp">Библиотеки, използвани от това приложение, и текстовете на техните лицензи</string>
+    <string name="icon_material3_desc">Икона в стил Material от BinTianqi (дискусия №318 на Dhizuku). Налична във всички версии на Android, които приложението поддържа.</string>
+    <string name="owner_data_warning_title">Данните могат да бъдат изтрити</string>
+    <string name="owner_data_warning_dsp">Активирането чрез Shizuku пропуска проверката на Android за други потребители и профили, която прави ADB. Устройство с Device Owner не може да има Private Space: Android го изтрива заедно с ВСИЧКИ данни в него и това не може да се отмени. Работните профили и другите потребители също могат да бъдат засегнати. Първо архивирайте или преместете данните си или използвайте ADB, който отказва да продължи, когато има други потребители.</string>
+    <string name="owner_data_warning_profiles">Намерени профили на това устройство (Private Space също се брои): %1$d.</string>
+    <string name="owner_data_warning_continue">Разбирам, продължи</string>
+    <string name="error_set_administrator">Неуспешно задаване на администратор. Проверете системните настройки.</string>
+    <string name="secret_code_open">Отваряне с таен код</string>
+    <string name="secret_code_open_desc">Наберете *#*#3449858#*#* в приложението за телефон, за да отворите DhizukuF. Нищо не се случва, докато опцията е изключена.</string>
+    <string name="hide_app">Скриване на приложението</string>
+    <string name="hide_app_desc">Премахва иконата на DhizukuF от стартовия екран. Приложението се отваря само когато наберете *#*#3449858#*#*. Недостъпно, докато „Отваряне с таен код“ не е включено.</string>
+    <string name="hide_app_confirm_text">Иконата на DhizukuF ще изчезне от стартовия екран. За да отворите приложението, наберете *#*#3449858#*#* в приложението за телефон (невъзможно на устройство без такова) или докоснете известието на услугата, ако е включено. Изключете този превключвател, за да върнете иконата.</string>
+    <string name="hide_app_action">Скрий</string>
+    <string name="hide_app_failed">Системата не скри иконата, затова приложението остава видимо.</string>
+    <string name="oss_licenses">Лицензи с отворен код</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

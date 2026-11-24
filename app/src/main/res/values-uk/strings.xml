@@ -74,7 +74,7 @@
     <string name="error_occurred">Сталася помилка: %1$s</string>
     <string name="error_remove_user">Не вдалося видалити користувача %1$s</string>
     <string name="daemon_service_notification_title">Служба DhizukuF</string>
-    <string name="daemon_service_notification_text">Це сповіщення DhizukuF, що забезпечує постійну доступність служби. Щоб приховати його, натисніть і утримуйте.</string>
+    <string name="daemon_service_notification_text">Це сповіщення DhizukuF, необхідне для того, щоб сервіс був доступний у будь-який час.</string>
     <string name="error_set_device_owner">Не вдалося встановити власника пристрою. Переконайтеся, що на пристрої немає облікових записів.</string>
     <string name="error_set_profile_owner">Не вдалося встановити власника профілю. Перевірте конфігурацію системи.</string>
     <string name="error_shizuku_not_work">Активуйте Shizuku та надайте запитаний дозвіл</string>
@@ -295,4 +295,12 @@
     <string name="administrator_open_failed">На цьому пристрої немає екрана адміністратора пристрою. Відкрийте налаштування Android і ввімкніть DhizukuF у розділі «Безпека» або «Застосунки адміністратора пристрою».</string>
     <string name="log_event_security_alert">Тривога безпеки</string>
     <string name="home_dish_admin_note">Режим адміністратора: dish працює, але доступні лише команди, дозволені адміністратору пристрою. Команди, що потребують власника пристрою чи профілю, не спрацюють.</string>
+    <string name="error_set_administrator">Не вдалося призначити адміністратора. Перевірте конфігурацію системи.</string>
+    <string name="secret_code_open">Відкривати за секретним кодом</string>
+    <string name="secret_code_open_desc">Наберіть *#*#3449858#*#* у застосунку «Телефон», щоб відкрити DhizukuF. Поки параметр вимкнено, нічого не відбувається.</string>
+    <string name="hide_app">Приховати застосунок</string>
+    <string name="hide_app_desc">Прибирає значок DhizukuF із лаунчера. Далі застосунок відкривається лише після набору *#*#3449858#*#*. Недоступно, доки не ввімкнено параметр «Відкривати за секретним кодом».</string>
+    <string name="hide_app_confirm_text">Значок DhizukuF зникне з лаунчера. Щоб відкрити застосунок, наберіть *#*#3449858#*#* у застосунку «Телефон» (на пристрої без нього це неможливо) або торкніться сповіщення служби, якщо його ввімкнено. Вимкніть цей перемикач, щоб повернути значок.</string>
+    <string name="hide_app_action">Приховати</string>
+    <string name="hide_app_failed">Система не приховала значок, тож застосунок залишається видимим.</string>
 </resources>

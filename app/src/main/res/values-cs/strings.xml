@@ -39,7 +39,7 @@
     <string name="auto_deny_in_seconds">Automatické zamítnutí za %d sekund</string>
     <string name="denying_access">Zamítání přístupu…</string>
     <string name="daemon_service_notification_title">Dhizuku Daemon</string>
-    <string name="daemon_service_notification_text">Toto je oznámení DhizukuF pro zajištění dostupnosti služby kdykoliv. Dlouhým podržením můžete toto oznámení skrýt.</string>
+    <string name="daemon_service_notification_text">Toto je oznámení DhizukuF, aby byla zajištěna dostupnost služby kdykoli.</string>
     <string name="copy">Kopírovat</string>
     <string name="confirm_device_owner">Vlastník zařízení</string>
     <string name="confirm_profile_owner">Vlastník profilu</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Maximum log size</string>
     <string name="logs_size_used">Used: %1$s of %2$d MB. When the limit is reached, the oldest entries are deleted.</string>
-    <string name="security">Security</string>
+    <string name="security">Zabezpečení</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Toto zařízení nemá obrazovku správce zařízení. Otevřete nastavení Androidu a povolte DhizukuF v sekci Zabezpečení nebo Aplikace správce zařízení.</string>
     <string name="log_event_security_alert">Bezpečnostní upozornění</string>
     <string name="home_dish_admin_note">Režim správce: dish funguje, ale k dispozici jsou pouze příkazy povolené správci zařízení. Příkazy vyžadující vlastníka zařízení nebo profilu selžou.</string>
+    <string name="daemon_notification">Oznámení služby</string>
+    <string name="daemon_notification_desc">Spouští službu na pozadí, která udržuje DhizukuF připravený, a zobrazuje trvalé stavové oznámení. Klepnutím se otevře DhizukuF. Když je vypnuto, služba se vůbec nespustí – žádné oznámení; Dhizuku API a dish se ale spouštějí na požádání.</string>
+    <string name="daemon_service_notification_quiet">Běží</string>
+    <string name="home_oss_title">Open-source licence</string>
+    <string name="home_oss_dsp">Knihovny použité v této aplikaci a texty jejich licencí</string>
+    <string name="icon_material3_desc">Ikona ve stylu Material od BinTianqi (diskuse Dhizuku č. 318). K dispozici ve všech verzích Androidu, které aplikace podporuje.</string>
+    <string name="owner_data_warning_title">Data mohou být smazána</string>
+    <string name="owner_data_warning_dsp">Aktivace přes Shizuku přeskakuje kontrolu dalších uživatelů a profilů, kterou dělá ADB. Zařízení s Device Owner nemůže mít Private Space: Android jej smaže spolu se VŠEMI daty uvnitř a nelze to vrátit zpět. Dotčeny mohou být i pracovní profily a další uživatelé. Nejdřív data zálohujte nebo přesuňte, nebo použijte ADB, který při existenci dalších uživatelů odmítne pokračovat.</string>
+    <string name="owner_data_warning_profiles">Profily nalezené v tomto zařízení (Private Space se také počítá): %1$d.</string>
+    <string name="owner_data_warning_continue">Rozumím, pokračovat</string>
+    <string name="error_set_administrator">Nastavení správce se nezdařilo. Zkontrolujte konfiguraci systému.</string>
+    <string name="secret_code_open">Otevřít tajným kódem</string>
+    <string name="secret_code_open_desc">Vytočte *#*#3449858#*#* v aplikaci Telefon a otevře se DhizukuF. Když je volba vypnutá, nestane se nic.</string>
+    <string name="hide_app">Skrýt aplikaci</string>
+    <string name="hide_app_desc">Odebere ikonu DhizukuF z launcheru. Aplikace se pak otevře jen po vytočení *#*#3449858#*#*. Nedostupné, dokud není zapnuto „Otevřít tajným kódem“.</string>
+    <string name="hide_app_confirm_text">Ikona DhizukuF zmizí z launcheru. Aplikaci otevřete vytočením *#*#3449858#*#* v aplikaci Telefon (na zařízení bez ní to nejde) nebo klepnutím na oznámení služby, pokud je zapnuté. Vypnutím tohoto přepínače ikonu vrátíte.</string>
+    <string name="hide_app_action">Skrýt</string>
+    <string name="hide_app_failed">Systém ikonu neskryl, aplikace tedy zůstává viditelná.</string>
+    <string name="oss_licenses">Open-source licence</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

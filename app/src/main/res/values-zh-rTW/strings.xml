@@ -39,7 +39,7 @@
     <string name="auto_deny_in_seconds">將在 %d 秒後自動拒絕</string>
     <string name="denying_access">拒絕存取…</string>
     <string name="daemon_service_notification_title">Dhizuku 守護程式</string>
-    <string name="daemon_service_notification_text">這是 DhizukuF 發送的通知，用於確保服務隨時可用。您可以長按此通知以將其隱藏。</string>
+    <string name="daemon_service_notification_text">這是 DhizukuF 發送的通知，用於確保服務隨時可用。</string>
     <string name="copy">複製</string>
     <string name="confirm_device_owner">裝置擁有者</string>
     <string name="confirm_profile_owner">設定檔擁有者</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">日誌大小上限</string>
     <string name="logs_size_used">已使用：%1$s / %2$d MB。達到上限後會刪除最舊的項目。</string>
-    <string name="security">Security</string>
+    <string name="security">安全性</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">此裝置沒有裝置管理員畫面。請開啟 Android 設定，並在「安全性」或「裝置管理員應用程式」中啟用 DhizukuF。</string>
     <string name="log_event_security_alert">安全警示</string>
     <string name="home_dish_admin_note">Administrator mode: dish works, but only the commands a device administrator may use are available. Commands that need Device Owner or Profile Owner will fail.</string>
+    <string name="daemon_notification">服務通知</string>
+    <string name="daemon_notification_desc">執行讓 DhizukuF 保持就緒的背景服務，並顯示常駐狀態通知。輕觸即可開啟 DhizukuF。關閉後服務完全不會啟動，也沒有通知；Dhizuku API 與 dish 仍會視需要啟動。</string>
+    <string name="daemon_service_notification_quiet">執行中</string>
+    <string name="home_oss_title">開放原始碼授權</string>
+    <string name="home_oss_dsp">本應用程式使用的函式庫及其授權文字</string>
+    <string name="icon_material3_desc">BinTianqi 設計的 Material 風格圖示（Dhizuku 討論 #318）。適用於本應用程式支援的所有 Android 版本。</string>
+    <string name="owner_data_warning_title">資料可能被刪除</string>
+    <string name="owner_data_warning_dsp">透過 Shizuku 啟用會略過 ADB 所做的其他使用者與設定檔檢查。已有 Device Owner 的裝置無法擁有 Private Space：Android 會連同其中所有資料一併刪除，且無法復原。工作設定檔與其他使用者也可能受影響。請先備份或轉移資料，或使用 ADB——存在其他使用者時它會拒絕繼續。</string>
+    <string name="owner_data_warning_profiles">在此裝置上找到的設定檔數量（Private Space 也計入）：%1$d。</string>
+    <string name="owner_data_warning_continue">我了解，繼續</string>
+    <string name="error_set_administrator">無法設定管理員。請檢查系統設定。</string>
+    <string name="secret_code_open">以暗碼開啟</string>
+    <string name="secret_code_open_desc">在電話應用程式中撥打 *#*#3449858#*#* 即可開啟 DhizukuF。此選項關閉時不會有任何反應。</string>
+    <string name="hide_app">隱藏應用程式</string>
+    <string name="hide_app_desc">從啟動器移除 DhizukuF 圖示。之後只有撥打 *#*#3449858#*#* 才能開啟應用程式。在開啟「以暗碼開啟」之前無法使用。</string>
+    <string name="hide_app_confirm_text">DhizukuF 圖示將從啟動器消失。要開啟應用程式，請在電話應用程式中撥打 *#*#3449858#*#*（沒有電話應用程式的裝置無法使用），或輕觸服務通知（若已開啟）。關閉此開關即可恢復圖示。</string>
+    <string name="hide_app_action">隱藏</string>
+    <string name="hide_app_failed">系統未能隱藏圖示，應用程式仍然可見。</string>
+    <string name="oss_licenses">開放原始碼授權</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

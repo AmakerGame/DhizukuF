@@ -31,10 +31,10 @@ and the Activate page reports the real result.
 
 A factory-reset device can become managed by DhizukuF straight from the setup
 wizard — no computer and no ADB. The QR code below is the standard Android
-**QR provisioning** payload for the **v2.0.0** release.
+**QR provisioning** payload for the **v2.1.0** release.
 
 <p align="center">
-  <img src="images/provisioning-qr.png" width="320" alt="DhizukuF v2.0.0 provisioning QR code" />
+  <img src="images/provisioning-qr.png" width="320" alt="DhizukuF v2.1.0 provisioning QR code" />
 </p>
 
 1. Factory-reset the device (provisioning only works on the very first setup screen).
@@ -49,7 +49,7 @@ What the code contains:
 | Field | Value |
 | --- | --- |
 | Admin component | `com.EdS.DhizukuF/.server.DhizukuDAReceiver` |
-| APK | `https://github.com/AmakerGame/DhizukuF/releases/download/v2.0.0/DhizukuF-v2.0.0.apk` |
+| APK | `https://github.com/AmakerGame/DhizukuF/releases/download/v2.1.0/DhizukuF-v2.1.0.apk` |
 | Signature checksum | `pA2oClnRcMqpUM8VwYxFTUejmyaYnYtkDs10W6cb9dw` (SHA-256 of the signing certificate, URL-safe Base64) |
 | Leave system apps enabled | yes |
 | Skip encryption | yes |
@@ -60,7 +60,7 @@ What the code contains:
 ```json
 {
   "android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME": "com.EdS.DhizukuF/.server.DhizukuDAReceiver",
-  "android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION": "https://github.com/AmakerGame/DhizukuF/releases/download/v2.0.0/DhizukuF-v2.0.0.apk",
+  "android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION": "https://github.com/AmakerGame/DhizukuF/releases/download/v2.1.0/DhizukuF-v2.1.0.apk",
   "android.app.extra.PROVISIONING_DEVICE_ADMIN_SIGNATURE_CHECKSUM": "pA2oClnRcMqpUM8VwYxFTUejmyaYnYtkDs10W6cb9dw",
   "android.app.extra.PROVISIONING_LEAVE_ALL_SYSTEM_APPS_ENABLED": true,
   "android.app.extra.PROVISIONING_SKIP_ENCRYPTION": true
@@ -70,7 +70,7 @@ What the code contains:
 </details>
 
 > [!IMPORTANT]
-> The QR code is tied to **v2.0.0**: the download link and the checksum belong to that
+> The QR code is tied to **v2.1.0**: the download link and the checksum belong to that
 > release. For another version, or if the signing key changes, generate a new code
 > with the new link and checksum. The code works only on a device that has not been
 > set up yet; on a device that is already in use, use `dpm set-device-owner` or the

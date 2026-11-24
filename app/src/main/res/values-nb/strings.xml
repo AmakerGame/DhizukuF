@@ -39,7 +39,7 @@
     <string name="auto_deny_in_seconds">Nekt automatisk i %d sekunder</string>
     <string name="denying_access">Nekter tilgang…</string>
     <string name="daemon_service_notification_title">DhizukuF-daemon</string>
-    <string name="daemon_service_notification_text">Dette varslet forsikrer at DhizukuF-tjenesten er tilgjengelig til enhver tid. Trykk og hold for å skjule dette varslet.</string>
+    <string name="daemon_service_notification_text">Dette er et DhizukuF-varsel for å sikre tjenestetilgjengelighet når som helst.</string>
     <string name="copy">Kopier</string>
     <string name="confirm_device_owner">Enhetseier</string>
     <string name="confirm_profile_owner">Profileier</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">ログの最大サイズ</string>
     <string name="logs_size_used">使用中: %1$s / %2$d MB。上限に達すると古いエントリから削除されます。</string>
-    <string name="security">Security</string>
+    <string name="security">Sikkerhet</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Denne enheten har ingen skjerm for enhetsadministratorer. Åpne Android-innstillingene og aktiver DhizukuF under Sikkerhet eller Enhetsadministrasjonsapper.</string>
     <string name="log_event_security_alert">Sikkerhetsvarsel</string>
     <string name="home_dish_admin_note">Administrator-modus: dish fungerer, men bare kommandoene en enhetsadministrator har tilgang til er tilgjengelige. Kommandoer som krever enhets- eller profil-eier vil mislykkes.</string>
+    <string name="daemon_notification">Tjenestevarsel</string>
+    <string name="daemon_notification_desc">Kjører bakgrunnstjenesten som holder DhizukuF klar og viser det faste statusvarselet. Trykk åpner DhizukuF. Når det er av, startes ikke tjenesten i det hele tatt – ingen varsel; Dhizuku-API-et og dish starter fortsatt ved behov.</string>
+    <string name="daemon_service_notification_quiet">Kjører</string>
+    <string name="home_oss_title">Åpen kildekode-lisenser</string>
+    <string name="home_oss_dsp">Bibliotekene denne appen bruker, og lisenstekstene deres</string>
+    <string name="icon_material3_desc">Ikon i Material-stil av BinTianqi (Dhizuku-diskusjon #318). Tilgjengelig på alle Android-versjoner appen støtter.</string>
+    <string name="owner_data_warning_title">Data kan bli slettet</string>
+    <string name="owner_data_warning_dsp">Aktivering via Shizuku hopper over Androids kontroll av andre brukere og profiler som ADB gjør. En enhet med Device Owner kan ikke ha et Private Space: Android sletter det sammen med ALLE dataene i det, og dette kan ikke angres. Jobbprofiler og andre brukere kan også bli berørt. Ta sikkerhetskopi eller flytt dataene dine først, eller bruk ADB, som nekter å fortsette når det finnes andre brukere.</string>
+    <string name="owner_data_warning_profiles">Profiler funnet på denne enheten (et Private Space telles også): %1$d.</string>
+    <string name="owner_data_warning_continue">Jeg forstår, fortsett</string>
+    <string name="error_set_administrator">Kunne ikke angi administrator. Sjekk systemkonfigurasjonen.</string>
+    <string name="secret_code_open">Åpne med hemmelig kode</string>
+    <string name="secret_code_open_desc">Ring *#*#3449858#*#* i telefonappen for å åpne DhizukuF. Ingenting skjer så lenge dette er av.</string>
+    <string name="hide_app">Skjul appen</string>
+    <string name="hide_app_desc">Fjerner DhizukuF-ikonet fra appoversikten. Appen åpnes da bare når du ringer *#*#3449858#*#*. Ikke tilgjengelig før «Åpne med hemmelig kode» er på.</string>
+    <string name="hide_app_confirm_text">DhizukuF-ikonet forsvinner fra appoversikten. For å åpne appen ringer du *#*#3449858#*#* i telefonappen (ikke mulig på en enhet uten) eller trykker på tjenestevarselet hvis det er på. Slå av denne bryteren for å få ikonet tilbake.</string>
+    <string name="hide_app_action">Skjul</string>
+    <string name="hide_app_failed">Systemet skjulte ikke ikonet, så appen forblir synlig.</string>
+    <string name="oss_licenses">Åpen kildekode-lisenser</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

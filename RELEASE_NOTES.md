@@ -1,3 +1,40 @@
+## DhizukuF v2.1.0 (17)
+
+### New
+
+- **Open with a secret code** (Settings > Security): dial `*#*#3449858#*#*` in the phone app to open
+  DhizukuF. Off by default — nothing happens until you turn it on.
+- **Hide the app** (Settings > Security): removes the DhizukuF icon from the launcher; the app then opens
+  only with the secret code (or from the service notification, if it is on). The switch stays inactive
+  until *Open with a secret code* is on, asks for confirmation (and for the screen lock, if you use one),
+  and turning the secret code off brings the icon back, so you can never lock yourself out. On a device
+  without a phone app (many TV boxes) the switch cannot be turned on, because the code could not be dialed.
+
+### Fixed
+
+- **Secret code and receiver filter restored**: the dial code of the original Dhizuku was lost in the fork,
+  and `DaemonReceiver` synced on *every* device-admin broadcast (each wrong screen-lock attempt included).
+  It now reacts only to boot, device-admin and owner-change broadcasts.
+- **Build**: the version is read with plain `java.io.File` instead of the internal Kotlin/Native
+  `konan` API, which can disappear with a plugin update.
+- **Service notification text** no longer tells you to "long press to hide" it (removed in upstream
+  Dhizuku too); the text is updated in all languages.
+- **Untranslated texts**: the data-loss warning of the Shizuku activation, the service notification,
+  the open-source licenses card, the *Security* title and the new options are now translated in all
+  languages (Manchu `mnc` still falls back to English for these).
+- **Issue forms**: the version hint is `2.1.0 (17)` and the forms point to the current release.
+
+### Updated
+
+- Android Gradle Plugin 9.5.2, Compose 1.12.1, KSP 2.3.14, AndroidHiddenApiBypass 6.2, Gradle 9.9.2.
+- QR provisioning code in [docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md) now points to **v2.1.0**
+  (the signing checksum is unchanged).
+
+### Install
+
+1. Install the APK (and Hub if needed) — or provision a new device with the QR code.
+2. Keep Device Owner — or try the **Administrator** card for the limited mode.
+
 ## DhizukuF v2.0.0 (16)
 
 ### Security

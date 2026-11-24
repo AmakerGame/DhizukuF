@@ -26,6 +26,12 @@ interface SettingsRepo {
     fun flowAdvancedConfirmation(): Flow<Boolean>
     fun flowAuthMode(): Flow<AuthMode>
 
+    /** Security > "Open with a secret code": the dial code *#*#3449858#*#* opens the app. Off by default. */
+    fun flowSecretCodeEnabled(): Flow<Boolean>
+
+    /** Security > "Hide the app": no launcher icon. Only meaningful (and only allowed) while the secret code is on. */
+    fun flowAppHidden(): Flow<Boolean>
+
     /** Settings > Logs. [logConfig] is cached and cheap: it is read for every event that could be logged. */
     fun flowLogConfig(): Flow<LogConfig>
     val logConfig: LogConfig
@@ -63,4 +69,6 @@ interface SettingsRepo {
     var isShowDishLabel: Boolean
     var isAdvancedConfirmation: Boolean
     var authMode: AuthMode
+    var isSecretCodeEnabled: Boolean
+    var isAppHidden: Boolean
 }

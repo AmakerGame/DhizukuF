@@ -39,7 +39,7 @@
     <string name="auto_deny_in_seconds">Automatische Ablehnung in %d Sekunden</string>
     <string name="denying_access">Zugang verweigert…</string>
     <string name="daemon_service_notification_title">Dhizuku-Daemon</string>
-    <string name="daemon_service_notification_text">Dies ist eine DhizukuF-Benachrichtigung, um die Verfügbarkeit des Dienstes jederzeit sicherzustellen. Sie können lange drücken, um diese Benachrichtigung auszublenden.</string>
+    <string name="daemon_service_notification_text">Dies ist eine DhizukuF-Benachrichtigung, um die jederzeitige Verfügbarkeit des Dienstes sicherzustellen.</string>
     <string name="copy">Kopieren</string>
     <string name="confirm_device_owner">Geräteinhaber</string>
     <string name="confirm_profile_owner">Profilinhaber</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Maximale Protokollgröße</string>
     <string name="logs_size_used">Belegt: %1$s von %2$d MB. Bei Erreichen des Limits werden die ältesten Einträge gelöscht.</string>
-    <string name="security">Security</string>
+    <string name="security">Sicherheit</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Dieses Gerät hat keinen Bildschirm für Geräteadministratoren. Öffne die Android-Einstellungen und aktiviere DhizukuF unter Sicherheit oder Geräteadmin-Apps.</string>
     <string name="log_event_security_alert">Sicherheitswarnung</string>
     <string name="home_dish_admin_note">Administrator-Modus: dish funktioniert, aber nur die Befehle, die ein Geräteadministrator verwenden darf. Befehle, die Geräte- oder Profileigentümer erfordern, schlagen fehl.</string>
+    <string name="daemon_notification">Dienst-Benachrichtigung</string>
+    <string name="daemon_notification_desc">Startet den Hintergrunddienst, der DhizukuF bereithält, und zeigt die dauerhafte Statusbenachrichtigung. Tippen öffnet DhizukuF. Ist die Option aus, wird der Dienst gar nicht gestartet – keine Benachrichtigung; die Dhizuku-API und dish starten weiterhin bei Bedarf.</string>
+    <string name="daemon_service_notification_quiet">Aktiv</string>
+    <string name="home_oss_title">Open-Source-Lizenzen</string>
+    <string name="home_oss_dsp">Von dieser App verwendete Bibliotheken und ihre Lizenztexte</string>
+    <string name="icon_material3_desc">Icon im Material-Stil von BinTianqi (Dhizuku-Diskussion Nr. 318). Auf allen von der App unterstützten Android-Versionen verfügbar.</string>
+    <string name="owner_data_warning_title">Daten können gelöscht werden</string>
+    <string name="owner_data_warning_dsp">Die Aktivierung über Shizuku überspringt die Prüfung auf weitere Nutzer und Profile, die ADB durchführt. Ein Gerät mit Device Owner kann keinen Private Space haben: Android löscht ihn samt ALLEN darin enthaltenen Daten, und das lässt sich nicht rückgängig machen. Auch Arbeitsprofile und andere Nutzer können betroffen sein. Sichere oder verschiebe zuerst deine Daten oder nutze ADB, das bei weiteren Nutzern nicht fortfährt.</string>
+    <string name="owner_data_warning_profiles">Auf diesem Gerät gefundene Profile (ein Private Space zählt mit): %1$d.</string>
+    <string name="owner_data_warning_continue">Verstanden, weiter</string>
+    <string name="error_set_administrator">Administrator konnte nicht festgelegt werden. Bitte prüfe die Systemkonfiguration.</string>
+    <string name="secret_code_open">Mit Geheimcode öffnen</string>
+    <string name="secret_code_open_desc">Wähle *#*#3449858#*#* in der Telefon-App, um DhizukuF zu öffnen. Solange die Option aus ist, passiert nichts.</string>
+    <string name="hide_app">App ausblenden</string>
+    <string name="hide_app_desc">Entfernt das DhizukuF-Symbol aus dem Launcher. Die App lässt sich dann nur noch öffnen, indem du *#*#3449858#*#* wählst. Nicht verfügbar, solange „Mit Geheimcode öffnen“ aus ist.</string>
+    <string name="hide_app_confirm_text">Das DhizukuF-Symbol verschwindet aus dem Launcher. Zum Öffnen wähle *#*#3449858#*#* in der Telefon-App (auf Geräten ohne Telefon-App nicht möglich) oder tippe auf die Dienst-Benachrichtigung, falls sie aktiv ist. Schalte diesen Schalter aus, um das Symbol zurückzubringen.</string>
+    <string name="hide_app_action">Ausblenden</string>
+    <string name="hide_app_failed">Das System hat das Symbol nicht ausgeblendet, die App bleibt daher sichtbar.</string>
+    <string name="oss_licenses">Open-Source-Lizenzen</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

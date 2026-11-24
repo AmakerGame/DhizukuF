@@ -37,7 +37,7 @@
 - **dish** — Device Owner commands from any shell ([docs/DISH.md](docs/DISH.md))
 - **Administrator mode** — standard device-admin rights, no root/ADB ([docs/ADMINISTRATOR.md](docs/ADMINISTRATOR.md))
 - **App control** — hide, suspend, permissions, restrictions, and more
-- **Security** — whitelist, dangerous-commands switch, optional biometrics
+- **Security** — whitelist, dangerous-commands switch, optional biometrics, secret dial code `*#*#3449858#*#*` and hiding the app icon
 - **Customization** — theme, app name/icon, home card order
 - **Android TV** — banner and D-pad friendly UI
 

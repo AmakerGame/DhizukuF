@@ -39,7 +39,7 @@
     <string name="unblock_app">Atbloķēt lietotni</string>
     <string name="denying_access">Piekļuve tiek liegta…</string>
     <string name="daemon_service_notification_title">Dhizuku dēmons</string>
-    <string name="daemon_service_notification_text">Šis ir DhizukuF paziņojums, kas nodrošina pakalpojuma pieejamību jebkurā laikā. Varat to noturēt nospiestu, lai paslēptu šo paziņojumu.</string>
+    <string name="daemon_service_notification_text">Šis ir DhizukuF paziņojums, lai nodrošinātu pakalpojuma pieejamību jebkurā laikā.</string>
     <string name="copy">Kopēt</string>
     <string name="confirm_device_owner">Ierīces īpašnieks</string>
     <string name="confirm_profile_owner">Profila īpašnieks</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">ログの最大サイズ</string>
     <string name="logs_size_used">使用中: %1$s / %2$d MB。上限に達すると古いエントリから削除されます。</string>
-    <string name="security">Security</string>
+    <string name="security">Drošība</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Šai ierīcei nav ierīces administratora ekrāna. Atveriet Android iestatījumus un iespējkojiet DhizukuF sadaļā Drošība vai Ierīces administratora lietotnes.</string>
     <string name="log_event_security_alert">Drošības brīdinājums</string>
     <string name="home_dish_admin_note">Administratora režīms: dish darbojas, bet ir pieejamas tikai komandas, kas atļautas ierīces administratoram. Komandas, kurām nepieciešams ierīces vai profila īpašnieks, neizdosies.</string>
+    <string name="daemon_notification">Pakalpojuma paziņojums</string>
+    <string name="daemon_notification_desc">Palaiž fona pakalpojumu, kas uztur DhizukuF gatavībā un rāda pastāvīgo statusa paziņojumu. Pieskaroties tiek atvērts DhizukuF. Ja izslēgts, pakalpojums netiek startēts vispār — nav paziņojuma; Dhizuku API un dish joprojām startē pēc vajadzības.</string>
+    <string name="daemon_service_notification_quiet">Darbojas</string>
+    <string name="home_oss_title">Atvērtā koda licences</string>
+    <string name="home_oss_dsp">Šīs lietotnes izmantotās bibliotēkas un to licenču teksti</string>
+    <string name="icon_material3_desc">Material stila ikona no BinTianqi (Dhizuku diskusija Nr. 318). Pieejama visās Android versijās, ko lietotne atbalsta.</string>
+    <string name="owner_data_warning_title">Dati var tikt dzēsti</string>
+    <string name="owner_data_warning_dsp">Aktivizēšana, izmantojot Shizuku, izlaiž Android pārbaudi citiem lietotājiem un profiliem, ko veic ADB. Ierīcē ar Device Owner nevar būt Private Space: Android to izdzēš kopā ar VISIEM tajā esošajiem datiem, un to nevar atsaukt. Var tikt ietekmēti arī darba profili un citi lietotāji. Vispirms izveidojiet datu rezerves kopiju vai pārvietojiet datus, vai izmantojiet ADB, kas atsakās turpināt, ja ir citi lietotāji.</string>
+    <string name="owner_data_warning_profiles">Šajā ierīcē atrastie profili (Private Space arī tiek skaitīts): %1$d.</string>
+    <string name="owner_data_warning_continue">Saprotu, turpināt</string>
+    <string name="error_set_administrator">Neizdevās iestatīt administratoru. Pārbaudiet sistēmas konfigurāciju.</string>
+    <string name="secret_code_open">Atvērt ar slepeno kodu</string>
+    <string name="secret_code_open_desc">Sastādiet *#*#3449858#*#* tālruņa lietotnē, lai atvērtu DhizukuF. Kamēr šī opcija ir izslēgta, nekas nenotiek.</string>
+    <string name="hide_app">Paslēpt lietotni</string>
+    <string name="hide_app_desc">Noņem DhizukuF ikonu no palaidēja. Pēc tam lietotne atveras tikai, sastādot *#*#3449858#*#*. Nav pieejams, kamēr nav ieslēgts: „Atvērt ar slepeno kodu“.</string>
+    <string name="hide_app_confirm_text">DhizukuF ikona pazudīs no palaidēja. Lai atvērtu lietotni, sastādiet *#*#3449858#*#* tālruņa lietotnē (nav iespējams ierīcē bez tās) vai pieskarieties pakalpojuma paziņojumam, ja tas ir ieslēgts. Izslēdziet šo slēdzi, lai atgrieztu ikonu.</string>
+    <string name="hide_app_action">Paslēpt</string>
+    <string name="hide_app_failed">Sistēma neslēpa ikonu, tāpēc lietotne paliek redzama.</string>
+    <string name="oss_licenses">Atvērtā koda licences</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

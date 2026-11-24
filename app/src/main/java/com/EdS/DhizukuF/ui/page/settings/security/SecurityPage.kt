@@ -90,6 +90,9 @@ fun SecurityPage(
     }
 
     var noLockDialog by remember { mutableStateOf(false) }
+    var hideDialog by remember { mutableStateOf(false) }
+    // A device without a phone app (many TV boxes, Wi-Fi tablets) cannot dial the code: hiding the app there would lock the user out.
+    val canDial = remember { context.packageManager.hasSystemFeature(android.content.pm.PackageManager.FEATURE_TELEPHONY) }
 
     val promptTitle = stringResource(R.string.auth_prompt_title)
     val promptSecurity = stringResource(R.string.auth_prompt_security)
@@ -111,6 +114,27 @@ fun SecurityPage(
         }
         // Changing the protection itself is protected: this also proves that the prompt works before it is relied on.
         gate.confirmAlways(promptTitle, promptSecurity) { viewModel.setAuthMode(mode) }
+    }
+
+    if (hideDialog) {
+        AlertDialog(
+            onDismissRequest = { hideDialog = false },
+            title = { Text(stringResource(R.string.hide_app)) },
+            text = { Text(stringResource(R.string.hide_app_confirm_text)) },
+            dismissButton = {
+                TvTextButton(onClick = { hideDialog = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            },
+            confirmButton = {
+                TvTextButton(onClick = {
+                    hideDialog = false
+                    gate.confirm(promptTitle, promptSecurity) { viewModel.setAppHidden(true) }
+                }) {
+                    Text(stringResource(R.string.hide_app_action))
+                }
+            }
+        )
     }
 
     if (noLockDialog) {
@@ -195,6 +219,25 @@ fun SecurityPage(
                                 }
                             },
                             titleColor = MaterialTheme.colorScheme.error
+                        )
+
+                        SwitchRow(
+                            title = stringResource(R.string.secret_code_open),
+                            description = stringResource(R.string.secret_code_open_desc),
+                            checked = state.secretCodeEnabled,
+                            onCheckedChange = viewModel::setSecretCodeEnabled
+                        )
+
+                        // Not active until "Open with a secret code" is on: a hidden app needs the code to be opened.
+                        SwitchRow(
+                            title = stringResource(R.string.hide_app),
+                            description = stringResource(R.string.hide_app_desc),
+                            checked = state.appHidden && state.secretCodeEnabled,
+                            // Always allow switching it OFF (to show the app again), never ON without a way to dial.
+                            enabled = state.secretCodeEnabled && (canDial || state.appHidden),
+                            onCheckedChange = { hide ->
+                                if (hide) hideDialog = true else viewModel.setAppHidden(false)
+                            }
                         )
                     }
                 }

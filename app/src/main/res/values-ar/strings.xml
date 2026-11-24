@@ -38,7 +38,7 @@
     <string name="unblock_app">إلغاء حظر التطبيق</string>
     <string name="auto_deny_in_seconds">الرفض التلقائي في %d ثواني</string>
     <string name="denying_access">منع الوصول …</string>
-    <string name="daemon_service_notification_text">هذا إشعار من DhizukuF لضمان توفر الخدمة في أي وقت. يمكنك الضغط مطولاً لإخفاء هذا الإشعار.</string>
+    <string name="daemon_service_notification_text">هذا إشعار DhizukuF لضمان توفر الخدمة في أي وقت.</string>
     <string name="daemon_service_notification_title">Dhizuku Daemon</string>
     <string name="copy">نسخ</string>
     <string name="confirm_device_owner">مالك الجهاز</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Maximum log size</string>
     <string name="logs_size_used">Used: %1$s of %2$d MB. When the limit is reached, the oldest entries are deleted.</string>
-    <string name="security">Security</string>
+    <string name="security">الأمان</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">لا يحتوي هذا الجهاز على شاشة مسؤول الجهاز. افتح إعدادات Android وفعّل DhizukuF ضمن الأمان أو تطبيقات مسؤول الجهاز.</string>
     <string name="log_event_security_alert">تنبيه أمني</string>
     <string name="home_dish_admin_note">وضع المسؤول: يعمل dish، لكن تتوفر فقط الأوامر المسموح بها لمسؤول الجهاز. الأوامر التي تتطلب مالك الجهاز أو الملف الشخصي ستفشل.</string>
+    <string name="daemon_notification">إشعار الخدمة</string>
+    <string name="daemon_notification_desc">يشغّل الخدمة الخلفية التي تُبقي DhizukuF جاهزًا ويعرض إشعار الحالة الدائم. النقر يفتح DhizukuF. عند الإيقاف لا تبدأ الخدمة إطلاقًا ولا يظهر إشعار؛ وتبدأ واجهة Dhizuku API وdish عند الطلب.</string>
+    <string name="daemon_service_notification_quiet">قيد التشغيل</string>
+    <string name="home_oss_title">تراخيص المصدر المفتوح</string>
+    <string name="home_oss_dsp">المكتبات التي يستخدمها هذا التطبيق ونصوص تراخيصها</string>
+    <string name="icon_material3_desc">أيقونة بتصميم Material من BinTianqi (نقاش Dhizuku رقم 318). متاحة في كل إصدارات Android التي يدعمها التطبيق.</string>
+    <string name="owner_data_warning_title">قد تُحذف البيانات</string>
+    <string name="owner_data_warning_dsp">التفعيل عبر Shizuku يتخطى فحص Android للمستخدمين والملفات الشخصية الأخرى الذي يجريه ADB. لا يمكن لجهاز لديه Device Owner أن يحتوي على Private Space: يحذفه Android مع جميع البيانات بداخله ولا يمكن التراجع عن ذلك. قد تتأثر أيضًا ملفات العمل والمستخدمون الآخرون. انسخ بياناتك احتياطيًا أو انقلها أولًا، أو استخدم ADB الذي يرفض المتابعة عند وجود مستخدمين آخرين.</string>
+    <string name="owner_data_warning_profiles">الملفات الشخصية الموجودة على هذا الجهاز (تُحتسب Private Space أيضًا): %1$d.</string>
+    <string name="owner_data_warning_continue">أفهم، متابعة</string>
+    <string name="error_set_administrator">تعذّر تعيين المسؤول. يرجى التحقق من إعدادات النظام.</string>
+    <string name="secret_code_open">الفتح برمز سري</string>
+    <string name="secret_code_open_desc">اطلب *#*#3449858#*#* في تطبيق الهاتف لفتح DhizukuF. لا يحدث شيء ما دام هذا الخيار متوقفًا.</string>
+    <string name="hide_app">إخفاء التطبيق</string>
+    <string name="hide_app_desc">يزيل أيقونة DhizukuF من شاشة التطبيقات. بعدها يُفتح التطبيق فقط عند طلب *#*#3449858#*#*. غير متاح حتى يتم تشغيل «الفتح برمز سري».</string>
+    <string name="hide_app_confirm_text">ستختفي أيقونة DhizukuF من شاشة التطبيقات. لفتح التطبيق اطلب *#*#3449858#*#* في تطبيق الهاتف (غير ممكن على جهاز بلا تطبيق هاتف) أو انقر إشعار الخدمة إن كان مفعّلًا. أوقف هذا المفتاح لإعادة الأيقونة.</string>
+    <string name="hide_app_action">إخفاء</string>
+    <string name="hide_app_failed">لم ينجح النظام في إخفاء الأيقونة، لذا يبقى التطبيق ظاهرًا.</string>
+    <string name="oss_licenses">تراخيص المصدر المفتوح</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

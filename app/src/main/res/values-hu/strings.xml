@@ -40,7 +40,7 @@
     <string name="auto_deny_in_seconds">Autómata tiltás %d másodperc után</string>
     <string name="denying_access">A hozzáférés megtagadása…</string>
     <string name="daemon_service_notification_title">Dhizuku Daemon</string>
-    <string name="daemon_service_notification_text">Ez egy DhizukuF értesítés, hogy biztosítsa a szolg. elérhetőségét bármikor. Hosszan nyomhat az értesítésre, hogy elrejtse.</string>
+    <string name="daemon_service_notification_text">Ez egy DhizukuF értesítés, amely biztosítja a szolgáltatás bármikori elérhetőségét.</string>
     <string name="agreement_title">Irányelvek</string>
     <string name="agreement_text">Magyar fordítás Chungus Kuckó által - All your base are belong to us! Itt van az adatvédelmi irányelvünk, kérlek olvassa el és értsen egyet. &lt;a href=\"https://iamr0s.github.io/Dhizuku/TERMS.html\"&gt;Terms of Use&lt;/a&gt;, &lt;a href=\"https://iamr0s.github.io/Dhizuku/PRIVACY.html\"&gt;Privacy Policy&lt;/a&gt; Ez az üzenet többször nem fog megjelenni, ha egyetért.</string>
     <string name="agree_text">Egyetért</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d Mo</string>
     <string name="logs_size_title">Taille maximale du journal</string>
     <string name="logs_size_used">Utilisé : %1$s sur %2$d Mo. Au-delà de la limite, les entrées les plus anciennes sont supprimées.</string>
-    <string name="security">Security</string>
+    <string name="security">Biztonság</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Ezen az eszközön nincs eszköz-adminisztrátori képernyő. Nyisd meg az Android beállításait, és kapcsold be a DhizukuF-et a Biztonság vagy Eszköz-adminisztrátori alkalmazások alatt.</string>
     <string name="log_event_security_alert">Biztonsági figyelmeztetés</string>
     <string name="home_dish_admin_note">Adminisztrátor mód: a dish működik, de csak az eszközadminisztrátor által engedélyezett parancsok érhetők el. Az eszköz- vagy profilbirtokost igénylő parancsok nem fognak működni.</string>
+    <string name="daemon_notification">Szolgáltatás-értesítés</string>
+    <string name="daemon_notification_desc">Futtatja a háttérszolgáltatást, amely készenlétben tartja a DhizukuF-et, és megjeleníti az állandó állapotértesítést. Érintésre megnyílik a DhizukuF. Kikapcsolva a szolgáltatás egyáltalán nem indul el – nincs értesítés; a Dhizuku API és a dish továbbra is igény szerint indul.</string>
+    <string name="daemon_service_notification_quiet">Fut</string>
+    <string name="home_oss_title">Nyílt forráskódú licencek</string>
+    <string name="home_oss_dsp">Az alkalmazás által használt könyvtárak és licencszövegeik</string>
+    <string name="icon_material3_desc">Material stílusú ikon BinTianqitől (Dhizuku 318. számú vita). Az alkalmazás által támogatott minden Android-verzión elérhető.</string>
+    <string name="owner_data_warning_title">Az adatok törölhetők</string>
+    <string name="owner_data_warning_dsp">A Shizukun keresztüli aktiválás kihagyja az ADB által végzett ellenőrzést más felhasználókra és profilokra. A Device Ownerrel rendelkező eszközön nem lehet Private Space: az Android törli az ÖSSZES benne lévő adattal együtt, és ez nem vonható vissza. Érintettek lehetnek a munkaprofilok és más felhasználók is. Előbb készítsen biztonsági másolatot vagy költöztesse az adatait, vagy használja az ADB-t, amely más felhasználók esetén nem folytatja.</string>
+    <string name="owner_data_warning_profiles">Az eszközön talált profilok (a Private Space is számít): %1$d.</string>
+    <string name="owner_data_warning_continue">Megértettem, folytatom</string>
+    <string name="error_set_administrator">Nem sikerült beállítani a rendszergazdát. Ellenőrizze a rendszerkonfigurációt.</string>
+    <string name="secret_code_open">Megnyitás titkos kóddal</string>
+    <string name="secret_code_open_desc">Tárcsázza a *#*#3449858#*#* kódot a Telefon alkalmazásban a DhizukuF megnyitásához. Amíg ez ki van kapcsolva, nem történik semmi.</string>
+    <string name="hide_app">Alkalmazás elrejtése</string>
+    <string name="hide_app_desc">Eltávolítja a DhizukuF ikonját az indítóból. Az alkalmazás ezután csak a *#*#3449858#*#* tárcsázásával nyílik meg. Nem érhető el, amíg a(z) „Megnyitás titkos kóddal” nincs bekapcsolva.</string>
+    <string name="hide_app_confirm_text">A DhizukuF ikonja eltűnik az indítóból. Az alkalmazás megnyitásához tárcsázza a *#*#3449858#*#* kódot a Telefon alkalmazásban (telefonalkalmazás nélküli eszközön nem lehetséges), vagy érintse meg a szolgáltatás értesítését, ha be van kapcsolva. Az ikon visszaállításához kapcsolja ki ezt a kapcsolót.</string>
+    <string name="hide_app_action">Elrejtés</string>
+    <string name="hide_app_failed">A rendszer nem rejtette el az ikont, ezért az alkalmazás látható marad.</string>
+    <string name="oss_licenses">Nyílt forráskódú licencek</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

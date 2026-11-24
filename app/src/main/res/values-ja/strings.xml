@@ -61,7 +61,7 @@
     <string name="auto_deny_in_seconds">残り %d 秒で自動拒否</string>
     <string name="denying_access">アクセスを拒否しています…</string>
     <string name="daemon_service_notification_title">Dhizuku デーモン</string>
-    <string name="daemon_service_notification_text">これは DhizukuF のサービスを常時利用可能にするための通知です。長押しするとこの通知を非表示にできます。</string>
+    <string name="daemon_service_notification_text">これは DhizukuF のサービスを常時利用可能にするための通知です。</string>
     <string name="home_user_management_dsp">ユーザーとそのアカウントを管理します。</string>
     <string name="error_occurred">エラーが発生しました: %1$s</string>
     <string name="error_remove_user">ユーザー %1$s を削除できませんでした</string>
@@ -248,7 +248,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">ログの最大サイズ</string>
     <string name="logs_size_used">使用中: %1$s / %2$d MB。上限に達すると古いエントリから削除されます。</string>
-    <string name="security">Security</string>
+    <string name="security">セキュリティ</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -273,4 +273,24 @@
     <string name="administrator_open_failed">このデバイスにはデバイス管理者画面がありません。Android の設定を開き、「セキュリティ」または「デバイス管理者アプリ」で DhizukuF を有効にしてください。</string>
     <string name="log_event_security_alert">セキュリティ警告</string>
     <string name="home_dish_admin_note">Administrator mode: dish works, but only the commands a device administrator may use are available. Commands that need Device Owner or Profile Owner will fail.</string>
+    <string name="daemon_notification">サービス通知</string>
+    <string name="daemon_notification_desc">DhizukuF を待機状態に保つバックグラウンドサービスを実行し、常駐のステータス通知を表示します。タップすると DhizukuF が開きます。オフにするとサービスはまったく起動せず通知も出ません。Dhizuku API と dish は必要に応じて引き続き起動します。</string>
+    <string name="daemon_service_notification_quiet">実行中</string>
+    <string name="home_oss_title">オープンソースライセンス</string>
+    <string name="home_oss_dsp">このアプリが使用しているライブラリとそのライセンス全文</string>
+    <string name="icon_material3_desc">BinTianqi による Material スタイルのアイコン(Dhizuku ディスカッション #318)。アプリが対応するすべての Android バージョンで使えます。</string>
+    <string name="owner_data_warning_title">データが削除される可能性があります</string>
+    <string name="owner_data_warning_dsp">Shizuku 経由の有効化では、ADB が行う他のユーザーやプロファイルの確認が省略されます。Device Owner のある端末には Private Space を置けません。Android は Private Space を中のすべてのデータごと削除し、元に戻せません。仕事用プロファイルや他のユーザーにも影響する場合があります。先にデータをバックアップまたは移動するか、他のユーザーがいると続行を拒否する ADB を使ってください。</string>
+    <string name="owner_data_warning_profiles">この端末で見つかったプロファイル(Private Space も数えます): %1$d</string>
+    <string name="owner_data_warning_continue">理解して続行</string>
+    <string name="error_set_administrator">管理者の設定に失敗しました。システム構成を確認してください。</string>
+    <string name="secret_code_open">シークレットコードで開く</string>
+    <string name="secret_code_open_desc">電話アプリで *#*#3449858#*#* をダイヤルすると DhizukuF が開きます。オフの間は何も起きません。</string>
+    <string name="hide_app">アプリを隠す</string>
+    <string name="hide_app_desc">ランチャーから DhizukuF のアイコンを削除します。以後、アプリは *#*#3449858#*#* をダイヤルしたときだけ開きます。「シークレットコードで開く」がオンになるまで利用できません。</string>
+    <string name="hide_app_confirm_text">DhizukuF のアイコンがランチャーから消えます。アプリを開くには、電話アプリで *#*#3449858#*#* をダイヤルする(電話アプリのない端末では不可)か、サービス通知がオンならそれをタップします。アイコンを戻すにはこのスイッチをオフにしてください。</string>
+    <string name="hide_app_action">隠す</string>
+    <string name="hide_app_failed">システムがアイコンを隠せなかったため、アプリは表示されたままです。</string>
+    <string name="oss_licenses">オープンソースライセンス</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

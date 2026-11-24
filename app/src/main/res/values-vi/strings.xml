@@ -39,7 +39,7 @@
     <string name="unblock_app">Bỏ chặn ứng dụng</string>
     <string name="denying_access">Đang từ chối quyền truy cập…</string>
     <string name="daemon_service_notification_title">Trình nền Dhizuku</string>
-    <string name="daemon_service_notification_text">Đây là thông báo của DhizukuF nhằm đảm bảo dịch vụ luôn sẵn sàng. Bạn có thể nhấn giữ để ẩn thông báo này.</string>
+    <string name="daemon_service_notification_text">Đây là thông báo DhizukuF để đảm bảo dịch vụ luôn sẵn sàng bất cứ lúc nào.</string>
     <string name="copy">Sao chép</string>
     <string name="confirm_device_owner">Chủ sở hữu thiết bị</string>
     <string name="confirm_profile_owner">Chủ sở hữu hồ sơ</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Tamanho máximo do registro</string>
     <string name="logs_size_used">Usado: %1$s de %2$d MB. Ao atingir o limite, as entradas mais antigas são excluídas.</string>
-    <string name="security">Security</string>
+    <string name="security">Bảo mật</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Thiết bị này không có màn hình quản trị viên thiết bị. Mở cài đặt Android và bật DhizukuF trong mục Bảo mật hoặc Ứng dụng quản trị viên thiết bị.</string>
     <string name="log_event_security_alert">Cảnh báo bảo mật</string>
     <string name="home_dish_admin_note">Chế độ quản trị viên: dish hoạt động, nhưng chỉ các lệnh mà quản trị viên thiết bị được phép mới khả dụng. Các lệnh cần chủ sở hữu thiết bị hoặc hồ sơ sẽ thất bại.</string>
+    <string name="daemon_notification">Thông báo dịch vụ</string>
+    <string name="daemon_notification_desc">Chạy dịch vụ nền giữ DhizukuF luôn sẵn sàng và hiển thị thông báo trạng thái thường trực. Chạm để mở DhizukuF. Khi tắt, dịch vụ hoàn toàn không khởi động – không có thông báo; Dhizuku API và dish vẫn khởi động khi cần.</string>
+    <string name="daemon_service_notification_quiet">Đang chạy</string>
+    <string name="home_oss_title">Giấy phép mã nguồn mở</string>
+    <string name="home_oss_dsp">Các thư viện ứng dụng này sử dụng và nội dung giấy phép của chúng</string>
+    <string name="icon_material3_desc">Biểu tượng kiểu Material của BinTianqi (thảo luận Dhizuku #318). Có trên mọi phiên bản Android mà ứng dụng hỗ trợ.</string>
+    <string name="owner_data_warning_title">Dữ liệu có thể bị xóa</string>
+    <string name="owner_data_warning_dsp">Kích hoạt qua Shizuku bỏ qua bước kiểm tra người dùng và hồ sơ khác mà ADB thực hiện. Thiết bị có Device Owner không thể có Private Space: Android sẽ xóa nó cùng TOÀN BỘ dữ liệu bên trong và không thể hoàn tác. Hồ sơ công việc và người dùng khác cũng có thể bị ảnh hưởng. Hãy sao lưu hoặc chuyển dữ liệu trước, hoặc dùng ADB – công cụ từ chối tiếp tục khi có người dùng khác.</string>
+    <string name="owner_data_warning_profiles">Số hồ sơ tìm thấy trên thiết bị này (Private Space cũng được tính): %1$d.</string>
+    <string name="owner_data_warning_continue">Tôi hiểu, tiếp tục</string>
+    <string name="error_set_administrator">Không thể đặt Quản trị viên. Vui lòng kiểm tra cấu hình hệ thống.</string>
+    <string name="secret_code_open">Mở bằng mã bí mật</string>
+    <string name="secret_code_open_desc">Quay số *#*#3449858#*#* trong ứng dụng Điện thoại để mở DhizukuF. Không có gì xảy ra khi tùy chọn này tắt.</string>
+    <string name="hide_app">Ẩn ứng dụng</string>
+    <string name="hide_app_desc">Gỡ biểu tượng DhizukuF khỏi trình khởi chạy. Sau đó ứng dụng chỉ mở khi bạn quay số *#*#3449858#*#*. Không khả dụng cho đến khi bật “Mở bằng mã bí mật”.</string>
+    <string name="hide_app_confirm_text">Biểu tượng DhizukuF sẽ biến mất khỏi trình khởi chạy. Để mở ứng dụng, hãy quay số *#*#3449858#*#* trong ứng dụng Điện thoại (không thực hiện được trên thiết bị không có) hoặc chạm vào thông báo dịch vụ nếu đang bật. Tắt công tắc này để đưa biểu tượng trở lại.</string>
+    <string name="hide_app_action">Ẩn</string>
+    <string name="hide_app_failed">Hệ thống không ẩn được biểu tượng nên ứng dụng vẫn hiển thị.</string>
+    <string name="oss_licenses">Giấy phép mã nguồn mở</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

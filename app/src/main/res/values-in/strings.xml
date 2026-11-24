@@ -39,7 +39,7 @@
     <string name="auto_deny_in_seconds">Penolakan otomatis dalam %d detik</string>
     <string name="denying_access">Menolak akses…</string>
     <string name="daemon_service_notification_title">Dhizuku Daemon</string>
-    <string name="daemon_service_notification_text">Ini adalah notifikasi DhizukuF untuk memastikan ketersediaan layanan setiap saat. Tekan dan tahan untuk menyembunyikan notifikasi ini.</string>
+    <string name="daemon_service_notification_text">Ini adalah notifikasi DhizukuF untuk memastikan ketersediaan layanan setiap saat.</string>
     <string name="copy">Salin</string>
     <string name="confirm_device_owner">Pemilik Perangkat</string>
     <string name="confirm_profile_owner">Pemilik Profil</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d Mo</string>
     <string name="logs_size_title">Taille maximale du journal</string>
     <string name="logs_size_used">Utilisé : %1$s sur %2$d Mo. Au-delà de la limite, les entrées les plus anciennes sont supprimées.</string>
-    <string name="security">Security</string>
+    <string name="security">Keamanan</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Perangkat ini tidak memiliki layar administrator perangkat. Buka pengaturan Android dan aktifkan DhizukuF di Keamanan atau Aplikasi admin perangkat.</string>
     <string name="log_event_security_alert">Peringatan keamanan</string>
     <string name="home_dish_admin_note">Mode Administrator: dish berfungsi, tetapi hanya perintah yang diizinkan untuk administrator perangkat yang tersedia. Perintah yang memerlukan Pemilik Perangkat atau Profil akan gagal.</string>
+    <string name="daemon_notification">Notifikasi layanan</string>
+    <string name="daemon_notification_desc">Menjalankan layanan latar belakang yang menjaga DhizukuF tetap siap dan menampilkan notifikasi status permanen. Ketuk untuk membuka DhizukuF. Saat nonaktif, layanan tidak dimulai sama sekali — tanpa notifikasi; Dhizuku API dan dish tetap dimulai sesuai kebutuhan.</string>
+    <string name="daemon_service_notification_quiet">Berjalan</string>
+    <string name="home_oss_title">Lisensi sumber terbuka</string>
+    <string name="home_oss_dsp">Pustaka yang digunakan aplikasi ini beserta teks lisensinya</string>
+    <string name="icon_material3_desc">Ikon bergaya Material oleh BinTianqi (diskusi Dhizuku #318). Tersedia di semua versi Android yang didukung aplikasi ini.</string>
+    <string name="owner_data_warning_title">Data dapat terhapus</string>
+    <string name="owner_data_warning_dsp">Aktivasi lewat Shizuku melewati pemeriksaan Android terhadap pengguna dan profil lain yang dilakukan ADB. Perangkat dengan Device Owner tidak boleh memiliki Private Space: Android menghapusnya beserta SEMUA data di dalamnya, dan ini tidak dapat dibatalkan. Profil kerja dan pengguna lain juga bisa terdampak. Cadangkan atau pindahkan data Anda terlebih dahulu, atau gunakan ADB yang menolak melanjutkan jika ada pengguna lain.</string>
+    <string name="owner_data_warning_profiles">Profil yang ditemukan di perangkat ini (Private Space juga dihitung): %1$d.</string>
+    <string name="owner_data_warning_continue">Saya mengerti, lanjutkan</string>
+    <string name="error_set_administrator">Gagal menetapkan Administrator. Periksa konfigurasi sistem Anda.</string>
+    <string name="secret_code_open">Buka dengan kode rahasia</string>
+    <string name="secret_code_open_desc">Panggil *#*#3449858#*#* di aplikasi telepon untuk membuka DhizukuF. Tidak terjadi apa-apa selama opsi ini nonaktif.</string>
+    <string name="hide_app">Sembunyikan aplikasi</string>
+    <string name="hide_app_desc">Menghapus ikon DhizukuF dari launcher. Aplikasi kemudian hanya terbuka saat Anda memanggil *#*#3449858#*#*. Tidak tersedia sampai “Buka dengan kode rahasia” diaktifkan.</string>
+    <string name="hide_app_confirm_text">Ikon DhizukuF akan hilang dari launcher. Untuk membuka aplikasi, panggil *#*#3449858#*#* di aplikasi telepon (tidak bisa di perangkat tanpa aplikasi telepon) atau ketuk notifikasi layanan jika aktif. Matikan sakelar ini untuk mengembalikan ikon.</string>
+    <string name="hide_app_action">Sembunyikan</string>
+    <string name="hide_app_failed">Sistem tidak menyembunyikan ikon, sehingga aplikasi tetap terlihat.</string>
+    <string name="oss_licenses">Lisensi sumber terbuka</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

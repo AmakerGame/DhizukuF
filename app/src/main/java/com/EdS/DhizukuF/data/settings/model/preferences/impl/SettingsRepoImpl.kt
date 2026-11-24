@@ -74,6 +74,12 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
     override fun flowAuthMode(): Flow<AuthMode> =
         prefs.asFlow("auth_mode", AuthMode.Off.name).map { AuthMode.parse(it) }
 
+    override fun flowSecretCodeEnabled(): Flow<Boolean> =
+        prefs.asFlow("secret_code_enabled", false)
+
+    override fun flowAppHidden(): Flow<Boolean> =
+        prefs.asFlow("app_hidden", false)
+
     override fun flowLogConfig(): Flow<LogConfig> = combine(
         prefs.asFlow("log_enabled", false),
         prefs.asFlow("log_level", LogLevel.Normal.name),
@@ -201,6 +207,14 @@ class SettingsRepoImpl : SettingsRepo, KoinComponent {
         set(value) = prefs.edit(true) {
             putString("auth_mode", value.name)
         }
+
+    override var isSecretCodeEnabled: Boolean
+        get() = prefs.getBoolean("secret_code_enabled", false)
+        set(value) = prefs.edit(true) { putBoolean("secret_code_enabled", value) }
+
+    override var isAppHidden: Boolean
+        get() = prefs.getBoolean("app_hidden", false)
+        set(value) = prefs.edit(true) { putBoolean("app_hidden", value) }
 
     override var isShowDishLabel: Boolean
         get() = prefs.getBoolean("show_dish_label", true)

@@ -1,0 +1,3 @@
+Secret code and hide the app (Security): dial *#*#3449858#*#* to open DhizukuF; hide the launcher icon (needs the code on).
+Fixed: the receiver no longer syncs on every device-admin event, build script, service notification text.
+More texts translated; updated AGP, Compose, KSP and Gradle.

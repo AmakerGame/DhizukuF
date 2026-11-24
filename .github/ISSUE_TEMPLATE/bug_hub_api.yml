@@ -12,7 +12,7 @@ body:
     attributes:
       label: Before you send
       options:
-        - label: I use the [latest release](https://github.com/AmakerGame/DhizukuF/releases/latest) and the hub card says *Installed and up to date*.
+        - label: I use the [latest release, v2.1.0](https://github.com/AmakerGame/DhizukuF/releases/tag/v2.1.0), or newer, and the hub card says *Installed and up to date*.
           required: true
         - label: I read [docs/HUB.md](https://github.com/AmakerGame/DhizukuF/blob/main/docs/HUB.md).
           required: true

@@ -56,3 +56,12 @@ Any card can be hidden, including Settings; the pencil always stays, so a hidden
 Cards that DhizukuF does not show at the moment (for example Shizuku while DhizukuF is the owner) keep their place and
 are not listed. Changes show at once and the order is kept for the next start. D-pad friendly: the arrows and the eye are
 normal buttons.
+
+## Hiding the app (Settings > Security)
+
+*Open with a secret code* makes the dial code `*#*#3449858#*#*` open DhizukuF (type it in the phone app). It is off
+by default. *Hide the app* removes the launcher icon, so DhizukuF opens only with that code or from its service
+notification (if *Service notification* is on). The switch stays inactive until the secret code is on, and
+turning the secret code off shows the icon again, so a hidden app can never be left without a way in. A device
+without a phone app (many TV boxes) cannot dial the code: do not hide the app there. The name and icon chosen
+above are kept and come back when the app is shown again.

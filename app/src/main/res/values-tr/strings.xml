@@ -39,7 +39,7 @@
     <string name="denying_access">İzin reddediliyor…</string>
     <string name="settings_desc">DhizukuF davranışını yapılandır</string>
     <string name="daemon_service_notification_title">Dhizuku Servisi</string>
-    <string name="daemon_service_notification_text">Bu, hizmetin her zaman kullanılabilir olmasını sağlayan bir DhizukuF bildirimidir. Bu bildirimi gizlemek için uzun basabilirsiniz.</string>
+    <string name="daemon_service_notification_text">Bu, herhangi bir zamanda hizmet kullanılabilirliğini sağlamak için bir DhizukuF bildirimidir.</string>
     <string name="copy">Kopyala</string>
     <string name="confirm_device_owner">Cihaz Sahibi</string>
     <string name="confirm_profile_owner">Profil Sahibi</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Tamanho máximo do registro</string>
     <string name="logs_size_used">Usado: %1$s de %2$d MB. Ao atingir o limite, as entradas mais antigas são excluídas.</string>
-    <string name="security">Security</string>
+    <string name="security">Güvenlik</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Bu cihazda cihaz yöneticisi ekranı yok. Android ayarlarını açın ve DhizukuF\'i Güvenlik veya Cihaz yöneticisi uygulamaları altında etkinleştirin.</string>
     <string name="log_event_security_alert">Güvenlik uyarısı</string>
     <string name="home_dish_admin_note">Yönetici modu: dish çalışır ancak yalnızca bir cihaz yöneticisinin kullanabileceği komutlar mevcuttur. Cihaz veya profil sahibi gerektiren komutlar başarısız olur.</string>
+    <string name="daemon_notification">Hizmet bildirimi</string>
+    <string name="daemon_notification_desc">DhizukuF\'u hazır tutan arka plan hizmetini çalıştırır ve kalıcı durum bildirimini gösterir. Dokunmak DhizukuF\'u açar. Kapalıyken hizmet hiç başlatılmaz; bildirim de olmaz. Dhizuku API ve dish ise gerektiğinde yine başlatılır.</string>
+    <string name="daemon_service_notification_quiet">Çalışıyor</string>
+    <string name="home_oss_title">Açık kaynak lisansları</string>
+    <string name="home_oss_dsp">Bu uygulamanın kullandığı kitaplıklar ve lisans metinleri</string>
+    <string name="icon_material3_desc">BinTianqi\'nin Material tarzı simgesi (Dhizuku tartışması #318). Uygulamanın desteklediği tüm Android sürümlerinde kullanılabilir.</string>
+    <string name="owner_data_warning_title">Veriler silinebilir</string>
+    <string name="owner_data_warning_dsp">Shizuku ile etkinleştirme, ADB\'nin yaptığı diğer kullanıcı ve profil denetimini atlar. Device Owner olan bir cihazda Private Space bulunamaz: Android onu içindeki TÜM verilerle birlikte siler ve bu geri alınamaz. İş profilleri ve diğer kullanıcılar da etkilenebilir. Önce verilerinizi yedekleyin veya taşıyın ya da başka kullanıcı varsa devam etmeyi reddeden ADB\'yi kullanın.</string>
+    <string name="owner_data_warning_profiles">Bu cihazda bulunan profiller (Private Space de sayılır): %1$d.</string>
+    <string name="owner_data_warning_continue">Anlıyorum, devam et</string>
+    <string name="error_set_administrator">Yönetici ayarlanamadı. Lütfen sistem yapılandırmasını kontrol edin.</string>
+    <string name="secret_code_open">Gizli kodla aç</string>
+    <string name="secret_code_open_desc">DhizukuF\'u açmak için Telefon uygulamasında *#*#3449858#*#* numarasını çevirin. Bu seçenek kapalıyken hiçbir şey olmaz.</string>
+    <string name="hide_app">Uygulamayı gizle</string>
+    <string name="hide_app_desc">DhizukuF simgesini başlatıcıdan kaldırır. Uygulama bundan sonra yalnızca *#*#3449858#*#* çevrildiğinde açılır. “Gizli kodla aç” açılana kadar kullanılamaz.</string>
+    <string name="hide_app_confirm_text">DhizukuF simgesi başlatıcıdan kaybolacak. Uygulamayı açmak için Telefon uygulamasında *#*#3449858#*#* numarasını çevirin (telefon uygulaması olmayan cihazda mümkün değil) ya da açıksa hizmet bildirimine dokunun. Simgeyi geri getirmek için bu anahtarı kapatın.</string>
+    <string name="hide_app_action">Gizle</string>
+    <string name="hide_app_failed">Sistem simgeyi gizleyemedi, bu yüzden uygulama görünür kalıyor.</string>
+    <string name="oss_licenses">Açık kaynak lisansları</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

@@ -39,7 +39,7 @@
     <string name="auto_deny_in_seconds">Автоотклонение через %d сек.</string>
     <string name="denying_access">Отклонение доступа…</string>
     <string name="daemon_service_notification_title">Демон Дхизуку</string>
-    <string name="daemon_service_notification_text">Это уведомление DhizukuF, обеспечивающее доступность сервиса в любое время. Вы можете нажать и удерживать, чтобы скрыть это уведомление.</string>
+    <string name="daemon_service_notification_text">Это уведомление DhizukuF, необходимое для того, чтобы сервис был доступен в любое время.</string>
     <string name="copy">Копировать</string>
     <string name="confirm_device_owner">Владельцем Устройства</string>
     <string name="confirm_profile_owner">Владельцем Профиля</string>
@@ -280,4 +280,18 @@
     <string name="administrator_open_failed">На этом устройстве нет экрана администратора устройства. Откройте настройки Android и включите DhizukuF в разделе «Безопасность» или «Приложения администратора устройства».</string>
     <string name="log_event_security_alert">Тревога безопасности</string>
     <string name="home_dish_admin_note">Режим администратора: dish работает, но доступны только команды, разрешённые администратору устройства. Команды, требующие владельца устройства или профиля, не сработают.</string>
+    <string name="daemon_notification">Уведомление службы</string>
+    <string name="daemon_notification_desc">Запускает фоновую службу, которая держит DhizukuF наготове и показывает постоянное уведомление о состоянии. Нажатие открывает DhizukuF. Если выключено, служба не запускается вовсе — уведомления нет; Dhizuku API и dish по-прежнему запускаются по требованию.</string>
+    <string name="daemon_service_notification_quiet">Работает</string>
+    <string name="home_oss_title">Лицензии открытого ПО</string>
+    <string name="home_oss_dsp">Библиотеки, которые использует это приложение, и тексты их лицензий</string>
+    <string name="error_set_administrator">Не удалось назначить администратора. Проверьте конфигурацию системы.</string>
+    <string name="secret_code_open">Открывать по секретному коду</string>
+    <string name="secret_code_open_desc">Наберите *#*#3449858#*#* в приложении «Телефон», чтобы открыть DhizukuF. Пока параметр выключен, ничего не происходит.</string>
+    <string name="hide_app">Скрыть приложение</string>
+    <string name="hide_app_desc">Убирает значок DhizukuF из лаунчера. Затем приложение открывается только после набора *#*#3449858#*#*. Недоступно, пока не включён параметр «Открывать по секретному коду».</string>
+    <string name="hide_app_confirm_text">Значок DhizukuF исчезнет из лаунчера. Чтобы открыть приложение, наберите *#*#3449858#*#* в приложении «Телефон» (на устройстве без него это невозможно) или нажмите уведомление службы, если оно включено. Выключите этот переключатель, чтобы вернуть значок.</string>
+    <string name="hide_app_action">Скрыть</string>
+    <string name="hide_app_failed">Система не скрыла значок, поэтому приложение остаётся видимым.</string>
+    <string name="oss_licenses">Лицензии открытого ПО</string>
 </resources>

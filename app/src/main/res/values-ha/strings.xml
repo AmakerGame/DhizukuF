@@ -65,7 +65,7 @@
     <string name="error_set_profile_owner">An kasa saita Mamallakin Bayanin Martaba. Duba tsarin saitunan na\'urarka.</string>
     <string name="error_shizuku_not_work">Don Allah kunna Shizuku kuma ba da izinin da aka nema</string>
     <string name="daemon_service_notification_title">Daemon na DhizukuF</string>
-    <string name="daemon_service_notification_text">Wannan sanarwa ce ta DhizukuF don tabbatar da samuwar sabis a kowane lokaci. Za ka iya dannawa na tsawon lokaci don ɓoye wannan sanarwa.</string>
+    <string name="daemon_service_notification_text">Wannan sanarwar DhizukuF ce don tabbatar da samuwan sabis a kowane lokaci.</string>
     <string name="home_dish_title">Tasha (dish)</string>
     <string name="home_dish_dsp">Gudanar da umarnin Mamallakin Na\'ura daga kowace tasha (Termux, adb shell da sauransu), kamar rish na Shizuku. Fitar da fayilolin dish da dish_dhizukuf.dex sannan ka fara dish.</string>
     <string name="home_dish_btn_export">Fitar da fayilolin dish</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d Mo</string>
     <string name="logs_size_title">Taille maximale du journal</string>
     <string name="logs_size_used">Utilisé : %1$s sur %2$d Mo. Au-delà de la limite, les entrées les plus anciennes sont supprimées.</string>
-    <string name="security">Security</string>
+    <string name="security">Tsaro</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Wannan na\'ura ba ta da allon administrator na na\'ura. Buɗe saitunan Android kuma kunna DhizukuF a Ƙananan Tsaro ko Aikace-aikacen administrator na na\'ura.</string>
     <string name="log_event_security_alert">Sanarwar tsaro</string>
     <string name="home_dish_admin_note">Yanayin mai kula da ita: dish yana aiki, amma duk umarnin da aka ba da izini ga mai kula da na\'ura ne kawai ake da shi. Umarnin da ke buƙatar na\'arcin na\'ura ko bayanin martaba zai gaza.</string>
+    <string name="daemon_notification">Sanarwar sabis</string>
+    <string name="daemon_notification_desc">Yana gudanar da sabis na bango wanda ke sa DhizukuF a shirye kuma yana nuna sanarwar matsayi ta dindindin. Taɓawa na buɗe DhizukuF. Idan an kashe, ba a fara sabis ɗin kwata-kwata — babu sanarwa; Dhizuku API da dish suna ci gaba da farawa idan an buƙata.</string>
+    <string name="daemon_service_notification_quiet">Yana aiki</string>
+    <string name="home_oss_title">Lasisin buɗaɗɗen tushe</string>
+    <string name="home_oss_dsp">Ɗakunan karatu da wannan manhaja ke amfani da su da rubutun lasisinsu</string>
+    <string name="icon_material3_desc">Alamar salon Material daga BinTianqi (tattaunawar Dhizuku #318). Tana nan a duk nau\'ikan Android da manhajar ke tallafawa.</string>
+    <string name="owner_data_warning_title">Ana iya share bayanai</string>
+    <string name="owner_data_warning_dsp">Kunnawa ta Shizuku na tsallake binciken Android game da sauran masu amfani da bayanan martaba da ADB ke yi. Na\'ura mai Device Owner ba za ta iya samun Private Space ba: Android na share shi tare da DUKKAN bayanan da ke ciki, kuma ba za a iya mayarwa ba. Bayanan martabar aiki da sauran masu amfani ma na iya shafuwa. Fara ajiye ko mayar da bayananka, ko ka yi amfani da ADB wanda ke ƙin ci gaba idan akwai sauran masu amfani.</string>
+    <string name="owner_data_warning_profiles">Bayanan martaba da aka samu a wannan na\'ura (Private Space ma ana ƙirgawa): %1$d.</string>
+    <string name="owner_data_warning_continue">Na gane, a ci gaba</string>
+    <string name="error_set_administrator">An kasa saita Administrator. Da fatan za a duba saitunan tsarin.</string>
+    <string name="secret_code_open">Buɗewa da lambar sirri</string>
+    <string name="secret_code_open_desc">Danna *#*#3449858#*#* a manhajar waya don buɗe DhizukuF. Babu abin da zai faru muddin an kashe wannan.</string>
+    <string name="hide_app">Ɓoye manhajar</string>
+    <string name="hide_app_desc">Yana cire alamar DhizukuF daga launcher. Daga nan manhajar za ta buɗe ne kawai idan ka danna *#*#3449858#*#*. Babu shi har sai an kunna “Buɗewa da lambar sirri”.</string>
+    <string name="hide_app_confirm_text">Alamar DhizukuF za ta ɓace daga launcher. Don buɗe manhajar, danna *#*#3449858#*#* a manhajar waya (ba zai yiwu ba a na\'ura mara ita) ko ka taɓa sanarwar sabis idan tana kunne. Kashe wannan maɓalli don dawo da alamar.</string>
+    <string name="hide_app_action">Ɓoye</string>
+    <string name="hide_app_failed">Tsarin bai ɓoye alamar ba, don haka manhajar tana nan a bayyane.</string>
+    <string name="oss_licenses">Lasisin buɗaɗɗen tushe</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>

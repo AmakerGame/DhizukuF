@@ -65,7 +65,7 @@
     <string name="error_set_profile_owner">Nu s-a putut seta proprietarul profilului. Verificați configurația sistemului.</string>
     <string name="error_shizuku_not_work">Activați Shizuku și acordați permisiunea solicitată</string>
     <string name="daemon_service_notification_title">Daemon DhizukuF</string>
-    <string name="daemon_service_notification_text">Aceasta este o notificare DhizukuF pentru a asigura disponibilitatea serviciului în orice moment. Puteți apăsa lung pentru a ascunde această notificare.</string>
+    <string name="daemon_service_notification_text">Aceasta este o notificare DhizukuF pentru a asigura disponibilitatea serviciului în orice moment.</string>
     <string name="home_dish_title">Terminal (dish)</string>
     <string name="home_dish_dsp">Rulați comenzi de proprietar al dispozitivului din orice terminal (Termux, adb shell și altele), ca rish pentru Shizuku. Exportați fișierele dish și dish_dhizukuf.dex și porniți dish.</string>
     <string name="home_dish_btn_export">Exportă fișierele dish</string>
@@ -246,7 +246,7 @@
     <string name="logs_size_mb">%1$d MB</string>
     <string name="logs_size_title">Tamanho máximo do registro</string>
     <string name="logs_size_used">Usado: %1$s de %2$d MB. Ao atingir o limite, as entradas mais antigas são excluídas.</string>
-    <string name="security">Security</string>
+    <string name="security">Securitate</string>
     <string name="security_auth_desc">Ask for the screen lock (PIN, pattern, password), fingerprint or face. Off by default.</string>
     <string name="security_auth_title">Require device authentication</string>
     <string name="security_auth_unavailable_msg">The device cannot ask for authentication now (the screen lock is set, but the system reports that confirmation is not available). Check the screen lock and biometrics in the Android settings.</string>
@@ -271,4 +271,24 @@
     <string name="administrator_open_failed">Acest dispozitiv nu are un ecran de administrator al dispozitivului. Deschide setările Android și activează DhizukuF la Securitate sau Aplicații de administrare a dispozitivului.</string>
     <string name="log_event_security_alert">Alertă de securitate</string>
     <string name="home_dish_admin_note">Mod administrator: dish funcționează, dar sunt disponibile doar comenzile permise unui administrator de dispozitiv. Comenzile care necesită proprietarul dispozitivului sau al profilului vor eșua.</string>
+    <string name="daemon_notification">Notificarea serviciului</string>
+    <string name="daemon_notification_desc">Rulează serviciul din fundal care menține DhizukuF pregătit și afișează notificarea de stare permanentă. Atingerea deschide DhizukuF. Când este oprit, serviciul nu pornește deloc – fără notificare; API-ul Dhizuku și dish pornesc în continuare la cerere.</string>
+    <string name="daemon_service_notification_quiet">Rulează</string>
+    <string name="home_oss_title">Licențe open source</string>
+    <string name="home_oss_dsp">Bibliotecile folosite de această aplicație și textele licențelor lor</string>
+    <string name="icon_material3_desc">Pictogramă în stil Material de BinTianqi (discuția Dhizuku nr. 318). Disponibilă pe toate versiunile de Android acceptate de aplicație.</string>
+    <string name="owner_data_warning_title">Datele pot fi șterse</string>
+    <string name="owner_data_warning_dsp">Activarea prin Shizuku sare peste verificarea altor utilizatori și profiluri pe care o face ADB. Un dispozitiv cu Device Owner nu poate avea un Private Space: Android îl șterge împreună cu TOATE datele din el, iar acest lucru nu poate fi anulat. Pot fi afectate și profilurile de serviciu și alți utilizatori. Fă mai întâi o copie de rezervă sau mută-ți datele ori folosește ADB, care refuză să continue când există alți utilizatori.</string>
+    <string name="owner_data_warning_profiles">Profiluri găsite pe acest dispozitiv (un Private Space se numără și el): %1$d.</string>
+    <string name="owner_data_warning_continue">Am înțeles, continuă</string>
+    <string name="error_set_administrator">Setarea administratorului a eșuat. Verifică configurația sistemului.</string>
+    <string name="secret_code_open">Deschidere cu cod secret</string>
+    <string name="secret_code_open_desc">Formează *#*#3449858#*#* în aplicația Telefon pentru a deschide DhizukuF. Nu se întâmplă nimic cât timp opțiunea este oprită.</string>
+    <string name="hide_app">Ascunde aplicația</string>
+    <string name="hide_app_desc">Elimină pictograma DhizukuF din launcher. Aplicația se deschide apoi doar când formezi *#*#3449858#*#*. Indisponibil până când „Deschidere cu cod secret” este pornit.</string>
+    <string name="hide_app_confirm_text">Pictograma DhizukuF va dispărea din launcher. Pentru a deschide aplicația, formează *#*#3449858#*#* în aplicația Telefon (imposibil pe un dispozitiv fără ea) sau atinge notificarea serviciului, dacă este pornită. Oprește acest comutator pentru a readuce pictograma.</string>
+    <string name="hide_app_action">Ascunde</string>
+    <string name="hide_app_failed">Sistemul nu a ascuns pictograma, deci aplicația rămâne vizibilă.</string>
+    <string name="oss_licenses">Licențe open source</string>
+    <string name="icon_material3_title">Material 3</string>
 </resources>
